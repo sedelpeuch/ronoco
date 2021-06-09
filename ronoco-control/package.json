@@ -1,0 +1,41 @@
+{
+  "name": "ronoco-control",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack serve",
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sdelpeuch/Ronoco.git"
+  },
+  "keywords": [
+    "ros",
+    "no-code"
+  ],
+  "author": "Sébastien Delpeuch",
+  "license": "AGPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/Sdelpeuch/Ronoco/issues"
+  },
+  "homepage": "https://github.com/Sdelpeuch/Ronoco#readme",
+  "devDependencies": {
+    "jasmine": "^3.7.0",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^3.11.2",
+    "webpack-serve": "^4.0.0"
+  },
+  "dependencies": {
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.4",
+    "babel-loader": "^8.2.2",
+    "babel-polyfill": "^6.26.0",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^3.11.2",
+    "webpack-serve": "^4.0.0"
+  }
+}
