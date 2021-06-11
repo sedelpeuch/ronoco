@@ -17,11 +17,9 @@ def index():
     return 'Hello World !'
 
 
-@bp.route('/robot_state', methods=['GET'])
+@bp.route('/robot_state')
 def robot_state():
     """
-    GET Method
-
     Check if you can communicate with a ros master
         + Use rosservice /rosout/get_loggers
         + Node: /rosout
@@ -30,10 +28,9 @@ def robot_state():
 
     :return: {'robot_state': True} if communication with rosmaster is possible, NotFound exception else
     """
-    if request.method == 'GET':
-        get_loggers = rospy.ServiceProxy('rosout/get_loggers', GetLoggers)
-        try:
-            get_loggers()
-        except rospy.service.ServiceException:
-            raise NotFound()
-        return {'robot_state': True}
+    get_loggers = rospy.ServiceProxy('rosout/get_loggers', GetLoggers)
+    try:
+        get_loggers()
+    except rospy.service.ServiceException:
+        raise NotFound()
+    return {'robot_state': True}
