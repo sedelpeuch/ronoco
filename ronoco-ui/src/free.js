@@ -1,11 +1,15 @@
 "use strict";
 
+import {get, post} from "./common.js"
+
 async function callingRobotState() {
     let result = await get("http://127.0.0.1:5000/free/")
     console.log(result)
     let display = document.getElementById("robotStateResult")
     display.innerHTML = "Robot state : " + result.compliant
 }
+document.getElementById('robotState').addEventListener('click',callingRobotState)
+
 async function callingFree(){
     let state = await get("http://127.0.0.1:5000/free/")
     let result
@@ -21,5 +25,7 @@ async function callingFree(){
     }
     console.log(result)
     let display = document.getElementById("robotStateResult")
-    display.innerHTML = "Robot state : " + result.compliant
+    display.innerHTML = "Robot Compliance : " + result.compliant
 }
+
+document.getElementById('FreeButton').addEventListener('click',callingFree)

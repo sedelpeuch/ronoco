@@ -7,24 +7,24 @@
 
     <link rel="stylesheet" href="style.css">
 
-    <script type="text/javascript" src="src/common.js"></script>
-    <script type="text/javascript" src="src/free.js"></script>
+    <script type="module" src="src/free.js"></script>
     <!--<script type="text/javascript" src="src/position.js"></script>-->
 </head>
 <body>
 <div class="grid-container">
     <div class="grid-item">
-        <button class="button" id="robotState" onclick="callingRobotState()">Robot State</button>
+        <button class="button" id="robotState">Robot State</button>
     </div>
     <div class="grid-item">
         <div id="robotStateResult">
+            Robot Compliance :
         </div>
     </div>
     <div class="grid-item">
-        <button class="button" id="FreeButton" onclick="callingFree()">Free robot</button>
+        <button class="button" id="FreeButton">Free robot</button>
     </div>
     <div class="grid-item">
-        <button class="button" id="recordPosition" onclick="recordPosition()">Record Position</button>
+        <button class="button" id="recordPosition">Record Position</button>
     </div>
 </div>
 </body>

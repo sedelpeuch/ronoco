@@ -1,5 +1,7 @@
 "use strict";
 
+export {get, post};
+
 /**
  * Common function allow you to get json on an url
  * @param url - url to get
