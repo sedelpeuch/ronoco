@@ -3,7 +3,7 @@
 async function callingRobotState() {
     let result = await get("http://127.0.0.1:5000/free/")
     console.log(result)
-    let display = document.getElementById("FreeButton")
+    let display = document.getElementById("robotStateResult")
     display.innerHTML = "Robot state : " + result.compliant
 }
 async function callingFree(){
