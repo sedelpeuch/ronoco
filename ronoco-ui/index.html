@@ -1,18 +1,31 @@
 <!doctype html>
 <html>
 <head>
-    <title>My project</title>
+    <title>Ronoco-ui</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="style.css">
+
+    <script type="text/javascript" src="src/common.js"></script>
+    <script type="text/javascript" src="src/free.js"></script>
+    <!--<script type="text/javascript" src="src/position.js"></script>-->
 </head>
 <body>
-<script type="text/javascript" src="src/common.js"></script>
-<script type="text/javascript" src="src/free.js"></script>
-<button id="robotState" onclick="callingRobotState()">Robot State</button>
-<div id="robotStateResult">
+<div class="grid-container">
+    <div class="grid-item">
+        <button class="button" id="robotState" onclick="callingRobotState()">Robot State</button>
+    </div>
+    <div class="grid-item">
+        <div id="robotStateResult">
+        </div>
+    </div>
+    <div class="grid-item">
+        <button class="button" id="FreeButton" onclick="callingFree()">Free robot</button>
+    </div>
+    <div class="grid-item">
+        <button class="button" id="recordPosition" onclick="recordPosition()">Record Position</button>
+    </div>
 </div>
-<button id="FreeButton" onclick="callingFree()">Free robot</button>
-
-<script>
-
-</script>
 </body>
 </html>
