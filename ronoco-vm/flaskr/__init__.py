@@ -1,6 +1,10 @@
 import os
 
 from flask import Flask
+from flask_cors import CORS
+from flask_socketio import SocketIO
+
+import rospy
 
 
 def create_app(test_config=None):
@@ -24,10 +28,22 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    from . import common_views
+    from flaskr import common_views
     app.register_blueprint(common_views.bp)
 
-    from . import free_views
+    from flaskr import free_views
     app.register_blueprint(free_views.bp)
 
+    from flaskr import position_views
+    app.register_blueprint(position_views.bp)
+    CORS(app)
     return app
+
+
+if __name__ == "__main__":
+    app = create_app()
+    socketio = SocketIO(app)
+    rospy.init_node('user')
+    rospy.loginfo("User node is serving the Web app")
+    socketio.run(app)
+    rospy.spin()

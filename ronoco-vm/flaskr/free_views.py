@@ -1,8 +1,12 @@
 """
 This file implements free endpoints to set and get the compliance (or 0 gravity robot WIP) of robot
 """
+
+import flask
 from flask import Blueprint, request
+from flask_cors import cross_origin
 from werkzeug.exceptions import BadRequest, NotFound
+
 import rospy
 from std_srvs.srv import SetBool
 from . import common_views
@@ -31,7 +35,9 @@ def free():
             data = request.get_json()
             try:
                 compliant = data['compliant']
-            except KeyError or TypeError:
+            except KeyError:
+                raise BadRequest()
+            except TypeError:
                 raise BadRequest()
             compliance = rospy.ServiceProxy('set_compliant', SetBool)
             if compliant == "True":
@@ -41,5 +47,7 @@ def free():
             else:
                 raise BadRequest()
             return {'compliant': compliant}, 200
-        if request.method == 'GET':
+        elif request.method == 'GET':
             return {'compliant': compliant}, 200
+        else:
+            raise NotFound()
