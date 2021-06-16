@@ -14,7 +14,7 @@ def index():
     TODO : change index behaviour
     :return: if everything is ok : 'Hello World !' else an HttpError
     """
-    return 'Hello World !'
+    return 'Hello World from everyone !'
 
 
 @bp.route('/robot_state')

@@ -9,7 +9,7 @@ from werkzeug.exceptions import BadRequest, NotFound
 
 import rospy
 from std_srvs.srv import SetBool
-from . import common_views
+from . import common
 
 bp = Blueprint('free_views', __name__, url_prefix='/free')
 
@@ -29,7 +29,7 @@ def free():
         + Args: data
     :return: if everything is ok : {"activate":"True"/"False"} else an HttpError
     """
-    if common_views.robot_state()['robot_state']:
+    if common.robot_state()['robot_state']:
         global compliant
         if request.method == 'POST':
             data = request.get_json()
