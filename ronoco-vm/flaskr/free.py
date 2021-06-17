@@ -2,9 +2,7 @@
 This file implements free endpoints to set and get the compliance (or 0 gravity robot WIP) of robot
 """
 
-import flask
 from flask import Blueprint, request
-from flask_cors import cross_origin
 from werkzeug.exceptions import BadRequest, NotFound
 
 import rospy
@@ -29,7 +27,7 @@ def free():
         + Args: data
     :return: if everything is ok : {"activate":"True"/"False"} else an HttpError
     """
-    if common.robot_state()['robot_state']:
+    if common.Common().robot_state()['robot_state']:
         global compliant
         if request.method == 'POST':
             data = request.get_json()
