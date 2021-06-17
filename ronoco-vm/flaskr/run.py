@@ -9,6 +9,7 @@ import time
 from flask import Flask
 from flask_cors import CORS
 from flask_socketio import SocketIO
+from werkzeug.debug import DebuggedApplication
 
 import rospy
 from flaskr import topic_callback
@@ -19,20 +20,20 @@ class ronoco_vm:
     """
     Define and setup flask server and ros topic suscriber / publisher for ronoco-vm
     """
-    app = None
 
     def __init__(self):
         """
         Launch flask server when ronoco_vm is created (this constructor uses SocketIO)
         """
         self.create_app()
-        socketio = SocketIO(self.app)
+        socketio = SocketIO(self.app, logger=True, engineio_logger=True)
+
         rospy.init_node('user')
         self.subscribe_topic()
         rospy.loginfo("User node is serving the Web app")
         with self.app.app_context():
-            socketio.run(self.app)
-        rospy.spin()
+            socketio.run(self.app, use_reloader=True)
+            rospy.spin()
 
     def create_app(self, test_config=None):
         """
@@ -45,6 +46,8 @@ class ronoco_vm:
         self.app.config.from_mapping(
             SECRET_KEY='dev',
         )
+        self.app.debug = True
+        self.app.wsgi_app = DebuggedApplication(self.app.wsgi_app, evalex=True)
 
         if test_config is None:
             # load the instance config, if it exists, when not testing
@@ -67,14 +70,15 @@ class ronoco_vm:
         The class attribute "app" must contain an Flask instance
         :return: None
         """
+        from flaskr import position
+        self.app.register_blueprint(position.Position().bp)
+
         from flaskr import common
         self.app.register_blueprint(common.Common().bp)
 
         from flaskr import free
         self.app.register_blueprint(free.bp)
 
-        from flaskr import position
-        self.app.register_blueprint(position.bp)
         CORS(self.app)
 
     def subscribe_topic(self):
