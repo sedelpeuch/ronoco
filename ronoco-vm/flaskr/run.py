@@ -70,8 +70,8 @@ class ronoco_vm:
         The class attribute "app" must contain an Flask instance
         :return: None
         """
-        from flaskr import position
-        self.app.register_blueprint(position.Position().bp)
+        from flaskr import cartesianpoint
+        self.app.register_blueprint(cartesianpoint.CartesianPoint().bp)
 
         from flaskr import common
         self.app.register_blueprint(common.Common().bp)
