@@ -20,12 +20,19 @@ def free():
     """
     GET/POST Method
 
+    ROUTE /free/
+
+    POST body
+    {
+    "compliant" : "True"/"False"
+    }
+
     Allows you to get or set robot compliance
         + Use rosservice /set_compliant
         + Node: /joint_trajectory_action_server
         + Type: std_srvs/SetBool
         + Args: data
-    :return: if everything is ok : {"activate":"True"/"False"} else an HttpError
+    :return: if everything is ok : {"compliant":"True"/"False"} else an HttpError
     """
     if common.Common().robot_state()['robot_state']:
         global compliant

@@ -23,6 +23,8 @@ class Common:
         """
         GET Method
 
+        ROUTE /
+
         TODO : change index behaviour
         :return: if everything is ok : 'Hello World !' else an HttpError
         """
@@ -31,6 +33,8 @@ class Common:
     @staticmethod
     def robot_state():
         """
+        ROUTE /robot_state
+
         Check if you can communicate with a ros master
             + Use rosservice /rosout/get_loggers
             + Node: /rosout
