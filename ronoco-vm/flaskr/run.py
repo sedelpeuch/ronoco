@@ -25,15 +25,14 @@ class ronoco_vm:
         """
         Launch flask server when ronoco_vm is created (this constructor uses SocketIO)
         """
+
         self.create_app()
-        socketio = SocketIO(self.app, logger=True, engineio_logger=True)
+        socketio = SocketIO(self.app, logger=True)
 
         rospy.init_node('user')
         self.subscribe_topic()
         rospy.loginfo("User node is serving the Web app")
-        with self.app.app_context():
-            socketio.run(self.app, use_reloader=True)
-            rospy.spin()
+        socketio.run(self.app)
 
     def create_app(self, test_config=None):
         """
