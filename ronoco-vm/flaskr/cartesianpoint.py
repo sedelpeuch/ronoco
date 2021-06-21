@@ -20,8 +20,7 @@ class CartesianPoint:
 
     def __init__(self):
         self.bp = Blueprint('position_view', __name__, url_prefix='/point')
-
-        self.commander = MoveGroupCommander("arm_and_finger", wait_for_servers=20)
+        self.commander = MoveGroupCommander("arm")
 
         self.bp.route('/add/rviz', methods=['POST'])(self.add_point_from_rviz)
         self.bp.route('/add/free', methods=['POST'])(self.add_point_from_free_mode)
@@ -65,7 +64,7 @@ class CartesianPoint:
             self.cartesianPoints.pop(id)
             rospy.set_param("cartesianPoints", self.cartesianPoints)
         except KeyError:
-            raise False
+            return False
         return True
 
     def _find_db(self, id):
@@ -171,6 +170,8 @@ class CartesianPoint:
             try:
                 self.cartesianPoints = rospy.get_param("cartesianPoints")
             except KeyError:
+                return "No point have been recorded", 404
+            if self.cartesianPoints == {}:
                 return "No point have been recorded", 404
             return self.cartesianPoints, 200
 
