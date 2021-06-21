@@ -1,21 +1,20 @@
 import unittest
-import flask_unittest
-import flaskr
-from flaskr import common_views
+
+import requests
 from werkzeug.exceptions import NotFound
 
+from flaskr import common
 
-class TestCommmonView(flask_unittest.ClientTestCase):
-    app = flaskr.create_app()
 
-    def test_common_index(self, client):
-        """
-        TODO
-        """
-        self.assertEqual(True, True)
+class TestCommmonView(unittest.TestCase):
+    URL = "http://localhost:5000/"
 
-    def test_common_robot_state(self, client):
-        res = common_views.robot_state()
+    def test_common_index(self):
+        rv = requests.get(self.URL)
+        self.assertEqual(200, rv.status_code)
+
+    def test_common_robot_state(self):
+        res = common.Common().robot_state()
         self.assertEqual(res, {'robot_state': True} or NotFound)
 
 
