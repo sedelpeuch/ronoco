@@ -6,7 +6,6 @@ import time
 from flask import Blueprint, request
 
 import rospy
-from flaskr import common
 from moveit_commander.move_group import MoveGroupCommander
 from . import topic_callback
 
@@ -17,10 +16,10 @@ class CartesianPoint:
     """
     id = 0
     cartesianPoints = {}
+    commander = MoveGroupCommander("arm_and_finger")
 
     def __init__(self):
         self.bp = Blueprint('position_view', __name__, url_prefix='/point')
-        self.commander = MoveGroupCommander("arm")
 
         self.bp.route('/add/rviz', methods=['POST'])(self.add_point_from_rviz)
         self.bp.route('/add/free', methods=['POST'])(self.add_point_from_free_mode)
@@ -35,7 +34,7 @@ class CartesianPoint:
             pass
         self.id = len(self.cartesianPoints)
 
-    def _add_bd(self, cartesian_point):
+    def add_bd(self, cartesian_point):
         """
         This method adds a cartesian point in the ros parameters server (on the name "cartesianPoints"). This method is
         called when a PUT request is made on point/add/rviz or point/add/free
@@ -52,7 +51,7 @@ class CartesianPoint:
         self.id += 1
         return True
 
-    def _delete_bd(self, id):
+    def delete_bd(self, id):
         """
         This method delete a cartesian point in the ros parameters server (on the name "cartesianPoints"). This method
         is called when a DELETE request is made on point/delete
@@ -67,7 +66,7 @@ class CartesianPoint:
             return False
         return True
 
-    def _find_db(self, id):
+    def find_db(self, id):
         """
         This method find a cartesian point in the ros parameters server (on the name "cartesianPoints"). This method
         is called when a GET request is made on point/get/<number> or point/get
@@ -81,7 +80,7 @@ class CartesianPoint:
             return False, {}
         return True, point
 
-    def _clear_db(self):
+    def clear_db(self):
         """
         This method delete all cartesian points in the ros parameters server (on the name "cartesianPoints"). This method
         is called when a POST request is made on point/delete
@@ -109,27 +108,26 @@ class CartesianPoint:
 
         :return: id for new cartesian point if everything is ok, a 409 error else
         """
-        if common.Common().robot_state()['robot_state']:
-            current_point = self.commander.get_current_pose()
-            cartesian_point = {
-                'position': {
-                    'x': current_point.pose.position.x,
-                    'y': current_point.pose.position.y,
-                    'z': current_point.pose.position.z,
-                },
-                'orientation': {
-                    'x': current_point.pose.orientation.x,
-                    'y': current_point.pose.orientation.y,
-                    'z': current_point.pose.orientation.z,
-                    'w': current_point.pose.orientation.w
+        current_point = self.commander.get_current_pose()
+        cartesian_point = {
+            'position': {
+                'x': current_point.pose.position.x,
+                'y': current_point.pose.position.y,
+                'z': current_point.pose.position.z,
+            },
+            'orientation': {
+                'x': current_point.pose.orientation.x,
+                'y': current_point.pose.orientation.y,
+                'z': current_point.pose.orientation.z,
+                'w': current_point.pose.orientation.w
 
-                }
             }
-            if request.method == 'POST':
-                self._add_bd(cartesian_point)
-                return "Add cartesian point with id:" + str(self.id - 1), 200
-        else:
-            return "Robot is not compliant", 409
+        }
+        if request.method == 'POST':
+            self.add_bd(cartesian_point)
+            return "Add cartesian point with id:" + str(self.id - 1), 200
+        # else:
+        #     return "Robot is not compliant", 409
 
     def add_point_from_rviz(self):
         """
@@ -153,7 +151,7 @@ class CartesianPoint:
                 if time.time() - begin > 10:
                     return "Rviz doesn't send response", 408
                 rospy.loginfo("Waiting position from Rviz")
-            self._add_bd(topic_callback.position)
+            self.add_bd(topic_callback.position)
             return "Add cartesian point with id:" + str(self.id - 1), 200
 
     def get_all_points(self):
@@ -186,7 +184,7 @@ class CartesianPoint:
         :return: a json with cartesian point it exists, a 404 error else
         """
         if request.method == 'GET':
-            state, result = self._find_db(id)
+            state, result = self.find_db(id)
             if state:
                 return result, 200
             else:
@@ -207,7 +205,7 @@ class CartesianPoint:
         :return: a response 200 if the point have been deleted, a 404 error else
         """
         if request.method == 'POST':
-            status = self._delete_bd(id)
+            status = self.delete_bd(id)
             if status:
                 return "Point have been deleted", 200
             else:
@@ -228,5 +226,5 @@ class CartesianPoint:
         :return: a response 200
         """
         if request.method == 'POST':
-            self._clear_db()
+            self.clear_db()
             return "All points have been deleted", 200
