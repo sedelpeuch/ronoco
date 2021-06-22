@@ -5,7 +5,6 @@ from flask import Blueprint, request
 from werkzeug.exceptions import BadRequest
 
 from flaskr import cartesianpoint
-from geometry_msgs.msg import Pose
 
 execute = True
 
@@ -79,18 +78,6 @@ class Move:
                 point['orientation']['z'],
                 point['orientation']['w']
             ]]
-
-    @staticmethod
-    def dict_to_Pose(point):
-        wpose = Pose()
-        wpose.position.x = point['position']['x']
-        wpose.position.y = point['position']['y']
-        wpose.position.z = point['position']['z']
-        wpose.orientation.x = point['orientation']['x']
-        wpose.orientation.y = point['orientation']['y']
-        wpose.orientation.z = point['orientation']['z']
-        wpose.orientation.w = point['orientation']['w']
-        return wpose
 
     def switch_mode(self, points, mode):
         """
