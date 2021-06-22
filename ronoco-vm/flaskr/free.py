@@ -3,11 +3,11 @@ This file implements free endpoints to set and get the compliance (or 0 gravity 
 """
 
 from flask import Blueprint, request
-from werkzeug.exceptions import BadRequest, NotFound
+from werkzeug.exceptions import BadRequest
 
 import rospy
+from flaskr import common
 from std_srvs.srv import SetBool
-from . import common
 
 bp = Blueprint('free_views', __name__, url_prefix='/free')
 
