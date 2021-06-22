@@ -28,7 +28,6 @@ class ronoco_vm:
 
         self.create_app()
         socketio = SocketIO(self.app, logger=True)
-
         rospy.init_node('user')
         self.subscribe_topic()
         rospy.loginfo("User node is serving the Web app")
@@ -71,6 +70,9 @@ class ronoco_vm:
         """
         from flaskr import cartesianpoint
         self.app.register_blueprint(cartesianpoint.CartesianPoint().bp)
+
+        from flaskr import move
+        self.app.register_blueprint(move.Move().bp)
 
         from flaskr import common
         self.app.register_blueprint(common.Common().bp)
