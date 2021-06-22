@@ -16,6 +16,8 @@ class TestCartesianPoint(unittest.TestCase):
 
     def test_add_free(self):
         requests.post(self.URL + "delete")
+        rv = requests.post("http://localhost:5000/free/", json={"compliant": "True"})
+        self.assertEqual(200, rv.status_code)
         rv = requests.post(self.URL + "add/free")
         self.assertEqual(200, rv.status_code)
         self.assertEqual("Add cartesian point with id:0", rv.text)
