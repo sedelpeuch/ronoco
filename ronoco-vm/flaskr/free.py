@@ -3,7 +3,7 @@ This file implements free endpoints to set and get the compliance (or 0 gravity 
 """
 
 from flask import Blueprint, request
-from werkzeug.exceptions import BadRequest
+from werkzeug.exceptions import BadRequest, NotFound
 
 import rospy
 from flaskr import common
