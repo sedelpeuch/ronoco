@@ -2,6 +2,7 @@
 This file implements the common endpoint
 """
 from flask import Blueprint
+from flask import request
 from werkzeug.exceptions import NotFound
 
 import rospy
@@ -17,6 +18,7 @@ class Common:
 
         self.bp.route('/', methods=['GET'])(self.index)
         self.bp.route('/robot_state')(self.robot_state)
+        self.bp.route('/shutdown')(self.shutdown)
 
     @staticmethod
     def index():
@@ -49,3 +51,19 @@ class Common:
         except rospy.service.ServiceException:
             raise NotFound()
         return {'robot_state': True}
+
+    def shutdown(self):
+        """
+        Shutdown server
+        """
+        self.shutdown_server()
+        return 'Server shutting down...'
+
+    def shutdown_server(self):
+        """
+        Call werkzeug.server.shutdown to shutdown server
+        """
+        func = request.environ.get('werkzeug.server.shutdown')
+        if func is None:
+            raise RuntimeError('Not running with the Werkzeug Server')
+        func()
