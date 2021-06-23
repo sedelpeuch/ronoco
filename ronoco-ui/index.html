@@ -8,24 +8,63 @@
     <link rel="stylesheet" href="style.css">
 
     <script type="module" src="src/free.js"></script>
-    <!--<script type="text/javascript" src="src/position.js"></script>-->
+    <script type="module" src="src/point.js"></script>
 </head>
 <body>
-<div class="grid-container">
-    <div class="grid-item">
-        <button class="button" id="robotState">Robot State</button>
+<div class="ronoco-ui" id="ronoco-ui">
+<div class="common">
+    <div class="button-icon" id="startStop">
+        <img src="/static/shutdown.svg" alt="ShutdownLogo" height="40">
     </div>
-    <div class="grid-item">
-        <div id="robotStateResult">
-            Robot Compliance :
+    <div class="button-icon" id="robotState">
+        <img src="/static/circle.svg" alt="StateLogo" height="40">
+    </div>
+    <div class="button-icon" id="launch">
+        <img src="/static/play.svg" alt="LaunchLogo" height="40">
+    </div>
+    <div class="button-icon" id="FreeButton">
+        <img src="/static/free.svg" alt="FreeLogo" height="40">
+    </div>
+</div>
+
+<div class="common">
+    <div class="record">
+        <img src="/static/record.svg" alt="RecordLogo" height="40">
+        <form action="" method="get" class="form">
+            <div class="form">
+                <label for="record"></label>
+                <select id="record" name="record">
+                    <option value="rviz">Rviz</option>
+                    <option value="free">Free</option>
+                </select>
+                <input type="submit" value="Record">
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="common">
+    <button class="button-icon" id="GetPosition">
+        Get all
+    </button>
+    <button class="button-icon" id="DeletePosition">
+        Clear all
+    </button>
+</div>
+
+<div class="common">
+    <form action="" method="get" class="form">
+        <div class="form">
+            <label for="id">id : </label>
+            <input type="number" name="id" id="id" required size="number">
+            <input type="submit" value="Get">
+            <input type="submit" value="Delete">
         </div>
-    </div>
-    <div class="grid-item">
-        <button class="button" id="FreeButton">Free robot</button>
-    </div>
-    <div class="grid-item">
-        <button class="button" id="recordPosition">Record Position</button>
-    </div>
+    </form>
+</div>
+</div>
+<div class="logger" id="logger-container">
+<div id="logger"></div>
 </div>
 </body>
 </html>

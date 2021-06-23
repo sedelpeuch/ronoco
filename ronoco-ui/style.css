@@ -1,27 +1,47 @@
-
-.grid-container {
-    display: grid;
-    width : 50%;
-    grid-template-columns: auto auto auto;
-    background-color: #eeeeee;
-    padding: 10px;
-}
-.grid-item {
-    background-color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    font-size: 30px;
-    text-align: center;
+.ronoco-ui{
+    display: block;
+    border: 1px solid black;
+    border-top-right-radius: 10px 10px;
+    border-top-left-radius: 10px 10px;
+    padding: 10px 10px 10px 10px;
+    width: 15%;
 }
 
-.button{
-    background-color: #3f435c;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    border-radius: 25px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
+.logger{
+    display: block;
+    border: 1px solid black;
+    border-bottom-right-radius: 10px 10px;
+    border-bottom-left-radius: 10px 10px;
+    padding: 10px 10px 10px 10px;
+    width: 15%;
+    height:100%;
+}
+
+.common{
+    display: flex;
+    overflow: auto;
+    margin-bottom: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-icon{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.record{
+    display: flex;
+    padding-left: 10px;
+    padding-right: 10px;
+    align-items: center;
+}
+
+.form{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+input[type="number"] {
+    width: 20%;
 }
