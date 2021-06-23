@@ -2,10 +2,37 @@
 
 export {get, post};
 
+(function (logger) {
+    console.old = console.log;
+    console.log = function () {
+        var output = "", arg, i;
+
+        for (i = 0; i < arguments.length; i++) {
+            arg = arguments[i];
+            output += "<span class=\"log-" + (typeof arg) + "\">";
+
+            if (
+                typeof arg === "object" &&
+                typeof JSON === "object" &&
+                typeof JSON.stringify === "function"
+            ) {
+                output += JSON.stringify(arg);
+            } else {
+                output += arg;
+            }
+
+            output += "</span>&nbsp;";
+        }
+
+        logger.innerHTML += output + "<br>";
+        console.old.apply(undefined, arguments);
+    };
+})(document.getElementById("logger"));
+
 /**
  * Common function allow you to get json on an url
  * @param url - url to get
- * @returns {Promise<json>} if response is ok, a http error else
+ * @returns {Promise<Response>} if response is ok, a http error else
  */
 async function get(url) {
     let headers = new Headers();
@@ -20,8 +47,7 @@ async function get(url) {
     if (response.ok) {
         return await response.json()
     } else {
-        console.error(response.error)
-        throw new response.error()
+        console.log(await response.json())
     }
 }
 
