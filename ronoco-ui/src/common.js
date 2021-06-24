@@ -3,29 +3,39 @@
 export {get, post};
 
 (function (logger) {
-    console.old = console.log;
-    console.log = function () {
-        var output = "", arg, i;
-
+    console.logger = function () {
+        let output = "", arg, i;
+        console.log("Document height", heightDocument)
+        let heightCode = document.getElementById("logger").offsetHeight
+        if (heightDocument < heightCode) {
+            logger.innerHTML = ""
+        }
         for (i = 0; i < arguments.length; i++) {
             arg = arguments[i];
             output += "<span class=\"log-" + (typeof arg) + "\">";
+            output += date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
 
             if (
                 typeof arg === "object" &&
                 typeof JSON === "object" &&
                 typeof JSON.stringify === "function"
             ) {
-                output += JSON.stringify(arg);
+                let temp = JSON.stringify(arg, null, 1);
+                temp = temp.replace(/[{}]/g, '')
+                temp = temp.replace(/["]/g, '')
+                temp = temp.replace(/[:]/g, '')
+                temp = temp.replace("Error", "Error".fontcolor("red"))
+                temp = temp.replace("Success", "Success".fontcolor("green"))
+                temp = temp.replace("Add", "Add".fontcolor("blue"))
+                output += temp
             } else {
                 output += arg;
             }
-
+            output += "---"
             output += "</span>&nbsp;";
         }
-
         logger.innerHTML += output + "<br>";
-        console.old.apply(undefined, arguments);
+        console.log.apply(undefined, arguments);
     };
 })(document.getElementById("logger"));
 
@@ -47,7 +57,8 @@ async function get(url) {
     if (response.ok) {
         return await response.json()
     } else {
-        console.log(await response.json())
+        return await response.json()
+
     }
 }
 
@@ -70,7 +81,6 @@ async function post(url, data) {
     if (response.ok) {
         return await response.json()
     } else {
-        console.error(response.error)
-        throw new response.error()
+        return await response.json()
     }
 }

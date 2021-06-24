@@ -61,8 +61,20 @@
     </div>
 </div>
 <div class="logger" id="logger-container">
-    <div id="logger"></div>
+    <button class="button-icon" id="ClearLog" onclick="clearLog()">
+        Clear Log
+    </button>
+    <pre id="logger"></pre>
 </div>
 <iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
+
+<script>
+    const heightDocument = document.documentElement.scrollHeight
+    function clearLog(){
+        logger = document.getElementById("logger")
+        logger.innerHTML = "";
+    }
+    const date = new Date()
+</script>
 </body>
 </html>
