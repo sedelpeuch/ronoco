@@ -1,9 +1,12 @@
 """
 This file implements move endpoint to plan or execute a trajectory or a cycle between two (or more) points
 """
+import time
+
 from flask import Blueprint, request
 from werkzeug.exceptions import BadRequest
 
+import rospy
 from flaskr import cartesianpoint
 
 execute = True
@@ -40,7 +43,6 @@ class Move:
         """
         if request.method == 'POST':
             data = request.get_json()
-            print(data)
             try:
                 ids = data['id']
                 mode = data['mode']
@@ -51,15 +53,24 @@ class Move:
             states = list()
             results = list()
             if mode not in ["plan", "execute", "infinite"]:
-                return "Incorrect mode", 400
+                return {"Error": "Incorrect mode"}, 400
             for i in range(len(ids)):
                 find = self.CartesianPoint.find_db(ids[i])
                 states.append(find[0])
                 results.append(find[1])
             if False in states:
-                return "Incorrect id", 404
+                return {"Error": "Incorrect id"}, 404
+
+            # Check if rviz is alive
+            position = {}
+            begin = time.time()
+            while position == {}:
+                if time.time() - begin > 10:
+                    return {"Error": "Rviz doesn't send response"}, 408
+                rospy.loginfo("Waiting response from Rviz")
+                position = self.CartesianPoint.commander.get_current_pose()
             self.switch_mode(results, mode)
-            return "Action has been realized", 200
+            return {"Success": "Action has been realized"}, 200
 
     @staticmethod
     def dict_to_list(point):

@@ -125,7 +125,7 @@ class CartesianPoint:
         }
         if request.method == 'POST':
             self.add_bd(cartesian_point)
-            return "Add cartesian point with id:" + str(self.id - 1), 200
+            return {"Add cartesian point with id:": str(self.id - 1)}, 200
         # else:
         #     return "Robot is not compliant", 409
 
@@ -149,10 +149,10 @@ class CartesianPoint:
             begin = time.time()
             while topic_callback.position == {}:
                 if time.time() - begin > 10:
-                    return "Rviz doesn't send response", 408
+                    return {"Error": "Rviz doesn't send response"}, 408
                 rospy.loginfo("Waiting position from Rviz")
             self.add_bd(topic_callback.position)
-            return "Add cartesian point with id:" + str(self.id - 1), 200
+            return {"Add cartesian point with id:": str(self.id - 1)}, 200
 
     def get_all_points(self):
         """
@@ -168,9 +168,9 @@ class CartesianPoint:
             try:
                 self.cartesianPoints = rospy.get_param("cartesianPoints")
             except KeyError:
-                return "No point have been recorded", 404
+                return {"Error": "No point have been recorded"}, 404
             if self.cartesianPoints == {}:
-                return "No point have been recorded", 404
+                return {"Error": "No point have been recorded"}, 404
             return self.cartesianPoints, 200
 
     def get_one_point(self, id):
@@ -188,7 +188,7 @@ class CartesianPoint:
             if state:
                 return result, 200
             else:
-                return "No point have been recorded", 404
+                return {"Error": "No point have been recorded"}, 404
 
     def delete_one_point(self, id):
         """
@@ -207,9 +207,9 @@ class CartesianPoint:
         if request.method == 'POST':
             status = self.delete_bd(id)
             if status:
-                return "Point have been deleted", 200
+                return {"Success": "Point have been deleted"}, 200
             else:
-                return "No point match with id: " + id, 404
+                return {"Error": "No point match with id: " + str(id)}, 404
 
     def delete_all_points(self):
         """
@@ -227,4 +227,4 @@ class CartesianPoint:
         """
         if request.method == 'POST':
             self.clear_db()
-            return "All points have been deleted", 200
+            return {"Success": "All points have been deleted"}, 200
