@@ -2,6 +2,10 @@
 
 export {get, post};
 
+/**
+ * This function defines the logger used to display the logs in ronoco-u. The logger can display any string but is
+ * optimized for a return of JSON.stringify()
+ */
 (function (logger) {
     console.logger = function () {
         let output = "", arg, i;
