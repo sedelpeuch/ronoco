@@ -12,3 +12,4 @@ tornado~=6.1
 autobahn~=21.3.1
 bson~=0.5.10
 pymongo~=3.11.4
+requests~=2.25.1
