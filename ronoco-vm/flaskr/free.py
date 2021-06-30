@@ -54,5 +54,5 @@ def free():
             return {'compliant': compliant}, 200
         elif request.method == 'GET':
             return {'compliant': compliant}, 200
-        else:
-            raise NotFound()
+    else:
+        raise NotFound()

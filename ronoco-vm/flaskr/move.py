@@ -28,7 +28,7 @@ class Move:
         """
         POST Method
 
-        ROUTE /move/simple
+        ROUTE /move/
 
         POST body
         {

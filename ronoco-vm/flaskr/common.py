@@ -17,7 +17,7 @@ class Common:
         self.bp = Blueprint('common_views', __name__, url_prefix='/')
 
         self.bp.route('/', methods=['GET'])(self.index)
-        self.bp.route('/robot_state')(self.robot_state)
+        self.bp.route('/robot_state', methods=['GET'])(self.robot_state)
         self.bp.route('/shutdown')(self.shutdown)
 
     @staticmethod
@@ -30,7 +30,7 @@ class Common:
         TODO : change index behaviour
         :return: if everything is ok : 'Hello World !' else an HttpError
         """
-        return 'Hello World from everyone !'
+        return {"Success": "Server is running"}, 200
 
     @staticmethod
     def robot_state():
@@ -50,7 +50,7 @@ class Common:
             get_loggers()
         except rospy.service.ServiceException:
             raise NotFound()
-        return {'robot_state': True}
+        return {'robot_state': True}, 200
 
     def shutdown(self):
         """

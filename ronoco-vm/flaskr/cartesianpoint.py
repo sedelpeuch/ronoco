@@ -6,6 +6,7 @@ import time
 from flask import Blueprint, request
 
 import rospy
+from moveit_commander import MoveItCommanderException
 from moveit_commander.move_group import MoveGroupCommander
 from . import topic_callback
 
@@ -108,7 +109,10 @@ class CartesianPoint:
 
         :return: id for new cartesian point if everything is ok, a 409 error else
         """
-        current_point = self.commander.get_current_pose()
+        try:
+            current_point = self.commander.get_current_pose()
+        except MoveItCommanderException:
+            return {"Error": "MoveIt doesn't send response"}, 408
         cartesian_point = {
             'position': {
                 'x': current_point.pose.position.x,
@@ -125,7 +129,7 @@ class CartesianPoint:
         }
         if request.method == 'POST':
             self.add_bd(cartesian_point)
-            return {"Add cartesian point with id:": str(self.id - 1)}, 200
+            return {"Success": "Add cartesian point with id:" + str(self.id - 1)}, 200
         # else:
         #     return "Robot is not compliant", 409
 
@@ -152,7 +156,7 @@ class CartesianPoint:
                     return {"Error": "Rviz doesn't send response"}, 408
                 rospy.loginfo("Waiting position from Rviz")
             self.add_bd(topic_callback.position)
-            return {"Add cartesian point with id:": str(self.id - 1)}, 200
+            return {"Success": "Add cartesian point with id:" + str(self.id - 1)}, 200
 
     def get_all_points(self):
         """
