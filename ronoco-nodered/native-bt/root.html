@@ -1,0 +1,26 @@
+<script type="text/javascript">
+    RED.nodes.registerType('root',{
+        category: 'ronoco',
+        color: '#87cefa',
+        defaults: {
+            name: {value:""}
+        },
+        inputs:0,
+        outputs:1,
+        icon: "icons/root.svg",
+        label: function() {
+            return this.name||"root";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="root">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="root">
+    <p>A simple node that converts the message payloads into all lower-case characters</p>
+</script>
