@@ -2,7 +2,15 @@
   "name": "node-red-contrib-ronoco",
   "node-red": {
     "nodes": {
-      "lower-case": "lower-case.js"
+      "sequence": "native-bt/sequence.js",
+      "selector": "native-bt/selector.js",
+      "decorator": "native-bt/decorator.js",
+      "root": "native-bt/root.js",
+      "parallel": "native-bt/parallel.js",
+      "execute": "action-bt/execute.js",
+      "plan": "action-bt/plan.js",
+      "place": "condition-bt/place.js",
+      "vision": "condition-bt/vision.js"
     }
   },
   "dependencies": {
