@@ -1,17 +1,16 @@
 """
-This file is the entry point of flask api. Launch python3 flaskr/run.py to run flask server
+This file is the entry point of flask api without ros.
+Launch python3 flaskr/run_without_ros.py to run flask server.
+
+WARN : This way of launching the server is for development only and must not be used to control a robot with ros
 """
+
 import os
-import time
 
 from flask import Flask
 from flask_cors import CORS
 from flask_socketio import SocketIO
 from werkzeug.debug import DebuggedApplication
-
-import rospy
-from flaskr import topic_callback
-from visualization_msgs.msg import InteractiveMarkerUpdate
 
 
 class ronoco_vm:
@@ -26,9 +25,8 @@ class ronoco_vm:
 
         self.create_app()
         socketio = SocketIO(self.app, logger=True)
-        rospy.init_node('user')
-        self.subscribe_topic()
-        rospy.loginfo("User root is serving the Web app")
+        self.app.logger.warning("This way of launching the server is for development only and must not be used to "
+                                "control a robot with ros")
         socketio.run(self.app)
 
     def create_app(self, test_config=None):
@@ -51,8 +49,6 @@ class ronoco_vm:
         else:
             # load the test config if passed in
             self.app.config.from_mapping(test_config)
-
-        # ensure the instance folder exists
         try:
             os.makedirs(self.app.instance_path)
         except OSError:
@@ -66,9 +62,6 @@ class ronoco_vm:
         The class attribute "app" must contain an Flask instance
         :return: None
         """
-        from flaskr import cartesian_point
-        self.app.register_blueprint(cartesian_point.CartesianPoint().bp)
-
         from flaskr import play
         self.app.register_blueprint(play.Play().bp)
 
@@ -79,16 +72,6 @@ class ronoco_vm:
         self.app.register_blueprint(free.bp)
 
         CORS(self.app)
-
-    def subscribe_topic(self):
-        """
-        Uses rospy to subscribe to the different topics needed by the API
-        :return: None
-        """
-        rospy.Subscriber(
-            "/rviz_moveit_motion_planning_display/robot_interaction_interactive_marker_topic/update",
-            InteractiveMarkerUpdate, topic_callback.position_callback)
-        time.sleep(0.5)
 
 
 if __name__ == "__main__":
