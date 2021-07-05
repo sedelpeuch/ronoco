@@ -9,7 +9,7 @@ import rospy
 from flaskr import common
 from std_srvs.srv import SetBool
 
-bp = Blueprint('free_views', __name__, url_prefix='/free')
+bp = Blueprint('free_endpoint', __name__, url_prefix='/free')
 
 # Global variable to record compliant state of robot
 compliant = "False"

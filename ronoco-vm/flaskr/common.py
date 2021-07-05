@@ -14,7 +14,7 @@ class Common:
     Definition of common endpoint
     """
     def __init__(self):
-        self.bp = Blueprint('common_views', __name__, url_prefix='/')
+        self.bp = Blueprint('common_endpoint', __name__, url_prefix='/')
 
         self.bp.route('/', methods=['GET'])(self.index)
         self.bp.route('/robot_state', methods=['GET'])(self.robot_state)

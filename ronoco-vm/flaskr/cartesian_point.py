@@ -20,7 +20,7 @@ class CartesianPoint:
     commander = MoveGroupCommander("arm_and_finger")
 
     def __init__(self):
-        self.bp = Blueprint('position_view', __name__, url_prefix='/point')
+        self.bp = Blueprint('cartesian_point', __name__, url_prefix='/point')
 
         self.bp.route('/add/rviz', methods=['POST'])(self.add_point_from_rviz)
         self.bp.route('/add/free', methods=['POST'])(self.add_point_from_free_mode)
