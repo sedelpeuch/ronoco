@@ -23,7 +23,7 @@ l'application se lance via la commande `python3 flaskr/run.py` et tourne sur le 
 | /free/       | POST    |{'compliant': 'True'}     | 200  | {'compliant': 'True'}       | Robot has been set compliant |
 | /free/       | POST    |{'compliant': 'False'}     | 200  | {'compliant': 'False'}       | Robot has been set not compliant |
 | /free/       | POST    |None or incorrect    | 400  | Bad Request      ||
-| /free/       | POST    | {'compliant'} : 'Bool'    | 404  | Not Found       | Robot is not alive |
+| /free/       | POST    | {'compliant' : 'Bool'}    | 404  | Not Found       | Robot is not alive |
 | /point/add/rviz | POST | {} | 408 | {"Error": "Rviz doesn't send response"} | Rviz is not alive or very slow |
 | /point/add/rviz | POST | {} | 200 | {"Success" : "Add cartesian point with id: int"} | A point has been recorded |
 | /point/add/free | POST | {} | 408 | {"Error": "MoveIt doesn't send response"} | MoveIt is not alive or very slow |
@@ -35,9 +35,11 @@ l'application se lance via la commande `python3 flaskr/run.py` et tourne sur le 
 | /point/delete | POST | {} | 200 | {"Success": "All points have been deleted"} | All points have been cleared or database was empty |
 | /point/delete/<id> | POST | {} | 404 | {"Error": "No point match with id: int" | ros parameters server (on the name "cartesianPoints") doesn't contain point with this id  |
 | /point/delete/<id> | POST | {} | 200 | {"Success": "Point have been deleted"} | Point has been deleted |
-| /move/ | POST | {"id": list, "mode": "plan"/"execute"/"infinite"} | 200 | {"Success": "Action has been realized"} | |
-| /move/ | POST | {"id": list, "mode": "plan"/"execute"/"infinite"} | 408 | {"Error": "Rviz doesn't send response"} | Rviz is not alive or very slow |
-| /move/ | POST | {"id": list, "mode": None or Unknow} | 400 | {"Error": "Incorrect mode"} | Allowed mode are plan, execute or infinite |
-| /move/ | POST | {"id": None or Unknow, "mode" : "plan"/"execute"/"infinite"} | 404 | {"Error": "Incorrect id"} | One of id in the list hasn't been recorded|
+| /play/ | POST | an export of nodered tree | 200 | {"Success": "All behavior trees has been executed"} | |
+| /play/ | POST | None | 400 | {"Error": "json is empty"} | Can't evaluate an empty file |
+| /play/ | POST | an export of nodered tree| 400 | {"Error": "json contains 0 valid roots"} | Json is not empty but doesn't contain root block |
+| /play/ | POST | an export of nodered tree| 400 | {"Error": "Tree with root id <id> is incorrect"} | Json contains a root block but associate tree is incorrect|
+| /play/ | POST | an export of nodered tree| 400 | {"Error": "Block (or child of this block) with id <id> is incorrect"} | Json contains contains tree but one block is incorrect|
+| /play/stop | GET | | 200 | {"Success": "Behavior tree has been stopped "} | Current behavior tree is stopped|
 
 
