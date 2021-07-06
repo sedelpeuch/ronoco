@@ -17,163 +17,93 @@ class TestPlayEndpoint(unittest.TestCase):
                 "info": ""
             },
             {
-                "id": "fbf14ae2.358c98",
-                "type": "tab",
-                "label": "Flow 2",
-                "disabled": False,
-                "info": ""
-            },
-            {
-                "id": "eb0eded6.b0c3c",
-                "type": "selector",
-                "z": "8a2e35b6.d07718",
-                "name": "",
-                "x": 440,
-                "y": 180,
-                "wires": [
-                    [
-                        "7a0f950d.7e624c",
-                        "2150f7.297daf0a"
-                    ]
-                ]
-            },
-            {
-                "id": "c2eb0b03.6678c8",
+                "id": "8239202.57af0e",
                 "type": "sequence",
                 "z": "8a2e35b6.d07718",
                 "name": "",
-                "x": 440,
-                "y": 380,
+                "x": 200,
+                "y": 660,
                 "wires": [
                     [
-                        "bbebf4ea.d0f9f8",
-                        "931d9b57.4cf298"
+                        "938c2f67.35349",
+                        "290e0d25.6a5762",
+                        "521c5901.5fab88",
+                        "3019ee2e.0e1922",
+                        "ac7d561f.c8a488"
                     ]
                 ]
             },
             {
-                "id": "7a0f950d.7e624c",
-                "type": "place",
-                "z": "8a2e35b6.d07718",
-                "name": "isAtA?",
-                "number": "1",
-                "x": 630,
-                "y": 140,
-                "wires": []
-            },
-            {
-                "id": "2150f7.297daf0a",
-                "type": "execute",
-                "z": "8a2e35b6.d07718",
-                "name": "goToA",
-                "number": "1",
-                "x": 630,
-                "y": 240,
-                "wires": []
-            },
-            {
-                "id": "bbebf4ea.d0f9f8",
-                "type": "plan",
-                "z": "8a2e35b6.d07718",
-                "name": "planToC",
-                "number": "3",
-                "x": 640,
-                "y": 440,
-                "wires": []
-            },
-            {
-                "id": "931d9b57.4cf298",
-                "type": "selector",
-                "z": "8a2e35b6.d07718",
-                "name": "",
-                "x": 640,
-                "y": 340,
-                "wires": [
-                    [
-                        "f6ea254.4d37bd8",
-                        "5f29aa06.240384"
-                    ]
-                ]
-            },
-            {
-                "id": "7717b6.cbcf284c",
-                "type": "sequence",
-                "z": "8a2e35b6.d07718",
-                "name": "",
-                "x": 220,
-                "y": 280,
-                "wires": [
-                    [
-                        "eb0eded6.b0c3c",
-                        "c2eb0b03.6678c8"
-                    ]
-                ]
-            },
-            {
-                "id": "3a0ab027.3d1ec",
+                "id": "28cbcd7c.301762",
                 "type": "root",
                 "z": "8a2e35b6.d07718",
                 "name": "",
-                "x": 70,
-                "y": 280,
+                "x": 50,
+                "y": 660,
                 "wires": [
                     [
-                        "7717b6.cbcf284c"
+                        "8239202.57af0e"
                     ]
                 ]
             },
             {
-                "id": "f6ea254.4d37bd8",
-                "type": "place",
+                "id": "938c2f67.35349",
+                "type": "execute",
                 "z": "8a2e35b6.d07718",
-                "name": "isAtB?",
-                "number": "2",
-                "x": 830,
-                "y": 300,
+                "name": "goTo1",
+                "number": "1",
+                "x": 390,
+                "y": 580,
                 "wires": []
             },
             {
-                "id": "5f29aa06.240384",
+                "id": "290e0d25.6a5762",
                 "type": "execute",
                 "z": "8a2e35b6.d07718",
-                "name": "goToB",
-                "number": "2",
-                "x": 830,
-                "y": 380,
+                "name": "goTo0",
+                "number": "0",
+                "x": 390,
+                "y": 520,
                 "wires": []
             },
             {
-                "id": "6ddc7838.9f2528",
-                "type": "root",
-                "z": "fbf14ae2.358c98",
-                "name": "",
-                "x": 340,
-                "y": 440,
-                "wires": [
-                    [
-                        "1b4ff8b1.2222b7"
-                    ]
-                ]
+                "id": "521c5901.5fab88",
+                "type": "execute",
+                "z": "8a2e35b6.d07718",
+                "name": "goTo4",
+                "number": "4",
+                "x": 390,
+                "y": 700,
+                "wires": []
             },
             {
-                "id": "1b4ff8b1.2222b7",
+                "id": "3019ee2e.0e1922",
                 "type": "execute",
-                "z": "fbf14ae2.358c98",
-                "name": "",
-                "number": "",
-                "x": 550,
-                "y": 440,
+                "z": "8a2e35b6.d07718",
+                "name": "goTo2",
+                "number": "2",
+                "x": 390,
+                "y": 640,
+                "wires": []
+            },
+            {
+                "id": "ac7d561f.c8a488",
+                "type": "execute",
+                "z": "8a2e35b6.d07718",
+                "name": "goTo2",
+                "number": "2",
+                "x": 390,
+                "y": 760,
                 "wires": []
             }
         ]
 
     def test_find_roots(self):
         result = self.Play.find_roots(self.bt)
-        self.assertEqual(result[0]['id'], "3a0ab027.3d1ec")
-        self.assertEqual(result[1]['id'], "6ddc7838.9f2528")
+        self.assertEqual(result[0]['id'], "28cbcd7c.301762")
 
     def test_find_by_id(self):
-        state, result = self.Play.find_by_id("3a0ab027.3d1ec", self.bt)
+        state, result = self.Play.find_by_id("28cbcd7c.301762", self.bt)
         self.assertEqual(state, True)
         self.assertEqual(result['type'], 'root')
         state, result = self.Play.find_by_id("3a0ab027.3d1e", self.bt)
@@ -182,7 +112,7 @@ class TestPlayEndpoint(unittest.TestCase):
 
     def test_build_root(self):
         root = self.Play.find_roots(self.bt)
-        self.assertEqual(root[0]['id'], "3a0ab027.3d1ec")
+        self.assertEqual(root[0]['id'], "28cbcd7c.301762")
         state, child = self.Play.find_by_id(root[0]['wires'][0][0], self.bt)
 
         state, result = self.Play.build_root(child)
@@ -192,8 +122,12 @@ class TestPlayEndpoint(unittest.TestCase):
         self.assertEqual(False, state)
 
     def test_build_tree(self):
+        for _ in range(4):
+            rv = requests.post("http://localhost:5000/free/", json={"compliant": "True"})
+            rv = requests.post("http://localhost:5000/point/add/free")
+
         root = self.Play.find_roots(self.bt)
-        self.assertEqual(root[0]['id'], "3a0ab027.3d1ec")
+        self.assertEqual(root[0]['id'], "28cbcd7c.301762")
         state, child = self.Play.find_by_id(root[0]['wires'][0][0], self.bt)
 
         state, node_bt = self.Play.build_root(child)

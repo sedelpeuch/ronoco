@@ -15,7 +15,7 @@ class TestCommmonView(unittest.TestCase):
 
     def test_common_robot_state(self):
         res = common.Common().robot_state()
-        self.assertEqual(res, {'robot_state': True} or NotFound)
+        self.assertEqual(res, ({'robot_state': True}, 200) or NotFound)
 
 
 if __name__ == "__main__":

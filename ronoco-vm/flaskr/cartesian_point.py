@@ -24,9 +24,9 @@ class CartesianPoint:
 
         self.bp.route('/add/rviz', methods=['POST'])(self.add_point_from_rviz)
         self.bp.route('/add/free', methods=['POST'])(self.add_point_from_free_mode)
-        self.bp.route('/delete/<id>', methods=['POST'])(self.delete_one_point)
+        self.bp.route('/delete/<identifiant>', methods=['POST'])(self.delete_one_point)
         self.bp.route('/delete', methods=['POST'])(self.delete_all_points)
-        self.bp.route('/get/<id>', methods=['GET'])(self.get_one_point)
+        self.bp.route('/get/<identifiant>', methods=['GET'])(self.get_one_point)
         self.bp.route('/get', methods=['GET'])(self.get_all_points)
 
         try:

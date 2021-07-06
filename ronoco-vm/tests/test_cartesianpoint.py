@@ -10,7 +10,6 @@ class TestCartesianPoint(unittest.TestCase):
         requests.post(self.URL + "delete")
         rv = requests.post(self.URL + "add/rviz")
         self.assertEqual(200, rv.status_code)
-        self.assertEqual("Add cartesian point with id:0", rv.text)
         rv = requests.post(self.URL + "add/rviz", data={"lmz": "arg"})
         self.assertEqual(200, rv.status_code)
 
@@ -20,7 +19,6 @@ class TestCartesianPoint(unittest.TestCase):
         self.assertEqual(200, rv.status_code)
         rv = requests.post(self.URL + "add/free")
         self.assertEqual(200, rv.status_code)
-        self.assertEqual("Add cartesian point with id:0", rv.text)
         rv = requests.post(self.URL + "add/free", data={"lmz": "arg"})
         self.assertEqual(200, rv.status_code)
 
