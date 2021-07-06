@@ -198,7 +198,7 @@ class Play:
             try:
                 # check behavior.py for available types
                 if name is not None and identifiant is not None:
-                    child_node = behavior.behavior.types[child['type']](name=name, id=identifiant, point=point)
+                    child_node = behavior.behavior.types[child['type']](name=name, identifiant=identifiant, point=point)
                 elif name is not None:
                     child_node = behavior.behavior.types[child['type']](name=name)
                 elif identifiant is not None:
