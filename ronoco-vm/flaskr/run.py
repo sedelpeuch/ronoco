@@ -14,16 +14,15 @@ from flaskr import topic_callback
 from visualization_msgs.msg import InteractiveMarkerUpdate
 
 
-class ronoco_vm:
+class RonocoVm:
     """
-    Define and setup flask server and ros topic suscriber / publisher for ronoco-vm
+    Define and setup flask server and ros topic subscriber / publisher for ronoco-vm
     """
 
     def __init__(self):
         """
-        Launch flask server when ronoco_vm is created (this constructor uses SocketIO)
+        Launch flask server when RonocoVm is created (this constructor uses SocketIO)
         """
-
         self.create_app()
         socketio = SocketIO(self.app, logger=True)
         rospy.init_node('user')
@@ -34,7 +33,7 @@ class ronoco_vm:
     def create_app(self, test_config=None):
         """
         Build a Flask instance and configure it
-        :param test_config: path to configuration file (Défault : None)
+        :param test_config: path to configuration file (Default : None)
         :return: a Flask instance
         """
         # create and configure the app
@@ -80,7 +79,8 @@ class ronoco_vm:
 
         CORS(self.app)
 
-    def subscribe_topic(self):
+    @staticmethod
+    def subscribe_topic():
         """
         Uses rospy to subscribe to the different topics needed by the API
         :return: None
@@ -90,6 +90,5 @@ class ronoco_vm:
             InteractiveMarkerUpdate, topic_callback.position_callback)
         time.sleep(0.5)
 
-
 if __name__ == "__main__":
-    ronoco_vm()
+    RonocoVm()
