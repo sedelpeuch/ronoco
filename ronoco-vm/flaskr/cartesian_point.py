@@ -6,9 +6,9 @@ import time
 from flask import Blueprint, request
 
 import rospy
+from flaskr import topic_callback
 from moveit_commander import MoveItCommanderException
 from moveit_commander.move_group import MoveGroupCommander
-from . import topic_callback
 
 
 class CartesianPoint:
@@ -17,7 +17,7 @@ class CartesianPoint:
     """
     id = 0
     cartesianPoints = {}
-    commander = MoveGroupCommander("arm_and_finger")
+    commander = MoveGroupCommander("arm_and_finger")  # TODO change it when ronoco-config exists
 
     def __init__(self):
         self.bp = Blueprint('cartesian_point', __name__, url_prefix='/point')

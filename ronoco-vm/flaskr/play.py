@@ -7,7 +7,7 @@ from flask import Blueprint, request
 from werkzeug.exceptions import BadRequest
 
 import py_trees
-from flaskr import behavior
+from flaskr import behavior, cartesian_point
 
 
 class Play:
@@ -83,15 +83,16 @@ class Play:
             for tree in trees:
                 state, result = self.build_tree(tree[0], tree[1], bt)
                 if not state:
-                    return {"Error": "Block (or child of this block) with id " + result + " is incorrect"}, 400
+                    return {"Error": "Block (or child of this block) with id " + result['id'] + " is incorrect"}, 400
 
+            print("here")
             # for each tree execute it with tick() method
             for tree in trees:
                 py_trees.display.render_dot_tree(tree[1])
                 self.behavior_tree = py_trees.trees.BehaviourTree(root=tree[1])
                 self.behavior_tree.setup(timeout=15)
                 try:
-                    self.behavior_tree.tick(50)
+                    self.behavior_tree.tick()
                 except KeyboardInterrupt:
                     self.behavior_tree.interrupt()
                 return {"Success": "All behavior trees has been executed"}, 200
@@ -134,7 +135,7 @@ class Play:
         :return: True and the root (py_tree) if a root has this id. False, None else
         """
         try:
-            root_node = behavior.constant.types[root['type']]()
+            root_node = behavior.behavior.types[root['type']]()
         except KeyError:
             return False, None
         return True, root_node
@@ -151,9 +152,9 @@ class Play:
 
         # Check children of current node
         if not children_id:
-            if json_node['type'] in behavior.constant.composites:
+            if json_node['type'] in behavior.behavior.composites:
                 return False, children_id
-            elif json_node['type'] in behavior.constant.leaf:
+            elif json_node['type'] in behavior.behavior.leaf:
                 return True, None
             else:
                 return False, children_id
@@ -179,9 +180,32 @@ class Play:
         # Sort the children according to their ascending y-position. This ensures that children run from top to bottom
         children.sort(key=get_y)
         for child in children:
+            name = None
+            id = None
+            point = None
+            state = True
+            if child['name'] != "":
+                name = child['name']
             try:
-                # check constant.py for available types
-                child_node = behavior.constant.types[child['type']]()
+                id = int(child['number'])
+                # if it has an id, check if it's in the ros parameters server (on the name "cartesianPoints")
+                state, point = cartesian_point.CartesianPoint().find_db(id)
+            except KeyError:
+                pass
+            except TypeError:
+                return False, child
+            if not state:
+                return False, child
+            try:
+                # check behavior.py for available types
+                if name is not None and id is not None:
+                    child_node = behavior.behavior.types[child['type']](name=name, id=id, point=point)
+                elif name is not None:
+                    child_node = behavior.behavior.types[child['type']](name=name)
+                elif id is not None:
+                    child_node = behavior.behavior.types[child['type']](id=id, point=point)
+                else:
+                    child_node = behavior.behavior.types[child['type']]()
             except KeyError:
                 return False, child['id']
             bt_node.add_child(child_node)
