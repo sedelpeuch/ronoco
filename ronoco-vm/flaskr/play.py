@@ -85,7 +85,6 @@ class Play:
                 if not state:
                     return {"Error": "Block (or child of this block) with id " + result['id'] + " is incorrect"}, 400
 
-            print("here")
             # for each tree execute it with tick() method
             for tree in trees:
                 py_trees.display.render_dot_tree(tree[1])
@@ -95,7 +94,7 @@ class Play:
                     self.behavior_tree.tick()
                 except KeyboardInterrupt:
                     self.behavior_tree.interrupt()
-                return {"Success": "All behavior trees has been executed"}, 200
+            return {"Success": "All behavior trees has been executed"}, 200
 
     @staticmethod
     def find_roots(bt):
