@@ -59,7 +59,8 @@ class Common:
         self.shutdown_server()
         return 'Server shutting down...'
 
-    def shutdown_server(self):
+    @staticmethod
+    def shutdown_server():
         """
         Call werkzeug.server.shutdown to shutdown server
         """

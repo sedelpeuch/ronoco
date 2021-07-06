@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import random
-
 import py_trees
 
 
 class Plan(py_trees.behaviour.Behaviour):
-    def __init__(self, name="Plan"):
+    def __init__(self, name="Plan", id=None, point=None):
         """
         Minimal one-time initialisation. A good rule of thumb is
         to only include the initialisation relevant for being able
@@ -73,16 +71,7 @@ class Plan(py_trees.behaviour.Behaviour):
           - return a py_trees.common.Status.[RUNNING, SUCCESS, FAILURE]
         """
         self.logger.debug("  %s [Execute::update()]" % self.name)
-        ready_to_make_a_decision = random.choice([True, False])
-        decision = random.choice([True, False])
-        if not ready_to_make_a_decision:
-            return py_trees.common.Status.RUNNING
-        elif decision:
-            self.feedback_message = "We are not bar!"
-            return py_trees.common.Status.SUCCESS
-        else:
-            self.feedback_message = "Uh oh"
-            return py_trees.common.Status.FAILURE
+        return py_trees.common.Status.FAILURE
 
     def terminate(self, new_status):
         """

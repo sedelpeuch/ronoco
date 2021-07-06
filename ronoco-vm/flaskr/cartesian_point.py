@@ -52,39 +52,39 @@ class CartesianPoint:
         self.id += 1
         return True
 
-    def delete_bd(self, id):
+    def delete_bd(self, identifiant):
         """
         This method delete a cartesian point in the ros parameters server (on the name "cartesianPoints"). This method
         is called when a DELETE request is made on point/delete
-        :param id: a number
+        :param identifiant: a number
         :return: True if point is deleted, False if point doesn't exist
         """
         try:
             self.cartesianPoints = rospy.get_param("cartesianPoints")
-            self.cartesianPoints.pop(id)
+            self.cartesianPoints.pop(identifiant)
             rospy.set_param("cartesianPoints", self.cartesianPoints)
         except KeyError:
             return False
         return True
 
-    def find_db(self, id):
+    def find_db(self, identifiant):
         """
         This method find a cartesian point in the ros parameters server (on the name "cartesianPoints"). This method
         is called when a GET request is made on point/get/<number> or point/get
-        :param id: a number
+        :param identifiant: a number
         :return: True if point is found, False if point doesn't exist
         """
         try:
             self.cartesianPoints = rospy.get_param("cartesianPoints")
-            point = self.cartesianPoints[str(id)]
+            point = self.cartesianPoints[str(identifiant)]
         except KeyError:
             return False, {}
         return True, point
 
     def clear_db(self):
         """
-        This method delete all cartesian points in the ros parameters server (on the name "cartesianPoints"). This method
-        is called when a POST request is made on point/delete
+        This method delete all cartesian points in the ros parameters server (on the name "cartesianPoints"). This
+        method is called when a POST request is made on point/delete
         :return: None
         """
         self.cartesianPoints = {}
@@ -177,28 +177,28 @@ class CartesianPoint:
                 return {"Error": "No point have been recorded"}, 404
             return self.cartesianPoints, 200
 
-    def get_one_point(self, id):
+    def get_one_point(self, identifiant):
         """
         GET Method
 
-        ROUTE /point/get/<id>
+        ROUTE /point/get/<identifiant>
 
         Allows you to get one Cartesian point in the ros parameters server (on the name "cartesianPoints")
 
         :return: a json with cartesian point it exists, a 404 error else
         """
         if request.method == 'GET':
-            state, result = self.find_db(id)
+            state, result = self.find_db(identifiant)
             if state:
                 return result, 200
             else:
                 return {"Error": "No point have been recorded"}, 404
 
-    def delete_one_point(self, id):
+    def delete_one_point(self, identifiant):
         """
         POST Method
 
-        ROUTE /point/delete/<id>
+        ROUTE /point/delete/<identifiant>
 
         POST body
         {
@@ -209,11 +209,11 @@ class CartesianPoint:
         :return: a response 200 if the point have been deleted, a 404 error else
         """
         if request.method == 'POST':
-            status = self.delete_bd(id)
+            status = self.delete_bd(identifiant)
             if status:
                 return {"Success": "Point have been deleted"}, 200
             else:
-                return {"Error": "No point match with id: " + str(id)}, 404
+                return {"Error": "No point match with id: " + str(identifiant)}, 404
 
     def delete_all_points(self):
         """

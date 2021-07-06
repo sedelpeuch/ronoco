@@ -23,6 +23,7 @@ class Execute(py_trees.behaviour.Behaviour):
         self.logger.debug("  %s [Execute::update()]" % self.name)
         point = [[self.point[i][k] for k in self.point[i]] for i in self.point]
         self.commander.set_pose_target(point[0] + point[1])
+        self.commander.plan()
         self.commander.go()
         return py_trees.common.Status.SUCCESS
 

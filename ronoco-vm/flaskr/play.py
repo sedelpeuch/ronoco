@@ -113,15 +113,15 @@ class Play:
         return roots
 
     @staticmethod
-    def find_by_id(id, bt):
+    def find_by_id(identifiant, bt):
         """
         Search in the json passed in parameter for a block with the string id passed in parameter
-        :param id: the id of the block searched for
+        :param identifiant: the id of the block searched for
         :param bt: a json representing a behaviour tree (export of nodered)
         :returns: True and the root (json) if a root has this id. False, None else
         """
         for node in bt:
-            if node['id'] == id:
+            if node['id'] == identifiant:
                 return True, node
         return False, None
 
@@ -160,12 +160,12 @@ class Play:
 
         children = list()
         # for each children id, add it in list of node to build
-        for id in children_id[0]:
-            state, child = self.find_by_id(id, bt)
+        for identifiant in children_id[0]:
+            state, child = self.find_by_id(identifiant, bt)
             if state:
                 children.append(child)
             else:
-                return False, id
+                return False, identifiant
 
         def get_y(elem):
             """
@@ -180,15 +180,15 @@ class Play:
         children.sort(key=get_y)
         for child in children:
             name = None
-            id = None
+            identifiant = None
             point = None
             state = True
             if child['name'] != "":
                 name = child['name']
             try:
-                id = int(child['number'])
+                identifiant = int(child['number'])
                 # if it has an id, check if it's in the ros parameters server (on the name "cartesianPoints")
-                state, point = cartesian_point.CartesianPoint().find_db(id)
+                state, point = cartesian_point.CartesianPoint().find_db(identifiant)
             except KeyError:
                 pass
             except TypeError:
@@ -197,12 +197,12 @@ class Play:
                 return False, child
             try:
                 # check behavior.py for available types
-                if name is not None and id is not None:
-                    child_node = behavior.behavior.types[child['type']](name=name, id=id, point=point)
+                if name is not None and identifiant is not None:
+                    child_node = behavior.behavior.types[child['type']](name=name, id=identifiant, point=point)
                 elif name is not None:
                     child_node = behavior.behavior.types[child['type']](name=name)
-                elif id is not None:
-                    child_node = behavior.behavior.types[child['type']](id=id, point=point)
+                elif identifiant is not None:
+                    child_node = behavior.behavior.types[child['type']](id=identifiant, point=point)
                 else:
                     child_node = behavior.behavior.types[child['type']]()
             except KeyError:
