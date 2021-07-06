@@ -1,5 +1,6 @@
 import py_trees
 from flaskr import behavior
+from flaskr import cartesian_point
 
 types = {'selector': py_trees.composites.Selector,
          'sequence': py_trees.composites.Sequence,
@@ -10,3 +11,5 @@ types = {'selector': py_trees.composites.Selector,
 
 composites = {'selector', 'sequence', 'parallel'}
 leaf = {'execute', 'plan'}
+
+commander = cartesian_point.CartesianPoint().commander
