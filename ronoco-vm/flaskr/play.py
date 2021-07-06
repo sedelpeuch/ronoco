@@ -188,7 +188,8 @@ class Play:
             try:
                 identifiant = int(child['number'])
                 # if it has an id, check if it's in the ros parameters server (on the name "cartesianPoints")
-                state, point = cartesian_point.CartesianPoint().find_db(identifiant)
+                state, point = cartesian_point.CartesianPoint().find_db(
+                    identifiant)  # TODO remove specific traitement for no-points blocs
             except KeyError:
                 pass
             except TypeError:
@@ -198,11 +199,11 @@ class Play:
             try:
                 # check behavior.py for available types
                 if name is not None and identifiant is not None:
-                    child_node = behavior.behavior.types[child['type']](name=name, identifiant=identifiant, point=point)
+                    child_node = behavior.behavior.types[child['type']](name=name, point=point)
                 elif name is not None:
                     child_node = behavior.behavior.types[child['type']](name=name)
                 elif identifiant is not None:
-                    child_node = behavior.behavior.types[child['type']](id=identifiant, point=point)
+                    child_node = behavior.behavior.types[child['type']](point=point)
                 else:
                     child_node = behavior.behavior.types[child['type']]()
             except KeyError:

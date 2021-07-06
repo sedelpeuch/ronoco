@@ -14,9 +14,8 @@ class Execute(py_trees.behaviour.Behaviour):
     the movement between the current position and a position given in the constructor parameter.
     """
 
-    def __init__(self, name="Execute", identifiant=None, point=None):
+    def __init__(self, name="Execute", point=None):
         super(Execute, self).__init__(name)
-        self.id = identifiant
         self.point = point
         self.commander = behavior.behavior.commander
 
