@@ -21,6 +21,7 @@ class Play:
         self.bp.route('/', methods=['POST'])(self.play)
         self.bp.route('/stop', methods=['GET'])(self.stop)
         self.behavior_tree = None
+        self.behavior_tree_dict = {}
 
     def play(self):
         """
@@ -64,31 +65,30 @@ class Play:
             if not roots:
                 return {"Error": "json contains 0 valid roots"}, 400
 
+            state, result = self.build_nodes(bt)
+            if not state:
+                return {"Error": "Block (or child of this block) with id " + result + " is incorrect"}, 400
+
             # for each root in json build first root in py_tree and store it in trees
             for root in roots:
                 if len(root['wires'][0]) != 1:
                     return {"Error": "Tree with root id " + root['id'] + " is incorrect"}, 400
                 else:
-                    state, child = self.find_by_id(root['wires'][0][0], bt)
-                    if state:
-                        state, root = self.build_root(child)
-                        if state:
-                            trees.append((child, root))
-                        else:
-                            return {"Error": "Tree with root id " + root['id'] + " is incorrect"}, 400
-                    else:
+                    state, root_json = self.find_by_id(root['wires'][0][0], bt)
+                    if not state:
                         return {"Error": "Tree with root id " + root['id'] + " is incorrect"}, 400
+                    trees.append(root_json)
 
             # for each json tree build it and check if it is good
             for tree in trees:
-                state, result = self.build_tree(tree[0], tree[1], bt)
+                state, result = self.build_tree(tree, bt)
                 if not state:
                     return {"Error": "Block (or child of this block) with id " + result + " is incorrect"}, 400
 
             # for each tree execute it with tick() method
             for tree in trees:
-                py_trees.display.render_dot_tree(tree[1])
-                self.behavior_tree = py_trees.trees.BehaviourTree(root=tree[1])
+                py_trees.display.render_dot_tree(self.behavior_tree_dict[tree['id']])
+                self.behavior_tree = py_trees.trees.BehaviourTree(root=self.behavior_tree_dict[tree['id']])
                 self.behavior_tree.setup(timeout=15)
                 try:
                     self.behavior_tree.tick()
@@ -141,14 +141,14 @@ class Play:
         except KeyError:
             pass
         try:
-            state, root_node = behavior.behavior.types[root['type']](name, data)
+            state, root_node = behavior.behavior.types[root['type']](name, data, None)
         except KeyError:
             return False, None
         if not state:
             return False, None
         return True, root_node
 
-    def build_tree(self, json_node, bt_node, bt):
+    def build_tree(self, json_node, bt):
         """
         Builds the behaviour tree as a py_tree object from its root using a bfs algorithm
         :param json_node: a node of a tree in json format
@@ -157,6 +157,7 @@ class Play:
         :return: True and None if tree has been built. False and the id of the last block built if it could not be built
         """
         children_id = json_node['wires']
+        py_tree_node = self.behavior_tree_dict[json_node['id']]
 
         # Check children of current node
         if not children_id:
@@ -188,23 +189,47 @@ class Play:
         # Sort the children according to their ascending y-position. This ensures that children run from top to bottom
         children.sort(key=get_y)
         for child in children:
+            if child['type'] in behavior.behavior.decorators:
+                if len(child['wires'][0]) != 1:
+                    return False, child['id']
+                grandson = self.behavior_tree_dict[child['wires'][0][0]]
+                name = None
+                data = None
+                if child['name'] != "":
+                    name = child['name']
+                try:
+                    data = child['data']
+                except KeyError:
+                    pass
+                state, node_py_tree = behavior.behavior.types[child['type']](name=name, data=data, child=grandson)
+                print(state, node_py_tree)
+                if not state:
+                    return False, child['id']
+                self.behavior_tree_dict[child['id']] = node_py_tree
+            try:
+                py_tree_node.add_child(self.behavior_tree_dict[child['id']])
+            except AttributeError:
+                pass
+            self.build_tree(child, bt)
+        return True, None
+
+    def build_nodes(self, bt):
+        self.behavior_tree_dict = {}
+        for node_json in bt:
             name = None
             data = None
-            if child['name'] != "":
-                name = child['name']
             try:
-                data = child['data']
+                if node_json['name'] != "":
+                    name = node_json['name']
+                    data = node_json['data']
             except KeyError:
                 pass
-            try:
-                state, child_node = behavior.behavior.types[child['type']](name=name, data=data)
-            except KeyError:
-                return False, child['id']
-            if not state:
-                return False, child['id']
-            print(child_node)
-            bt_node.add_child(child_node)
-            self.build_tree(child, child_node, bt)
+            if node_json['type'] != "tab" and node_json['type'] != "root" and node_json[
+                'type'] not in behavior.behavior.decorators:
+                state, node_py_tree = behavior.behavior.types[node_json['type']](name=name, data=data, child=None)
+                if not state:
+                    return False, node_json['id']
+                self.behavior_tree_dict[node_json['id']] = node_py_tree
         return True, None
 
     def stop(self):
