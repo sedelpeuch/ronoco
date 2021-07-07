@@ -4,13 +4,15 @@
     "nodes": {
       "sequence": "native-bt/sequence.js",
       "selector": "native-bt/selector.js",
-      "decorator": "native-bt/decorator.js",
       "root": "native-bt/root.js",
       "parallel": "native-bt/parallel.js",
       "execute": "action-bt/execute.js",
       "plan": "action-bt/plan.js",
-      "place": "condition-bt/place.js",
-      "vision": "condition-bt/vision.js"
+      "vision": "condition-bt/vision.js",
+      "condition": "decorator-bt/condition.js",
+      "eternal guard": "decorator-bt/eternalGuard.js",
+      "inverter": "decorator-bt/inverter.js",
+      "timeout": "decorator-bt/timeout.js"
     }
   },
   "dependencies": {

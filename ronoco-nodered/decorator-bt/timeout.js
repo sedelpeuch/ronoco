@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = function (RED) {
-    function Decorator(config) {
+    function Timeout(config) {
         RED.nodes.createNode(this, config);
         const node = this;
         node.on('input', function (msg) {
@@ -9,5 +9,5 @@ module.exports = function (RED) {
         });
     }
 
-    RED.nodes.registerType("decorator", Decorator);
+    RED.nodes.registerType("timeout", Timeout);
 }
