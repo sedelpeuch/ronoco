@@ -51,7 +51,7 @@ class TestPlayEndpoint(unittest.TestCase):
                 "type": "execute",
                 "z": "8a2e35b6.d07718",
                 "name": "goTo1",
-                "number": "1",
+                "data": "1",
                 "x": 390,
                 "y": 580,
                 "wires": []
@@ -61,7 +61,7 @@ class TestPlayEndpoint(unittest.TestCase):
                 "type": "execute",
                 "z": "8a2e35b6.d07718",
                 "name": "goTo0",
-                "number": "0",
+                "data": "0",
                 "x": 390,
                 "y": 520,
                 "wires": []
@@ -71,7 +71,7 @@ class TestPlayEndpoint(unittest.TestCase):
                 "type": "execute",
                 "z": "8a2e35b6.d07718",
                 "name": "goTo4",
-                "number": "4",
+                "data": "4",
                 "x": 390,
                 "y": 700,
                 "wires": []
@@ -81,7 +81,7 @@ class TestPlayEndpoint(unittest.TestCase):
                 "type": "execute",
                 "z": "8a2e35b6.d07718",
                 "name": "goTo2",
-                "number": "2",
+                "data": "2",
                 "x": 390,
                 "y": 640,
                 "wires": []
@@ -91,7 +91,7 @@ class TestPlayEndpoint(unittest.TestCase):
                 "type": "execute",
                 "z": "8a2e35b6.d07718",
                 "name": "goTo2",
-                "number": "2",
+                "data": "2",
                 "x": 390,
                 "y": 760,
                 "wires": []

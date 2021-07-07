@@ -7,7 +7,7 @@ from flask import Blueprint, request
 from werkzeug.exceptions import BadRequest
 
 import py_trees
-from flaskr import behavior, cartesian_point
+from flaskr import behavior
 
 
 class Play:
@@ -83,7 +83,7 @@ class Play:
             for tree in trees:
                 state, result = self.build_tree(tree[0], tree[1], bt)
                 if not state:
-                    return {"Error": "Block (or child of this block) with id " + result['id'] + " is incorrect"}, 400
+                    return {"Error": "Block (or child of this block) with id " + result + " is incorrect"}, 400
 
             # for each tree execute it with tick() method
             for tree in trees:
@@ -133,9 +133,18 @@ class Play:
         :param root: a json root node
         :return: True and the root (py_tree) if a root has this id. False, None else
         """
+        name = None
+        data = None
         try:
-            root_node = behavior.behavior.types[root['type']]()
+            name = root['name']
+            data = root['data']
         except KeyError:
+            pass
+        try:
+            state, root_node = behavior.behavior.types[root['type']](name, data)
+        except KeyError:
+            return False, None
+        if not state:
             return False, None
         return True, root_node
 
@@ -180,34 +189,20 @@ class Play:
         children.sort(key=get_y)
         for child in children:
             name = None
-            identifiant = None
-            point = None
-            state = True
+            data = None
             if child['name'] != "":
                 name = child['name']
             try:
-                identifiant = int(child['number'])
-                # if it has an id, check if it's in the ros parameters server (on the name "cartesianPoints")
-                state, point = cartesian_point.CartesianPoint().find_db(
-                    identifiant)  # TODO remove specific traitement for no-points blocs
+                data = child['data']
             except KeyError:
                 pass
-            except TypeError:
-                return False, child
-            if not state:
-                return False, child
             try:
-                # check behavior.py for available types
-                if name is not None and identifiant is not None:
-                    child_node = behavior.behavior.types[child['type']](name=name, point=point)
-                elif name is not None:
-                    child_node = behavior.behavior.types[child['type']](name=name)
-                elif identifiant is not None:
-                    child_node = behavior.behavior.types[child['type']](point=point)
-                else:
-                    child_node = behavior.behavior.types[child['type']]()
+                state, child_node = behavior.behavior.types[child['type']](name=name, data=data)
             except KeyError:
                 return False, child['id']
+            if not state:
+                return False, child['id']
+            print(child_node)
             bt_node.add_child(child_node)
             self.build_tree(child, child_node, bt)
         return True, None
