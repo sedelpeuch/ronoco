@@ -3,6 +3,7 @@ This file implements some constants for behavior like kind of types, leaves and 
 commander
 """
 import py_trees
+
 from flaskr import behavior
 from flaskr import cartesian_point
 
@@ -19,7 +20,9 @@ def parallel(name, data, child):
     return True, py_trees.composites.Parallel()
 
 
-def execute(name, data, child):
+def execute(data, child, name):
+    if name is None or name == "":
+        name = "Execute"
     if data is None:
         return False, None
     state, point = cartesian_point.CartesianPoint().find_db(int(data))
@@ -46,14 +49,6 @@ def condition(name, data, child):
         return False, None
 
 
-# def eternal_guard(name, data, child):
-#     if data is None:
-#         return False, None
-#     try:
-#         return True, py_trees.decorators.EternalGuard(name=name, status=states[data], child=child)
-#     except KeyError:
-#         return False, None
-
 def inverter(name, data, child):
     return True, py_trees.decorators.Inverter(name=name, child=child)
 
@@ -73,13 +68,13 @@ types = {'selector': selector,
          'execute': execute,
          'plan': plan,
          'condition': condition,
-         # 'eternalGuard': eternal_guard,
          'inverter': inverter,
          'timeout': timeout
          }
 
 composites = {'selector', 'sequence', 'parallel'}
 leaf = {'execute', 'plan'}
-decorators = {'condition', 'eternalGuard', 'inverter', 'timeout'}
-states = {"success": py_trees.Status.SUCCESS, "failure": py_trees.Status.FAILURE, "running": py_trees.Status.RUNNING}
+decorators = {'condition', 'inverter', 'timeout'}
+states = {"success": py_trees.common.Status.SUCCESS, "failure": py_trees.common.Status.FAILURE,
+          "running": py_trees.common.Status.RUNNING}
 commander = cartesian_point.CartesianPoint().commander

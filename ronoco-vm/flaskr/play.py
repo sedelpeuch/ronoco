@@ -3,10 +3,10 @@ This file implements the endpoint play allowing, to transform a json representin
 as a py_tree object then to execute it
 """
 
+import py_trees
 from flask import Blueprint, request
 from werkzeug.exceptions import BadRequest
 
-import py_trees
 from flaskr import behavior
 
 
@@ -66,6 +66,8 @@ class Play:
                 return {"Error": "json contains 0 valid roots"}, 400
 
             state, result = self.build_nodes(bt)
+            for node in bt:
+                self.build_decorator(node, bt)
             if not state:
                 return {"Error": "Block (or child of this block) with id " + result + " is incorrect"}, 400
 
@@ -89,7 +91,7 @@ class Play:
             for tree in trees:
                 py_trees.display.render_dot_tree(self.behavior_tree_dict[tree['id']])
                 self.behavior_tree = py_trees.trees.BehaviourTree(root=self.behavior_tree_dict[tree['id']])
-                self.behavior_tree.setup(timeout=15)
+                self.behavior_tree.setup(15)
                 try:
                     self.behavior_tree.tick()
                 except KeyboardInterrupt:
@@ -124,29 +126,6 @@ class Play:
             if node['id'] == identifiant:
                 return True, node
         return False, None
-
-    @staticmethod
-    def build_root(root):
-        """
-        Builds the root of a behaviour tree as a py_tree object. In other words, constructs in py_tree the only child
-        of a json root block
-        :param root: a json root node
-        :return: True and the root (py_tree) if a root has this id. False, None else
-        """
-        name = None
-        data = None
-        try:
-            name = root['name']
-            data = root['data']
-        except KeyError:
-            pass
-        try:
-            state, root_node = behavior.behavior.types[root['type']](name, data, None)
-        except KeyError:
-            return False, None
-        if not state:
-            return False, None
-        return True, root_node
 
     def build_tree(self, json_node, bt):
         """
@@ -195,14 +174,12 @@ class Play:
                 grandson = self.behavior_tree_dict[child['wires'][0][0]]
                 name = None
                 data = None
-                if child['name'] != "":
-                    name = child['name']
                 try:
+                    name = child['name']
                     data = child['data']
                 except KeyError:
                     pass
                 state, node_py_tree = behavior.behavior.types[child['type']](name=name, data=data, child=grandson)
-                print(state, node_py_tree)
                 if not state:
                     return False, child['id']
                 self.behavior_tree_dict[child['id']] = node_py_tree
@@ -213,15 +190,34 @@ class Play:
             self.build_tree(child, bt)
         return True, None
 
+    def build_decorator(self, node, bt):
+        if node['type'] in behavior.behavior.decorators:
+            state, child = self.find_by_id(node['wires'][0][0], bt)
+            if child['type'] in behavior.behavior.decorators:
+                self.build_decorator(child, bt)
+            else:
+                name = None
+                data = None
+                if node['name'] != "":
+                    name = node['name']
+                try:
+                    data = node['data']
+                except KeyError:
+                    pass
+                child = self.behavior_tree_dict[child['id']]
+                state, node_py_tree = behavior.behavior.types[node['type']](name=name, data=data, child=child)
+                if not state:
+                    return False, child['id']
+                self.behavior_tree_dict[node['id']] = node_py_tree
+
     def build_nodes(self, bt):
         self.behavior_tree_dict = {}
         for node_json in bt:
             name = None
             data = None
             try:
-                if node_json['name'] != "":
-                    name = node_json['name']
-                    data = node_json['data']
+                name = node_json['name']
+                data = node_json['data']
             except KeyError:
                 pass
             if node_json['type'] != "tab" and node_json['type'] != "root" and node_json[
