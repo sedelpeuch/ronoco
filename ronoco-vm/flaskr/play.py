@@ -131,7 +131,6 @@ class Play:
         """
         Builds the behaviour tree as a py_tree object from its root using a bfs algorithm
         :param json_node: a node of a tree in json format
-        :param bt_node: a node of a tree in py_tree format
         :param bt: a json representing a behaviour tree (export of nodered)
         :return: True and None if tree has been built. False and the id of the last block built if it could not be built
         """
@@ -167,6 +166,8 @@ class Play:
 
         # Sort the children according to their ascending y-position. This ensures that children run from top to bottom
         children.sort(key=get_y)
+
+        # For each child verify if it's a decorator then connect child with his father
         for child in children:
             if child['type'] in behavior.behavior.decorators:
                 if len(child['wires'][0]) != 1:
@@ -191,6 +192,13 @@ class Play:
         return True, None
 
     def build_decorator(self, node, bt):
+        """
+        Transforms a decorator from a json to a py_tree object. In order to build the decorators it is necessary
+        that the other blocks are already built
+        :param node: the decorator in json format
+        :param bt: a json representing a behaviour tree (export of nodered)
+        :return: True, None if everything is ok, False and an id else
+        """
         if node['type'] in behavior.behavior.decorators:
             state, child = self.find_by_id(node['wires'][0][0], bt)
             if child['type'] in behavior.behavior.decorators:
@@ -211,6 +219,12 @@ class Play:
                 self.behavior_tree_dict[node['id']] = node_py_tree
 
     def build_nodes(self, bt):
+        """
+        Transforms all the nodes of the tree from json form to py_tree form. This function does not handle decorator
+        blocks that need special treatment concerning their children
+        :param bt: a json representing a behaviour tree (export of nodered)
+        :return: True, None if everything is ok, False and an id else
+        """
         self.behavior_tree_dict = {}
         for node_json in bt:
             name = None
