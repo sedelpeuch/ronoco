@@ -62,6 +62,7 @@ class Play:
 
             # find block with id "root" in json
             roots = self.find_roots(bt)
+            print(roots)
             if not roots:
                 return {"Error": "json contains 0 valid roots"}, 400
 
@@ -88,12 +89,19 @@ class Play:
                     return {"Error": "Block (or child of this block) with id " + result + " is incorrect"}, 400
 
             # for each tree execute it with tick() method
-            for tree in trees:
-                py_trees.display.render_dot_tree(self.behavior_tree_dict[tree['id']])
-                self.behavior_tree = py_trees.trees.BehaviourTree(root=self.behavior_tree_dict[tree['id']])
+            for i in range(len(trees)):
+                py_trees.display.render_dot_tree(self.behavior_tree_dict[trees[i]['id']])
+                self.behavior_tree = py_trees.trees.BehaviourTree(root=self.behavior_tree_dict[trees[i]['id']])
                 self.behavior_tree.setup(15)
+                times = None
+                if roots[i]['data'] == "once":
+                    times = 1
+                elif roots[i]['data'] == "infinite":
+                    times = -1
+                elif roots[i]['data'] == "number":
+                    times = int(roots[i]['number'])
                 try:
-                    self.behavior_tree.tick()
+                    self.behavior_tree.tick_tock(50, times)
                 except KeyboardInterrupt:
                     self.behavior_tree.interrupt()
             return {"Success": "All behavior trees has been executed"}, 200
@@ -109,6 +117,13 @@ class Play:
         for node in bt:
             try:
                 if node['type'] == 'root':
+                    if node['data'] == "number":
+                        try:
+                            int(node['number'])
+                        except KeyError:
+                            return list()
+                        except ValueError:
+                            return list()
                     roots.append(node)
             except TypeError:
                 return list()
@@ -236,7 +251,10 @@ class Play:
                 pass
             if node_json['type'] != "tab" and node_json['type'] != "root" and node_json[
                 'type'] not in behavior.behavior.decorators:
-                state, node_py_tree = behavior.behavior.types[node_json['type']](name=name, data=data, child=None)
+                try:
+                    state, node_py_tree = behavior.behavior.types[node_json['type']](name=name, data=data, child=None)
+                except KeyError:
+                    return False, node_json['id']
                 if not state:
                     return False, node_json['id']
                 self.behavior_tree_dict[node_json['id']] = node_py_tree
