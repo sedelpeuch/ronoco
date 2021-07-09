@@ -110,49 +110,22 @@ class TestPlayEndpoint(unittest.TestCase):
         self.assertEqual(state, False)
         self.assertEqual(result, None)
 
-    def test_build_root(self):
-        root = self.Play.find_roots(self.bt)
-        self.assertEqual(root[0]['id'], "28cbcd7c.301762")
-        state, child = self.Play.find_by_id(root[0]['wires'][0][0], self.bt)
-
-        state, result = self.Play.build_root(child)
-        self.assertEqual(True, state)
-        child['type'] = "i'm a teapot"
-        state, result = self.Play.build_root(child)
-        self.assertEqual(False, state)
-
     def test_build_tree(self):
         for _ in range(4):
             rv = requests.post("http://localhost:5000/free/", json={"compliant": "True"})
             rv = requests.post("http://localhost:5000/point/add/free")
 
+        self.Play.build_nodes(self.bt)
+        for node in self.bt:
+            self.Play.build_decorator(node, self.bt)
+
         root = self.Play.find_roots(self.bt)
         self.assertEqual(root[0]['id'], "28cbcd7c.301762")
         state, child = self.Play.find_by_id(root[0]['wires'][0][0], self.bt)
-
-        state, node_bt = self.Play.build_root(child)
         self.assertEqual(True, state)
         # Classic run
-        state, result = self.Play.build_tree(child, node_bt, self.bt)
+        state, result = self.Play.build_tree(child, self.bt)
         self.assertEqual(True, state)
-
-        # Unknown type
-        state, node_json = self.Play.find_by_id(child['wires'][0][0], self.bt)
-        node_json['type'] = "i'm a teapot"
-        state, result = self.Play.build_tree(child, node_bt, self.bt)
-        self.assertEqual(False, state)
-
-        # No child node
-        state, node_json = self.Play.find_by_id(child['wires'][0][0], self.bt)
-        node_json['wires'] = ""
-        state, result = self.Play.build_tree(child, node_bt, self.bt)
-        self.assertEqual(False, state)
-
-        # Unknown id
-        state, node_json = self.Play.find_by_id(child['wires'][0][0], self.bt)
-        node_json['id'] = "i'm a super teapot"
-        state, result = self.Play.build_tree(child, node_bt, self.bt)
-        self.assertEqual(False, state)
 
     def test_play(self):
         response = requests.post("http://localhost:5000/play/", json={"behavior-tree": self.bt})
