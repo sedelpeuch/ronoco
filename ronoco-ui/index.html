@@ -12,6 +12,7 @@
     <script type="module" src="src/play.js"></script>
 </head>
 <body>
+<div class="ronoco">
 <div class="ronoco-ui" id="ronoco-ui">
     <div class="common">
         <div class="button-icon" id="startStop">
@@ -60,15 +61,20 @@
             </form>
         </div>
     </div>
+    <div class="logger" id="logger-container">
+        <button class="button-icon" id="ClearLog" onclick="clearLog()">
+            Clear Log
+        </button>
+        <pre id="logger"></pre>
+    </div>
 </div>
-<div class="logger" id="logger-container">
-    <button class="button-icon" id="ClearLog" onclick="clearLog()">
-        Clear Log
-    </button>
-    <pre id="logger"></pre>
+    <div class="ronoco-nodered">
+        <iframe id="inlineFrameExample"
+                src="http://localhost:1880"
+                width="100%"
+                height="100%"></iframe>
+    </div>
 </div>
-<iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
-
 <script>
     const heightDocument = document.documentElement.scrollHeight
     function clearLog(){
@@ -77,5 +83,6 @@
     }
     const date = new Date()
 </script>
+<iframe name="dummyframe" id="dummyframe" style="display: none;"></iframe>
 </body>
 </html>
