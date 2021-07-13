@@ -1,5 +1,5 @@
 """
-This file implements the endpoint play allowing, to transform a json representing a behaviour tree into a behaviour tree
+This file implements the endpoint compute allowing, to transform a json representing a behaviour tree into a behaviour tree
 as a py_tree object then to execute it
 """
 
@@ -10,24 +10,27 @@ from werkzeug.exceptions import BadRequest
 from flaskr import behavior
 
 
-class Play:
+class Control:
     """
-    Definition of the endpoint play to analyse and execute behaviour trees
+    Definition of the endpoint compute to analyse and execute behaviour trees
     """
 
-    def __init__(self):
-        self.bp = Blueprint('play_endpoint', __name__, url_prefix='/play')
+    def __init__(self, socketio):
+        self.bp = Blueprint('control_endpoint', __name__, url_prefix='/control')
 
-        self.bp.route('/', methods=['POST'])(self.play)
+        self.bp.route('/', methods=['POST'])(self.compute)
         self.bp.route('/stop', methods=['GET'])(self.stop)
         self.behavior_tree = None
         self.behavior_tree_dict = {}
+        self.trees = None
+        self.roots = None
+        self.socketio = socketio
 
-    def play(self):
+    def compute(self):
         """
         POST Method
 
-        ROUTE /play/
+        ROUTE /compute/
 
         POST body : an export of nodered tree
 
@@ -64,7 +67,6 @@ class Play:
             self.roots = self.find_roots(bt)
             if not self.roots:
                 return {"Error": "json contains 0 valid roots"}, 400
-
             state, result = self.build_nodes(bt)
             for node in bt:
                 self.build_decorator(node, bt)
@@ -72,7 +74,8 @@ class Play:
                 return {"Error": "Block (or child of this block) with id " + result + " is incorrect"}, 400
 
             # for each root in json build first root in py_tree and store it in trees
-            for root in roots:
+            self.roots.sort(key=self.get_y)
+            for root in self.roots:
                 if len(root['wires'][0]) != 1:
                     return {"Error": "Tree with root id " + root['id'] + " is incorrect"}, 400
                 else:
@@ -86,6 +89,11 @@ class Play:
                 state, result = self.build_tree(tree, bt)
                 if not state:
                     return {"Error": "Block (or child of this block) with id " + result + " is incorrect"}, 400
+            self.trees = trees
+            # thread = threading.Thread(target=self.play)
+            # thread.start()
+            self.play()
+            return {"Success": "All trees have been executed"}, 200
 
             # for each tree execute it with tick() method
             for i in range(len(trees)):
@@ -141,6 +149,15 @@ class Play:
                 return True, node
         return False, None
 
+    def get_y(self, elem):
+        """
+        Return y position of an element
+        """
+        try:
+            return elem['y']
+        except KeyError:
+            pass
+
     def build_tree(self, json_node, bt):
         """
         Builds the behaviour tree as a py_tree object from its root using a bfs algorithm
@@ -169,17 +186,8 @@ class Play:
             else:
                 return False, identifiant
 
-        def get_y(elem):
-            """
-            Return y position of an element
-            """
-            try:
-                return elem['y']
-            except KeyError:
-                pass
-
         # Sort the children according to their ascending y-position. This ensures that children run from top to bottom
-        children.sort(key=get_y)
+        children.sort(key=self.get_y)
 
         # For each child verify if it's a decorator then connect child with his father
         for child in children:
