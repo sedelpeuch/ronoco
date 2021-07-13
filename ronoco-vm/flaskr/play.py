@@ -61,9 +61,8 @@ class Play:
                 return {"Error": "json is empty"}, 400
 
             # find block with id "root" in json
-            roots = self.find_roots(bt)
-            print(roots)
-            if not roots:
+            self.roots = self.find_roots(bt)
+            if not self.roots:
                 return {"Error": "json contains 0 valid roots"}, 400
 
             state, result = self.build_nodes(bt)
