@@ -90,18 +90,14 @@ class Control:
                 if not state:
                     return {"Error": "Block (or child of this block) with id " + result + " is incorrect"}, 400
             self.trees = trees
-            # thread = threading.Thread(target=self.play)
-            # thread.start()
             self.play()
             return {"Success": "All trees have been executed"}, 200
-
-    def control_log(self, data):
-        self.socketio.emit('control_log', data, namespace='/control_log')
 
     def play(self):
         # for each tree execute it with tick() method
         for i in range(len(self.trees)):
-            self.control_log({"Info": "Starting excution of tree" + self.roots[i]['name']})
+            self.socketio.emit('control_log', {"Info": "Starting excution of tree" + self.roots[i]['name']},
+                               namespace='/control_log')
             py_trees.display.render_dot_tree(self.behavior_tree_dict[self.trees[i]['id']])
             self.behavior_tree = py_trees.trees.BehaviourTree(root=self.behavior_tree_dict[self.trees[i]['id']])
             self.behavior_tree.setup(15)
