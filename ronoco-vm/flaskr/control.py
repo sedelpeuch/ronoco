@@ -95,23 +95,28 @@ class Control:
             self.play()
             return {"Success": "All trees have been executed"}, 200
 
-            # for each tree execute it with tick() method
-            for i in range(len(trees)):
-                py_trees.display.render_dot_tree(self.behavior_tree_dict[trees[i]['id']])
-                self.behavior_tree = py_trees.trees.BehaviourTree(root=self.behavior_tree_dict[trees[i]['id']])
-                self.behavior_tree.setup(15)
-                times = None
-                if roots[i]['data'] == "once":
-                    times = 1
-                elif roots[i]['data'] == "infinite":
-                    times = -1
-                elif roots[i]['data'] == "number":
-                    times = int(roots[i]['number'])
-                try:
-                    self.behavior_tree.tick_tock(50, times)
-                except KeyboardInterrupt:
-                    self.behavior_tree.interrupt()
-            return {"Success": "All behavior trees has been executed"}, 200
+    def control_log(self, data):
+        self.socketio.emit('control_log', data, namespace='/control_log')
+
+    def play(self):
+        # for each tree execute it with tick() method
+        for i in range(len(self.trees)):
+            self.control_log({"Info": "Starting excution of tree" + self.roots[i]['name']})
+            py_trees.display.render_dot_tree(self.behavior_tree_dict[self.trees[i]['id']])
+            self.behavior_tree = py_trees.trees.BehaviourTree(root=self.behavior_tree_dict[self.trees[i]['id']])
+            self.behavior_tree.setup(15)
+            times = None
+            if self.roots[i]['data'] == "once":
+                times = 1
+            elif self.roots[i]['data'] == "infinite":
+                times = -1
+            elif self.roots[i]['data'] == "number":
+                times = int(self.roots[i]['number'])
+            try:
+                self.behavior_tree.tick_tock(50, times)
+            except KeyboardInterrupt:
+                self.behavior_tree.interrupt()
+        return {"Success": "All behavior trees has been executed"}, 200
 
     @staticmethod
     def find_roots(bt):
