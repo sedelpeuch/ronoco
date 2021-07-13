@@ -30,7 +30,7 @@ export {get, post};
                 temp = temp.replace(/[:]/g, '')
                 temp = temp.replace("Error", "Error".fontcolor("red"))
                 temp = temp.replace("Success", "Success".fontcolor("green"))
-                temp = temp.replace("Add", "Add".fontcolor("blue"))
+                temp = temp.replace("Info", "Info".fontcolor("blue"))
                 output += temp
             } else {
                 output += arg;
