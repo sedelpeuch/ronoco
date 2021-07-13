@@ -1,15 +1,17 @@
 <script type="text/javascript">
-    RED.nodes.registerType('root',{
+    RED.nodes.registerType('root', {
         category: 'ronoco',
         color: '#fca918',
         defaults: {
-            name: {value:""}
+            name: {value: ""},
+            data: {value: "", required: true},
+            number: {value: ""}
         },
-        inputs:0,
-        outputs:1,
+        inputs: 0,
+        outputs: 1,
         icon: "icons/root.svg",
-        label: function() {
-            return this.name||"root";
+        label: function () {
+            return this.name || "root";
         }
     });
 </script>
@@ -19,8 +21,37 @@
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
+    <div class="form-row">
+        <label for="node-input-data"><i class="fa fa-tag"></i> Execution Mode</label>
+        <select name="node-input-data" id="node-input-data">
+            <option value="">--Please choose an option--</option>
+            <option value="once">One time</option>
+            <option value="number">Specific number of times</option>
+            <option value="infinite">Infinite repetition</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-number"><i class="fa fa-tag"></i> Number of repetition</label>
+        <input type="text" id="node-input-number" placeholder="number">
+    </div>
 </script>
 
 <script type="text/html" data-help-name="root">
-    <p>A simple node that converts the message payloads into all lower-case characters</p>
+    <h3>Description </h3>
+    <p>This initial block of any behaviour tree.</p>
+    <p>The block must be followed by a single architecture block (orange) or a single leaf (blue).</p>
+    <h3>Parameters</h3>
+    <h4>Name</h4>
+    String - name of current block - optional
+    <h4>Execution Mode</h4>
+    Execution mode of the tree, i.e. the number of times the tree will be executed
+    <ul>
+        <li> Once</li>
+        <li> A specific number of times: the number is to be specified in the following parameter</li>
+        <li> Infinitely : the execution can be stopped only by a GET request on the URL /play/stop or by pressing the
+            stop button of ronoco-ui
+        </li>
+    </ul>
+    <h4>Number of repetition</h4>
+    Desired number of executions. To be specified only if Execution Mode is set to "specific number of times"
 </script>

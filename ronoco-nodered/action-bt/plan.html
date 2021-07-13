@@ -6,9 +6,9 @@
             name: {value: ""},
             data: {value: "", required: true}
         },
-        credential:{
+        credential: {
             name: {},
-            data:{}
+            data: {}
         },
         inputs: 1,
         outputs: 0,
@@ -31,5 +31,13 @@
 </script>
 
 <script type="text/html" data-help-name="plan">
-    <p>A simple node that converts the message payloads into all lower-case characters</p>
+    <h3>Description </h3>
+    <p>Block to plan the movement of the robot end effector to a point previously registered in the ros parameters
+        server (on the name "cartesianPoints").</p>
+    <h3>Parameters</h3>
+    <h4>Name</h4>
+    String - name of current block
+    <h4>Data</h4>
+    <p> The identifier of the point in the ros parameter server (on the name "cartesianPoints"). Use Ronoco-ui to find
+        out which points are registered</p>
 </script>

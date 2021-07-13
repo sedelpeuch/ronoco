@@ -1,15 +1,15 @@
 <script type="text/javascript">
-    RED.nodes.registerType('sequence',{
+    RED.nodes.registerType('sequence', {
         category: 'ronoco',
         color: '#fca918',
         defaults: {
-            name: {value:""}
+            name: {value: ""}
         },
-        inputs:1,
-        outputs:1,
+        inputs: 1,
+        outputs: 1,
         icon: "icons/right-arrow.svg",
-        label: function() {
-            return this.name||"sequence";
+        label: function () {
+            return this.name || "sequence";
         }
     });
 </script>
@@ -22,5 +22,10 @@
 </script>
 
 <script type="text/html" data-help-name="sequence">
-    <p>A simple node that converts the message payloads into all lower-case characters</p>
+    <h3>Description </h3>
+    <p>A sequence will progressively tick over each of its children so long as
+        each child returns py_trees.common.Status.SUCCESS. If any child returns
+        FAILURE or RUNNING the sequence will halt and the parent will
+        adopt the result of this child. If it reaches the last child, it returns with
+        that result regardless.</p>
 </script>
