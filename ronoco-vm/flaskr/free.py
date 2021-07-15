@@ -34,7 +34,7 @@ def free():
         + Args: data
     :return: if everything is ok : {"compliant":"True"/"False"} else an HttpError
     """
-    if common.Common().robot_state()[0]['robot_state']:
+    if common.Common().robot_state():
         global compliant
         if request.method == 'POST':
             data = request.get_json()
