@@ -3,12 +3,11 @@ import unittest
 import requests
 
 from flaskr import control
-from flaskr import run
 
 
 class TestControlEndpoint(unittest.TestCase):
     def setUp(self) -> None:
-        self.Control = control.Control(run.socketio)
+        self.Control = control.Control()
         self.bt = [
             {
                 "id": "8a2e35b6.d07718",
@@ -124,7 +123,7 @@ class TestControlEndpoint(unittest.TestCase):
 
     def test_play(self):
         response = requests.post("http://localhost:5000/control/", json={"behavior-tree": self.bt})
-        self.assertEqual(200, response.status_code)
+        self.assertEqual(409, response.status_code)
 
         response = requests.post("http://localhost:5000/control/", json={"behavior-tree": None})
         self.assertEqual(400, response.status_code)
