@@ -10,7 +10,7 @@ from flask_socketio import SocketIO
 from werkzeug.debug import DebuggedApplication
 
 import rospy
-from flaskr import topic_callback
+from flaskr import topic_callback, config
 from visualization_msgs.msg import InteractiveMarkerUpdate
 
 
@@ -24,12 +24,12 @@ class RonocoVm:
         Launch flask server when RonocoVm is created (this constructor uses SocketIO)
         """
         self.create_app()
-        self.socketio = SocketIO(self.app, logger=True, cors_allowed_origins='*')
+        config.socketio = SocketIO(self.app, logger=True, cors_allowed_origins='*')
         self.setup_app()
         rospy.init_node('user')
         self.subscribe_topic()
         rospy.loginfo("User root is serving the Web app")
-        self.socketio.run(self.app)
+        config.socketio.run(self.app)
 
     def create_app(self, test_config=None):
         """
@@ -69,7 +69,7 @@ class RonocoVm:
         self.app.register_blueprint(cartesian_point.CartesianPoint().bp)
 
         from flaskr import control
-        self.app.register_blueprint(control.Control(self.socketio).bp)
+        self.app.register_blueprint(control.Control().bp)
 
         from flaskr import common
         self.app.register_blueprint(common.Common().bp)
