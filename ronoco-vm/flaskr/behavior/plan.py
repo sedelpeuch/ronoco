@@ -7,6 +7,7 @@ Implementation of the action-bt plan allowing the robot to plan to a point
 import py_trees
 
 from flaskr import behavior
+from flaskr import logger
 
 
 class Plan(py_trees.behaviour.Behaviour):
@@ -42,6 +43,7 @@ class Plan(py_trees.behaviour.Behaviour):
         :return:
         """
         self.logger.debug("  %s [Plan::update()]" % self.name)
+        logger.debug("Execute block " + self.name)
         result = self.commander.plan()
         if not result:
             return py_trees.common.Status.FAILURE

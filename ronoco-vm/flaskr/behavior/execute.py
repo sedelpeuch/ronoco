@@ -6,7 +6,7 @@ Implementation of the action-bt execute allowing the robot to move to a point
 
 import py_trees
 
-from flaskr import behavior
+from flaskr import behavior, logger
 
 
 class Execute(py_trees.behaviour.Behaviour):
@@ -42,6 +42,7 @@ class Execute(py_trees.behaviour.Behaviour):
         :return:
         """
         self.logger.debug("  %s [Execute::update()]" % self.name)
+        logger.debug("Execute block " + self.name)
         result = self.commander.go()
         if not result:
             return py_trees.common.Status.FAILURE

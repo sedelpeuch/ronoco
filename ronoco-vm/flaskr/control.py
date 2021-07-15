@@ -1,6 +1,6 @@
 """
-This file implements the endpoint compute allowing, to transform a json representing a behaviour tree into a behaviour tree
-as a py_tree object then to execute it
+This file implements the endpoint compute allowing, to transform a json representing a behaviour tree into a behaviour
+tree as a py_tree object then to execute it
 """
 
 import py_trees
@@ -8,6 +8,7 @@ from flask import Blueprint, request
 from werkzeug.exceptions import BadRequest
 
 from flaskr import behavior
+from flaskr import logger
 
 
 class Control:
@@ -15,7 +16,7 @@ class Control:
     Definition of the endpoint compute to analyse and execute behaviour trees
     """
 
-    def __init__(self, socketio):
+    def __init__(self):
         self.bp = Blueprint('control_endpoint', __name__, url_prefix='/control')
 
         self.bp.route('/', methods=['POST'])(self.compute)
@@ -24,7 +25,6 @@ class Control:
         self.behavior_tree_dict = {}
         self.trees = None
         self.roots = None
-        self.socketio = socketio
 
     def compute(self):
         """
@@ -35,8 +35,8 @@ class Control:
         POST body : an export of nodered tree
 
         This method is the main method of the endpoint to transform the json from nodered (or any other tool respecting
-        the json syntax) into a behaviour tree with the py_tree package. Once built, the method executes the different
-        trees.
+        the json syntax) into a behaviour tree with the py_tree package. Once built, the method call play then executes
+        the different trees.
 
         Every behaviour tree starts with a root block, blocks that are not connected (directly or indirectly) to a root
         are ignored.
@@ -90,14 +90,17 @@ class Control:
                 if not state:
                     return {"Error": "Block (or child of this block) with id " + result + " is incorrect"}, 400
             self.trees = trees
-            self.play()
-            return {"Success": "All trees have been executed"}, 200
+            return self.play()
 
     def play(self):
+        """
+        Browse the list of previously constructed trees and execute them using the tick_tock method
+        :return: Message with code 200 if all trees has been executed, code 409 else
+        """
+        Status = py_trees.common.Status
         # for each tree execute it with tick() method
         for i in range(len(self.trees)):
-            self.socketio.emit('control_log', {"Info": "Starting excution of tree" + self.roots[i]['name']},
-                               namespace='/control_log')
+            logger.info("Starting execution of tree " + self.roots[i]['name'])
             py_trees.display.render_dot_tree(self.behavior_tree_dict[self.trees[i]['id']])
             self.behavior_tree = py_trees.trees.BehaviourTree(root=self.behavior_tree_dict[self.trees[i]['id']])
             self.behavior_tree.setup(15)
@@ -112,6 +115,8 @@ class Control:
                 self.behavior_tree.tick_tock(50, times)
             except KeyboardInterrupt:
                 self.behavior_tree.interrupt()
+            if self.behavior_tree.tip().status == Status.FAILURE:
+                return {"Error": "Tree with root's name :" + self.roots[i]['name'] + " can't be executed"}, 409
         return {"Success": "All behavior trees has been executed"}, 200
 
     @staticmethod
@@ -150,7 +155,8 @@ class Control:
                 return True, node
         return False, None
 
-    def get_y(self, elem):
+    @staticmethod
+    def get_y(elem):
         """
         Return y position of an element
         """
@@ -257,8 +263,8 @@ class Control:
                 data = node_json['data']
             except KeyError:
                 pass
-            if node_json['type'] != "tab" and node_json['type'] != "root" and node_json[
-                'type'] not in behavior.behavior.decorators:
+            if node_json['type'] != "tab" and node_json['type'] != "root" \
+                    and node_json['type'] not in behavior.behavior.decorators:
                 try:
                     state, node_py_tree = behavior.behavior.types[node_json['type']](name=name, data=data, child=None)
                 except KeyError:
