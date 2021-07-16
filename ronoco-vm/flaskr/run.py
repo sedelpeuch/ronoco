@@ -25,9 +25,9 @@ class RonocoVm:
         """
         self.create_app()
         config.socketio = SocketIO(self.app, logger=True, cors_allowed_origins='*')
+        self.subscribe_topic()
         self.setup_app()
         rospy.init_node('user')
-        self.subscribe_topic()
         rospy.loginfo("User root is serving the Web app")
         config.socketio.run(self.app)
 

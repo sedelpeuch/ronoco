@@ -1,11 +1,11 @@
 """
 This file implements the common endpoint
 """
+import threading
 import time
 from threading import Timer
 
 from flask import Blueprint
-from flask import request
 
 import rospy
 from flaskr import config
@@ -23,18 +23,17 @@ class Common:
 
         self.bp.route('/', methods=['GET'])(self.index)
         self.bp.route('/shutdown')(self.shutdown)
-        self.rt = RepeatedTimer(30.0, self.send_states)  # threading.Timer
-        self.robot = False
-        self.rviz = False
+        self.rt = threading.Thread(target=self.send_states, daemon=True)
+        self.rt.start()
 
     def send_states(self):
         """
         This function checks if the state of the robot or rviz has changed. If so, it sends a message to the
         websocket's states channel
         """
-        if self.robot != self.robot_state() or self.rviz != self.rviz_state():
-            self.robot = self.robot_state()
-            self.rviz = self.rviz_state()
+        while True:
+            print("I'm called")
+            time.sleep(5.0)
             config.socketio.emit('states', {"robot_state": self.robot_state(), "rviz_state": self.rviz_state()},
                                  namespace='/states')
 
@@ -79,28 +78,13 @@ class Common:
         """
         Shutdown server
         """
-        self.shutdown_server()
-        self.rt.stop()
+        config.socketio.stop()
         return {"Info": 'Server shutting down...'}, 200
 
-    @staticmethod
-    def shutdown_server():
-        """
-        Call werkzeug.server.shutdown to shutdown server
-        """
-        func = request.environ.get('werkzeug.server.shutdown')
-        if func is None:
-            raise RuntimeError('Not running with the Werkzeug Server')
-        func()
 
-
-class RepeatedTimer(object):
-    """
-    This class allows to create a repeated thread thanks to a Timer
-    """
-
+class RepeatedTimer:
     def __init__(self, interval, function, *args, **kwargs):
-        self._timer = None
+        self.timer = None
         self.interval = interval
         self.function = function
         self.args = args
@@ -109,25 +93,17 @@ class RepeatedTimer(object):
         self.start()
 
     def _run(self):
-        """
-        Auto start
-        """
         self.is_running = False
         self.start()
         self.function(*self.args, **self.kwargs)
 
     def start(self):
-        """
-        Starter
-        """
         if not self.is_running:
-            self._timer = Timer(self.interval, self._run)
-            self._timer.start()
+            self.timer = Timer(self.interval, self._run)
+            self.timer.daemon = True
+            self.timer.start()
             self.is_running = True
 
     def stop(self):
-        """
-        Stopper
-        """
-        self._timer.cancel()
+        self.timer.cancel()
         self.is_running = False
