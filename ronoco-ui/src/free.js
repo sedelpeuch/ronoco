@@ -12,6 +12,13 @@ async function callingRobotState() {
 }
 document.getElementById('robotState').addEventListener('click',callingRobotState)
 
+
+async function shutdown(){
+    let result = await get("http://127.0.0.1:5000/shutdown")
+    console.logger(result)
+}
+document.getElementById('startStop').addEventListener('click',shutdown)
+
 /**
  * Change current robot state with a post request on /free/
  * @returns {Promise<void>}

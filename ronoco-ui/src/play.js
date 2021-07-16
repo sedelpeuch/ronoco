@@ -9,8 +9,3 @@ async function launchExecution() {
     console.logger(result)
 }
 document.getElementById('launch').addEventListener('click',launchExecution)
-
-var socket = io.connect('http://localhost:5000/control_log');
-socket.on('connect', function(msg) {
-    console.log("i'm connected")});
-socket.on('control_log', function(msg){console.logger(msg)})
