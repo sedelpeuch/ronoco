@@ -31,6 +31,8 @@ export {get, post};
                 temp = temp.replace("Error", "Error".fontcolor("red"))
                 temp = temp.replace("Success", "Success".fontcolor("green"))
                 temp = temp.replace("Info", "Info".fontcolor("blue"))
+                temp = temp.replace("Warning", "Warning".fontcolor("orange"))
+                temp = temp.replace("Debug", "Debug".fontcolor("blue"))
                 output += temp
             } else {
                 output += arg;
@@ -58,12 +60,11 @@ async function get(url) {
         method: 'GET',
         headers: headers,
     })
-    if (response.ok) {
-        return await response.json()
-    } else {
-        return await response.json()
-
-    }
+        .catch(function () {
+            console.logger({"Error": "Ronoco-vm is not running"})
+            document.getElementById("state").src = "/static/circle_red.svg"
+        })
+    return await response.json()
 }
 
 /**
@@ -82,9 +83,41 @@ async function post(url, data) {
         headers: headers,
         body: JSON.stringify(data)
     })
-    if (response.ok) {
-        return await response.json()
-    } else {
-        return await response.json()
-    }
+        .catch(function () {
+            console.logger({"Error": "Ronoco-vm is not running"})
+            document.getElementById("state").src = "/static/circle_red.svg"
+        })
+    return await response.json()
 }
+
+async function connect_io() {
+    let socket2
+    try {
+        socket2 = io.connect('http://localhost:5000/states');
+    } catch (error) {
+        console.logger({"Error": "Ronoco-vm is not running, launch it then refresh Ronoco-ui"})
+        document.getElementById("state").src = "/static/circle_red.svg"
+    }
+    socket2.on('connect', function (msg) {
+        console.log("i'm connected to states chanel")
+    });
+    socket2.on('states', function (msg) {
+        console.log(msg)
+        if (msg['robot_state'] === false ||
+            msg['rviz_state'] === false) {
+            document.getElementById("state").src = "/static/circle_yellow.svg"
+        } else {
+            document.getElementById("state").src = "/static/circle_green.svg"
+        }
+    })
+
+    const socket = io.connect('http://localhost:5000/control_log');
+    socket.on('connect', function (msg) {
+        console.log("i'm connected to control_log chanel")
+    });
+    socket.on('control_log', function (msg) {
+        console.logger(msg)
+    })
+}
+
+connect_io()
