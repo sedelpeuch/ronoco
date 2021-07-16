@@ -8,6 +8,7 @@
       "parallel": "native-bt/parallel.js",
       "execute": "action-bt/execute.js",
       "plan": "action-bt/plan.js",
+      "cartesian": "action-bt/cartesian.js",
       "vision": "condition-bt/vision.js",
       "condition": "decorator-bt/condition.js",
       "inverter": "decorator-bt/inverter.js",
