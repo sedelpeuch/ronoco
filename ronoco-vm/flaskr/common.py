@@ -32,7 +32,6 @@ class Common:
         websocket's states channel
         """
         while True:
-            print("I'm called")
             time.sleep(5.0)
             config.socketio.emit('states', {"robot_state": self.robot_state(), "rviz_state": self.rviz_state()},
                                  namespace='/states')

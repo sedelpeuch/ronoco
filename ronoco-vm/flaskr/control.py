@@ -260,7 +260,11 @@ class Control:
             data = None
             try:
                 name = node_json['name']
-                data = node_json['data']
+                if node_json['type'] == 'cartesian':
+                    data = {'point_id': node_json['point_id'], 'reliability': node_json['reliability'],
+                            'eef': node_json['eef']}
+                else:
+                    data = node_json['data']
             except KeyError:
                 pass
             if node_json['type'] != "tab" and node_json['type'] != "root" \

@@ -62,18 +62,31 @@ def timeout(name, data, child):
         return False, None
 
 
+def cartesian(name, data, child):
+    if name is None or name == "":
+        name = "Cartesian"
+    if data is None:
+        return False, None
+    state, point = cartesian_point.CartesianPoint().find_db(int(data['point_id']))
+    if not state:
+        return False, None
+    return True, behavior.cartesian.Cartesian(name,
+                                              {"point": point, "reliability": data['reliability'], "eef": data['eef']})
+
+
 types = {'selector': selector,
          'sequence': sequence,
          'parallel': parallel,
          'execute': execute,
          'plan': plan,
+         'cartesian': cartesian,
          'condition': condition,
          'inverter': inverter,
          'timeout': timeout
          }
 
 composites = {'selector', 'sequence', 'parallel'}
-leaf = {'execute', 'plan'}
+leaf = {'execute', 'plan', 'cartesian'}
 decorators = {'condition', 'inverter', 'timeout'}
 states = {"success": py_trees.common.Status.SUCCESS, "failure": py_trees.common.Status.FAILURE,
           "running": py_trees.common.Status.RUNNING}
