@@ -3,7 +3,6 @@ This file implements the common endpoint
 """
 import threading
 import time
-from threading import Timer
 
 from flask import Blueprint
 
@@ -29,7 +28,7 @@ class Common:
     def send_states(self):
         """
         This function checks if the state of the robot or rviz has changed. If so, it sends a message to the
-        websocket's states channel
+        websockets states channel
         """
         while True:
             time.sleep(5.0)
@@ -67,42 +66,21 @@ class Common:
 
     @staticmethod
     def rviz_state():
+        """
+        Check if rviz send data on topic /rviz_moveit_motion_planning_display/robot_interaction_interactive_marker_topic
+        /update
+        :return: False if rviz doesn't send data, True else
+        """
         begin = time.time()
         while topic_callback.position == {}:
             if time.time() - begin > 10:
                 return False
         return True
 
-    def shutdown(self):
+    @staticmethod
+    def shutdown():
         """
-        Shutdown server
+        Shutdown server with config.socketio.stop() (and shutdown send_states() daemon)
         """
         config.socketio.stop()
         return {"Info": 'Server shutting down...'}, 200
-
-
-class RepeatedTimer:
-    def __init__(self, interval, function, *args, **kwargs):
-        self.timer = None
-        self.interval = interval
-        self.function = function
-        self.args = args
-        self.kwargs = kwargs
-        self.is_running = False
-        self.start()
-
-    def _run(self):
-        self.is_running = False
-        self.start()
-        self.function(*self.args, **self.kwargs)
-
-    def start(self):
-        if not self.is_running:
-            self.timer = Timer(self.interval, self._run)
-            self.timer.daemon = True
-            self.timer.start()
-            self.is_running = True
-
-    def stop(self):
-        self.timer.cancel()
-        self.is_running = False

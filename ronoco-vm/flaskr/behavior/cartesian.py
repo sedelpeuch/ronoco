@@ -1,5 +1,5 @@
 """
-Implementation of the action-bt execute allowing the robot to move to a point with a cartesian trajectory
+Implementation of the action-bt cartesian allowing the robot to move to a point with a cartesian trajectory
 """
 # !/usr/bin/env python3
 # -*- coding: utf-8 -*-
@@ -12,8 +12,8 @@ from flaskr import behavior, logger
 
 class Cartesian(py_trees.behaviour.Behaviour):
     """
-    Class inherited from py_tree.behavior.Behavior allowing to define a new behavior. The behaviour is execute, i.e.
-    the movement between the current position and a position given in the constructor parameter.
+    Class inherited from py_tree.behavior.Behavior allowing to define a new behavior. The behaviour is cartesian path,
+    i.e. the cartesian movement between the current position and a position given in the constructor parameter .
     """
 
     def __init__(self, name="Cartesian", data=None):
@@ -22,6 +22,7 @@ class Cartesian(py_trees.behaviour.Behaviour):
         self.reliability = data['reliability']
         self.eef = data['eef']
         self.commander = behavior.behavior.commander
+        self.wpose = None
 
     def setup(self, timeout):
         """
@@ -33,7 +34,7 @@ class Cartesian(py_trees.behaviour.Behaviour):
 
     def initialise(self):
         """
-        Set target goal of commander
+        Set target goal as a PoseStamped()
         """
         self.logger.debug("  %s [Cartesian::initialise()]" % self.name)
         self.wpose = geometry_msgs.msg.PoseStamped()
@@ -47,11 +48,11 @@ class Cartesian(py_trees.behaviour.Behaviour):
 
     def update(self):
         """
-        Execute trajectory after a compute cartesian path
-        :return:
+        Compute cartesian path, then if the reliability is sufficient, execute the trajectory
+        :return: SUCCESS or FAILURE
         """
         self.logger.debug("  %s [Cartesian::update()]" % self.name)
-        logger.debug("Cartesian block " + self.name)
+        logger.debug("Execute block " + self.name)
         plan, fraction = self.commander.compute_cartesian_path([self.wpose.pose], float(self.eef), 0.0)
         if fraction <= int(self.reliability) / 100:
             logger.warn("The Cartesian path has a lower reliability than required")

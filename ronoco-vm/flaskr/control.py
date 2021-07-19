@@ -1,5 +1,5 @@
 """
-This file implements the endpoint compute allowing, to transform a json representing a behaviour tree into a behaviour
+This file implements the endpoint control allowing, to transform a json representing a behaviour tree into a behaviour
 tree as a py_tree object then to execute it
 """
 
@@ -13,7 +13,7 @@ from flaskr import logger
 
 class Control:
     """
-    Definition of the endpoint compute to analyse and execute behaviour trees
+    Definition of the endpoint control to analyse and execute behaviour trees
     """
 
     def __init__(self):
@@ -101,7 +101,7 @@ class Control:
         # for each tree execute it with tick() method
         for i in range(len(self.trees)):
             logger.info("Starting execution of tree " + self.roots[i]['name'])
-            py_trees.display.render_dot_tree(self.behavior_tree_dict[self.trees[i]['id']])
+            # py_trees.display.render_dot_tree(self.behavior_tree_dict[self.trees[i]['id']])
             self.behavior_tree = py_trees.trees.BehaviourTree(root=self.behavior_tree_dict[self.trees[i]['id']])
             self.behavior_tree.setup(15)
             times = None

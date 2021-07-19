@@ -1,5 +1,5 @@
 """
-Recorder classes copy from https://github.com/poppy-project/poppy_controllers/blob/v1.0/src/poppy_ros_control/recorder.py
+Recorder class copy from https://github.com/poppy-project/poppy_controllers/blob/v1.0/src/poppy_ros_control/recorder.py
 """
 import json
 from copy import deepcopy
@@ -49,6 +49,9 @@ def from_dict(trajectory):
 
 
 class RecorderBase(object):
+    """
+    Base attribute for Recorder and Player
+    """
     MAX_POINTS = 10000
 
     def __init__(self):
@@ -58,6 +61,10 @@ class RecorderBase(object):
 
 
 class Recorder(RecorderBase):
+    """
+    Allows record a trajectory
+    """
+
     def __init__(self):
         super(Recorder, self).__init__()
         if not isdir(self._path):
@@ -74,6 +81,10 @@ class Recorder(RecorderBase):
             self._data.append({"js": js, "time": rospy.Time.now().to_sec()})
 
     def start_recording(self):
+        """
+        Start the recording of a trajectory
+        :return: False if a record is already in progress, True else
+        """
         if self._recording:
             rospy.logerr("Recording already in progress...")
             return False
@@ -81,6 +92,11 @@ class Recorder(RecorderBase):
         return True
 
     def stop_and_save(self, trajectory_name):
+        """
+        Stop recording then save it as a json file
+        :param trajectory_name: record's name
+        :return: False if another record is in progress, True else
+        """
         if not self._recording:
             rospy.logerr("Cannot stop recording because no recording was started")
             return False
@@ -95,7 +111,16 @@ class Recorder(RecorderBase):
 
 
 class Player(RecorderBase):
+    """
+    Allows to replay a previously recorded trajectory
+    """
+
     def load(self, trajectory_name):
+        """
+        Find in the trajectory directory json file with a specific name the convert it in a RobotTrajectory
+        :param trajectory_name: name of a previously recorded path
+        :return: None if the trajectory does not exist, a RobotTrajectory else
+        """
         file_path = join(self._path, trajectory_name + ".json")
         if not isfile(file_path):
             rospy.logerr("This trajectory does not exist: '{}'".format(trajectory_name))

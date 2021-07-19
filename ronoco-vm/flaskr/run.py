@@ -23,8 +23,9 @@ class RonocoVm:
         """
         Launch flask server when RonocoVm is created (this constructor uses SocketIO)
         """
+        self.app = None
         self.create_app()
-        config.socketio = SocketIO(self.app, logger=True, cors_allowed_origins='*')
+        config.socketio = SocketIO(self.app, logger=False, cors_allowed_origins='*')
         self.subscribe_topic()
         self.setup_app()
         rospy.init_node('user')
