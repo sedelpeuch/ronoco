@@ -9,8 +9,9 @@ from flask_cors import CORS
 from flask_socketio import SocketIO
 from werkzeug.debug import DebuggedApplication
 
+import config
 import rospy
-from flaskr import topic_callback, config
+import topic_callback
 from visualization_msgs.msg import InteractiveMarkerUpdate
 
 
@@ -66,16 +67,16 @@ class RonocoVm:
         The class attribute "app" must contain an Flask instance
         :return: None
         """
-        from flaskr import cartesian_point
+        import cartesian_point
         self.app.register_blueprint(cartesian_point.CartesianPoint().bp)
 
-        from flaskr import control
+        import control
         self.app.register_blueprint(control.Control().bp)
 
-        from flaskr import common
+        import common
         self.app.register_blueprint(common.Common().bp)
 
-        from flaskr import free
+        import free
         self.app.register_blueprint(free.bp)
 
         CORS(self.app)

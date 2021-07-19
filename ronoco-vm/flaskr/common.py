@@ -6,9 +6,9 @@ import time
 
 from flask import Blueprint
 
+import config
 import rospy
-from flaskr import config
-from flaskr import topic_callback
+import topic_callback
 from roscpp.srv import GetLoggers
 
 

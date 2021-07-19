@@ -1,7 +1,7 @@
 """
 Definition of a logger for the websocket to be displayed in ronoco-ui
 """
-from flaskr import config
+import config
 
 
 def logger(msg):

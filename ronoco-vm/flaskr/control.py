@@ -7,8 +7,8 @@ import py_trees
 from flask import Blueprint, request
 from werkzeug.exceptions import BadRequest
 
-from flaskr import behavior
-from flaskr import logger
+import behavior
+import logger
 
 
 class Control:

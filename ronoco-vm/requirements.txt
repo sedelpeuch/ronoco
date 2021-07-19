@@ -11,8 +11,7 @@ Twisted~=21.2.0
 tornado~=6.1
 autobahn~=21.3.1
 bson~=0.5.10
-pymongo~=3.11.4
 requests~=2.25.1
-py_trees~=2.1.6
+py_trees~=0.7.6
 flask-socketio~=4.3.0
-bottle
+flask-cors~=3.0.10

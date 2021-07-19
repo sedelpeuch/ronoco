@@ -5,9 +5,9 @@ import time
 
 from flask import Blueprint, request
 
+import config
 import rospy
-from flaskr import config
-from flaskr import topic_callback
+import topic_callback
 from moveit_commander import MoveItCommanderException
 from moveit_commander.move_group import MoveGroupCommander
 
