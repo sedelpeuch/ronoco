@@ -5,10 +5,10 @@ Implementation of the action-bt execute allowing the robot to move to a point
 # -*- coding: utf-8 -*-
 
 import py_trees
-from poppy_ros_control.recorder import Recorder
 
 import rospy
 from flaskr import behavior
+from recorder import Recorder
 from std_srvs.srv import SetBool
 
 

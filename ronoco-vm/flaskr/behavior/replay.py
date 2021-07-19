@@ -5,9 +5,9 @@ Implementation of the action-bt execute allowing the robot to move to a point
 # -*- coding: utf-8 -*-
 
 import py_trees
-from poppy_ros_control.recorder import Player
 
 from flaskr import behavior
+from recorder import Player
 
 
 class Replay(py_trees.behaviour.Behaviour):
