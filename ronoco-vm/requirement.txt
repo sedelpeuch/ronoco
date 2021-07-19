@@ -13,3 +13,6 @@ autobahn~=21.3.1
 bson~=0.5.10
 pymongo~=3.11.4
 requests~=2.25.1
+py_trees~=2.1.6
+flask-socketio~=4.3.0
+bottle
