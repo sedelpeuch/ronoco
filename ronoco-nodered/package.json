@@ -9,7 +9,9 @@
       "execute": "action-bt/execute.js",
       "plan": "action-bt/plan.js",
       "cartesian": "action-bt/cartesian.js",
+      "replay": "action-bt/replay.js",
       "vision": "condition-bt/vision.js",
+      "record": "condition-bt/record.js",
       "condition": "decorator-bt/condition.js",
       "inverter": "decorator-bt/inverter.js",
       "timeout": "decorator-bt/timeout.js"
