@@ -9,7 +9,7 @@ import py_trees
 import rospy
 from flaskr import behavior
 from flaskr import logger
-from recorder import Recorder
+from flaskr.recorder import Recorder
 from std_srvs.srv import SetBool
 
 

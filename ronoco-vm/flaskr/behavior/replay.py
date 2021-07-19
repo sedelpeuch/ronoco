@@ -8,7 +8,7 @@ import py_trees
 
 from flaskr import behavior
 from flaskr import logger
-from recorder import Player
+from flaskr.recorder import Player
 
 
 class Replay(py_trees.behaviour.Behaviour):
