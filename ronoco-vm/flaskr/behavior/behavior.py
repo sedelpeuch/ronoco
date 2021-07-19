@@ -74,19 +74,38 @@ def cartesian(name, data, child):
                                               {"point": point, "reliability": data['reliability'], "eef": data['eef']})
 
 
+def record(name, data, child):
+    if name is None or name == "":
+        name = "Record"
+    if data is None:
+        return False, None
+    return True, behavior.record.Record(name,
+                                        {"identifiant": data['identifiant'], "time": data['time']})
+
+
+def replay(name, data, child):
+    if name is None or name == "":
+        name = "Replay"
+    if data is None:
+        return False, None
+    return True, behavior.replay.Replay(name, data)
+
+
 types = {'selector': selector,
          'sequence': sequence,
          'parallel': parallel,
          'execute': execute,
+         'replay': replay,
          'plan': plan,
          'cartesian': cartesian,
          'condition': condition,
          'inverter': inverter,
-         'timeout': timeout
+         'timeout': timeout,
+         'record': record
          }
 
 composites = {'selector', 'sequence', 'parallel'}
-leaf = {'execute', 'plan', 'cartesian'}
+leaf = {'execute', 'plan', 'cartesian', 'record', 'replay'}
 decorators = {'condition', 'inverter', 'timeout'}
 states = {"success": py_trees.common.Status.SUCCESS, "failure": py_trees.common.Status.FAILURE,
           "running": py_trees.common.Status.RUNNING}

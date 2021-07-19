@@ -263,6 +263,8 @@ class Control:
                 if node_json['type'] == 'cartesian':
                     data = {'point_id': node_json['point_id'], 'reliability': node_json['reliability'],
                             'eef': node_json['eef']}
+                elif node_json['type'] == 'record':
+                    data = {'identifiant': node_json['identifiant'], 'time': node_json['time']}
                 else:
                     data = node_json['data']
             except KeyError:
