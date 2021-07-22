@@ -151,11 +151,9 @@ class CartesianPoint:
         :return: id for new cartesian point if everything is ok, a 408 error else
         """
         if request.method == 'POST':
-            begin = time.time()
-            while topic_callback.position == {}:
-                if time.time() - begin > 10:
-                    return {"Error": "Rviz doesn't send response"}, 408
-                rospy.loginfo("Waiting position from Rviz")
+            time.sleep(1)
+            if topic_callback.position == {}:
+                return {"Error": "Rviz doesn't send response"}, 408
             self.add_bd(topic_callback.position)
             return {"Success": "Add cartesian point with id:" + str(self.id - 1)}, 200
 

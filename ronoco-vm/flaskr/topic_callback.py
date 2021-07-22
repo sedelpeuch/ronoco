@@ -11,7 +11,6 @@ def position_callback(data):
     :param data: the message
     """
     global position
-    position = {}
     try:
         pose = data.poses[0].pose.position
         orientation = data.poses[0].pose.orientation
