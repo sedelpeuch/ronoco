@@ -6,6 +6,7 @@ from flask import Blueprint, request
 from werkzeug.exceptions import BadRequest, NotFound
 
 import common
+import config
 import rospy
 from std_srvs.srv import SetBool
 
@@ -37,6 +38,10 @@ def free():
     if common.Common().robot_state():
         global compliant
         if request.method == 'POST':
+            if config.mode is None:
+                return NotFound()
+            if config.mode == "manual":
+                return {'compliant': "manual"}, 200
             data = request.get_json()
             try:
                 compliant = data['compliant']

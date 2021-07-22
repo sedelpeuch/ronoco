@@ -6,6 +6,7 @@ Implementation of the action-bt record allowing the robot to record a trajectory
 
 import py_trees
 
+import config
 import rospy
 from flaskr import behavior
 from flaskr import logger
@@ -26,6 +27,12 @@ class Record(py_trees.behaviour.Behaviour):
         self.commander = behavior.behavior.commander
         self.compliance = rospy.ServiceProxy('set_compliant', SetBool)
 
+    def set_compliance(self, bool):
+        if config.mode is None or config.mode == "manual":
+            return
+        else:
+            self.compliance(bool)
+
     def setup(self, timeout):
         """
         No specific treatment
@@ -39,7 +46,7 @@ class Record(py_trees.behaviour.Behaviour):
         Set robot compliance True
         """
         self.logger.debug("  %s [Record::initialise()]" % self.name)
-        self.compliance(True)
+        self.set_compliance(True)
 
     def update(self):
         """
@@ -64,4 +71,4 @@ class Record(py_trees.behaviour.Behaviour):
         Set robot compliance False
         """
         self.logger.debug("  %s [Record::terminate().terminate()][%s->%s]" % (self.name, self.status, new_status))
-        self.compliance(False)
+        self.set_compliance(False)
