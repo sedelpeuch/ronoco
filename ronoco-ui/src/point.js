@@ -7,7 +7,7 @@ import {get, post} from "./common.js"
  * @returns {Promise<void>}
  */
 async function recordPositionRviz() {
-    let result = await post("http://127.0.0.1:5000/point/add/rviz", {})
+    let result = await post("http://127.0.0.1:5000/point/add/simulation", {})
     console.logger(result)
 }
 document.getElementById('rviz').addEventListener('click',recordPositionRviz)
@@ -17,7 +17,7 @@ document.getElementById('rviz').addEventListener('click',recordPositionRviz)
  * @returns {Promise<void>}
  */
 async function recordPositionFree() {
-    let result = await post("http://127.0.0.1:5000/point/add/free", {})
+    let result = await post("http://127.0.0.1:5000/point/add/actual", {})
     console.logger(result)
 }
 
