@@ -1,0 +1,6 @@
+[book]
+authors = ["Sebastien Delpeuch"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Ronoco-documentation"
