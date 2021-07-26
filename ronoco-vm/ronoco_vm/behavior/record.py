@@ -8,9 +8,9 @@ import py_trees
 
 import config
 import rospy
-from flaskr import behavior
-from flaskr import logger
-from flaskr.recorder import Recorder
+from ronoco_vm import behavior
+from ronoco_vm import logger
+from ronoco_vm.recorder import Recorder
 from std_srvs.srv import SetBool
 
 

@@ -4,8 +4,8 @@ commander
 """
 import py_trees
 
-from flaskr import behavior
-from flaskr import cartesian_point
+from ronoco_vm import behavior
+from ronoco_vm import cartesian_point
 
 
 def selector(name, data, child):

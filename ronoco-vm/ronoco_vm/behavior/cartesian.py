@@ -7,7 +7,7 @@ Implementation of the action-bt cartesian allowing the robot to move to a point 
 import py_trees
 
 import geometry_msgs.msg
-from flaskr import behavior, logger
+from ronoco_vm import behavior, logger
 
 
 class Cartesian(py_trees.behaviour.Behaviour):

@@ -6,9 +6,9 @@ Implementation of the action-bt replay allowing the robot to replay a previously
 
 import py_trees
 
-from flaskr import behavior
-from flaskr import logger
-from flaskr.recorder import Player
+from ronoco_vm import behavior
+from ronoco_vm import logger
+from ronoco_vm.recorder import Player
 
 
 class Replay(py_trees.behaviour.Behaviour):

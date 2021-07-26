@@ -8,10 +8,10 @@ socketio = None
 debug = 4
 
 # Move group for moveit
-# move_group = "arm_and_finger"
-move_group = "manipulator"
+move_group = "arm_and_finger"
+# move_group = "manipulator"
 
 # Compliance mode
-mode = None
-# mode = "/set_compliant"
+# mode = None
+mode = "/set_compliant"
 # mode = "manual"

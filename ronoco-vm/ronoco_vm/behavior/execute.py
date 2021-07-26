@@ -6,7 +6,7 @@ Implementation of the action-bt execute allowing the robot to move to a point
 
 import py_trees
 
-from flaskr import behavior, logger
+from ronoco_vm import behavior, logger
 
 
 class Execute(py_trees.behaviour.Behaviour):

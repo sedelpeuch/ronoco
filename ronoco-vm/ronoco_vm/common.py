@@ -80,6 +80,10 @@ class Common:
     @staticmethod
     def shutdown():
         """
+        GET Method
+
+        ROUTE /shutdown
+
         Shutdown server with config.socketio.stop() (and shutdown send_states() daemon)
         """
         config.socketio.stop()

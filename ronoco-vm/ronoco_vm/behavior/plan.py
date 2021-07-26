@@ -6,8 +6,8 @@ Implementation of the action-bt plan allowing the robot to plan to a point
 
 import py_trees
 
-from flaskr import behavior
-from flaskr import logger
+from ronoco_vm import behavior
+from ronoco_vm import logger
 
 
 class Plan(py_trees.behaviour.Behaviour):

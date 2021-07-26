@@ -1,5 +1,5 @@
 """
-This file is the entry point of flask api. Launch python3 flaskr/run.py to run flask server
+This file is the entry point of flask api. Launch python3 ronoco_vm/run.py to run flask server
 """
 import os
 import time

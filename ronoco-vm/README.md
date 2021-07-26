@@ -1,16 +1,19 @@
-# Ronoco-vm
+# :snake: Ronoco-vm
 
 Le module **ronovo-vm** est l'un des modules du projet [ronoco](../README.md). C'est un paquet ROS et une A     PI flask
 proposant des services pour contrôler un robot sous ROS.
 
-## Installation
+## :hammer: Installation
 
-Depuis le dossier `ronoco-vm̀` réaliser un `pip install requirements.txt`. Une fois les dépendances installées
-l'application se lance via la commande `python3 flaskr/run.py` et tourne sur le `localhost:5000`.
+Depuis le dossier `ronoco-vm̀` réaliser un `pip install requirements.txt`.
 
-:warning: Pour fonctionner un roscore et rviz doivent être en cours d'execution
+Si l'installation échoue les paquets pip nécessaires sont : flask, flask-cors, flask-socketio, pyyaml, rospkg, py_trees
 
-## Documentation
+Une fois les dépendances installées l'application se lance via la commande `python3 flaskr/run.py` et tourne sur le `localhost:5000`.
+
+:warning: Pour le lancement `roscore` et `moveit` doivent être en cours d'exécution
+
+## :book: Documentation
 
 | URL          | Method | Body | Return Code     |    Return          |      Description            |
 |:-------------|:--------| :--- | :---- |:-----|:---------------------------------|
@@ -35,11 +38,11 @@ l'application se lance via la commande `python3 flaskr/run.py` et tourne sur le 
 | /point/delete | POST | {} | 200 | {"Success": "All points have been deleted"} | All points have been cleared or database was empty |
 | /point/delete/<id> | POST | {} | 404 | {"Error": "No point match with id: int" | ros parameters server (on the name "cartesianPoints") doesn't contain point with this id  |
 | /point/delete/<id> | POST | {} | 200 | {"Success": "Point have been deleted"} | Point has been deleted |
-| /play/ | POST | an export of nodered tree | 200 | {"Success": "All behavior trees has been executed"} | |
-| /play/ | POST | None | 400 | {"Error": "json is empty"} | Can't evaluate an empty file |
-| /play/ | POST | an export of nodered tree| 400 | {"Error": "json contains 0 valid roots"} | Json is not empty but doesn't contain root block |
-| /play/ | POST | an export of nodered tree| 400 | {"Error": "Tree with root id <id> is incorrect"} | Json contains a root block but associate tree is incorrect|
-| /play/ | POST | an export of nodered tree| 400 | {"Error": "Block (or child of this block) with id <id> is incorrect"} | Json contains contains tree but one block is incorrect|
-| /play/stop | GET | | 200 | {"Success": "Behavior tree has been stopped "} | Current behavior tree is stopped|
+| /control/ | POST | an export of nodered tree | 200 | {"Success": "All behavior trees has been executed"} | |
+| /control/ | POST | None | 400 | {"Error": "json is empty"} | Can't evaluate an empty file |
+| /control/ | POST | an export of nodered tree| 400 | {"Error": "json contains 0 valid roots"} | Json is not empty but doesn't contain root block |
+| /control/ | POST | an export of nodered tree| 400 | {"Error": "Tree with root id <id> is incorrect"} | Json contains a root block but associate tree is incorrect|
+| /control/ | POST | an export of nodered tree| 400 | {"Error": "Block (or child of this block) with id <id> is incorrect"} | Json contains contains tree but one block is incorrect|
+| /control/stop | GET | | 200 | {"Success": "Behavior tree has been stopped "} | Current behavior tree is stopped|
 
 
