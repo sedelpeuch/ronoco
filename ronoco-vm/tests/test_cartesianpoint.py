@@ -8,23 +8,23 @@ class TestCartesianPoint(unittest.TestCase):
 
     def test_add_rviz(self):
         requests.post(self.URL + "delete")
-        rv = requests.post(self.URL + "add/rviz")
+        rv = requests.post(self.URL + "add/simulation")
         self.assertEqual(200, rv.status_code)
-        rv = requests.post(self.URL + "add/rviz", data={"lmz": "arg"})
+        rv = requests.post(self.URL + "add/simulation", data={"lmz": "arg"})
         self.assertEqual(200, rv.status_code)
 
     def test_add_free(self):
         requests.post(self.URL + "delete")
         rv = requests.post("http://localhost:5000/free/", json={"compliant": "True"})
         self.assertEqual(200, rv.status_code)
-        rv = requests.post(self.URL + "add/free")
+        rv = requests.post(self.URL + "add/actual")
         self.assertEqual(200, rv.status_code)
-        rv = requests.post(self.URL + "add/free", data={"lmz": "arg"})
+        rv = requests.post(self.URL + "add/actual", data={"lmz": "arg"})
         self.assertEqual(200, rv.status_code)
 
     def test_delete_id(self):
         requests.post(self.URL + "delete")
-        rv = requests.post(self.URL + "add/free")
+        rv = requests.post(self.URL + "add/actual")
         self.assertEqual(200, rv.status_code)
         rv = requests.post(self.URL + "delete/0")
         self.assertEqual(200, rv.status_code)
@@ -41,7 +41,7 @@ class TestCartesianPoint(unittest.TestCase):
         requests.post(self.URL + "delete")
         rv = requests.get(self.URL + "get/0")
         self.assertEqual(404, rv.status_code)
-        rv = requests.post(self.URL + "add/free")
+        rv = requests.post(self.URL + "add/actual")
         self.assertEqual(200, rv.status_code)
         rv = requests.get(self.URL + "get/0")
         self.assertEqual(200, rv.status_code)
@@ -51,7 +51,7 @@ class TestCartesianPoint(unittest.TestCase):
         requests.post(self.URL + "delete")
         rv = requests.get(self.URL + "get")
         self.assertEqual(404, rv.status_code)
-        rv = requests.post(self.URL + "add/free")
+        rv = requests.post(self.URL + "add/actual")
         self.assertEqual(200, rv.status_code)
         rv = requests.get(self.URL + "get")
         self.assertEqual(200, rv.status_code)

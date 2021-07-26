@@ -3,7 +3,7 @@ import unittest
 import requests
 from werkzeug.exceptions import NotFound
 
-from flaskr import common
+from ronoco_vm import common
 
 
 class TestCommmonView(unittest.TestCase):

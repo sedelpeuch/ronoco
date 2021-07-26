@@ -2,7 +2,7 @@ import unittest
 
 import requests
 
-from flaskr import control
+from ronoco_vm import control
 
 
 class TestControlEndpoint(unittest.TestCase):
@@ -107,7 +107,7 @@ class TestControlEndpoint(unittest.TestCase):
     def test_build_tree(self):
         for _ in range(4):
             rv = requests.post("http://localhost:5000/free/", json={"compliant": "True"})
-            rv = requests.post("http://localhost:5000/point/add/free")
+            rv = requests.post("http://localhost:5000/point/add/actual")
 
         self.Control.build_nodes(self.bt)
         for node in self.bt:
