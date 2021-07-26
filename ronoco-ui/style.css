@@ -25,27 +25,47 @@
 
 .common{
     display: flex;
+    float: left;
     overflow: auto;
     margin-bottom: 20px;
+    width: 100%;
     align-items: center;
     justify-content: center;
 }
 
-.button-icon{
+.button-logo{
+    display: inline-flex;
     padding-left: 10px;
     padding-right: 10px;
+}
+.button-icon {
+    color: #494949 !important;
+    background: #ffffff;
+    border: 2px solid #000000 !important;
+    border-radius: 4px;
+    display: inline-block;
+    transition: all 0.3s ease 0s;
+}
+.button-icon:hover {
+    color: #19234b !important;
+    border-radius: 50px;
+    border-color: #2b3a7d !important;
+    transition: all 0.3s ease 0s;
 }
 
 .record{
     display: flex;
     padding-left: 10px;
     padding-right: 10px;
+    width: 100%;
     align-items: center;
+    justify-content: space-between;
 }
 
 .form{
     padding-left: 10px;
     padding-right: 10px;
+    width: 115px;
 }
 
 input[type="number"] {
@@ -63,3 +83,4 @@ pre {
 .json-string {
     color: olive;
 }
+

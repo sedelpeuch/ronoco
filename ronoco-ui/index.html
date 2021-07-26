@@ -16,50 +16,60 @@
 <div class="ronoco">
     <div class="ronoco-ui" id="ronoco-ui">
         <div class="common">
-            <div class="button-icon" id="startStop">
+            <div class="button-logo" id="startStop">
                 <img src="/static/shutdown.svg" alt="ShutdownLogo" height="40">
             </div>
-            <div class="button-icon" id="robotState">
+            <div class="button-logo" id="robotState">
                 <img id="state" src="/static/circle.svg" alt="StateLogo" height="40">
             </div>
-            <div class="button-icon" id="launch">
+            <div class="button-logo" id="launch">
                 <img src="/static/play.svg" alt="LaunchLogo" height="40">
             </div>
-            <div class="button-icon" id="FreeButton">
+            <div class="button-logo" id="FreeButton">
                 <img src="/static/free.svg" alt="FreeLogo" height="40">
             </div>
         </div>
         <div class="common">
             <div class="record">
                 <img src="/static/record.svg" alt="RecordLogo" height="40">
-                <form name="record" action="" target="dummyframe">
-                    <div class="form">
-                        <input id="rviz" type="submit" value="Simulated">
-                        <input id="free" type="submit" value="Real">
-                    </div>
-                </form>
+                <button class="button-icon" id="rviz">
+                    Simulated
+                </button>
+                <button class="button-icon" id="free">
+                    Real
+                </button>
             </div>
         </div>
 
         <div class="common">
-            <button class="button-icon" id="GetPosition">
-                Get all
-            </button>
-            <button class="button-icon" id="DeletePosition">
-                Clear all
-            </button>
+            <div class="record">
+                <img src="/static/get.svg" alt="RecordLogo" height="40">
+                <form name="getDeleteId" action="" target="dummyframe">
+                    <div class="form">
+                        <label for="id_get">id : </label>
+                        <input type="number" name="id" id="id_get" required size="number">
+                        <input class="button-icon" type="submit" value="Get" id="GetPositionId">
+                    </div>
+                </form>
+                <button class="button-icon" id="GetPosition">
+                    Get all
+                </button>
+            </div>
         </div>
 
         <div class="common">
             <div class="record">
+                <img src="/static/trash.svg" alt="RecordLogo" height="40">
                 <form name="getDeleteId" action="" target="dummyframe">
                     <div class="form">
-                        <label for="id">id : </label>
-                        <input type="number" name="id" id="id" required size="number">
-                        <input type="submit" value="Get" id="GetPositionId">
-                        <input type="submit" value="Delete" id="DeletePositionId">
+                        <label for="id_del">id : </label>
+                        <input type="number" name="id" id="id_del" required size="number">
+                        <input class="button-icon" type="submit" value="Delete" id="DeletePositionId">
                     </div>
                 </form>
+                <button class="button-icon" id="DeletePosition">
+                    Clear all
+                </button>
             </div>
         </div>
         <div class="logger" id="logger-container">
