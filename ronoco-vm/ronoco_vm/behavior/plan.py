@@ -6,8 +6,8 @@ Implementation of the action-bt plan allowing the robot to plan to a point
 
 import py_trees
 
-from ronoco_vm import behavior
-from ronoco_vm import logger
+import behavior
+import logger
 
 
 class Plan(py_trees.behaviour.Behaviour):

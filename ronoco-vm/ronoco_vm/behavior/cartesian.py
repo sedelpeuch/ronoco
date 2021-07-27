@@ -6,8 +6,9 @@ Implementation of the action-bt cartesian allowing the robot to move to a point 
 
 import py_trees
 
+import behavior
 import geometry_msgs.msg
-from ronoco_vm import behavior, logger
+import logger
 
 
 class Cartesian(py_trees.behaviour.Behaviour):

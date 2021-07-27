@@ -6,7 +6,8 @@ Implementation of the action-bt execute allowing the robot to move to a point
 
 import py_trees
 
-from ronoco_vm import behavior, logger
+import behavior
+import logger
 
 
 class Execute(py_trees.behaviour.Behaviour):

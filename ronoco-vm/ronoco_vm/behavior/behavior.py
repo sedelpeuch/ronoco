@@ -4,8 +4,8 @@ commander
 """
 import py_trees
 
-from ronoco_vm import behavior
-from ronoco_vm import cartesian_point
+import behavior
+import cartesian_point
 
 
 def selector(name, data, child):

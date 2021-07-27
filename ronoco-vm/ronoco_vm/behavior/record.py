@@ -6,11 +6,11 @@ Implementation of the action-bt record allowing the robot to record a trajectory
 
 import py_trees
 
+import behavior
 import config
+import logger
 import rospy
-from ronoco_vm import behavior
-from ronoco_vm import logger
-from ronoco_vm.recorder import Recorder
+from recorder import Recorder
 from std_srvs.srv import SetBool
 
 
