@@ -1,5 +1,8 @@
 # Summary
 
+Ronoco
+======
+
 - [Introduction](introduction.md)
 
 # Users guides
@@ -17,6 +20,9 @@
 - [Add blocks to node-red](dev-guides/installation.md)
 - [Change node-red](dev-guides/installation.md)
 
-# Ronoco Documentation
-- [Ronoco API](documentation/installation.md)
-- [Node-red blocks](documentation/installation.md)
+# Ronoco Documentation 📖
+- [Ronoco VM](documentation/api.md)
+  - [Behaviours](documentation/behavior.md)
+  - [API - summarize](documentation/api-summarize.md)
+  - [API - detailed](documentation/api-detailed.md)
+- [Ronoco Node-Red](documentation/nodered.md)
