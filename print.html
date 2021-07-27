@@ -101,8 +101,6 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
@@ -144,7 +142,7 @@
 
                 <div id="content" class="content">
                     <main>
-                        <div style="break-before: page; page-break-before: always;"></div><h1 id="img-srclogosvg-width5-ronoco"><a class="header" href="#img-srclogosvg-width5-ronoco"><img src="../logo.svg" width="5%"/> Ronoco</a></h1>
+                        <div style="break-before: page; page-break-before: always;"></div><h1 id="img-srclogosvg-width5-ronoco"><a class="header" href="#img-srclogosvg-width5-ronoco"><img src="logo.svg" width="5%"/> Ronoco</a></h1>
 <p>With <strong>ROS</strong>, creating a robotic system means developing programs in <strong>C++</strong> or <strong>Python</strong>, making ROS <strong>inaccessible</strong> to all non-developer experts: process engineers, industrialization engineers...</p>
 <p>Writing code is indeed becoming essential for complex robots.</p>
 <p>However, for several years now, an alternative method has been making headway: <strong>no-code</strong>. This consists of designing computer programs without writing code, often via a graphic interface. This project consists of developing a <strong>prototype of a &quot;no-code ROS&quot;</strong> that can be used to program <strong>manipulative</strong> robots under <strong>MoveIt</strong> and <strong>rolling robots</strong>.</p>
@@ -395,17 +393,35 @@ source ~/.zshrc
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ronoco-api"><a class="header" href="#ronoco-api">Ronoco API</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="ronoco-vm-api---detailed-documentation"><a class="header" href="#ronoco-vm-api---detailed-documentation">Ronoco-vm API - Detailed documentation</a></h1>
 <ul>
-<li><a href="documentation/api-detailed.html#-common-"> Common </a></li>
-<li><a href="documentation/api-detailed.html#-free-"> Free </a></li>
-<li><a href="documentation/api-detailed.html#-cartesianpoint-"> CartesianPoint </a></li>
-<li><a href="documentation/api-detailed.html#-control-"> Control </a></li>
+<li><a href="documentation/api-detailed.html#class-run-class">Run</a><!-- @IGNORE PREVIOUS: link --></li>
+<li><a href="documentation/api-detailed.html#class-common-class">Common</a><!-- @IGNORE PREVIOUS: link --></li>
+<li><a href="documentation/api-detailed.html#class-free-class">Free</a><!-- @IGNORE PREVIOUS: link --></li>
+<li><a href="documentation/api-detailed.html#class-cartesianpoint-class">Cartesian Point</a><!-- @IGNORE PREVIOUS: link --></li>
+<li><a href="documentation/api-detailed.html#class-control-class">Control</a><!-- @IGNORE PREVIOUS: link --></li>
+<li><a href="documentation/api-detailed.html#class-recorder-class">Recorder</a><!-- @IGNORE PREVIOUS: link --></li>
+<li><a href="documentation/api-detailed.html#class-logger-class">Logger</a><!-- @IGNORE PREVIOUS: link --></li>
 </ul>
+<h2 id="class-run-class"><a class="header" href="#class-run-class"><class> Run </class></a></h2>
+<p>Define and setup flask server and rostopic subscriber / publisher for ronoco-vm</p>
+<p><method> create_app(test_config) </method></p>
+<p>Build a Flask instance and configure it</p>
+<p><member>Parameters </member></p>
+<ul>
+<li><em>test_config:</em> path to configuration file (Default : None)</li>
+</ul>
+<p><member>Return</member> a Flask instance</p>
+<p><method> setup_app() </method></p>
+<p>Register blueprint in app.</p>
+<p>The class attribute &quot;app&quot; must contain a Flask instance</p>
+<p><member>Return</member> None</p>
+<p><method> subscribe_topic() </method></p>
+<p>Uses rospy to subscribe to the different topics needed by the API</p>
 <h2 id="class-common-class"><a class="header" href="#class-common-class"><class> Common </class></a></h2>
 <p>Definition of common endpoint</p>
 <p><method> index() </method></p>
 <p>GET Method</p>
 <p>ROUTE /</p>
-<p><member>Return</member> : if everything is ok : {&quot;Success&quot;: &quot;Server is running&quot;}, 200</p>
+<p><member>Return</member> if everything is OK : {&quot;Success&quot;: &quot;Server is running&quot;}, 200</p>
 <p><method> send_states()</method></p>
 <p>This function check if the state of the robot or rviz has changed. If so, it sends a message to the websockets states
 channel</p>
@@ -442,9 +458,9 @@ channel</p>
 <li>Type: std_srvs/SetBool</li>
 <li>Args: data</li>
 </ul>
-<p><member> Return </member> if everything is ok : {&quot;compliant&quot;:&quot;True&quot;/&quot;False&quot;} else an HttpError</p>
+<p><member> Return </member> if everything is OK : {&quot;compliant&quot;:&quot;True&quot;/&quot;False&quot;} else an HttpError</p>
 <h2 id="class-cartesianpoint-class"><a class="header" href="#class-cartesianpoint-class"><class> CartesianPoint </class></a></h2>
-<p>Allows to add, get and delete an cartesian point in the ros parameters server from Rviz or compliant mode</p>
+<p>Allows adding, get and delete a cartesian point in the ros parameters server from Rviz or compliant mode</p>
 <p><method> add_bd(cartesian_point) </method></p>
 <p>This method adds a cartesian point in the ros parameters server (on the name &quot;cartesianPoints&quot;). This method is called
 when a POST request is made on point/add/simulation or point/add/real</p>
@@ -453,9 +469,9 @@ when a POST request is made on point/add/simulation or point/add/real</p>
 <li><em>cartesian_point:</em> a cartesian point eg {&quot;position&quot;: {&quot;x&quot;: pose.x, &quot;y&quot;: pose.y, &quot;z&quot;: pose.z}, &quot;orientation&quot;: {&quot;x&quot;:
 orientation.x, &quot;y&quot;: orientation.y, &quot;z&quot;: orientation.z, &quot;w&quot;: orientation.w}}</li>
 </ul>
-<p><member> Return </member> True if everything is ok</p>
+<p><member> Return </member> True if everything is OK</p>
 <p><method> delete_db(identifiant) </method></p>
-<p>This method delete a cartesian point in the ros parameters server (on the name &quot;cartesianPoints&quot;). This method
+<p>This method deletes a cartesian point in the ros parameters server (on the name &quot;cartesianPoints&quot;). This method
 is called when a DELETE request is made on point/delete</p>
 <p><member>Parameters </member></p>
 <ul>
@@ -471,7 +487,7 @@ when a GET request is made on point/get/number or point/get</p>
 </ul>
 <p><member>Return</member> True if point is found, False if point doesn't exist</p>
 <p><method> clear_db() </method></p>
-<p>This method delete all cartesian points in the ros parameters server (on the name &quot;cartesianPoints&quot;). This
+<p>This method deletes all cartesian points in the ros parameters server (on the name &quot;cartesianPoints&quot;). This
 method is called when a POST request is made on point/delete</p>
 <p><method> add_point_from_actual_position() </method></p>
 <p>POST Method</p>
@@ -481,7 +497,7 @@ method is called when a POST request is made on point/delete</p>
 }</p>
 <p>Allows you to add a Cartesian point corresponding to the current position of the robot.</p>
 <p>The id of the position is automatically given</p>
-<p><member> Return </member> id for new cartesian point if everything is ok, a 409 error else</p>
+<p><member> Return </member> id for new cartesian point if everything is OK, a 409 error else</p>
 <p><method> add_point_from_rviz() </method></p>
 <p>POST Method</p>
 <p>ROUTE /point/add/simulation</p>
@@ -490,12 +506,12 @@ method is called when a POST request is made on point/delete</p>
 }</p>
 <p>Allows you to add a Cartesian point corresponding to the current position of the robot in Rviz.</p>
 <p>The id of the position is automatically given</p>
-<p><member> Return </member> id for new cartesian point if everything is ok, a 408 error else</p>
+<p><member> Return </member> id for new cartesian point if everything is OK, a 408 error else</p>
 <p><method> get_all_points() </methods></p>
 <p>GET Method</p>
 <p>ROUTE /point/get</p>
 <p>Allows you to get all Cartesian points in the ros parameters server (on the name &quot;cartesianPoints&quot;)</p>
-<p><member> Return </member> a json with cartesian points if everything is ok, a 404 error else</p>
+<p><member> Return </member> a json with cartesian points if everything is OK, a 404 error else</p>
 <p><method> get_one_point(identifiant) </method></p>
 <p>GET Method</p>
 <p>ROUTE /point/get/<identifiant></p>
@@ -580,7 +596,7 @@ that the other blocks are already built</p>
 <li><em>node:</em> the decorator in json format</li>
 <li><em>bt:</em> a json representing a behaviour tree (export of nodered)</li>
 </ul>
-<p><member> Return </member> True, None if everything is ok, False and an id else</p>
+<p><member> Return </member> True, None if everything is OK, False and an id else</p>
 <p><method> build_nodes(bt) </method></p>
 <p>Transforms all the nodes of the tree from json form to py_tree form. This function does not handle decorator
 blocks that need special treatment concerning their children</p>
@@ -588,9 +604,63 @@ blocks that need special treatment concerning their children</p>
 <ul>
 <li><em>bt:</em> a json representing a behaviour tree (export of nodered)</li>
 </ul>
-<p><member> Return </member> True, None if everything is ok, False and an id else</p>
+<p><member> Return </member> True, None if everything is OK, False and an id else</p>
 <p><method> stop() </method></p>
 <p>Stop execute of current behavior tree</p>
+<h2 id="class-recorder-class"><a class="header" href="#class-recorder-class"><class> Recorder </class></a></h2>
+<p>Recorder class copy from <a href="https://github.com/poppy-project/poppy_controllers/blob/v1.0/src/poppy_ros_control/recorder.py">Poppy project</a></p>
+<p><method> start_recording </method></p>
+<p>Start the recording of a trajectory</p>
+<p><member> Return </member> False if a record is already in progress, True else</p>
+<p><method> stop_and_save(trajectory_name) </method></p>
+<p>Stop recording then save it as a json file</p>
+<p><member>Parameters </member></p>
+<ul>
+<li><em>trajectory_name:</em> record's name</li>
+</ul>
+<p><member> Return </member> False if another record is in progress, True else</p>
+<p><method> load(, trajectory_name) </method></p>
+<p>Find in the trajectory directory json file with a specific name the convert it in a RobotTrajectory
+<member>Parameters </member></p>
+<ul>
+<li>trajectory_name: name of a previously recorded path</li>
+</ul>
+<p><member> Return </member> None if the trajectory does not exist, a RobotTrajectory else</p>
+<h2 id="class-logger-class"><a class="header" href="#class-logger-class"><class> Logger </class></a></h2>
+<p>Definition of a logger for the websocket to be displayed in ronoco-ui</p>
+<p><method> logger(msg) </method></p>
+<p>Send a message to the /control_log namespace via socketio's emit method
+The message must be a dictionary with at least one key/value</p>
+<p>Some particular keys will be interpreted and reformatted by ronoco-ui (Debug, Success, Error, Warning, Info)</p>
+<p>The other keys will be displayed rawly way</p>
+<p><member>Parameters </member></p>
+<ul>
+<li><em>msg:</em> the message to send</li>
+</ul>
+<p><method> debug(msg) </method></p>
+<p>Sends a message with the debug key if the verbosity level is greater than or equal to 4</p>
+<p><member>Parameters </member></p>
+<ul>
+<li><em>msg:</em> a string message</li>
+</ul>
+<p><method> info(msg) </method></p>
+<p>Sends a message with the info key if the verbosity level is greater than or equal to 3</p>
+<p><member>Parameters </member></p>
+<ul>
+<li><em>msg:</em> a string message</li>
+</ul>
+<p><method> warn(msg) </method></p>
+<p>Sends a message with the warn key if the verbosity level is greater than or equal to 2</p>
+<p><member>Parameters </member></p>
+<ul>
+<li><em>msg:</em> a string message</li>
+</ul>
+<p><method> error(msg) </method></p>
+<p>Sends a message with the error key if the verbosity level is greater than or equal to 1</p>
+<p><member>Parameters </member></p>
+<ul>
+<li><em>msg:</em> a string message</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="node-red-blocks"><a class="header" href="#node-red-blocks">Node-red blocks</a></h1>
 
                     </main>
