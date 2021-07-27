@@ -21,7 +21,6 @@ jobs:
           # mdbook-version: 'latest'
 
       - run: |
-          mkdir docs/
           cargo install mdbook-toc
           cd ronoco-documentation/
           mdbook build -d ../docs
