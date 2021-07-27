@@ -1,27 +1,17 @@
-# Ronoco
+<img src="logo.svg" width="5%"/> Ronoco
+========================
 
-Avec ROS, créer un système robotisé revient à développer des programmes en C++ ou Python, rendant ROS inaccessible à
-tous les experts non-développeurs : ingénieurs process, ingénieurs industrialisation ...
+With *ROS*, creating a robotic system means developing programs in *C++* or *Python*, making ROS *inaccessible* to all non-developer experts: process engineers, industrialization engineers...
 
-Écrire du code devient en effet indispensable pour les robots complexes.
+Writing code is indeed becoming essential for complex robots.
 
-Cependant depuis plusieurs années une méthode alternative performe : le no-code. Cela consiste à concevoir des 
-programmes
-informatiques sans écrire de code, souvent via une interface graphique. Ce projet consiste à développer un prototype
-de "ROS no-code" permettant de programmer des robots manipulateurs sous MoveIt et des robots roulants.
+However, for several years now, an alternative method has been making headway: **no-code**. This consists of designing computer programs without writing code, often via a graphic interface. This project consists of developing a *prototype of a "no-code ROS"* that can be used to program *manipulative* robots under *MoveIt* and *rolling robots*.
 
-Ronoco se connecte à l'écosystème ROS et générera des messages standards ROS, en conservant l'ADN interopérable de ROS (
-robot-agnostic).
+Ronoco connects to the ROS ecosystem and generates standard ROS messages, maintaining the interoperable ROS (*robot-agnostic*) DNA.
 
-Le projet ronoco se décompose en trois modules distincts remplissant tous les trois des rôles différents et 
-complémentaires permettant d'obtenir un interface graphique pour concevoir des programmes de manipulation ROS. 
+The ronoco project is divide into three distinct modules, each fulfilling different and complementary roles to provide a graphical interface for designing ROS manipulation programs.
 
-Les trois modules sont **ronoco-vm** un package ROS constitué d'une API flask permettant de relier l'interface 
-graphique ainsi que MoveIt et Rviz. Le deuxième est **ronoco-ui** un client web permettant  de contrôler le robot 
-graphiquement (enregistrer des positions, lancer le programme, arrêt etc). Le dernier est TODO
+The three modules are **ronoco-vm** a ROS package consisting of a flask API that interprets the sequence of blocks in the GUI and translates them into ROS code. The second is **ronoco-nodered** a
 
-## Ronoco-vm
-
-[Documentation du module](ronoco-vm/README.md)
-
+The last one is **ronoco-ui** a web client allowing to use the two previous modules. It provides utilities for the robot (registering positions, launching a program, stopping the server etc). On the other hand it allows to define programs using a no-code interface like NodeRed or Scratch (WIP)
 
