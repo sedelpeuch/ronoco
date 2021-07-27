@@ -139,3 +139,4 @@ dmypy.json
 cython_debug/
 
 .idea/
+/ronoco_vm/static/socket.io/
