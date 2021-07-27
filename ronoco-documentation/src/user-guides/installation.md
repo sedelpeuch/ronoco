@@ -87,8 +87,17 @@ npm install
 Finalement il ne reste plus qu'à installer le moteur de l'application contenu dans Ronoco-vm.
 
 ```bash
-cd $HOME/catkin_ws/src/ronoco/ronoco-vm/
+cd $HOME/catkin_ws/src/Ronoco/ronoco-vm/
 pip3 install -r requirements.txt
+```
+
+Il est nécessaire de télécharger un client socketio dans le dossier static de l'API
+
+```bash
+cd $HOME/catkin_ws/src/Ronoco/ronoco-vm/ronoco_vm/static/
+mkdir socket.io
+wget https://github.com/socketio/socket.io/blob/master/client-dist/socket.io.js
+wget https://github.com/socketio/socket.io/blob/master/client-dist/socket.io.js.map
 ```
 
 Avant d'utiliser Ronoco il est nécessaire de compiler le workspace ROS
