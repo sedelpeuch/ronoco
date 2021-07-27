@@ -67,21 +67,31 @@ Allows to add, get and delete an cartesian point in the ros parameters server fr
 
 <method> add_bd(cartesian_point) </method>
 
-This method adds a cartesian point in the ros parameters server (on the name "cartesianPoints"). This method is
-called when a PUT request is made on point/add/rviz or point/add/free
+This method adds a cartesian point in the ros parameters server (on the name "cartesianPoints"). This method is called
+when a POST request is made on point/add/simulation or point/add/real
 
-<member>Param</member>
+<member>Parameters </member>
 - *cartesian_point:* a cartesian point eg {"position": {"x": pose.x, "y": pose.y, "z": pose.z}, "orientation": {"x":
   orientation.x, "y": orientation.y, "z": orientation.z, "w": orientation.w}}
 
 <member> Return </member> True if everything is ok
 
+<method> delete_db(identifiant) </method>
+
+This method delete a cartesian point in the ros parameters server (on the name "cartesianPoints"). This method
+is called when a DELETE request is made on point/delete
+
+<member>Parameters </member>
+- *identifiant:* a number
+
+<member> Return </member> True if point is deleted, False if point doesn't exist
+
 <method> find_db(identifiant) </method>
 
 This method find a cartesian point in the ros parameters server (on the name "cartesianPoints"). This method is called
-when a GET request is made on point/get/<number> or point/get
+when a GET request is made on point/get/number or point/get
 
-<member>Param</member>
+<member>Parameters </member>
 - *identifiant:* a number
 
 <member>Return</member> True if point is found, False if point doesn't exist
@@ -142,6 +152,9 @@ ROUTE /point/get/<identifiant>
 
 Allows you to get one Cartesian point in the ros parameters server (on the name "cartesianPoints")
 
+<member>Parameters </member>
+- *identifiant:* a number
+
 <member> Return </member> a json with cartesian point it exists, a 404 error else
 
 <method> delete_one_point(identifiant) </method>
@@ -155,6 +168,9 @@ POST body
 }
 
 Allows you to delete one Cartesian point in the ros parameters server (on the name "cartesianPoints")
+
+<member>Parameters </member>
+- *identifiant:* a number
 
 <member> Return </member> a response 200 if the point have been deleted, a 404 error else
 
