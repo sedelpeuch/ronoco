@@ -21,6 +21,7 @@ jobs:
           # mdbook-version: 'latest'
 
       - run: |
+          mkdir docs/
           cargo install mdbook-toc
           cd ronoco-documentation/
           mdbook build -d ../docs
@@ -30,4 +31,4 @@ jobs:
         if: ${{ github.ref == 'refs/heads/main' }}
         with:
           github_token: ${{ secrets.RONOCO_TOKEN }}
-          publish_dir: ../docs
+          publish_dir: ./docs
