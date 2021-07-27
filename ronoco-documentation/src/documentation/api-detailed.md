@@ -1,6 +1,36 @@
 # Ronoco-vm API - Detailed documentation
 
-<!-- toc -->
+- [Run](api-detailed.html#class-run-class)<!-- @IGNORE PREVIOUS: link -->
+- [Common](api-detailed.html#class-common-class)<!-- @IGNORE PREVIOUS: link -->
+- [Free](api-detailed.html#class-free-class)<!-- @IGNORE PREVIOUS: link -->
+- [Cartesian Point](api-detailed.html#class-cartesianpoint-class)<!-- @IGNORE PREVIOUS: link -->
+- [Control](api-detailed.html#class-control-class)<!-- @IGNORE PREVIOUS: link -->
+- [Recorder](api-detailed.html#class-recorder-class)<!-- @IGNORE PREVIOUS: link -->
+- [Logger](api-detailed.html#class-logger-class)<!-- @IGNORE PREVIOUS: link -->
+
+## <class> Run </class>
+
+Define and setup flask server and rostopic subscriber / publisher for ronoco-vm
+
+<method> create_app(test_config) </method>
+Build a Flask instance and configure it
+
+<member>Parameters </member>
+- *test_config:* path to configuration file (Default : None)
+
+<member>Return</member> a Flask instance
+
+<method> setup_app() </method>
+
+Register blueprint in app.
+
+The class attribute "app" must contain a Flask instance
+
+<member>Return</member> None
+
+<method> subscribe_topic() </method>
+
+Uses rospy to subscribe to the different topics needed by the API
 
 ##  <class> Common </class>
 Definition of common endpoint
@@ -11,7 +41,7 @@ GET Method
 
 ROUTE /
 
-<member>Return</member> : if everything is ok : {"Success": "Server is running"}, 200
+<member>Return</member> if everything is OK : {"Success": "Server is running"}, 200
 
 <method> send_states()</method>
 This function check if the state of the robot or rviz has changed. If so, it sends a message to the websockets states
@@ -62,10 +92,10 @@ Allows you to get or set robot compliance
 - Type: std_srvs/SetBool
 - Args: data
 
-<member> Return </member> if everything is ok : {"compliant":"True"/"False"} else an HttpError
+<member> Return </member> if everything is OK : {"compliant":"True"/"False"} else an HttpError
 
 ## <class> CartesianPoint </class>
-Allows to add, get and delete an cartesian point in the ros parameters server from Rviz or compliant mode
+Allows adding, get and delete a cartesian point in the ros parameters server from Rviz or compliant mode
 
 <method> add_bd(cartesian_point) </method>
 
@@ -76,11 +106,11 @@ when a POST request is made on point/add/simulation or point/add/real
 - *cartesian_point:* a cartesian point eg {"position": {"x": pose.x, "y": pose.y, "z": pose.z}, "orientation": {"x":
   orientation.x, "y": orientation.y, "z": orientation.z, "w": orientation.w}}
 
-<member> Return </member> True if everything is ok
+<member> Return </member> True if everything is OK
 
 <method> delete_db(identifiant) </method>
 
-This method delete a cartesian point in the ros parameters server (on the name "cartesianPoints"). This method
+This method deletes a cartesian point in the ros parameters server (on the name "cartesianPoints"). This method
 is called when a DELETE request is made on point/delete
 
 <member>Parameters </member>
@@ -100,7 +130,7 @@ when a GET request is made on point/get/number or point/get
 
 <method> clear_db() </method>
 
-This method delete all cartesian points in the ros parameters server (on the name "cartesianPoints"). This
+This method deletes all cartesian points in the ros parameters server (on the name "cartesianPoints"). This
 method is called when a POST request is made on point/delete
 
 <method> add_point_from_actual_position() </method>
@@ -117,7 +147,7 @@ Allows you to add a Cartesian point corresponding to the current position of the
 
 The id of the position is automatically given
 
-<member> Return </member> id for new cartesian point if everything is ok, a 409 error else
+<member> Return </member> id for new cartesian point if everything is OK, a 409 error else
 
 <method> add_point_from_rviz() </method>
 
@@ -133,7 +163,7 @@ Allows you to add a Cartesian point corresponding to the current position of the
 
 The id of the position is automatically given
 
-<member> Return </member> id for new cartesian point if everything is ok, a 408 error else
+<member> Return </member> id for new cartesian point if everything is OK, a 408 error else
 
 <method> get_all_points() </methods>
 
@@ -144,7 +174,7 @@ ROUTE /point/get
 
 Allows you to get all Cartesian points in the ros parameters server (on the name "cartesianPoints")
 
-<member> Return </member> a json with cartesian points if everything is ok, a 404 error else
+<member> Return </member> a json with cartesian points if everything is OK, a 404 error else
 
 <method> get_one_point(identifiant) </method>
 
@@ -262,7 +292,7 @@ that the other blocks are already built
 - *node:* the decorator in json format
 - *bt:* a json representing a behaviour tree (export of nodered)
 
-<member> Return </member> True, None if everything is ok, False and an id else
+<member> Return </member> True, None if everything is OK, False and an id else
 
 <method> build_nodes(bt) </method>
 
@@ -272,9 +302,81 @@ blocks that need special treatment concerning their children
 <member>Parameters </member>
 - *bt:* a json representing a behaviour tree (export of nodered)
 
-<member> Return </member> True, None if everything is ok, False and an id else
+<member> Return </member> True, None if everything is OK, False and an id else
 
 <method> stop() </method>
 
 Stop execute of current behavior tree
 
+## <class> Recorder </class>
+
+Recorder class copy from [Poppy project](https://github.com/poppy-project/poppy_controllers/blob/v1.0/src/poppy_ros_control/recorder.py)
+
+<method> start_recording </method>
+
+Start the recording of a trajectory
+
+<member> Return </member> False if a record is already in progress, True else
+
+<method> stop_and_save(trajectory_name) </method>
+
+Stop recording then save it as a json file
+
+<member>Parameters </member>
+
+- *trajectory_name:* record's name
+
+<member> Return </member> False if another record is in progress, True else
+
+<method> load(, trajectory_name) </method>
+
+Find in the trajectory directory json file with a specific name the convert it in a RobotTrajectory
+<member>Parameters </member>
+
+- trajectory_name: name of a previously recorded path
+
+<member> Return </member> None if the trajectory does not exist, a RobotTrajectory else
+
+## <class> Logger </class>
+
+Definition of a logger for the websocket to be displayed in ronoco-ui
+
+<method> logger(msg) </method>
+
+Send a message to the /control_log namespace via socketio's emit method
+The message must be a dictionary with at least one key/value
+
+Some particular keys will be interpreted and reformatted by ronoco-ui (Debug, Success, Error, Warning, Info)
+
+The other keys will be displayed rawly way
+
+<member>Parameters </member>
+- *msg:* the message to send
+
+<method> debug(msg) </method>
+
+Sends a message with the debug key if the verbosity level is greater than or equal to 4
+
+<member>Parameters </member>
+- *msg:* a string message
+
+<method> info(msg) </method>
+
+Sends a message with the info key if the verbosity level is greater than or equal to 3
+
+<member>Parameters </member>
+- *msg:* a string message
+
+<method> warn(msg) </method>
+
+Sends a message with the warn key if the verbosity level is greater than or equal to 2
+
+<member>Parameters </member>
+- *msg:* a string message
+
+<method> error(msg) </method>
+
+Sends a message with the error key if the verbosity level is greater than or equal to 1
+
+<member>Parameters </member>
+- *msg:* a string message

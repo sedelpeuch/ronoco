@@ -1,4 +1,4 @@
-<img src="../logo.svg" width="5%"/> Ronoco
+<img src="logo.svg" width="5%"/> Ronoco
 ================================================
 
 With **ROS**, creating a robotic system means developing programs in **C++** or **Python**, making ROS **inaccessible** to all non-developer experts: process engineers, industrialization engineers...

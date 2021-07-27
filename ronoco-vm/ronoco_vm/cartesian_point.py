@@ -96,7 +96,7 @@ class CartesianPoint:
         """
         POST Method
 
-        ROUTE /point/add/free
+        ROUTE /point/add/actual
 
         POST body
         {
@@ -105,8 +105,6 @@ class CartesianPoint:
         Allows you to add a Cartesian point corresponding to the current position of the robot.
 
         The id of the position is automatically given
-
-        The robot must be in a compliant mode
 
         :return: id for new cartesian point if everything is ok, a 409 error else
         """
@@ -131,14 +129,12 @@ class CartesianPoint:
         if request.method == 'POST':
             self.add_bd(cartesian_point)
             return {"Success": "Add cartesian point with id:" + str(self.id - 1)}, 200
-        # else:
-        #     return "Robot is not compliant", 409
 
     def add_point_from_rviz(self):
         """
         POST Method
 
-        ROUTE /point/add/rviz
+        ROUTE /point/add/simulation
 
         POST body
         {
