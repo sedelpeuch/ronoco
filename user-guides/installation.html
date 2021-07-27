@@ -147,7 +147,7 @@
 <h3 id="installation"><a class="header" href="#installation">Installation</a></h3>
 <p>Configure your Ubuntu to allow &quot;restricted&quot;, &quot;universe&quot; and &quot;multiverse&quot;. You can
 <a href="https://help.ubuntu.com/community/Repositories/Ubuntu">follow the Ubuntu guide</a> for instructions on doing this.</p>
-<p>Setup your computer to accept software from packages.ros.org</p>
+<p>Set up your computer to accept software from packages.ros.org</p>
 <pre><code class="language-bash">sudo sh -c 'echo &quot;deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main&quot; \
 &gt; /etc/apt/sources.list.d/ros-latest.list'
 </code></pre>
@@ -174,6 +174,39 @@ echo &quot;source /opt/ros/noetic/setup.zsh&quot; &gt;&gt; ~/.zshrc
 source ~/.zshrc
 </code></pre>
 <h2 id="ronoco"><a class="header" href="#ronoco">Ronoco</a></h2>
+<h3 id="step-by-step"><a class="header" href="#step-by-step">Step by step</a></h3>
+<p>Pour installer Ronoco il est nécessaire d'avoir les paquets suivants :</p>
+<ul>
+<li>npm</li>
+<li>python3</li>
+<li>ROS noetic (work also on ROS melodic)</li>
+</ul>
+<p>Pour commencer il est nécessaire de cloner le projet dans le workspace catkin</p>
+<pre><code class="language-bash">cd $HOME/catkin_ws/src/
+git clone https://github.com/Sdelpeuch/Ronoco.git
+</code></pre>
+<p>Il faut ensuite installer les trois modules constituant ronoco. Premièrement ronoco-nodered permettant à l'utilisateur
+de définir les arbres de comportement du robot (voir <a href="">How to use it</a> et <a href="">How to create a behaviour tree</a>). Ce module
+dépend de <a href="">Nodered</a> il est donc nécessaire d'installer le framework puis la palette spécifique à Ronoco.</p>
+<pre><code class="language-bash">sudo npm install -g --unsafe-perm node-red
+mkdir $HOME/.node-red/
+cd $HOME/.node-red/
+npm install $HOME/catkin_ws/src/Ronoco/ronoco-nodered/
+</code></pre>
+<p>Une fois Ronoco-nodered installé il est nécessaire d'installer le client web contenu dans Ronoco-ui</p>
+<pre><code class="language-bash">cd $HOME/catkin_ws/src/Ronoco/ronoco-ui/
+npm install
+</code></pre>
+<p>Finalement il ne reste plus qu'à installer le moteur de l'application contenu dans Ronoco-vm.</p>
+<pre><code class="language-bash">cd $HOME/catkin_ws/src/ronoco/ronoco-vm/
+pip3 install -r requirements.txt
+</code></pre>
+<p>Avant d'utiliser Ronoco il est nécessaire de compiler le workspace ROS</p>
+<pre><code class="language-bash">cd $HOME/catkin_ws/
+catkin_make
+source devel/setup.&lt;bash/zsh&gt;
+</code></pre>
+<p>Pour démarrer ronoco référez vous à la page <a href="">How to use it</a></p>
 
                     </main>
 
