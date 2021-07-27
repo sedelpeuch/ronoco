@@ -1,5 +1,7 @@
 # Ronoco-vm API - Detailed documentation
 
+<!-- toc -->
+
 ##  <class> Common </class>
 Definition of common endpoint
 
@@ -189,3 +191,90 @@ Allows you to delete all Cartesian points in the ros parameters server (on the n
 <member> Return </member> a response 200
 
 ## <class> Control </class>
+
+Definition of the endpoint control to analyse and execute behaviour trees
+
+<method> compute() </method>
+
+POST Method
+
+ROUTE /compute/
+
+POST body : an export of nodered tree
+
+This method is the main method of the endpoint to transform the json from nodered (or any other tool respecting
+the json syntax) into a behaviour tree with the py_tree package. Once built, the method call play then executes
+the different trees.
+
+Every behaviour tree starts with a root block, blocks that are not connected (directly or indirectly) to a root
+are ignored.
+
+Each root must be connected to strictly one block to be interpreted.
+
+To be interpreted a flow must contain at least one behaviour tree
+
+<member> Return </member>
+- {"Success" : "All behavior trees has been executed", 200} if the tree is built and executed
+correctly.
+- {"Error": "Block (or child of this block) with id <str> is incorrect", 400} if it is not
+
+<method> play() </method>
+
+Browse the list of previously constructed trees and execute them using the tick_tock method
+<member> Return </member> Message with code 200 if all trees has been executed, code 409 else
+
+<method> find_roots(bt) </method>
+
+Search in BT-json blocks with type 'root'
+
+<member>Parameters </member>
+- *bt:* a json representing a behaviour tree (export of nodered)
+
+<member> Return </member> the list of roots found in
+  the json passed in parameter if there are any, an empty list otherwise
+
+<method> find_by_id(identifiant, bt) </method>
+Search in the json passed in parameter for a block with the string id passed in parameter
+
+<member>Parameters </member>
+- *identifiant:* the id of the block searched for
+- *bt:* a json representing a behaviour tree (export of nodered)
+
+<member> Return </member> True and the root (json) if a root has this id. False, None else
+
+<method> build_tree(json_node, bt) </method>
+
+Builds the behaviour tree as a py_tree object from its root using a bfs algorithm
+
+<member>Parameters </member>
+- *json_node:* a node of a tree in json format
+- *bt:* a json representing a behaviour tree (export of nodered)
+
+<member> Return </member> True and None if tree has been built. False
+  and the id of the last block built if it could not be built
+
+<method> build_decorator(node, bt) </method>
+
+Transforms a decorator from a json to a py_tree object. In order to build the decorators it is necessary
+that the other blocks are already built
+
+<member>Parameters </member>
+- *node:* the decorator in json format
+- *bt:* a json representing a behaviour tree (export of nodered)
+
+<member> Return </member> True, None if everything is ok, False and an id else
+
+<method> build_nodes(bt) </method>
+
+Transforms all the nodes of the tree from json form to py_tree form. This function does not handle decorator
+blocks that need special treatment concerning their children
+
+<member>Parameters </member>
+- *bt:* a json representing a behaviour tree (export of nodered)
+
+<member> Return </member> True, None if everything is ok, False and an id else
+
+<method> stop() </method>
+
+Stop execute of current behavior tree
+
