@@ -19,7 +19,7 @@ class Replay(py_trees.behaviour.Behaviour):
 
     def __init__(self, name="Replay", data=None):
         super(Replay, self).__init__(name)
-        self.identifiant = data
+        self.identifier = data
         self.commander = behaviour.behaviour.commander
         self.player = Player()
 
@@ -44,7 +44,7 @@ class Replay(py_trees.behaviour.Behaviour):
         self.logger.debug("  %s [Replay::update()]" % self.name)
         logger.debug("Execute block " + self.name)
         # This returns a moveit_msgs/RobotTrajectory object representing the recorded trajectory
-        my_motion = self.player.load(self.identifiant)
+        my_motion = self.player.load(self.identifier)
         if my_motion is None:
             return py_trees.common.Status.FAILURE
         # Go to the start position before replaying the motion

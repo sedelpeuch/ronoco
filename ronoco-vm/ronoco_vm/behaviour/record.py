@@ -22,7 +22,7 @@ class Record(py_trees.behaviour.Behaviour):
 
     def __init__(self, name="Record", data=None):
         super(Record, self).__init__(name)
-        self.identifiant = data['identifiant']
+        self.identifiant = data['identifier']
         self.time = int(data['time'])
         self.commander = behaviour.behaviour.commander
         self.compliance = rospy.ServiceProxy('set_compliant', SetBool)

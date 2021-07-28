@@ -80,7 +80,7 @@ def record(name, data, child):
     if data is None:
         return False, None
     return True, behaviour.record.Record(name,
-                                         {"identifiant": data['identifiant'], "time": data['time']})
+                                         {"identifier": data['identifier'], "time": data['time']})
 
 
 def replay(name, data, child):
