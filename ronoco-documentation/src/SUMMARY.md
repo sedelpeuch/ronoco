@@ -15,11 +15,11 @@ Ronoco
   - [Poppy ergo jr](user-guides/poppy.md)
   - [Universal Robots 3](user-guides/ur3.md)
 
-# Developers guides
+<!--# Developers guides-->
 
-- [Add blocks to node-red](dev-guides/new-blocks.md)
-- [Change node-red](dev-guides/scratch.md)
-- [Add your own robot](dev-guides/own.md)
+<!--- [Add blocks to node-red](dev-guides/new-blocks.md)-->
+<!--- [Change node-red](dev-guides/scratch.md)-->
+<!--- [Add your own robot](dev-guides/own.md)-->
 
 # Ronoco API Documentation
 - [API - summarize](documentation/api-short.md)
