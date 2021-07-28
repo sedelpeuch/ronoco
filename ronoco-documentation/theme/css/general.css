@@ -185,7 +185,7 @@ method{
     margin-bottom: 6px;
     margin-top: 20px;
     border: none;
-    color: #AFC6E9;
+    color: #FFB454;
     border-left: 3px solid #FF5964;
     padding-left: 5px;
     padding-right: 5px;
@@ -206,7 +206,7 @@ class{
 
 member{
     border: none;
-    color: #AFC6E9;
+    color: #FFB454;
     padding-left: 5px;
     padding-right: 5px;
     font-style : italic;
@@ -214,6 +214,6 @@ member{
 }
 
 em{
-    color: #AFC6E9;
+    color: #FFB454;
 }
 
