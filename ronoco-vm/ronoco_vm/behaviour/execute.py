@@ -6,20 +6,20 @@ Implementation of the action-bt execute allowing the robot to move to a point
 
 import py_trees
 
-import behavior
+import behaviour
 import logger
 
 
 class Execute(py_trees.behaviour.Behaviour):
     """
-    Class inherited from py_tree.behavior.Behavior allowing to define a new behavior. The behaviour is execute, i.e.
+    Class inherited from py_tree.behaviour.Behavior allowing to define a new behaviour. The behaviour is execute, i.e.
     the movement between the current position and a position given in the constructor parameter.
     """
 
     def __init__(self, name="Execute", point=None):
         super(Execute, self).__init__(name)
         self.point = point
-        self.commander = behavior.behavior.commander
+        self.commander = behaviour.behaviour.commander
 
     def setup(self, timeout):
         """

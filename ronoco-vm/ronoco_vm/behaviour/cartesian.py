@@ -6,14 +6,14 @@ Implementation of the action-bt cartesian allowing the robot to move to a point 
 
 import py_trees
 
-import behavior
+import behaviour
 import geometry_msgs.msg
 import logger
 
 
 class Cartesian(py_trees.behaviour.Behaviour):
     """
-    Class inherited from py_tree.behavior.Behavior allowing to define a new behavior. The behaviour is cartesian path,
+    Class inherited from py_tree.behaviour.Behavior allowing to define a new behaviour. The behaviour is cartesian path,
     i.e. the cartesian movement between the current position and a position given in the constructor parameter .
     """
 
@@ -22,7 +22,7 @@ class Cartesian(py_trees.behaviour.Behaviour):
         self.point = data['point']
         self.reliability = data['reliability']
         self.eef = data['eef']
-        self.commander = behavior.behavior.commander
+        self.commander = behaviour.behaviour.commander
         self.wpose = None
 
     def setup(self, timeout):

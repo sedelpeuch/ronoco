@@ -6,21 +6,21 @@ Implementation of the action-bt replay allowing the robot to replay a previously
 
 import py_trees
 
-import behavior
+import behaviour
 import logger
 from recorder import Player
 
 
 class Replay(py_trees.behaviour.Behaviour):
     """
-    Class inherited from py_tree.behavior.Behavior allowing to define a new behavior. The behaviour is replay, i.e.
+    Class inherited from py_tree.behaviour.Behavior allowing to define a new behaviour. The behaviour is replay, i.e.
     replays a previously recorded path.
     """
 
     def __init__(self, name="Replay", data=None):
         super(Replay, self).__init__(name)
         self.identifiant = data
-        self.commander = behavior.behavior.commander
+        self.commander = behaviour.behaviour.commander
         self.player = Player()
 
     def setup(self, timeout):

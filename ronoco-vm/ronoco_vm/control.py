@@ -7,7 +7,7 @@ import py_trees
 from flask import Blueprint, request
 from werkzeug.exceptions import BadRequest
 
-import behavior
+import behaviour
 import logger
 
 
@@ -46,7 +46,7 @@ class Control:
         To be interpreted a flow must contain at least one behaviour tree
 
         :return:
-            - {"Success" : "All behavior trees has been executed", 200} if the tree is built and executed correctly.
+            - {"Success" : "All behaviour trees has been executed", 200} if the tree is built and executed correctly.
             - {"Error": "Block (or child of this block) with id <str> is incorrect", 400} if it is not
         """
         trees = []
@@ -55,7 +55,7 @@ class Control:
         if request.method == 'POST':
             data = request.get_json()
             try:
-                bt = data['behavior-tree']
+                bt = data['behaviour-tree']
             except KeyError:
                 raise BadRequest()
             except TypeError:
@@ -117,7 +117,7 @@ class Control:
                 self.behavior_tree.interrupt()
             if self.behavior_tree.tip().status == Status.FAILURE:
                 return {"Error": "Tree with root's name :" + self.roots[i]['name'] + " can't be executed"}, 409
-        return {"Success": "All behavior trees has been executed"}, 200
+        return {"Success": "All behaviour trees has been executed"}, 200
 
     @staticmethod
     def find_roots(bt):
@@ -177,9 +177,9 @@ class Control:
 
         # Check children of current node
         if not children_id:
-            if json_node['type'] in behavior.behavior.composites:
+            if json_node['type'] in behaviour.behaviour.composites:
                 return False, children_id
-            elif json_node['type'] in behavior.behavior.leaf:
+            elif json_node['type'] in behaviour.behaviour.leaf:
                 return True, None
             else:
                 return False, children_id
@@ -198,7 +198,7 @@ class Control:
 
         # For each child verify if it's a decorator then connect child with his father
         for child in children:
-            if child['type'] in behavior.behavior.decorators:
+            if child['type'] in behaviour.behaviour.decorators:
                 if len(child['wires'][0]) != 1:
                     return False, child['id']
                 grandson = self.behavior_tree_dict[child['wires'][0][0]]
@@ -209,7 +209,7 @@ class Control:
                     data = child['data']
                 except KeyError:
                     pass
-                state, node_py_tree = behavior.behavior.types[child['type']](name=name, data=data, child=grandson)
+                state, node_py_tree = behaviour.behaviour.types[child['type']](name=name, data=data, child=grandson)
                 if not state:
                     return False, child['id']
                 self.behavior_tree_dict[child['id']] = node_py_tree
@@ -228,9 +228,9 @@ class Control:
         :param bt: a json representing a behaviour tree (export of nodered)
         :return: True, None if everything is ok, False and an id else
         """
-        if node['type'] in behavior.behavior.decorators:
+        if node['type'] in behaviour.behaviour.decorators:
             state, child = self.find_by_id(node['wires'][0][0], bt)
-            if child['type'] in behavior.behavior.decorators:
+            if child['type'] in behaviour.behaviour.decorators:
                 self.build_decorator(child, bt)
             else:
                 name = None
@@ -242,7 +242,7 @@ class Control:
                 except KeyError:
                     pass
                 child = self.behavior_tree_dict[child['id']]
-                state, node_py_tree = behavior.behavior.types[node['type']](name=name, data=data, child=child)
+                state, node_py_tree = behaviour.behaviour.types[node['type']](name=name, data=data, child=child)
                 if not state:
                     return False, child['id']
                 self.behavior_tree_dict[node['id']] = node_py_tree
@@ -270,9 +270,9 @@ class Control:
             except KeyError:
                 pass
             if node_json['type'] != "tab" and node_json['type'] != "root" \
-                    and node_json['type'] not in behavior.behavior.decorators:
+                    and node_json['type'] not in behaviour.behaviour.decorators:
                 try:
-                    state, node_py_tree = behavior.behavior.types[node_json['type']](name=name, data=data, child=None)
+                    state, node_py_tree = behaviour.behaviour.types[node_json['type']](name=name, data=data, child=None)
                 except KeyError:
                     return False, node_json['id']
                 if not state:
@@ -282,7 +282,7 @@ class Control:
 
     def stop(self):
         """
-        Stop execute of current behavior tree
+        Stop execute of current behaviour tree
         """
         self.behavior_tree.interrupt()
         return {"Success": "Behavior tree has been stopped "}, 200

@@ -1,10 +1,10 @@
 """
-This file implements some constants for behavior like kind of types, leaves and create an instance of CartesianPoint()
+This file implements some constants for behaviour like kind of types, leaves and create an instance of CartesianPoint()
 commander
 """
 import py_trees
 
-import behavior
+import behaviour
 import cartesian_point
 
 
@@ -28,7 +28,7 @@ def execute(data, child, name):
     state, point = cartesian_point.CartesianPoint().find_db(int(data))
     if not state:
         return False, None
-    return True, behavior.execute.Execute(name, point)
+    return True, behaviour.execute.Execute(name, point)
 
 
 def plan(name, data, child):
@@ -37,7 +37,7 @@ def plan(name, data, child):
     state, point = cartesian_point.CartesianPoint().find_db(int(data))
     if not state:
         return False, None
-    return True, behavior.plan.Plan(name, point)
+    return True, behaviour.plan.Plan(name, point)
 
 
 def condition(name, data, child):
@@ -70,8 +70,8 @@ def cartesian(name, data, child):
     state, point = cartesian_point.CartesianPoint().find_db(int(data['point_id']))
     if not state:
         return False, None
-    return True, behavior.cartesian.Cartesian(name,
-                                              {"point": point, "reliability": data['reliability'], "eef": data['eef']})
+    return True, behaviour.cartesian.Cartesian(name,
+                                               {"point": point, "reliability": data['reliability'], "eef": data['eef']})
 
 
 def record(name, data, child):
@@ -79,8 +79,8 @@ def record(name, data, child):
         name = "Record"
     if data is None:
         return False, None
-    return True, behavior.record.Record(name,
-                                        {"identifiant": data['identifiant'], "time": data['time']})
+    return True, behaviour.record.Record(name,
+                                         {"identifiant": data['identifiant'], "time": data['time']})
 
 
 def replay(name, data, child):
@@ -88,7 +88,7 @@ def replay(name, data, child):
         name = "Replay"
     if data is None:
         return False, None
-    return True, behavior.replay.Replay(name, data)
+    return True, behaviour.replay.Replay(name, data)
 
 
 types = {'selector': selector,

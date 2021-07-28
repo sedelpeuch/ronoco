@@ -6,7 +6,7 @@ Implementation of the action-bt record allowing the robot to record a trajectory
 
 import py_trees
 
-import behavior
+import behaviour
 import config
 import logger
 import rospy
@@ -16,15 +16,15 @@ from std_srvs.srv import SetBool
 
 class Record(py_trees.behaviour.Behaviour):
     """
-    Class inherited from py_tree.behavior.Behavior allowing to define a new behavior. The behaviour is execute, i.e.
-    the movement between the current position and a position given in the constructor parameter.
+    Class inherited from py_tree.behaviour.Behavior allowing to define a new behaviour. The behaviour is record, i.e.
+    record all trajectories during a time specified by a parameter in constructor
     """
 
     def __init__(self, name="Record", data=None):
         super(Record, self).__init__(name)
         self.identifiant = data['identifiant']
         self.time = int(data['time'])
-        self.commander = behavior.behavior.commander
+        self.commander = behaviour.behaviour.commander
         self.compliance = rospy.ServiceProxy('set_compliant', SetBool)
 
     def set_compliance(self, bool):
