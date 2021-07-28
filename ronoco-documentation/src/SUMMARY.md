@@ -21,9 +21,9 @@ Ronoco
 - [Add blocks to node-red](dev-guides/new-blocks.md)
 - [Change node-red](dev-guides/scratch.md)
 
-# Ronoco Documentation 📖
+# Ronoco Documentation
 - [Ronoco VM](documentation/api.md)
   - [Behaviours](documentation/behavior.md)
-  - [API - summarize](documentation/api-summarize.md)
+  - [API - summarize](documentation/api-short.md)
   - [API - detailed](documentation/api-detailed.md)
 - [Ronoco Node-Red](documentation/nodered.md)
