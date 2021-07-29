@@ -27,8 +27,8 @@
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
     <div class="form-row">
-        <label for="node-input-point_id"><i class="fa fa-tag"></i> Id</label>
-        <input type="text" id="node-input-point_id" placeholder="idy">
+        <label for="node-input-point_id"><i class="fa fa-tag"></i> Identifier</label>
+        <input type="text" id="node-input-point_id" placeholder="id">
     </div>
     <div class="form-row">
         <label for="node-input-reliability"><i class="fa fa-tag"></i> Reliability</label>
@@ -46,6 +46,10 @@
     <h3>Parameters</h3>
     <h4>Name</h4>
     String - name of current block
-    <h4>Data</h4>
+    <h4>Identifier</h4>
     <p> The identifier of the point in the ros parameter server (on the name "cartesianPoints"). Use Ronoco-ui to find out which points are registered</p>
+    <h4>Reliability</h4>
+    <p> The minimum fraction of the path followed for it to be considered feasible</p>
+    <h4>Eef</h4>
+    The minimum step between two points (typically 0.01)
 </script>
