@@ -233,7 +233,7 @@ npm start
 <p><img src="user-guides/../static/ronoco.png" alt="ronoco" /></p>
 <p>Work in progress: launching Ronoco using a roslaunch</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="how-to-use-it"><a class="header" href="#how-to-use-it">How to use it</a></h1>
-<p>This page explains how to use the application to control a robot. It is divided in 3 parts, the first one explains how to use the different buttons of the control interface. The second part explains how to create behaviour trees and the specificities of the different blocks. Finally a complete example of use on a Poppy Ergo Jr is provided.</p>
+<p>This page explains how to use the application to control a robot. It is divided in 3 parts, the first one explains how to use the different buttons of the control interface. The second part explains how to create behaviour trees and the specificities of the different blocks.</p>
 <h2 id="control-interface"><a class="header" href="#control-interface">Control Interface</a></h2>
 <center>
 <img src="user-guides/../static/boutons-ui.png" width="40%" ></img>
@@ -251,6 +251,24 @@ npm start
 <p><img src="user-guides/../static/get.svg" width="5%"></img> This group of buttons allows you to view the different registered positions. It is possible to consult a specific position by filling in the <em>id</em> field and then pressing <em>get</em> or to consult all the registered positions by using the <em>get all</em> button.</p>
 <p><img src="user-guides/../static/trash.svg" width="5%"></img> This group of buttons allows you to delete the different registered positions. It is possible to delete a specific position by filling in the <em>id</em> field and then pressing <em>delete</em> or delete all registered positions by using the <em>clear all</em> button</p>
 <h2 id="area-for-creating-behaviour-trees"><a class="header" href="#area-for-creating-behaviour-trees">Area for creating behaviour trees</a></h2>
+<center>
+<img src="user-guides/../static/areaBT.png" width="100%" ></img>
+<p>Area for creating behaviour trees</p>
+</center>
+<p>The behaviour tree creation area is an instance of Node-RED it is necessary to have the Ronoco specific Node-RED palette installed to use the application. Refer to the <a href="user-guides/installation.html">installation page</a></p>
+<p>⚠️ Ronoco is not compatible with the native Node-RED blocks, only the blocks of the ronoco-nodered palette are usable. You can make the native blocks disappear by clicking on the three horizontal bars at the top right, then Manage Palette and finally click on disable all for the node-red palette.</p>
+<p>This section explains how to create a tree interpretable by ronoco-vm and run it. To learn how to create behaviour trees, refer to the <a href="user-guides/bt.html">associated page</a>. For the documentation of each block, you can access it directly from ronoco or from the behaviours documentation.</p>
+<center>
+<img src="user-guides/../static/doc.png" width="50%" ></img>
+<p>Access to block documentation from Ronoco</p>
+</center>
+<p>To create Ronoco interpretable trees any tree <strong>must start</strong> with a <em>root</em> block and <strong>must contain at least</strong> one <em>leaf</em> (blue coloured blocks), a tree not starting with a <em>root</em> block will simply be ignored.</p>
+<p>The <em>root</em> and <em>decorators</em> blocks (green blocks) must be followed by a single child.</p>
+<p>The <em>sequence</em>, <em>selector</em> and <em>parallel</em> blocks accept multiple children.</p>
+<p>All blocks (except the <em>root</em> block) can be the child of multiple blocks.</p>
+<p>The behaviour trees are read from left to right and from top to bottom. If two child blocks of the same block are placed at the same height, an error will be raised.</p>
+<p>A worksheet can contain multiple trees identified by their <em>root</em> block. If this is the case, the trees will be executed according to the height of their <em>root</em> block on the sheet (from top to bottom)</p>
+<p>To execute a behaviour tree with ronoco it is necessary to click on the <em>deploy</em> button at the top right of the window and then on the <em>play</em> <img src="user-guides/../static/play.svg" width="2%" ></img> button of the control interface.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="how-to-create-a-behaviour-tree"><a class="header" href="#how-to-create-a-behaviour-tree">How to create a behaviour tree</a></h1>
 <p>This page is an introduction to the behaviour trees used in Ronoco to define programs. It is inspired by <a href="https://roboticseabass.com/2021/05/08/introduction-to-behavior-trees/">Robotic Sea Bass - Introduction to Behavior Trees</a>,
 and the <a href="https://py-trees.readthedocs.io/en/devel/">documentation of py_trees</a></p>
