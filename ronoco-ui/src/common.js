@@ -104,10 +104,13 @@ async function connect_io() {
     socket2.on('states', function (msg) {
         console.log(msg)
         if (msg['robot_state'] === false ||
-            msg['rviz_state'] === false ||
             msg['moveit_state'] === false) {
+            document.getElementById("state").src = "/static/circle_orange.svg"
+        }
+        else if(msg['rviz_state'] === false){
             document.getElementById("state").src = "/static/circle_yellow.svg"
-        } else {
+        }
+        else {
             document.getElementById("state").src = "/static/circle_green.svg"
         }
     })

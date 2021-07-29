@@ -48,7 +48,7 @@ document.getElementById('DeletePosition').addEventListener('click',deletePositio
  * @returns {Promise<void>}
  */
 async function getPositionId(){
-    let id = document.getElementById("id").value;
+    let id = document.getElementById("id_get").value;
     let result = await get("http://127.0.0.1:5000/point/get/"+id)
     console.logger(result)
 }
@@ -59,7 +59,7 @@ document.getElementById('GetPositionId').addEventListener('click',getPositionId)
  * @returns {Promise<void>}
  */
 async function deletePositionId(){
-    let id = document.getElementById("id").value;
+    let id = document.getElementById("id_del").value;
     let result = await post("http://127.0.0.1:5000/point/delete/"+id, {})
     console.logger(result)
 }
