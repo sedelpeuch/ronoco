@@ -187,7 +187,7 @@ class CartesianPoint:
             if state:
                 return result, 200
             else:
-                return {"Error": "No point have been recorded"}, 404
+                return {"Error": "No point have been recorded with id : " + str(identifiant)}, 404
 
     def delete_one_point(self, identifiant):
         """
