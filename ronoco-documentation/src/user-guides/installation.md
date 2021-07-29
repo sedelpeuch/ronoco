@@ -37,7 +37,6 @@ source /opt/ros/noetic/setup.bash
 It can be convenient to automatically source this script every time a new shell is launched. These commands will do that
 for you
 ```bash
-```bash
 echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
 source $HOME/.bashrc
 
