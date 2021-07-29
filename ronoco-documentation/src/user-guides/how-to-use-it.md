@@ -1,6 +1,6 @@
 # How to use it
 
-This page explains how to use the application to control a robot. It is divided in 3 parts, the first one explains how to use the different buttons of the control interface. The second part explains how to create behaviour trees and the specificities of the different blocks. Finally a complete example of use on a Poppy Ergo Jr is provided.
+This page explains how to use the application to control a robot. It is divided in 3 parts, the first one explains how to use the different buttons of the control interface. The second part explains how to create behaviour trees and the specificities of the different blocks.
 
 ## Control Interface
 
@@ -35,3 +35,34 @@ Control Interface
 
 ## Area for creating behaviour trees
 
+<center>
+<img src="../static/areaBT.png" width="100%" ></img>
+
+Area for creating behaviour trees
+</center>
+
+The behaviour tree creation area is an instance of Node-RED it is necessary to have the Ronoco specific Node-RED palette installed to use the application. Refer to the [installation page](installation.md)
+
+⚠️ Ronoco is not compatible with the native Node-RED blocks, only the blocks of the ronoco-nodered palette are usable. You can make the native blocks disappear by clicking on the three horizontal bars at the top right, then Manage Palette and finally click on disable all for the node-red palette.
+
+This section explains how to create a tree interpretable by ronoco-vm and run it. To learn how to create behaviour trees, refer to the [associated page](bt.md). For the documentation of each block, you can access it directly from ronoco or from the behaviours documentation.
+
+<center>
+<img src="../static/doc.png" width="50%" ></img>
+
+Access to block documentation from Ronoco
+</center>
+
+To create Ronoco interpretable trees any tree **must start** with a *root* block and **must contain at least** one *leaf* (blue coloured blocks), a tree not starting with a *root* block will simply be ignored.
+
+The *root* and *decorators* blocks (green blocks) must be followed by a single child.
+
+The *sequence*, *selector* and *parallel* blocks accept multiple children.
+
+All blocks (except the *root* block) can be the child of multiple blocks.
+
+The behaviour trees are read from left to right and from top to bottom. If two child blocks of the same block are placed at the same height, an error will be raised.
+
+A worksheet can contain multiple trees identified by their *root* block. If this is the case, the trees will be executed according to the height of their *root* block on the sheet (from top to bottom)
+
+To execute a behaviour tree with ronoco it is necessary to click on the *deploy* button at the top right of the window and then on the *play* <img src="../static/play.svg" width="2%" ></img> button of the control interface.
