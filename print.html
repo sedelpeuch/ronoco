@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
+<html lang="en" class="sidebar-visible no-js ayu">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -38,7 +38,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "ayu";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -64,7 +64,7 @@
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
             html.classList.remove('no-js')
-            html.classList.remove('light')
+            html.classList.remove('ayu')
             html.classList.add(theme);
             html.classList.add('js');
         </script>
@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Ronoco</li><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">Users guides</li><li class="chapter-item expanded "><a href="user-guides/installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="user-guides/quick-start.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li class="chapter-item expanded "><a href="user-guides/how-to-use-it.html"><strong aria-hidden="true">4.</strong> How to use it</a></li><li class="chapter-item expanded "><a href="user-guides/bt.html"><strong aria-hidden="true">5.</strong> How to create a behaviour tree</a></li><li class="chapter-item expanded "><a href="user-guides/poppy.html"><strong aria-hidden="true">6.</strong> Examples on robots</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="user-guides/poppy.html"><strong aria-hidden="true">6.1.</strong> Poppy ergo jr</a></li><li class="chapter-item expanded "><a href="user-guides/ur3.html"><strong aria-hidden="true">6.2.</strong> Universal Robots 3</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Ronoco API Documentation</li><li class="chapter-item expanded "><a href="documentation/api-short.html"><strong aria-hidden="true">7.</strong> API - summarize</a></li><li class="chapter-item expanded "><a href="documentation/api-detailed.html"><strong aria-hidden="true">8.</strong> API - detailed</a></li><li class="chapter-item expanded "><a href="documentation/behavior.html"><strong aria-hidden="true">9.</strong> Behaviours</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Ronoco</li><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">Users guides</li><li class="chapter-item expanded "><a href="user-guides/installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="user-guides/quick-start.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li class="chapter-item expanded "><a href="user-guides/how-to-use-it.html"><strong aria-hidden="true">4.</strong> How to use it</a></li><li class="chapter-item expanded "><a href="user-guides/bt.html"><strong aria-hidden="true">5.</strong> How to create a behaviour tree</a></li><li class="chapter-item expanded "><a href="user-guides/poppy.html"><strong aria-hidden="true">6.</strong> Examples on robots</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="user-guides/poppy.html"><strong aria-hidden="true">6.1.</strong> Poppy ergo jr</a></li><li class="chapter-item expanded "><a href="user-guides/ur3.html"><strong aria-hidden="true">6.2.</strong> Universal Robots 3</a></li><li class="chapter-item expanded "><a href="dev-guides/own.html"><strong aria-hidden="true">6.3.</strong> Add your own robot</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Ronoco API Documentation</li><li class="chapter-item expanded "><a href="documentation/api-short.html"><strong aria-hidden="true">7.</strong> API - summarize</a></li><li class="chapter-item expanded "><a href="documentation/api-detailed.html"><strong aria-hidden="true">8.</strong> API - detailed</a></li><li class="chapter-item expanded "><a href="documentation/behavior.html"><strong aria-hidden="true">9.</strong> Behaviours</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -101,7 +101,7 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
                         </ul>
                                                 <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
@@ -230,9 +230,27 @@ cd $HOME/catkin_ws/src/Ronoco/ronoco-ui/
 npm start
 </code></pre>
 <p>Once all the modules are running go to your <a href="http://localhost:8080/">localhost:8080</a> and you will arrive on the Ronoco page:</p>
-<p><img src="user-guides/ronoco.png" alt="ronoco" /></p>
+<p><img src="user-guides/../static/ronoco.png" alt="ronoco" /></p>
 <p>Work in progress: launching Ronoco using a roslaunch</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="how-to-use-it"><a class="header" href="#how-to-use-it">How to use it</a></h1>
+<p>This page explains how to use the application to control a robot. It is divided in 3 parts, the first one explains how to use the different buttons of the control interface. The second part explains how to create behaviour trees and the specificities of the different blocks. Finally a complete example of use on a Poppy Ergo Jr is provided.</p>
+<h2 id="control-interface"><a class="header" href="#control-interface">Control Interface</a></h2>
+<center>
+<img src="user-guides/../static/boutons-ui.png" width="40%" ></img>
+<p>Control Interface</p>
+</center>
+<p><img src="user-guides/../static/shutdown.svg" width="5%"></img> Allows to stop the server (WIP: allows to start and stop the whole application)</p>
+<p><img src="user-guides/../static/circle.svg" width="5%"></img> Represents the status of the server, when it is empty it means that the client has not yet received any information from the server. It is probably still loading.</p>
+<p><img src="user-guides/../static/circle_red.svg" width="5%"></img> When it is red it means that at least one request to the server has not been answered and therefore the server is not running or is in error</p>
+<p><img src="user-guides/../static/circle_orange.svg" width="5%"></img> When it is orange it means that ROS is not working as expected. The source of the problem is either the absence of roscore (the rosout/get_loggers service is not available) or the absence of moveit (the move_group/get_loggers service is not available). In this state ronoco is not usable</p>
+<p><img src="user-guides/../static/circle_yellow.svg" width="5%"></img> When it is yellow it means that Rviz is not communicating the position of the interactive marker. If rviz seems to be working correctly on your machine, simply move the interactive marker to fix the problem. In this state ronoco is usable but the &quot;simulated&quot; button will produce an error</p>
+<p><img src="user-guides/../static/circle_green.svg" width="5%"></img> When it is green it means that ronoco is fully usable</p>
+<p><img src="user-guides/../static/play.svg" width="5%"></img> This button asks the server to execute the last behaviour tree deployed from Node-RED</p>
+<p><img src="user-guides/../static/free.svg" width="5%"></img> Enables the robot to be set to compliant mode. This button can only be used for a robot that has a service to set it to compliant mode (see <a href="user-guides/own.html">add your own robot</a> for more details).</p>
+<p><img src="user-guides/../static/record.svg" width="5%"></img> This group of buttons allows you to record points in the environment. There are two recording modes either via the <em>simulated</em> button which records the position of the interactive marker. Or via the <em>real</em> button which records the actual position of the robot.</p>
+<p><img src="user-guides/../static/get.svg" width="5%"></img> This group of buttons allows you to view the different registered positions. It is possible to consult a specific position by filling in the <em>id</em> field and then pressing <em>get</em> or to consult all the registered positions by using the <em>get all</em> button.</p>
+<p><img src="user-guides/../static/trash.svg" width="5%"></img> This group of buttons allows you to delete the different registered positions. It is possible to delete a specific position by filling in the <em>id</em> field and then pressing <em>delete</em> or delete all registered positions by using the <em>clear all</em> button</p>
+<h2 id="area-for-creating-behaviour-trees"><a class="header" href="#area-for-creating-behaviour-trees">Area for creating behaviour trees</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="how-to-create-a-behaviour-tree"><a class="header" href="#how-to-create-a-behaviour-tree">How to create a behaviour tree</a></h1>
 <p>This page is an introduction to the behaviour trees used in Ronoco to define programs. It is inspired by <a href="https://roboticseabass.com/2021/05/08/introduction-to-behavior-trees/">Robotic Sea Bass - Introduction to Behavior Trees</a>,
 and the <a href="https://py-trees.readthedocs.io/en/devel/">documentation of py_trees</a></p>
@@ -248,7 +266,7 @@ and the <a href="https://py-trees.readthedocs.io/en/devel/">documentation of py_
 <p>Let's dig into the terminology in behaviour trees.</p>
 <p>At a glance, these are the types of nodes that make up behaviour trees and how they are represented graphically</p>
 <center>
-<img src="user-guides/terminology.png" width=100%></img>
+<img src="user-guides/../static/terminology.png" width=100%></img>
 </center>
 <p>Behaviour trees execute in discrete update steps known as <strong>ticks</strong>. When a BT is ticked, usually at some specified rate, its child nodes recursively tick based on how the tree is constructed. After a node ticks, it returns a <strong>status</strong> to its parent, which can be <strong>Sucess</strong>, <strong>Failure</strong>, or <strong>Running</strong>.</p>
 <p><strong>Execution nodes</strong>, which are leaves of the BT, can either be <strong>Action</strong> or <strong>Condition</strong> nodes. The only diffrence is that nodes can only return Success or Failure within a single tick, whereas action nodes can span multiple ticks and can return Running until they reach a terminal state. Generally, condition nodes represent simple checks (e.g., &quot;is the gripper open ?&quot;) while action nodes represent complex actions (e.g. &quot;open the door&quot;).</p>
@@ -263,12 +281,12 @@ and the <a href="https://py-trees.readthedocs.io/en/devel/">documentation of py_
 <p>In Node-RED the behaviour trees are read from left to right and from top to bottom. In the first example, the &quot;root&quot; node is read first, then &quot;sequence&quot;, then &quot;plan&quot; and finally &quot;execute&quot;.</p>
 <p>Let's start with a simple example, a sequence to plan a path to a point and then execute it. If the planning to the point succeeds then the execution will be done. However, if the planning fails, the sequence will be interrupted and the execution will not take place.</p>
 <center>
-<img src="user-guides/example1.png" width=70%></img>
+<img src="user-guides/../static/example1.png" width=70%></img>
 </center>
 <p>In this more complete example we will want to go to the original position and then perform a Cartesian move to position 1 in less than 10 seconds otherwise go to position 2.</p>
 <p>To do this we start with a sequence of two children. The first one asks to move to the home position, then if the execution is successful we introduce a two-child selector. The first one asks to perform a Cartesian move to position 1, it is accompanied by a timeout decorator set to 10 seconds. If the timeout is exceeded or the move is not feasible then this first child returns a failure. At this point the selector will execute its second child consisting of moving to position 2. If the first child returns a success the selector does not need to execute its second child and the execution of this tree ends.</p>
 <center>
-<img src="user-guides/example2.png" width=100%></img>
+<img src="user-guides/../static/example2.png" width=100%></img>
 </center>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="examples-on-robots"><a class="header" href="#examples-on-robots">Examples on robots</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="examples-on-robots-1"><a class="header" href="#examples-on-robots-1">Examples on robots</a></h1>
@@ -344,6 +362,7 @@ mode = &quot;manual&quot;
 </code></pre>
 <h3 id="limitations"><a class="header" href="#limitations">Limitations</a></h3>
 <p>Les universals robots ne supportent pas l'utilisation du &quot;mode libre&quot; en même temps que l'éxecution d'un programme, autrement dit lorsque l'on éxecute le bloc <strong>ExternalControl</strong> il n'est pas possible d'utiliser la fonction &quot;mode libre&quot;. Ainsi les blocs <em>record</em> et <em>replay</em> ne sont pas utilisables sur un universal robots.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="add-your-own-robot"><a class="header" href="#add-your-own-robot">Add your own robot</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ronoco-vm-api---summarized-documentation"><a class="header" href="#ronoco-vm-api---summarized-documentation">Ronoco-vm API - Summarized documentation</a></h1>
 <p>The table below lists all the endpoints of <strong>ronoco-vm</strong> and their different possible behaviour</p>
 <table><thead><tr><th align="left">URL</th><th align="left">Method</th><th align="left">Body</th><th align="left">Return Code</th><th align="left">Return</th><th align="left">Description</th></tr></thead><tbody>
@@ -407,15 +426,24 @@ mode = &quot;manual&quot;
 <p><method> send_states()</method></p>
 <p>This function check if the state of the robot or rviz has changed. If so, it sends a message to the websockets states
 channel</p>
-<p><method> robot_state()</method></p>
-<p>Check if you can communicate with a controller</p>
+<p><method> ros_state()</method></p>
+<p>Check if you can communicate with MoveIT</p>
 <ul>
-<li>Use rosservice /rosout/get_loggers</li>
-<li>Node: /rosout</li>
+<li>Use rosservice /move_group/get_loggers</li>
+<li>Node: /move_group</li>
 <li>Type: roscpp/GetLoggers</li>
 <li>Args:</li>
 </ul>
 <p><member>Return</member> True if communication with rosmaster is possible, False else</p>
+<p><method> moveit_state() </method></p>
+<p>Check if you can communicate with moveit</p>
+<ul>
+<li>Use rosservice /move_group/get_loggers</li>
+<li>Node: /move_group</li>
+<li>Type: roscpp/GetLoggers</li>
+<li>Args:</li>
+</ul>
+<p><member>Return</member> True if communication with moveit is possible, False else</p>
 <p><method> rviz_state() </method></p>
 <p>Check if rviz send data on topic /rviz_moveit_motion_planning_display/robot_interaction_interactive_marker_topic
 /update</p>
