@@ -51,11 +51,10 @@ class Control:
         """
         trees = []
         py_trees.logging.level = py_trees.logging.Level.DEBUG  # For development purpose only
-
         if request.method == 'POST':
             data = request.get_json()
             try:
-                bt = data['behaviour-tree']
+                bt = data['behavior-tree']
             except KeyError:
                 raise BadRequest()
             except TypeError:
