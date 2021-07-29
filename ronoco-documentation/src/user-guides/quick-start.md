@@ -18,6 +18,6 @@ npm start
 
 Once all the modules are running go to your [localhost:8080](http://localhost:8080/) and you will arrive on the Ronoco page:
 
-![ronoco](ronoco.png)
+![ronoco](../static/ronoco.png)
 
 Work in progress: launching Ronoco using a roslaunch

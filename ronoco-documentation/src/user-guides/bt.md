@@ -19,7 +19,7 @@ Let's dig into the terminology in behaviour trees.
 At a glance, these are the types of nodes that make up behaviour trees and how they are represented graphically
 
 <center>
-<img src="terminology.png" width=100%></img>
+<img src="../static/terminology.png" width=100%></img>
 </center>
 
 Behaviour trees execute in discrete update steps known as **ticks**. When a BT is ticked, usually at some specified rate, its child nodes recursively tick based on how the tree is constructed. After a node ticks, it returns a **status** to its parent, which can be **Sucess**, **Failure**, or **Running**.
@@ -40,7 +40,7 @@ In Node-RED the behaviour trees are read from left to right and from top to bott
 Let's start with a simple example, a sequence to plan a path to a point and then execute it. If the planning to the point succeeds then the execution will be done. However, if the planning fails, the sequence will be interrupted and the execution will not take place.
 
 <center>
-<img src="example1.png" width=70%></img>
+<img src="../static/example1.png" width=70%></img>
 </center>
 
 In this more complete example we will want to go to the original position and then perform a Cartesian move to position 1 in less than 10 seconds otherwise go to position 2.
@@ -48,5 +48,5 @@ In this more complete example we will want to go to the original position and th
 To do this we start with a sequence of two children. The first one asks to move to the home position, then if the execution is successful we introduce a two-child selector. The first one asks to perform a Cartesian move to position 1, it is accompanied by a timeout decorator set to 10 seconds. If the timeout is exceeded or the move is not feasible then this first child returns a failure. At this point the selector will execute its second child consisting of moving to position 2. If the first child returns a success the selector does not need to execute its second child and the execution of this tree ends.
 
 <center>
-<img src="example2.png" width=100%></img>
+<img src="../static/example2.png" width=100%></img>
 </center>
