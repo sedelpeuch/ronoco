@@ -32,7 +32,8 @@ class Common:
         """
         while True:
             time.sleep(5.0)
-            config.socketio.emit('states', {"robot_state": self.robot_state(), "rviz_state": self.rviz_state()},
+            config.socketio.emit('states', {"ros_state": self.ros_state(), "moveit_state": self.moveit_state(),
+                                            "rviz_state": self.rviz_state()},
                                  namespace='/states')
 
     @staticmethod
@@ -47,9 +48,9 @@ class Common:
         return {"Success": "Server is running"}, 200
 
     @staticmethod
-    def robot_state():
+    def ros_state():
         """
-        Check if you can communicate with a controller
+        Check if you can communicate with a roscore
             + Use rosservice /rosout/get_loggers
             + Node: /rosout
             + Type: roscpp/GetLoggers
@@ -58,6 +59,23 @@ class Common:
         :return: True if communication with rosmaster is possible, False else
         """
         get_loggers = rospy.ServiceProxy('rosout/get_loggers', GetLoggers)
+        try:
+            get_loggers()
+        except rospy.service.ServiceException:
+            return False
+        return True
+
+    @staticmethod
+    def moveit_state():
+        """
+        Check if you can communicate with moveit
+            + Use rosservice /move_group/get_loggers
+            + Node: /move_group
+            + Type: roscpp/GetLoggers
+            + Args:
+        :return: True if communication with moveit is possible, False else
+        """
+        get_loggers = rospy.ServiceProxy('move_group/get_loggers', GetLoggers)
         try:
             get_loggers()
         except rospy.service.ServiceException:
