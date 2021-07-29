@@ -47,15 +47,25 @@ ROUTE /
 This function check if the state of the robot or rviz has changed. If so, it sends a message to the websockets states
 channel
 
-<method> robot_state()</method>
+<method> ros_state()</method>
 
-Check if you can communicate with a controller
-- Use rosservice /rosout/get_loggers
-- Node: /rosout
+Check if you can communicate with MoveIT
+- Use rosservice /move_group/get_loggers
+- Node: /move_group
 - Type: roscpp/GetLoggers
 - Args:
 
 <member>Return</member> True if communication with rosmaster is possible, False else
+
+<method> moveit_state() </method>
+
+Check if you can communicate with moveit
+- Use rosservice /move_group/get_loggers
+- Node: /move_group
+- Type: roscpp/GetLoggers
+- Args:
+
+<member>Return</member> True if communication with moveit is possible, False else
 
 <method> rviz_state() </method>
 
