@@ -6,17 +6,21 @@ Regarding the launching of ROS modules the procedure is different for each robot
 
 It is then necessary to launch the three modules.
 ```bash
-# Launching of nodered
+# Launching of nodered in a terminal
 node-red
-# Launching of ronoco-vm
+```
+```bash
+# Launching of ronoco-vm in another terminal
 cd $HOME/catkin_ws/src/ronoco/ronoco-vm/
 python3 ronoco_vm/run.py
-# Launching of ronoco-ui
+```
+```bash
+# Launching of ronoco-ui in another terminal
 cd $HOME/catkin_ws/src/ronoco/ronoco-ui/
 npm start
 ```
 
-Once all the modules are running go to your [localhost:8080](http://localhost:8080/) and you will arrive on the ronoco page:
+Once all the modules are running go to your [localhost:8080](http://localhost:8080/) and you will arrive at the ronoco page:
 
 ![ronoco](../static/ronoco.png)
 
