@@ -1,5 +1,6 @@
 {
   "name": "node-red-contrib-ronoco",
+  "version": "1.0.0",
   "node-red": {
     "nodes": {
       "sequence": "native-bt/sequence.js",
@@ -10,7 +11,6 @@
       "plan": "action-bt/plan.js",
       "cartesian": "action-bt/cartesian.js",
       "replay": "action-bt/replay.js",
-      "vision": "condition-bt/vision.js",
       "record": "condition-bt/record.js",
       "condition": "decorator-bt/condition.js",
       "inverter": "decorator-bt/inverter.js",
