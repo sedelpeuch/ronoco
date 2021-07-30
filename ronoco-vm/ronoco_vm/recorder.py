@@ -56,7 +56,7 @@ class RecorderBase(object):
 
     def __init__(self):
         self._rospack = RosPack()
-        self._path = join(self._rospack.get_path("poppy_controllers"), "data")
+        self._path = join(self._rospack.get_path("ronoco"), "data")
         self._data = []
 
 
@@ -102,7 +102,6 @@ class Recorder(RecorderBase):
             return False
         self._recording = False
         file_path = join(self._path, trajectory_name + ".json")
-        print(file_path)
         if isfile(file_path):
             rospy.logwarn("Overwriting trajectory: '{}'".format(trajectory_name))
         with open(file_path, 'w') as f:
