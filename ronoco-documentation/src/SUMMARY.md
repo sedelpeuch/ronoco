@@ -14,6 +14,7 @@ Ronoco
 - [Examples on robots](user-guides/poppy.md)
   - [Poppy ergo jr](user-guides/poppy.md)
   - [Universal Robots 3](user-guides/ur3.md)
+  - [Kuka KR6](user-guides/kuka.md)
   - [Add your own robot](dev-guides/own.md)
 
 <!--# Developers guides-->
