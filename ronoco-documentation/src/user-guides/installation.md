@@ -49,7 +49,7 @@ source $HOME/.zshrc
 
 ## Ronoco
 
-To install Ronoco you need the following packages:
+To install ronoco you need the following packages:
 
 - npm
 - python3
@@ -57,48 +57,56 @@ To install Ronoco you need the following packages:
 
 To start it is necessary to clone the project in the catkin workspace
 ```bash
+#if you haven't got a catkin_ws
+mkdir -p $HOME/catkin_ws/src
+cd $HOME/catkin_ws/
+catkin_make
+
 cd $HOME/catkin_ws/src/
-git clone https://github.com/Sdelpeuch/Ronoco.git
+git clone https://github.com/Sdelpeuch/ronoco.git
 ```
 
-Then you have to install the three modules that constitute Ronoco. Firstly *Ronoco-nodered* allowing the user to define the behaviour trees of the robot (see How to use it and How to create a behaviour tree). This module depends on Node-RED, so it is necessary to install the framework and then the blocks specific to Ronoco.
+Then you have to install the three modules that constitute ronoco. Firstly *ronoco-nodered* allowing the user to define the behaviour trees of the robot (see How to use it and How to create a behaviour tree). This module depends on Node-RED, so it is necessary to install the framework and then the blocks specific to ronoco.
 
 ```bash
 sudo npm install -g --unsafe-perm node-red
 mkdir $HOME/.node-red/
 cd $HOME/.node-red/
-npm install $HOME/catkin_ws/src/Ronoco/ronoco-nodered/
+npm install $HOME/catkin_ws/src/ronoco/ronoco-nodered/
 ```
 
-Once *Ronoco-nodered* is installed it is necessary to install the web client inside *Ronoco-ui*
+Once *ronoco-nodered* is installed it is necessary to install the web client inside *ronoco-ui*
 
 ```bash
-cd $HOME/catkin_ws/src/Ronoco/ronoco-ui/
+cd $HOME/catkin_ws/src/ronoco/ronoco-ui/
 npm install
 ```
 
-Finally, all that remains is to install the application engine found in *Ronoco-vm*.
+Finally, all that remains is to install the application engine found in *ronoco-vm*.
 
 ```bash
-cd $HOME/catkin_ws/src/Ronoco/ronoco-vm/
+cd $HOME/catkin_ws/src/ronoco/ronoco-vm/
 pip3 install -r requirements.txt
 ```
 
 It is necessary to download a socketio client in the static folder of the API
 
 ```bash
-cd $HOME/catkin_ws/src/Ronoco/ronoco-vm/ronoco_vm/static/
+cd $HOME/catkin_ws/src/ronoco/ronoco-vm/ronoco_vm/static/
 mkdir socket.io
 wget https://github.com/socketio/socket.io/blob/master/client-dist/socket.io.js
 wget https://github.com/socketio/socket.io/blob/master/client-dist/socket.io.js.map
 ```
 
-Before using Ronoco it is necessary to compile the ROS workspace
+Before using ronoco it is necessary to compile the ROS workspace
 
 ```bash
 cd $HOME/catkin_ws/
 catkin_make
-source devel/setup.<bash/zsh>
+source devel/setup.bash
+
+#or if you use zsh
+source devel/setup.zsh
 ```
 
-To start Ronoco refer to the [Getting Started](quick-start.md) page
+To start ronoco refer to the [Getting Started](quick-start.md) page
