@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Ronoco</li><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">Users guides</li><li class="chapter-item expanded "><a href="user-guides/installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="user-guides/quick-start.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li class="chapter-item expanded "><a href="user-guides/how-to-use-it.html"><strong aria-hidden="true">4.</strong> How to use it</a></li><li class="chapter-item expanded "><a href="user-guides/bt.html"><strong aria-hidden="true">5.</strong> How to create a behaviour tree</a></li><li class="chapter-item expanded "><a href="user-guides/poppy.html"><strong aria-hidden="true">6.</strong> Examples on robots</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="user-guides/poppy.html"><strong aria-hidden="true">6.1.</strong> Poppy ergo jr</a></li><li class="chapter-item expanded "><a href="user-guides/ur3.html"><strong aria-hidden="true">6.2.</strong> Universal Robots 3</a></li><li class="chapter-item expanded "><a href="dev-guides/own.html"><strong aria-hidden="true">6.3.</strong> Add your own robot</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Ronoco API Documentation</li><li class="chapter-item expanded "><a href="documentation/api-short.html"><strong aria-hidden="true">7.</strong> API - summarize</a></li><li class="chapter-item expanded "><a href="documentation/api-detailed.html"><strong aria-hidden="true">8.</strong> API - detailed</a></li><li class="chapter-item expanded "><a href="documentation/behavior.html"><strong aria-hidden="true">9.</strong> Behaviours</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Ronoco</li><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">Users guides</li><li class="chapter-item expanded "><a href="user-guides/installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="user-guides/quick-start.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li class="chapter-item expanded "><a href="user-guides/how-to-use-it.html"><strong aria-hidden="true">4.</strong> How to use it</a></li><li class="chapter-item expanded "><a href="user-guides/bt.html"><strong aria-hidden="true">5.</strong> How to create a behaviour tree</a></li><li class="chapter-item expanded "><a href="user-guides/poppy.html"><strong aria-hidden="true">6.</strong> Examples on robots</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="user-guides/poppy.html"><strong aria-hidden="true">6.1.</strong> Poppy ergo jr</a></li><li class="chapter-item expanded "><a href="user-guides/ur3.html"><strong aria-hidden="true">6.2.</strong> Universal Robots 3</a></li><li class="chapter-item expanded "><a href="user-guides/kuka.html"><strong aria-hidden="true">6.3.</strong> Kuka KR6</a></li><li class="chapter-item expanded "><a href="dev-guides/own.html"><strong aria-hidden="true">6.4.</strong> Add your own robot</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Ronoco API Documentation</li><li class="chapter-item expanded "><a href="documentation/api-short.html"><strong aria-hidden="true">7.</strong> API - summarize</a></li><li class="chapter-item expanded "><a href="documentation/api-detailed.html"><strong aria-hidden="true">8.</strong> API - detailed</a></li><li class="chapter-item expanded "><a href="documentation/behavior.html"><strong aria-hidden="true">9.</strong> Behaviours</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -227,16 +227,18 @@ source devel/setup.zsh
 <p>To use ronoco it is necessary to launch the ROS modules corresponding to your robot and then the different modules of ronoco.</p>
 <p>Regarding the launching of ROS modules the procedure is different for each robot, to make ronoco work it is necessary to have a roscore and Moveit running. See the different examples on <a href="user-guides/poppy.html">Poppy Ergo Jr</a> or <a href="user-guides/ur3.html">Universal Robots 3</a> for more details.</p>
 <p>It is then necessary to launch the three modules.</p>
-<pre><code class="language-bash"># Launching of nodered
+<pre><code class="language-bash"># Launching of nodered in a terminal
 node-red
-# Launching of ronoco-vm
+</code></pre>
+<pre><code class="language-bash"># Launching of ronoco-vm in another terminal
 cd $HOME/catkin_ws/src/ronoco/ronoco-vm/
 python3 ronoco_vm/run.py
-# Launching of ronoco-ui
+</code></pre>
+<pre><code class="language-bash"># Launching of ronoco-ui in another terminal
 cd $HOME/catkin_ws/src/ronoco/ronoco-ui/
 npm start
 </code></pre>
-<p>Once all the modules are running go to your <a href="http://localhost:8080/">localhost:8080</a> and you will arrive on the ronoco page:</p>
+<p>Once all the modules are running go to your <a href="http://localhost:8080/">localhost:8080</a> and you will arrive at the ronoco page:</p>
 <p><img src="user-guides/../static/ronoco.png" alt="ronoco" /></p>
 <p>Work in progress: launching ronoco using a roslaunch</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="how-to-use-it"><a class="header" href="#how-to-use-it">How to use it</a></h1>
@@ -313,15 +315,159 @@ and the <a href="https://py-trees.readthedocs.io/en/devel/">documentation of py_
 <center>
 <img src="user-guides/../static/example2.png" width=100%></img>
 </center>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="examples-on-robots"><a class="header" href="#examples-on-robots">Examples on robots</a></h1>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="examples-on-robots-1"><a class="header" href="#examples-on-robots-1">Examples on robots</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="example-on-poppy-ergo-jr"><a class="header" href="#example-on-poppy-ergo-jr">Example on Poppy Ergo Jr</a></h1>
+<p>This page presents a complete use of ronoco on a <a href="https://github.com/poppy-project/poppy-ergo-jr">poppy ergo jr</a> it uses the resources of <a href="https://learn.e.ros4.pro/fr/manipulation/ergo-jr/">learn.e.ros4.pro</a> concerning the Poppy Ergo Jr.</p>
+<p>It is necessary to have a ROS installation, a ROS workspace and ronoco to follow this page. Refer to the <a href="user-guides/installation.html">installation guide</a> if necessary.</p>
+<h2 id="prepare-poppy-ergo-jr"><a class="header" href="#prepare-poppy-ergo-jr">Prepare Poppy Ergo Jr</a></h2>
+<p>Start by <a href="https://docs.poppy-project.org/fr/assembly-guides/ergo-jr/">assembling your robot</a>, following the steps for ROS if applicable, then <a href="https://docs.poppy-project.org/fr/assembly-guides/ergo-jr/motor-configuration.html#32ter-configurer-les-moteurs-un-par-un-si-vous-utilisez-une-image-ros">configure your motors</a></p>
+<p>Download the <a href="https://github.com/poppy-project/poppy_controllers/releases/download/v1.0/poppy-ergo-jr-ros-melodic.img.zip">ROS image</a> to flash an SD card. To flash the image to an SD card:
++ Extract the compressed .zip or .7z file to a folder on the computer
++ Use the software <a href="https://www.balena.io/etcher/">etcher</a> (or equivalent)
++ In Etcher, &quot;Flash from file&quot;, select the image file and the destination (the SD card) and validate</p>
+<p>To connect the robot in Wifi :
++ Insert the SD card of the robot in question in your workstation and open the partition named <em>boot</em> + Download the file <a href="user-guides/">wpa_supplicant.conf</a> in boot and modify it to fill in the right wifi password inside.
++ Download the file <a href="https://files.ros4.pro/wpa_supplicant.conf">wpa_supplicant.conf</a> in boot and modify it to fill in the right wifi password inside
++ Create an empty file named <em>.ssh</em> in the same place in the <em>boot</em>.
++ Type the command <em>sync</em> and cleanly assign the SD card</p>
+<p>These 2 files <em>wpa_supplicant.conf</em> and <em>.ssh</em> will be deleted the next time the robot is started, indicating that the Wifi connection request has been accepted. It is therefore normal that you will not find them when you look at the boot content again after the first start of the robot.</p>
+<p>In case of problems, it is possible to connect an HDMI display to the Raspberry Pi, the network manager is on the top right.</p>
+<p>The Wi-Fi connection also works with Android and iOS mobile access points.</p>
+<p>Make sure that the <code>ROS_MASTER_URI</code> on your workstation and on your poppy point to the same address. If not, modify and source your <code>.bashrc</code>.</p>
+<p>The controller is already on the robot. You can connect directly to the robot and start it. If you have chosen to point the <code>ROS_MASTER_URI</code> at your workstation, do not forget to run a <code>roscore</code> before</p>
+<pre><code class="language-bash">ssh pi@poppy.local
+roslaunch poppy_controllers control.launch
+</code></pre>
+<h2 id="start-moveit-with-a-real-robot"><a class="header" href="#start-moveit-with-a-real-robot">Start MoveIt with a real robot</a></h2>
+<p>Install MoveIt then clone the ROS package <strong>Poppy Ergo Jr MoveIt Configuration</strong>, it contains the code needed to make this robot work with MoveIt :</p>
+<pre><code class="language-bash">sudo apt install ros-noetic-moveit
+cd $HOME/catkin_ws/src
+git clone https://github.com/poppy-project/poppy_ergo_jr_moveit_config.git
+cd $HOME/catkin_ws/
+catkin_make 
+source $HOME/.bashrc
+</code></pre>
+<p>Start MoveIt with <code>roslaunch</code> with the <code>fake_execution</code> parameter set to <code>false</code> to connect to the real robot:</p>
+<pre><code class="language-bash">roslaunch poppy_ergo_jr_moveit_config demo.launch fake_execution:=false gripper:=true
+</code></pre>
+<p>Rviz should start with a Poppy Ergo Jr in view corresponding to the state of your robot in real time.</p>
+<p>⚠️ At this stage, make sure that the posture of your robot in RViz corresponds to the current posture of the real robot: the angles of the motors and the location of the rivets must correspond in every way to your real robot. It is frequent that robots are incorrectly assembled, in this case close MoveIt and go back to the <a href="https://docs.poppy-project.org/fr/assembly-guides/ergo-jr/">assembly guide</a> step by step to correct before continuing.</p>
+<h2 id="start-ronoco"><a class="header" href="#start-ronoco">Start Ronoco</a></h2>
+<p>Before starting ronoco it is necessary to provide the robot configuration. Open the file <strong>config.py</strong> in the folder <code>$HOME/catkin_ws/src/ronoco/ronoco-vm/ronoco_vm/</code> and copy and paste the following values</p>
+<pre><code class="language-py">&quot;&quot;&quot;
+This file gathers all the configuration variables until ronoco-config is created
+&quot;&quot;&quot;
+
+socketio = None
+
+# Level of debug
+debug = 4
+
+# Move group for moveit
+move_group = &quot;arm_and_finger&quot;
+
+# Compliance mode
+mode = &quot;/set_compliant&quot;
+</code></pre>
+<p>The two interesting values are <code>move_group</code> which can be <em>arm_and_finger</em> or <em>arm</em> on Poppy Ergo Jr and <code>mode</code> which tells ronoco about the compliance capabilities of the robot. In our case the robot can be put into and out of compliance mode via the <code>/set_compliant</code> service which we fill in. In the case of a Kuka robot that does not have a compliant mode the value would have been <code>None</code>.</p>
+<p>WIP: Pass move_group and mode via roslaunch parameters.</p>
+<p>To start ronoco you just need to run the following commands in 3 different terminals</p>
+<pre><code class="language-bash"># Launching of nodered in a terminal
+node-red
+</code></pre>
+<pre><code class="language-bash"># Launching of ronoco-vm in another terminal
+cd $HOME/catkin_ws/src/ronoco/ronoco-vm/
+python3 ronoco_vm/run.py
+</code></pre>
+<pre><code class="language-bash"># Launching of ronoco-ui in another terminal
+cd $HOME/catkin_ws/src/ronoco/ronoco-ui/
+npm start
+</code></pre>
+<p>Once all the modules are running go to your <a href="http://localhost:8080/">localhost:8080</a> and you will arrive at the ronoco page:</p>
+<p><img src="user-guides/../static/ronoco.png" alt="ronoco" /></p>
+<h2 id="use-ronoco"><a class="header" href="#use-ronoco">Use Ronoco</a></h2>
+<p>For a full understanding of this part it is preferable to have followed the tutorials <a href="user-guides/how-to-use-it.html">How to use it</a> and <a href="user-guides/bt.html">How to create a behaviour tree</a></p>
+<p>The <a href="user-guides/../static/demo.mp4">gif</a> below shows a use of Ronoco</p>
+<p><img src="user-guides/../static/demo.gif" alt="demo" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="example-on-poppy-ergo-jr-1"><a class="header" href="#example-on-poppy-ergo-jr-1">Example on Poppy Ergo Jr</a></h1>
+<p>This page presents a complete use of ronoco on a <a href="https://github.com/poppy-project/poppy-ergo-jr">poppy ergo jr</a> it uses the resources of <a href="https://learn.e.ros4.pro/fr/manipulation/ergo-jr/">learn.e.ros4.pro</a> concerning the Poppy Ergo Jr.</p>
+<p>It is necessary to have a ROS installation, a ROS workspace and ronoco to follow this page. Refer to the <a href="user-guides/installation.html">installation guide</a> if necessary.</p>
+<h2 id="prepare-poppy-ergo-jr-1"><a class="header" href="#prepare-poppy-ergo-jr-1">Prepare Poppy Ergo Jr</a></h2>
+<p>Start by <a href="https://docs.poppy-project.org/fr/assembly-guides/ergo-jr/">assembling your robot</a>, following the steps for ROS if applicable, then <a href="https://docs.poppy-project.org/fr/assembly-guides/ergo-jr/motor-configuration.html#32ter-configurer-les-moteurs-un-par-un-si-vous-utilisez-une-image-ros">configure your motors</a></p>
+<p>Download the <a href="https://github.com/poppy-project/poppy_controllers/releases/download/v1.0/poppy-ergo-jr-ros-melodic.img.zip">ROS image</a> to flash an SD card. To flash the image to an SD card:
++ Extract the compressed .zip or .7z file to a folder on the computer
++ Use the software <a href="https://www.balena.io/etcher/">etcher</a> (or equivalent)
++ In Etcher, &quot;Flash from file&quot;, select the image file and the destination (the SD card) and validate</p>
+<p>To connect the robot in Wifi :
++ Insert the SD card of the robot in question in your workstation and open the partition named <em>boot</em> + Download the file <a href="user-guides/">wpa_supplicant.conf</a> in boot and modify it to fill in the right wifi password inside.
++ Download the file <a href="https://files.ros4.pro/wpa_supplicant.conf">wpa_supplicant.conf</a> in boot and modify it to fill in the right wifi password inside
++ Create an empty file named <em>.ssh</em> in the same place in the <em>boot</em>.
++ Type the command <em>sync</em> and cleanly assign the SD card</p>
+<p>These 2 files <em>wpa_supplicant.conf</em> and <em>.ssh</em> will be deleted the next time the robot is started, indicating that the Wifi connection request has been accepted. It is therefore normal that you will not find them when you look at the boot content again after the first start of the robot.</p>
+<p>In case of problems, it is possible to connect an HDMI display to the Raspberry Pi, the network manager is on the top right.</p>
+<p>The Wi-Fi connection also works with Android and iOS mobile access points.</p>
+<p>Make sure that the <code>ROS_MASTER_URI</code> on your workstation and on your poppy point to the same address. If not, modify and source your <code>.bashrc</code>.</p>
+<p>The controller is already on the robot. You can connect directly to the robot and start it. If you have chosen to point the <code>ROS_MASTER_URI</code> at your workstation, do not forget to run a <code>roscore</code> before</p>
+<pre><code class="language-bash">ssh pi@poppy.local
+roslaunch poppy_controllers control.launch
+</code></pre>
+<h2 id="start-moveit-with-a-real-robot-1"><a class="header" href="#start-moveit-with-a-real-robot-1">Start MoveIt with a real robot</a></h2>
+<p>Install MoveIt then clone the ROS package <strong>Poppy Ergo Jr MoveIt Configuration</strong>, it contains the code needed to make this robot work with MoveIt :</p>
+<pre><code class="language-bash">sudo apt install ros-noetic-moveit
+cd $HOME/catkin_ws/src
+git clone https://github.com/poppy-project/poppy_ergo_jr_moveit_config.git
+cd $HOME/catkin_ws/
+catkin_make 
+source $HOME/.bashrc
+</code></pre>
+<p>Start MoveIt with <code>roslaunch</code> with the <code>fake_execution</code> parameter set to <code>false</code> to connect to the real robot:</p>
+<pre><code class="language-bash">roslaunch poppy_ergo_jr_moveit_config demo.launch fake_execution:=false gripper:=true
+</code></pre>
+<p>Rviz should start with a Poppy Ergo Jr in view corresponding to the state of your robot in real time.</p>
+<p>⚠️ At this stage, make sure that the posture of your robot in RViz corresponds to the current posture of the real robot: the angles of the motors and the location of the rivets must correspond in every way to your real robot. It is frequent that robots are incorrectly assembled, in this case close MoveIt and go back to the <a href="https://docs.poppy-project.org/fr/assembly-guides/ergo-jr/">assembly guide</a> step by step to correct before continuing.</p>
+<h2 id="start-ronoco-1"><a class="header" href="#start-ronoco-1">Start Ronoco</a></h2>
+<p>Before starting ronoco it is necessary to provide the robot configuration. Open the file <strong>config.py</strong> in the folder <code>$HOME/catkin_ws/src/ronoco/ronoco-vm/ronoco_vm/</code> and copy and paste the following values</p>
+<pre><code class="language-py">&quot;&quot;&quot;
+This file gathers all the configuration variables until ronoco-config is created
+&quot;&quot;&quot;
+
+socketio = None
+
+# Level of debug
+debug = 4
+
+# Move group for moveit
+move_group = &quot;arm_and_finger&quot;
+
+# Compliance mode
+mode = &quot;/set_compliant&quot;
+</code></pre>
+<p>The two interesting values are <code>move_group</code> which can be <em>arm_and_finger</em> or <em>arm</em> on Poppy Ergo Jr and <code>mode</code> which tells ronoco about the compliance capabilities of the robot. In our case the robot can be put into and out of compliance mode via the <code>/set_compliant</code> service which we fill in. In the case of a Kuka robot that does not have a compliant mode the value would have been <code>None</code>.</p>
+<p>WIP: Pass move_group and mode via roslaunch parameters.</p>
+<p>To start ronoco you just need to run the following commands in 3 different terminals</p>
+<pre><code class="language-bash"># Launching of nodered in a terminal
+node-red
+</code></pre>
+<pre><code class="language-bash"># Launching of ronoco-vm in another terminal
+cd $HOME/catkin_ws/src/ronoco/ronoco-vm/
+python3 ronoco_vm/run.py
+</code></pre>
+<pre><code class="language-bash"># Launching of ronoco-ui in another terminal
+cd $HOME/catkin_ws/src/ronoco/ronoco-ui/
+npm start
+</code></pre>
+<p>Once all the modules are running go to your <a href="http://localhost:8080/">localhost:8080</a> and you will arrive at the ronoco page:</p>
+<p><img src="user-guides/../static/ronoco.png" alt="ronoco" /></p>
+<h2 id="use-ronoco-1"><a class="header" href="#use-ronoco-1">Use Ronoco</a></h2>
+<p>For a full understanding of this part it is preferable to have followed the tutorials <a href="user-guides/how-to-use-it.html">How to use it</a> and <a href="user-guides/bt.html">How to create a behaviour tree</a></p>
+<p>The <a href="user-guides/../static/demo.mp4">gif</a> below shows a use of Ronoco</p>
+<p><img src="user-guides/../static/demo.gif" alt="demo" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="utiliser-ronoco-avec-un-universal-robots"><a class="header" href="#utiliser-ronoco-avec-un-universal-robots">Utiliser ronoco avec un universal robots</a></h1>
 <h2 id="configurer-ros-avec-universal-robots"><a class="header" href="#configurer-ros-avec-universal-robots">Configurer ROS avec universal robots</a></h2>
 <p>This driver requires a system setup with ROS. It is recommended to use Ubuntu 18.04 with ROS melodic however using
 Ubuntu 20.04 with ROS noectic work also. To install ROS noetic on Ubuntu 20.04 see <a href="user-guides/installation.html">the relative page</a></p>
-<p>Dans un premier temps il est nécessaire de télécharger et installer
-<a href="https://github.com/UniversalRobots/Universal_Robots_ROS_Driver">Universal Robots ROS Driver</a> en réalisant les commandes
-ci dessous</p>
+<p>First of all it is necessary to download and install
+<a href="https://github.com/UniversalRobots/Universal_Robots_ROS_Driver">Universal Robots ROS Driver</a> by performing the commands
+below</p>
 <pre><code class="language-bash"># source global ros
 source /opt/ros/&lt;ros_distro&gt;/setup.&lt;bash/zsh&gt;
 
@@ -364,13 +510,13 @@ target_filename:=&quot;${HOME}/calibration.yaml&quot;
 kinematics_config:=&quot;${HOME}/calibration.yaml&quot;
 </code></pre>
 <p>Where <strong>&lt;robot_type&gt;</strong> is one of <em>ur3</em>, <em>ur5</em>, <em>ur10</em>, <em>ur3e</em>, <em>ur5e</em>, <em>ur10e</em>, <em>ur16e</em>.</p>
-<p>Si tout c'est déroulé correctement vous pouvez lancer <code>rosrun rqt_joint_trajectory_controller rqt_joint_trajectory_controller</code> pour vérifier que la communication entre le PC et le robot est effective.</p>
-<p>Une fois cela effectué vous pouvez démarrer <strong>MoveIt</strong>, pour cela executez la commande <code>roslaunch ur3_moveit_config ur3_moveit_planning_execution.launch</code>. Une fois <strong>MoveIt</strong> en cours d'execution il est possible de démarrer <strong>rviz</strong> via la commande <code>roslaunch ur3_moveit_config moveit_rviz.launch config:=true</code></p>
-<p>Il a été constaté des problèmes de controllers avec l'éxecution de trajectoire depuis <strong>rviz</strong>, pour plus d'informations consulter les <a href="user-guides/log.log">logs</a></p>
+<p>If everything went well you can run <code>rosrun rqt_joint_trajectory_controller rqt_joint_trajectory_controller</code> to check that the communication between the PC and the robot is effective.</p>
+<p>Once this is done you can start <strong>MoveIt</strong>, to do this run the command <code>roslaunch ur3_moveit_config ur3_moveit_planning_execution.launch</code>. Once <strong>MoveIt</strong> is running it is possible to start <strong>rviz</strong> via the command <code>roslaunch ur3_moveit_config moveit_rviz.launch config:=true</code>.</p>
+<p>There have been problems with controllers running the path from <strong>rviz</strong>, for more information see the <a href="user-guides/log.log">logs</a></p>
 <h2 id="utiliser-ronoco-avec-sur-un-universal-robot"><a class="header" href="#utiliser-ronoco-avec-sur-un-universal-robot">Utiliser ronoco avec sur un universal robot</a></h2>
-<p>Une fois la procédure d'installation de ROS sur un modèle d'universal robots il suffit de lancer ronoco en suivant le <a href="user-guides/quick-start.html">Quick Start</a> une fois lancé vous pouvez utiliser ronoco de manière habituelle.</p>
+<p>Once the installation procedure of ROS on a universal robots model is completed, you just have to start ronoco by following the <a href="user-guides/quick-start.html">Quick Start</a> once started you can use ronoco in the usual way.</p>
 <h3 id="configuration"><a class="header" href="#configuration">Configuration</a></h3>
-<p>Pour un universal robot le script de configuration est le suivant</p>
+<p>For a universal robot the configuration script is as follows</p>
 <pre><code class="language-python">socketio = None
 
 # Level of debug
@@ -386,8 +532,11 @@ move_group = &quot;manipulator&quot;
 mode = &quot;manual&quot;
 </code></pre>
 <h3 id="limitations"><a class="header" href="#limitations">Limitations</a></h3>
-<p>Les universals robots ne supportent pas l'utilisation du &quot;mode libre&quot; en même temps que l'éxecution d'un programme, autrement dit lorsque l'on éxecute le bloc <strong>ExternalControl</strong> il n'est pas possible d'utiliser la fonction &quot;mode libre&quot;. Ainsi les blocs <em>record</em> et <em>replay</em> ne sont pas utilisables sur un universal robots.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="add-your-own-robot"><a class="header" href="#add-your-own-robot">Add your own robot</a></h1>
+<p>Universal robots do not support the use of &quot;free mode&quot; at the same time as the execution of a program, i.e. when executing the <strong>ExternalControl</strong> block it is not possible to use the &quot;free mode&quot; function. Thus the <em>record</em> and <em>replay</em> blocks cannot be used on a universal robot.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="kuka-kr6"><a class="header" href="#kuka-kr6">Kuka KR6</a></h1>
+<center>
+<img src="user-guides/../static/kuka.gif"></img>
+</center><div style="break-before: page; page-break-before: always;"></div><h1 id="add-your-own-robot"><a class="header" href="#add-your-own-robot">Add your own robot</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ronoco-vm-api---summarized-documentation"><a class="header" href="#ronoco-vm-api---summarized-documentation">Ronoco-vm API - Summarized documentation</a></h1>
 <p>The table below lists all the endpoints of <strong>ronoco-vm</strong> and their different possible behaviour</p>
 <table><thead><tr><th align="left">URL</th><th align="left">Method</th><th align="left">Body</th><th align="left">Return Code</th><th align="left">Return</th><th align="left">Description</th></tr></thead><tbody>

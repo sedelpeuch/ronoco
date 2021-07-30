@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Ronoco</li><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">Users guides</li><li class="chapter-item expanded "><a href="../user-guides/installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../user-guides/quick-start.html" class="active"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li class="chapter-item expanded "><a href="../user-guides/how-to-use-it.html"><strong aria-hidden="true">4.</strong> How to use it</a></li><li class="chapter-item expanded "><a href="../user-guides/bt.html"><strong aria-hidden="true">5.</strong> How to create a behaviour tree</a></li><li class="chapter-item expanded "><a href="../user-guides/poppy.html"><strong aria-hidden="true">6.</strong> Examples on robots</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../user-guides/poppy.html"><strong aria-hidden="true">6.1.</strong> Poppy ergo jr</a></li><li class="chapter-item expanded "><a href="../user-guides/ur3.html"><strong aria-hidden="true">6.2.</strong> Universal Robots 3</a></li><li class="chapter-item expanded "><a href="../dev-guides/own.html"><strong aria-hidden="true">6.3.</strong> Add your own robot</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Ronoco API Documentation</li><li class="chapter-item expanded "><a href="../documentation/api-short.html"><strong aria-hidden="true">7.</strong> API - summarize</a></li><li class="chapter-item expanded "><a href="../documentation/api-detailed.html"><strong aria-hidden="true">8.</strong> API - detailed</a></li><li class="chapter-item expanded "><a href="../documentation/behavior.html"><strong aria-hidden="true">9.</strong> Behaviours</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Ronoco</li><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">Users guides</li><li class="chapter-item expanded "><a href="../user-guides/installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../user-guides/quick-start.html" class="active"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li class="chapter-item expanded "><a href="../user-guides/how-to-use-it.html"><strong aria-hidden="true">4.</strong> How to use it</a></li><li class="chapter-item expanded "><a href="../user-guides/bt.html"><strong aria-hidden="true">5.</strong> How to create a behaviour tree</a></li><li class="chapter-item expanded "><a href="../user-guides/poppy.html"><strong aria-hidden="true">6.</strong> Examples on robots</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../user-guides/poppy.html"><strong aria-hidden="true">6.1.</strong> Poppy ergo jr</a></li><li class="chapter-item expanded "><a href="../user-guides/ur3.html"><strong aria-hidden="true">6.2.</strong> Universal Robots 3</a></li><li class="chapter-item expanded "><a href="../user-guides/kuka.html"><strong aria-hidden="true">6.3.</strong> Kuka KR6</a></li><li class="chapter-item expanded "><a href="../dev-guides/own.html"><strong aria-hidden="true">6.4.</strong> Add your own robot</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Ronoco API Documentation</li><li class="chapter-item expanded "><a href="../documentation/api-short.html"><strong aria-hidden="true">7.</strong> API - summarize</a></li><li class="chapter-item expanded "><a href="../documentation/api-detailed.html"><strong aria-hidden="true">8.</strong> API - detailed</a></li><li class="chapter-item expanded "><a href="../documentation/behavior.html"><strong aria-hidden="true">9.</strong> Behaviours</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -143,16 +143,18 @@
 <p>To use ronoco it is necessary to launch the ROS modules corresponding to your robot and then the different modules of ronoco.</p>
 <p>Regarding the launching of ROS modules the procedure is different for each robot, to make ronoco work it is necessary to have a roscore and Moveit running. See the different examples on <a href="poppy.html">Poppy Ergo Jr</a> or <a href="ur3.html">Universal Robots 3</a> for more details.</p>
 <p>It is then necessary to launch the three modules.</p>
-<pre><code class="language-bash"># Launching of nodered
+<pre><code class="language-bash"># Launching of nodered in a terminal
 node-red
-# Launching of ronoco-vm
+</code></pre>
+<pre><code class="language-bash"># Launching of ronoco-vm in another terminal
 cd $HOME/catkin_ws/src/ronoco/ronoco-vm/
 python3 ronoco_vm/run.py
-# Launching of ronoco-ui
+</code></pre>
+<pre><code class="language-bash"># Launching of ronoco-ui in another terminal
 cd $HOME/catkin_ws/src/ronoco/ronoco-ui/
 npm start
 </code></pre>
-<p>Once all the modules are running go to your <a href="http://localhost:8080/">localhost:8080</a> and you will arrive on the ronoco page:</p>
+<p>Once all the modules are running go to your <a href="http://localhost:8080/">localhost:8080</a> and you will arrive at the ronoco page:</p>
 <p><img src="../static/ronoco.png" alt="ronoco" /></p>
 <p>Work in progress: launching ronoco using a roslaunch</p>
 

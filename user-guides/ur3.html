@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Ronoco</li><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">Users guides</li><li class="chapter-item expanded "><a href="../user-guides/installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../user-guides/quick-start.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li class="chapter-item expanded "><a href="../user-guides/how-to-use-it.html"><strong aria-hidden="true">4.</strong> How to use it</a></li><li class="chapter-item expanded "><a href="../user-guides/bt.html"><strong aria-hidden="true">5.</strong> How to create a behaviour tree</a></li><li class="chapter-item expanded "><a href="../user-guides/poppy.html"><strong aria-hidden="true">6.</strong> Examples on robots</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../user-guides/poppy.html"><strong aria-hidden="true">6.1.</strong> Poppy ergo jr</a></li><li class="chapter-item expanded "><a href="../user-guides/ur3.html" class="active"><strong aria-hidden="true">6.2.</strong> Universal Robots 3</a></li><li class="chapter-item expanded "><a href="../dev-guides/own.html"><strong aria-hidden="true">6.3.</strong> Add your own robot</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Ronoco API Documentation</li><li class="chapter-item expanded "><a href="../documentation/api-short.html"><strong aria-hidden="true">7.</strong> API - summarize</a></li><li class="chapter-item expanded "><a href="../documentation/api-detailed.html"><strong aria-hidden="true">8.</strong> API - detailed</a></li><li class="chapter-item expanded "><a href="../documentation/behavior.html"><strong aria-hidden="true">9.</strong> Behaviours</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Ronoco</li><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">Users guides</li><li class="chapter-item expanded "><a href="../user-guides/installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../user-guides/quick-start.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li class="chapter-item expanded "><a href="../user-guides/how-to-use-it.html"><strong aria-hidden="true">4.</strong> How to use it</a></li><li class="chapter-item expanded "><a href="../user-guides/bt.html"><strong aria-hidden="true">5.</strong> How to create a behaviour tree</a></li><li class="chapter-item expanded "><a href="../user-guides/poppy.html"><strong aria-hidden="true">6.</strong> Examples on robots</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../user-guides/poppy.html"><strong aria-hidden="true">6.1.</strong> Poppy ergo jr</a></li><li class="chapter-item expanded "><a href="../user-guides/ur3.html" class="active"><strong aria-hidden="true">6.2.</strong> Universal Robots 3</a></li><li class="chapter-item expanded "><a href="../user-guides/kuka.html"><strong aria-hidden="true">6.3.</strong> Kuka KR6</a></li><li class="chapter-item expanded "><a href="../dev-guides/own.html"><strong aria-hidden="true">6.4.</strong> Add your own robot</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Ronoco API Documentation</li><li class="chapter-item expanded "><a href="../documentation/api-short.html"><strong aria-hidden="true">7.</strong> API - summarize</a></li><li class="chapter-item expanded "><a href="../documentation/api-detailed.html"><strong aria-hidden="true">8.</strong> API - detailed</a></li><li class="chapter-item expanded "><a href="../documentation/behavior.html"><strong aria-hidden="true">9.</strong> Behaviours</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -143,9 +143,9 @@
 <h2 id="configurer-ros-avec-universal-robots"><a class="header" href="#configurer-ros-avec-universal-robots">Configurer ROS avec universal robots</a></h2>
 <p>This driver requires a system setup with ROS. It is recommended to use Ubuntu 18.04 with ROS melodic however using
 Ubuntu 20.04 with ROS noectic work also. To install ROS noetic on Ubuntu 20.04 see <a href="installation.html">the relative page</a></p>
-<p>Dans un premier temps il est nécessaire de télécharger et installer
-<a href="https://github.com/UniversalRobots/Universal_Robots_ROS_Driver">Universal Robots ROS Driver</a> en réalisant les commandes
-ci dessous</p>
+<p>First of all it is necessary to download and install
+<a href="https://github.com/UniversalRobots/Universal_Robots_ROS_Driver">Universal Robots ROS Driver</a> by performing the commands
+below</p>
 <pre><code class="language-bash"># source global ros
 source /opt/ros/&lt;ros_distro&gt;/setup.&lt;bash/zsh&gt;
 
@@ -188,13 +188,13 @@ target_filename:=&quot;${HOME}/calibration.yaml&quot;
 kinematics_config:=&quot;${HOME}/calibration.yaml&quot;
 </code></pre>
 <p>Where <strong>&lt;robot_type&gt;</strong> is one of <em>ur3</em>, <em>ur5</em>, <em>ur10</em>, <em>ur3e</em>, <em>ur5e</em>, <em>ur10e</em>, <em>ur16e</em>.</p>
-<p>Si tout c'est déroulé correctement vous pouvez lancer <code>rosrun rqt_joint_trajectory_controller rqt_joint_trajectory_controller</code> pour vérifier que la communication entre le PC et le robot est effective.</p>
-<p>Une fois cela effectué vous pouvez démarrer <strong>MoveIt</strong>, pour cela executez la commande <code>roslaunch ur3_moveit_config ur3_moveit_planning_execution.launch</code>. Une fois <strong>MoveIt</strong> en cours d'execution il est possible de démarrer <strong>rviz</strong> via la commande <code>roslaunch ur3_moveit_config moveit_rviz.launch config:=true</code></p>
-<p>Il a été constaté des problèmes de controllers avec l'éxecution de trajectoire depuis <strong>rviz</strong>, pour plus d'informations consulter les <a href="log.log">logs</a></p>
+<p>If everything went well you can run <code>rosrun rqt_joint_trajectory_controller rqt_joint_trajectory_controller</code> to check that the communication between the PC and the robot is effective.</p>
+<p>Once this is done you can start <strong>MoveIt</strong>, to do this run the command <code>roslaunch ur3_moveit_config ur3_moveit_planning_execution.launch</code>. Once <strong>MoveIt</strong> is running it is possible to start <strong>rviz</strong> via the command <code>roslaunch ur3_moveit_config moveit_rviz.launch config:=true</code>.</p>
+<p>There have been problems with controllers running the path from <strong>rviz</strong>, for more information see the <a href="log.log">logs</a></p>
 <h2 id="utiliser-ronoco-avec-sur-un-universal-robot"><a class="header" href="#utiliser-ronoco-avec-sur-un-universal-robot">Utiliser ronoco avec sur un universal robot</a></h2>
-<p>Une fois la procédure d'installation de ROS sur un modèle d'universal robots il suffit de lancer ronoco en suivant le <a href="quick-start.html">Quick Start</a> une fois lancé vous pouvez utiliser ronoco de manière habituelle.</p>
+<p>Once the installation procedure of ROS on a universal robots model is completed, you just have to start ronoco by following the <a href="quick-start.html">Quick Start</a> once started you can use ronoco in the usual way.</p>
 <h3 id="configuration"><a class="header" href="#configuration">Configuration</a></h3>
-<p>Pour un universal robot le script de configuration est le suivant</p>
+<p>For a universal robot the configuration script is as follows</p>
 <pre><code class="language-python">socketio = None
 
 # Level of debug
@@ -210,7 +210,7 @@ move_group = &quot;manipulator&quot;
 mode = &quot;manual&quot;
 </code></pre>
 <h3 id="limitations"><a class="header" href="#limitations">Limitations</a></h3>
-<p>Les universals robots ne supportent pas l'utilisation du &quot;mode libre&quot; en même temps que l'éxecution d'un programme, autrement dit lorsque l'on éxecute le bloc <strong>ExternalControl</strong> il n'est pas possible d'utiliser la fonction &quot;mode libre&quot;. Ainsi les blocs <em>record</em> et <em>replay</em> ne sont pas utilisables sur un universal robots.</p>
+<p>Universal robots do not support the use of &quot;free mode&quot; at the same time as the execution of a program, i.e. when executing the <strong>ExternalControl</strong> block it is not possible to use the &quot;free mode&quot; function. Thus the <em>record</em> and <em>replay</em> blocks cannot be used on a universal robot.</p>
 
                     </main>
 
@@ -220,7 +220,7 @@ mode = &quot;manual&quot;
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
-                                                    <a rel="next" href="../dev-guides/own.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                                    <a rel="next" href="../user-guides/kuka.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -234,7 +234,7 @@ mode = &quot;manual&quot;
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
-                                    <a rel="next" href="../dev-guides/own.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                    <a rel="next" href="../user-guides/kuka.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                             </nav>
