@@ -170,42 +170,50 @@ echo &quot;source /opt/ros/noetic/setup.zsh&quot; &gt;&gt; ~/.zshrc
 source $HOME/.zshrc
 </code></pre>
 <h2 id="ronoco"><a class="header" href="#ronoco">Ronoco</a></h2>
-<p>To install Ronoco you need the following packages:</p>
+<p>To install ronoco you need the following packages:</p>
 <ul>
 <li>npm</li>
 <li>python3</li>
 <li>ROS noetic (also works on ROS melodic)</li>
 </ul>
 <p>To start it is necessary to clone the project in the catkin workspace</p>
-<pre><code class="language-bash">cd $HOME/catkin_ws/src/
-git clone https://github.com/Sdelpeuch/Ronoco.git
+<pre><code class="language-bash">#if you haven't got a catkin_ws
+mkdir -p $HOME/catkin_ws/src
+cd $HOME/catkin_ws/
+catkin_make
+
+cd $HOME/catkin_ws/src/
+git clone https://github.com/Sdelpeuch/ronoco.git
 </code></pre>
-<p>Then you have to install the three modules that constitute Ronoco. Firstly <em>Ronoco-nodered</em> allowing the user to define the behaviour trees of the robot (see How to use it and How to create a behaviour tree). This module depends on Node-RED, so it is necessary to install the framework and then the blocks specific to Ronoco.</p>
+<p>Then you have to install the three modules that constitute ronoco. Firstly <em>ronoco-nodered</em> allowing the user to define the behaviour trees of the robot (see How to use it and How to create a behaviour tree). This module depends on Node-RED, so it is necessary to install the framework and then the blocks specific to ronoco.</p>
 <pre><code class="language-bash">sudo npm install -g --unsafe-perm node-red
 mkdir $HOME/.node-red/
 cd $HOME/.node-red/
-npm install $HOME/catkin_ws/src/Ronoco/ronoco-nodered/
+npm install $HOME/catkin_ws/src/ronoco/ronoco-nodered/
 </code></pre>
-<p>Once <em>Ronoco-nodered</em> is installed it is necessary to install the web client inside <em>Ronoco-ui</em></p>
-<pre><code class="language-bash">cd $HOME/catkin_ws/src/Ronoco/ronoco-ui/
+<p>Once <em>ronoco-nodered</em> is installed it is necessary to install the web client inside <em>ronoco-ui</em></p>
+<pre><code class="language-bash">cd $HOME/catkin_ws/src/ronoco/ronoco-ui/
 npm install
 </code></pre>
-<p>Finally, all that remains is to install the application engine found in <em>Ronoco-vm</em>.</p>
-<pre><code class="language-bash">cd $HOME/catkin_ws/src/Ronoco/ronoco-vm/
+<p>Finally, all that remains is to install the application engine found in <em>ronoco-vm</em>.</p>
+<pre><code class="language-bash">cd $HOME/catkin_ws/src/ronoco/ronoco-vm/
 pip3 install -r requirements.txt
 </code></pre>
 <p>It is necessary to download a socketio client in the static folder of the API</p>
-<pre><code class="language-bash">cd $HOME/catkin_ws/src/Ronoco/ronoco-vm/ronoco_vm/static/
+<pre><code class="language-bash">cd $HOME/catkin_ws/src/ronoco/ronoco-vm/ronoco_vm/static/
 mkdir socket.io
 wget https://github.com/socketio/socket.io/blob/master/client-dist/socket.io.js
 wget https://github.com/socketio/socket.io/blob/master/client-dist/socket.io.js.map
 </code></pre>
-<p>Before using Ronoco it is necessary to compile the ROS workspace</p>
+<p>Before using ronoco it is necessary to compile the ROS workspace</p>
 <pre><code class="language-bash">cd $HOME/catkin_ws/
 catkin_make
-source devel/setup.&lt;bash/zsh&gt;
+source devel/setup.bash
+
+#or if you use zsh
+source devel/setup.zsh
 </code></pre>
-<p>To start Ronoco refer to the <a href="quick-start.html">Getting Started</a> page</p>
+<p>To start ronoco refer to the <a href="quick-start.html">Getting Started</a> page</p>
 
                     </main>
 

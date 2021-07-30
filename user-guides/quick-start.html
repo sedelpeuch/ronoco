@@ -140,21 +140,21 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="getting-started"><a class="header" href="#getting-started">Getting started</a></h1>
-<p>To use ronoco it is necessary to launch the ROS modules corresponding to your robot and then the different modules of Ronoco.</p>
-<p>Regarding the launching of ROS modules the procedure is different for each robot, to make Ronoco work it is necessary to have a roscore and Moveit running. See the different examples on <a href="poppy.html">Poppy Ergo Jr</a> or <a href="ur3.html">Universal Robots 3</a> for more details.</p>
+<p>To use ronoco it is necessary to launch the ROS modules corresponding to your robot and then the different modules of ronoco.</p>
+<p>Regarding the launching of ROS modules the procedure is different for each robot, to make ronoco work it is necessary to have a roscore and Moveit running. See the different examples on <a href="poppy.html">Poppy Ergo Jr</a> or <a href="ur3.html">Universal Robots 3</a> for more details.</p>
 <p>It is then necessary to launch the three modules.</p>
 <pre><code class="language-bash"># Launching of nodered
 node-red
 # Launching of ronoco-vm
-cd $HOME/catkin_ws/src/Ronoco/ronoco-vm/
+cd $HOME/catkin_ws/src/ronoco/ronoco-vm/
 python3 ronoco_vm/run.py
 # Launching of ronoco-ui
-cd $HOME/catkin_ws/src/Ronoco/ronoco-ui/
+cd $HOME/catkin_ws/src/ronoco/ronoco-ui/
 npm start
 </code></pre>
-<p>Once all the modules are running go to your <a href="http://localhost:8080/">localhost:8080</a> and you will arrive on the Ronoco page:</p>
+<p>Once all the modules are running go to your <a href="http://localhost:8080/">localhost:8080</a> and you will arrive on the ronoco page:</p>
 <p><img src="../static/ronoco.png" alt="ronoco" /></p>
-<p>Work in progress: launching Ronoco using a roslaunch</p>
+<p>Work in progress: launching ronoco using a roslaunch</p>
 
                     </main>
 
