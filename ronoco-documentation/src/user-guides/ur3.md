@@ -5,9 +5,9 @@
 This driver requires a system setup with ROS. It is recommended to use Ubuntu 18.04 with ROS melodic however using
 Ubuntu 20.04 with ROS noectic work also. To install ROS noetic on Ubuntu 20.04 see [the relative page](installation.md)
 
-Dans un premier temps il est nécessaire de télécharger et installer
-[Universal Robots ROS Driver](https://github.com/UniversalRobots/Universal_Robots_ROS_Driver) en réalisant les commandes
-ci dessous
+First of all it is necessary to download and install
+[Universal Robots ROS Driver](https://github.com/UniversalRobots/Universal_Robots_ROS_Driver) by performing the commands
+below
 
 ```bash
 # source global ros
@@ -66,19 +66,19 @@ kinematics_config:="${HOME}/calibration.yaml"
 
 Where **<robot_type>** is one of *ur3*, *ur5*, *ur10*, *ur3e*, *ur5e*, *ur10e*, *ur16e*.
 
-Si tout c'est déroulé correctement vous pouvez lancer `rosrun rqt_joint_trajectory_controller rqt_joint_trajectory_controller` pour vérifier que la communication entre le PC et le robot est effective.
+If everything went well you can run `rosrun rqt_joint_trajectory_controller rqt_joint_trajectory_controller` to check that the communication between the PC and the robot is effective.
 
-Une fois cela effectué vous pouvez démarrer **MoveIt**, pour cela executez la commande `roslaunch ur3_moveit_config ur3_moveit_planning_execution.launch`. Une fois **MoveIt** en cours d'execution il est possible de démarrer **rviz** via la commande `roslaunch ur3_moveit_config moveit_rviz.launch config:=true`
+Once this is done you can start **MoveIt**, to do this run the command `roslaunch ur3_moveit_config ur3_moveit_planning_execution.launch`. Once **MoveIt** is running it is possible to start **rviz** via the command `roslaunch ur3_moveit_config moveit_rviz.launch config:=true`.
 
-Il a été constaté des problèmes de controllers avec l'éxecution de trajectoire depuis **rviz**, pour plus d'informations consulter les [logs](log.log)
+There have been problems with controllers running the path from **rviz**, for more information see the [logs](log.log)
 
 ## Utiliser ronoco avec sur un universal robot
 
-Une fois la procédure d'installation de ROS sur un modèle d'universal robots il suffit de lancer ronoco en suivant le [Quick Start](quick-start.md) une fois lancé vous pouvez utiliser ronoco de manière habituelle.
+Once the installation procedure of ROS on a universal robots model is completed, you just have to start ronoco by following the [Quick Start](quick-start.md) once started you can use ronoco in the usual way.
 
 ### Configuration
 
-Pour un universal robot le script de configuration est le suivant
+For a universal robot the configuration script is as follows
 
 ```python
 socketio = None
@@ -98,4 +98,4 @@ mode = "manual"
 
 ### Limitations
 
-Les universals robots ne supportent pas l'utilisation du "mode libre" en même temps que l'éxecution d'un programme, autrement dit lorsque l'on éxecute le bloc **ExternalControl** il n'est pas possible d'utiliser la fonction "mode libre". Ainsi les blocs *record* et *replay* ne sont pas utilisables sur un universal robots.
+Universal robots do not support the use of "free mode" at the same time as the execution of a program, i.e. when executing the **ExternalControl** block it is not possible to use the "free mode" function. Thus the *record* and *replay* blocks cannot be used on a universal robot.
