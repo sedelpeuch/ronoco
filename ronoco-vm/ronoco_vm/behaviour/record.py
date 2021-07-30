@@ -22,7 +22,7 @@ class Record(py_trees.behaviour.Behaviour):
 
     def __init__(self, name="Record", data=None):
         super(Record, self).__init__(name)
-        self.identifiant = data['identifier']
+        self.identifier = data['identifier']
         self.time = int(data['time'])
         self.commander = behaviour.behaviour.commander
         self.compliance = rospy.ServiceProxy('set_compliant', SetBool)
@@ -60,7 +60,7 @@ class Record(py_trees.behaviour.Behaviour):
         if not result:
             return py_trees.common.Status.FAILURE
         rospy.sleep(self.time)
-        result = r.stop_and_save(self.identifiant)
+        result = r.stop_and_save(self.identifier)
         if not result:
             return py_trees.common.Status.FAILURE
         logger.info("End of recording")

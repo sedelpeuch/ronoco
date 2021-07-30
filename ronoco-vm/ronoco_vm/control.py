@@ -142,15 +142,15 @@ class Control:
         return roots
 
     @staticmethod
-    def find_by_id(identifiant, bt):
+    def find_by_id(identifier, bt):
         """
         Search in the json passed in parameter for a block with the string id passed in parameter
-        :param identifiant: the id of the block searched for
+        :param identifier: the id of the block searched for
         :param bt: a json representing a behaviour tree (export of nodered)
         :returns: True and the root (json) if a root has this id. False, None else
         """
         for node in bt:
-            if node['id'] == identifiant:
+            if node['id'] == identifier:
                 return True, node
         return False, None
 
@@ -185,12 +185,12 @@ class Control:
 
         children = list()
         # for each children id, add it in list of node to build
-        for identifiant in children_id[0]:
-            state, child = self.find_by_id(identifiant, bt)
+        for identifier in children_id[0]:
+            state, child = self.find_by_id(identifier, bt)
             if state:
                 children.append(child)
             else:
-                return False, identifiant
+                return False, identifier
 
         # Sort the children according to their ascending y-position. This ensures that children run from top to bottom
         children.sort(key=self.get_y)
@@ -263,7 +263,7 @@ class Control:
                     data = {'point_id': node_json['point_id'], 'reliability': node_json['reliability'],
                             'eef': node_json['eef']}
                 elif node_json['type'] == 'record':
-                    data = {'identifiant': node_json['identifiant'], 'time': node_json['time']}
+                    data = {'identifier': node_json['identifier'], 'time': node_json['time']}
                 else:
                     data = node_json['data']
             except KeyError:
