@@ -139,8 +139,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="utiliser-ronoco-avec-un-universal-robots"><a class="header" href="#utiliser-ronoco-avec-un-universal-robots">Utiliser ronoco avec un universal robots</a></h1>
-<h2 id="configurer-ros-avec-universal-robots"><a class="header" href="#configurer-ros-avec-universal-robots">Configurer ROS avec universal robots</a></h2>
+                        <h1 id="using-ronoco-with-a-universal-robot"><a class="header" href="#using-ronoco-with-a-universal-robot">Using ronoco with a universal robot</a></h1>
+<h2 id="configuring-ros-with-universal-robots"><a class="header" href="#configuring-ros-with-universal-robots">Configuring ROS with universal robots</a></h2>
 <p>This driver requires a system setup with ROS. It is recommended to use Ubuntu 18.04 with ROS melodic however using
 Ubuntu 20.04 with ROS noectic work also. To install ROS noetic on Ubuntu 20.04 see <a href="installation.html">the relative page</a></p>
 <p>First of all it is necessary to download and install
@@ -191,7 +191,7 @@ kinematics_config:=&quot;${HOME}/calibration.yaml&quot;
 <p>If everything went well you can run <code>rosrun rqt_joint_trajectory_controller rqt_joint_trajectory_controller</code> to check that the communication between the PC and the robot is effective.</p>
 <p>Once this is done you can start <strong>MoveIt</strong>, to do this run the command <code>roslaunch ur3_moveit_config ur3_moveit_planning_execution.launch</code>. Once <strong>MoveIt</strong> is running it is possible to start <strong>rviz</strong> via the command <code>roslaunch ur3_moveit_config moveit_rviz.launch config:=true</code>.</p>
 <p>There have been problems with controllers running the path from <strong>rviz</strong>, for more information see the <a href="log.log">logs</a></p>
-<h2 id="utiliser-ronoco-avec-sur-un-universal-robot"><a class="header" href="#utiliser-ronoco-avec-sur-un-universal-robot">Utiliser ronoco avec sur un universal robot</a></h2>
+<h2 id="using-ronoco-with-a-universal-robot-1"><a class="header" href="#using-ronoco-with-a-universal-robot-1">Using ronoco with a universal robot</a></h2>
 <p>Once the installation procedure of ROS on a universal robots model is completed, you just have to start ronoco by following the <a href="quick-start.html">Quick Start</a> once started you can use ronoco in the usual way.</p>
 <h3 id="configuration"><a class="header" href="#configuration">Configuration</a></h3>
 <p>For a universal robot the configuration script is as follows</p>
