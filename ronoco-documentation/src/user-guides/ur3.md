@@ -1,6 +1,6 @@
-# Utiliser ronoco avec un universal robots
+# Using ronoco with a universal robot
 
-## Configurer ROS avec universal robots
+## Configuring ROS with universal robots
 
 This driver requires a system setup with ROS. It is recommended to use Ubuntu 18.04 with ROS melodic however using
 Ubuntu 20.04 with ROS noectic work also. To install ROS noetic on Ubuntu 20.04 see [the relative page](installation.md)
@@ -72,7 +72,7 @@ Once this is done you can start **MoveIt**, to do this run the command `roslaunc
 
 There have been problems with controllers running the path from **rviz**, for more information see the [logs](log.log)
 
-## Utiliser ronoco avec sur un universal robot
+## Using ronoco with a universal robot
 
 Once the installation procedure of ROS on a universal robots model is completed, you just have to start ronoco by following the [Quick Start](quick-start.md) once started you can use ronoco in the usual way.
 
