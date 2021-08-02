@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Ronoco</li><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">Users guides</li><li class="chapter-item expanded "><a href="user-guides/installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="user-guides/quick-start.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li class="chapter-item expanded "><a href="user-guides/how-to-use-it.html"><strong aria-hidden="true">4.</strong> How to use it</a></li><li class="chapter-item expanded "><a href="user-guides/bt.html"><strong aria-hidden="true">5.</strong> How to create a behaviour tree</a></li><li class="chapter-item expanded "><a href="user-guides/poppy.html"><strong aria-hidden="true">6.</strong> Examples on robots</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="user-guides/poppy.html"><strong aria-hidden="true">6.1.</strong> Poppy ergo jr</a></li><li class="chapter-item expanded "><a href="user-guides/ur3.html"><strong aria-hidden="true">6.2.</strong> Universal Robots 3</a></li><li class="chapter-item expanded "><a href="user-guides/kuka.html"><strong aria-hidden="true">6.3.</strong> Kuka KR6</a></li><li class="chapter-item expanded "><a href="dev-guides/own.html"><strong aria-hidden="true">6.4.</strong> Add your own robot</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Ronoco API Documentation</li><li class="chapter-item expanded "><a href="documentation/api-short.html"><strong aria-hidden="true">7.</strong> API - summarize</a></li><li class="chapter-item expanded "><a href="documentation/api-detailed.html"><strong aria-hidden="true">8.</strong> API - detailed</a></li><li class="chapter-item expanded "><a href="documentation/behavior.html"><strong aria-hidden="true">9.</strong> Behaviours</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Ronoco</li><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">Users guides</li><li class="chapter-item expanded "><a href="user-guides/installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="user-guides/quick-start.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li class="chapter-item expanded "><a href="user-guides/how-to-use-it.html"><strong aria-hidden="true">4.</strong> How to use it</a></li><li class="chapter-item expanded "><a href="user-guides/bt.html"><strong aria-hidden="true">5.</strong> How to create a behaviour tree</a></li><li class="chapter-item expanded "><a href="user-guides/poppy.html"><strong aria-hidden="true">6.</strong> Examples on robots</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="user-guides/poppy.html"><strong aria-hidden="true">6.1.</strong> Poppy ergo jr</a></li><li class="chapter-item expanded "><a href="user-guides/ur3.html"><strong aria-hidden="true">6.2.</strong> Universal Robots 3</a></li><li class="chapter-item expanded "><a href="user-guides/kuka.html"><strong aria-hidden="true">6.3.</strong> Kuka KR6</a></li><li class="chapter-item expanded "><a href="user-guides/own.html"><strong aria-hidden="true">6.4.</strong> Add your own robot</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Ronoco API Documentation</li><li class="chapter-item expanded "><a href="documentation/api-short.html"><strong aria-hidden="true">7.</strong> API - summarize</a></li><li class="chapter-item expanded "><a href="documentation/api-detailed.html"><strong aria-hidden="true">8.</strong> API - detailed</a></li><li class="chapter-item expanded "><a href="documentation/behavior.html"><strong aria-hidden="true">9.</strong> Behaviours</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -537,6 +537,23 @@ mode = &quot;manual&quot;
 <center>
 <img src="user-guides/../static/kuka.gif"></img>
 </center><div style="break-before: page; page-break-before: always;"></div><h1 id="add-your-own-robot"><a class="header" href="#add-your-own-robot">Add your own robot</a></h1>
+<p>To add your own robot, simply modify the configuration file. The <strong>config.py</strong> file can be found in the <code>$HOME/catkin_ws/src/ronoco/ronoco-vm/ronoco_vm/</code> folder</p>
+<pre><code class="language-py">socketio = None
+
+# Level of debug
+debug = 4
+
+# Move group for moveit
+move_group = &quot;arm_and_finger&quot; # Poppy Ergo Jr 
+move_group = &quot;manipulator&quot; # UR3
+move_group = &quot;maniupaltor&quot; # KR6
+
+# Compliance mode
+mode = &quot;/set_compliant&quot; # Poppy Ergo Jr
+mode = &quot;manual&quot; # UR3
+mode = None # KR6
+</code></pre>
+<p>This configuration file will disappear in the next version of Ronoco in favour of parameters in a roslaunch</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ronoco-vm-api---summarized-documentation"><a class="header" href="#ronoco-vm-api---summarized-documentation">Ronoco-vm API - Summarized documentation</a></h1>
 <p>The table below lists all the endpoints of <strong>ronoco-vm</strong> and their different possible behaviour</p>
 <table><thead><tr><th align="left">URL</th><th align="left">Method</th><th align="left">Body</th><th align="left">Return Code</th><th align="left">Return</th><th align="left">Description</th></tr></thead><tbody>
