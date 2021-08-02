@@ -25,7 +25,7 @@ Control Interface
 
 <img src="../static/play.svg" width="5%"></img> This button asks the server to execute the last behaviour tree deployed from Node-RED
 
-<img src="../static/free.svg" width="5%"></img> Enables the robot to be set to compliant mode. This button can only be used for a robot that has a service to set it to compliant mode (see [add your own robot](../dev-guides/own.md) for more details).
+<img src="../static/free.svg" width="5%"></img> Enables the robot to be set to compliant mode. This button can only be used for a robot that has a service to set it to compliant mode (see [add your own robot](../user-guides/own.md) for more details).
 
 <img src="../static/record.svg" width="5%"></img> This group of buttons allows you to record points in the environment. There are two recording modes either via the *simulated* button which records the position of the interactive marker. Or via the *real* button which records the actual position of the robot.
 
