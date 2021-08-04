@@ -39,9 +39,9 @@ def free():
         global compliant
         if request.method == 'POST':
             if config.mode is None:
-                return NotFound()
+                return {"Warning": "compliant mode is None"}
             if config.mode == "manual":
-                return {'compliant': "manual"}, 200
+                return {'Info': "compliant mode is manual"}, 200
             data = request.get_json()
             try:
                 compliant = data['compliant']
