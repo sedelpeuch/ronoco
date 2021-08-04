@@ -246,6 +246,30 @@ class Control:
                     return False, child['id']
                 self.behavior_tree_dict[node['id']] = node_py_tree
 
+    @staticmethod
+    def multiple_data_nodes(node_json):
+        """
+        Analyses the data of a node and according to its type correctly formats the data dictionary.
+
+        Normally this function only returns the data field of the node but some special nodes escape this rule.
+
+        :param node_json: the node to evaluate
+        :return: False, None if a data is expected but not present. True and the correctly formatted dictionary else
+        """
+        data = {}
+        if node_json['type'] not in behaviour.behaviour.composites:
+            try:
+                if node_json['type'] == 'cartesian':
+                    data = {'point_id': node_json['point_id'], 'reliability': node_json['reliability'],
+                            'eef': node_json['eef']}
+                elif node_json['type'] == 'record':
+                    data = {'identifier': node_json['identifier'], 'time': node_json['time']}
+                else:
+                    data = node_json['data']
+            except KeyError:
+                return False, None
+        return True, data
+
     def build_nodes(self, bt):
         """
         Transforms all the nodes of the tree from json form to py_tree form. This function does not handle decorator
@@ -259,13 +283,9 @@ class Control:
             data = None
             try:
                 name = node_json['name']
-                if node_json['type'] == 'cartesian':
-                    data = {'point_id': node_json['point_id'], 'reliability': node_json['reliability'],
-                            'eef': node_json['eef']}
-                elif node_json['type'] == 'record':
-                    data = {'identifier': node_json['identifier'], 'time': node_json['time']}
-                else:
-                    data = node_json['data']
+                state, data = self.multiple_data_nodes(node_json)
+                if not state:
+                    return False, node_json['id']
             except KeyError:
                 pass
             if node_json['type'] != "tab" and node_json['type'] != "root" \
