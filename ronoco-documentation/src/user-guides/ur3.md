@@ -1,11 +1,11 @@
-# Using ronoco with a universal robot
+# Universal robot 3
 
 ## Configuring ROS with universal robots
 
 This driver requires a system setup with ROS. It is recommended to use Ubuntu 18.04 with ROS melodic however using
 Ubuntu 20.04 with ROS noectic work also. To install ROS noetic on Ubuntu 20.04 see [the relative page](installation.md)
 
-First of all it is necessary to download and install
+First it is necessary to download and install
 [Universal Robots ROS Driver](https://github.com/UniversalRobots/Universal_Robots_ROS_Driver) by performing the commands
 below
 
@@ -74,28 +74,14 @@ There have been problems with controllers running the path from **rviz**, for mo
 
 ## Using ronoco with a universal robot
 
-Once the installation procedure of ROS on a universal robots model is completed, you just have to start ronoco by following the [Quick Start](quick-start.md) once started you can use ronoco in the usual way.
+Once the installation procedure of ROS on a universal robots model is completed, you just have to start ronoco by following the [Quick Start](quick-start.md) with the followings arguments :
+- *commander*: manpiulator
+- *compliant_mode*: manual
 
-### Configuration
-
-For a universal robot the configuration script is as follows
-
-```python
-socketio = None
-
-# Level of debug
-debug = 4
-
-# Move group for moveit
-# move_group = "arm_and_finger"
-move_group = "manipulator"
-
-# Compliance mode
-# mode = None
-# mode = "/set_compliant"
-mode = "manual"
-```
+Once started you can use ronoco in the usual way.
 
 ### Limitations
 
 Universal robots do not support the use of "free mode" at the same time as the execution of a program, i.e. when executing the **ExternalControl** block it is not possible to use the "free mode" function. Thus the *record* and *replay* blocks cannot be used on a universal robot.
+
+WIP : create record & replay in rviz

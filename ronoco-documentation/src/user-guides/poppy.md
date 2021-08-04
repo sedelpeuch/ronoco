@@ -56,43 +56,10 @@ Rviz should start with a Poppy Ergo Jr in view corresponding to the state of you
 
 ## Start Ronoco
 
-Before starting ronoco it is necessary to provide the robot configuration. Open the file **config.py** in the folder `$HOME/catkin_ws/src/ronoco/ronoco-vm/ronoco_vm/` and copy and paste the following values
-```py
-"""
-This file gathers all the configuration variables until ronoco-config is created
-"""
-
-socketio = None
-
-# Level of debug
-debug = 4
-
-# Move group for moveit
-move_group = "arm_and_finger"
-
-# Compliance mode
-mode = "/set_compliant"
-```
-
-The two interesting values are `move_group` which can be *arm_and_finger* or *arm* on Poppy Ergo Jr and `mode` which tells ronoco about the compliance capabilities of the robot. In our case the robot can be put into and out of compliance mode via the `/set_compliant` service which we fill in. In the case of a Kuka robot that does not have a compliant mode the value would have been `None`.
-
-WIP: Pass move_group and mode via roslaunch parameters.
-
-To start ronoco you just need to run the following commands in 3 different terminals
+To launch the project, simply run the following command:
 
 ```bash
-# Launching of nodered in a terminal
-node-red
-```
-```bash
-# Launching of ronoco-vm in another terminal
-cd $HOME/catkin_ws/src/ronoco/ronoco-vm/
-python3 ronoco_vm/run.py
-```
-```bash
-# Launching of ronoco-ui in another terminal
-cd $HOME/catkin_ws/src/ronoco/ronoco-ui/
-npm start
+roslaunch ronoco ronoco.launch commander:=arm_and_finger compliant_mode:=/set_compliant
 ```
 
 Once all the modules are running go to your [localhost:8080](http://localhost:8080/) and you will arrive at the ronoco page:
