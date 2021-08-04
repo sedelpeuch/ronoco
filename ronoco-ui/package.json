@@ -1,5 +1,5 @@
 {
-  "name": "ronoco-control",
+  "name": "ronoco-ui",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,7 +7,7 @@
   "scripts": {
     "build": "webpack",
     "start": "webpack serve",
-    "test": "babel-node spec/run.js"
+    "stop": "pkill --signal SIGINT webpack"
   },
   "repository": {
     "type": "git",
@@ -39,6 +39,9 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^7.0.0-beta.3",
     "node-red": "^1.3.5",
+    "npm-clean": "^1.0.3",
+    "socket.io": "^4.1.3",
+    "socket.io-client": "2.1.1",
     "socket.io-client-pure": "^1.3.10",
     "webpack": "^5.38.1",
     "webpack-cli": "^4.7.2",
