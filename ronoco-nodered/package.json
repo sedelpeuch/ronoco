@@ -22,7 +22,8 @@
     "glob-parent": ">=5.1.2",
     "node-red": "^2.0.1",
     "node-red-node-test-helper": "^0.2.7",
-    "ws": ">=6.2.2"
+    "ws": ">=6.2.2",
+    "tar": ">=6.1.2"
   },
   "scripts": {
     "test": "mocha \"test/**/*_spec.js\""
