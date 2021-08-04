@@ -19,11 +19,15 @@
   },
   "dependencies": {
     "bcrypt": ">=5.0.0",
+    "bufferutil": "^4.0.3",
     "glob-parent": ">=5.1.2",
     "node-red": "^2.0.1",
     "node-red-node-test-helper": "^0.2.7",
-    "ws": ">=6.2.2",
-    "tar": ">=6.1.2"
+    "utf-8-validate": "^5.0.5",
+    "ws": ">=6.2.2"
+  },
+  "devDependencies": {
+    "tar": "^6.1.6"
   },
   "scripts": {
     "test": "mocha \"test/**/*_spec.js\""
