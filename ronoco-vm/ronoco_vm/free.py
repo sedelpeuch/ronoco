@@ -8,7 +8,7 @@ from werkzeug.exceptions import BadRequest, NotFound
 import common
 import config
 import rospy
-from std_srvs.srv import SetBool
+import rosservice
 
 bp = Blueprint('free_endpoint', __name__, url_prefix='/free')
 
@@ -38,7 +38,7 @@ def free():
     if common.Common().ros_state():
         global compliant
         if request.method == 'POST':
-            if config.mode is None:
+            if config.mode == None:
                 return {"Warning": "compliant mode is None"}
             if config.mode == "manual":
                 return {'Info': "compliant mode is manual"}, 200
@@ -49,7 +49,9 @@ def free():
                 raise BadRequest()
             except TypeError:
                 raise BadRequest()
-            compliance = rospy.ServiceProxy('set_compliant', SetBool)
+            service_type = rosservice.get_service_type("/" + config.mode).replace('/', '.').rsplit(".", 1)
+            imported = getattr(__import__(service_type[0] + ".srv", fromlist=[service_type[1]]), service_type[1])
+            compliance = rospy.ServiceProxy(config.mode, imported)
             if compliant == "True":
                 compliance(True)
             elif compliant == "False":
