@@ -1,0 +1,36 @@
+<script type="text/javascript">
+    RED.nodes.registerType('service', {
+        category: 'ronoco',
+        color: '#5cb1d6',
+        defaults: {
+            name: {value: ""},
+            service_name: {value: "", required: true},
+            service_parameter: {value: "", required: true}
+        },
+        inputs: 1,
+        outputs: 0,
+        icon: "icons/service.svg",
+        label: function () {
+            return this.name || "service";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="service">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-service_name"><i class="fa fa-tag"></i> Name of service </label>
+        <input type="text" id="node-input-service_name" placeholder="wsg_50_driver/move">
+    </div>
+    <div class="form-row">
+        <label for="node-input-service_parameter"><i class="fa fa-tag"></i> Parameters of service </label>
+        <input type="text" id="node-input-service_parameter" placeholder="[width, speed]">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="service">
+    <h3>Description </h3>
+</script>

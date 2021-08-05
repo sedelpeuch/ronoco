@@ -15,6 +15,7 @@
       "end effector": "action-bt/end_effector.js",
 
       "record": "condition-bt/record.js",
+      "service": "condition-bt/service.js",
 
       "condition": "decorator-bt/condition.js",
       "inverter": "decorator-bt/inverter.js",
