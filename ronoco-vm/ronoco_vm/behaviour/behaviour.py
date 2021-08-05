@@ -90,6 +90,12 @@ def replay(name, data, child):
         return False, None
     return True, behaviour.replay.Replay(name, data)
 
+def end_effector(name, data, child):
+    if name is None or name == "":
+        name = "end effector"
+    if data is None:
+        return False, None
+    return True, behaviour.end_effector.EndEffector(name, data)
 
 types = {'selector': selector,
          'sequence': sequence,
@@ -101,7 +107,8 @@ types = {'selector': selector,
          'condition': condition,
          'inverter': inverter,
          'timeout': timeout,
-         'record': record
+         'record': record,
+         'end effector': end_effector
          }
 
 composites = {'selector', 'sequence', 'parallel'}
