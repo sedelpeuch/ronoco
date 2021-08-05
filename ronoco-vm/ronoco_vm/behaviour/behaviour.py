@@ -2,10 +2,10 @@
 This file implements some constants for behaviour like kind of types, leaves and create an instance of CartesianPoint()
 commander
 """
+import cartesian_point
 import py_trees
 
 import behaviour
-import cartesian_point
 
 
 def selector(name, data, child):
@@ -90,12 +90,22 @@ def replay(name, data, child):
         return False, None
     return True, behaviour.replay.Replay(name, data)
 
+
 def end_effector(name, data, child):
     if name is None or name == "":
         name = "end effector"
     if data is None:
         return False, None
     return True, behaviour.end_effector.EndEffector(name, data)
+
+
+def service(name, data, child):
+    if name is None or name == "":
+        name = "service"
+    if data is None:
+        return False, None
+    return True, behaviour.service.Service(name, data)
+
 
 types = {'selector': selector,
          'sequence': sequence,
@@ -108,11 +118,12 @@ types = {'selector': selector,
          'inverter': inverter,
          'timeout': timeout,
          'record': record,
-         'end effector': end_effector
+         'end effector': end_effector,
+         'service': service
          }
 
 composites = {'selector', 'sequence', 'parallel'}
-leaf = {'execute', 'plan', 'cartesian', 'record', 'replay'}
+leaf = {'execute', 'plan', 'cartesian', 'record', 'replay', 'end effector', 'service'}
 decorators = {'condition', 'inverter', 'timeout'}
 states = {"success": py_trees.common.Status.SUCCESS, "failure": py_trees.common.Status.FAILURE,
           "running": py_trees.common.Status.RUNNING}

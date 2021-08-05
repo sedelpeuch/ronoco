@@ -264,6 +264,9 @@ class Control:
                             'eef': node_json['eef']}
                 elif node_json['type'] == 'record':
                     data = {'identifier': node_json['identifier'], 'time': node_json['time']}
+                elif node_json['type'] == 'service':
+                    data = {'service_name': node_json['service_name'],
+                            'service_parameter': node_json['service_parameter']}
                 else:
                     data = node_json['data']
             except KeyError:
