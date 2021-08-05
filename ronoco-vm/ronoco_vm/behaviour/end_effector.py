@@ -5,11 +5,12 @@ Implementation of the action-bt cartesian allowing the robot to move to a point 
 # -*- coding: utf-8 -*-
 import ast
 
+import config
 import logger
 import py_trees
 
 import rospy
-from wsg_50_common.srv import Move
+import rosservice
 
 
 class EndEffector(py_trees.behaviour.Behaviour):
@@ -20,8 +21,9 @@ class EndEffector(py_trees.behaviour.Behaviour):
 
     def __init__(self, name="EndEffector", data=None):
         super(EndEffector, self).__init__(name)
-        self.data = ast.literal_eval(data)
-        self.service = rospy.ServiceProxy("/wsg_50_driver/move", Move)
+        self.parameters = ast.literal_eval(data)
+        self.service_type = rosservice.get_service_type("/" + config.end_effector).replace('/', '.').rsplit(".", 1)
+        self.service = None
 
     def setup(self, timeout):
         """
@@ -29,11 +31,14 @@ class EndEffector(py_trees.behaviour.Behaviour):
         :return: True
         """
         self.logger.debug("  %s [EndEffector::setup()]" % self.name)
+        imported = getattr(__import__(self.service_type[0] + ".srv", fromlist=[self.service_type[1]]),
+                           self.service_type[1])
+        self.service = rospy.ServiceProxy("/" + config.end_effector, imported)
         return True
 
     def initialise(self):
         """
-        Set target goal as a PoseStamped()
+        No specific treatment
         """
         self.logger.debug("  %s [EndEffector::initialise()]" % self.name)
 
@@ -44,7 +49,10 @@ class EndEffector(py_trees.behaviour.Behaviour):
         """
         self.logger.debug("  %s [EndEffector::update()]" % self.name)
         logger.debug("Execute block " + self.name)
-        result = self.service(float(self.data[0]), float(self.data[1]))
+        try:
+            result = self.service(*self.parameters)
+        except rospy.ServiceException:
+            return py_trees.common.Status.FAILURE
         if str(result) == "error: 255":
             logger.warn("The effector has caught something")
         return py_trees.common.Status.SUCCESS

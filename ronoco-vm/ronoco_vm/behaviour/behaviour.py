@@ -3,9 +3,11 @@ This file implements some constants for behaviour like kind of types, leaves and
 commander
 """
 import cartesian_point
+import config
 import py_trees
 
 import behaviour
+import rosservice
 
 
 def selector(name, data, child):
@@ -95,6 +97,8 @@ def end_effector(name, data, child):
     if name is None or name == "":
         name = "end effector"
     if data is None:
+        return False, None
+    if rosservice.get_service_type("/" + config.end_effector) is None:
         return False, None
     return True, behaviour.end_effector.EndEffector(name, data)
 
