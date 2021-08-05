@@ -15,3 +15,5 @@ move_group = rospy.get_param("commander")
 mode = rospy.get_param("compliant_mode")
 if mode == "None" or "none":
     mode = None
+
+
