@@ -1,5 +1,5 @@
 """
-Implementation of the action-bt cartesian allowing the robot to move to a point with a cartesian trajectory
+This behaviour allows you to call any service by specifying its name and arguments
 """
 # !/usr/bin/env python3
 # -*- coding: utf-8 -*-
@@ -14,8 +14,7 @@ import rosservice
 
 class Service(py_trees.behaviour.Behaviour):
     """
-    Class inherited from py_tree.behaviour.Behavior allowing to define a new behaviour. The behaviour is the activation
-    or deactivation of the gripper using the service provided as a parameter to ronoco.launch.
+    This behaviour allows you to call any service by specifying its name and arguments
     """
 
     def __init__(self, name="Service", data=None):
@@ -27,7 +26,7 @@ class Service(py_trees.behaviour.Behaviour):
 
     def setup(self, timeout):
         """
-        No specific treatment
+        Import the srv associated with the service type and retrieve the activation function with ServiceProxy
         :return: True
         """
         self.logger.debug("  %s [Service::setup()]" % self.name)
@@ -38,13 +37,13 @@ class Service(py_trees.behaviour.Behaviour):
 
     def initialise(self):
         """
-        Set target goal as a PoseStamped()
+        No specific treatment
         """
         self.logger.debug("  %s [Service::initialise()]" % self.name)
 
     def update(self):
         """
-        Compute cartesian path, then if the reliability is sufficient, execute the trajectory
+        Executes the service with the list of associated parameters
         :return: SUCCESS or FAILURE
         """
         self.logger.debug("  %s [Service::update()]" % self.name)

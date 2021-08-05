@@ -21,7 +21,6 @@ class EndEffector(py_trees.behaviour.Behaviour):
     def __init__(self, name="EndEffector", data=None):
         super(EndEffector, self).__init__(name)
         self.data = ast.literal_eval(data)
-        print(self.data)
         self.service = rospy.ServiceProxy("/wsg_50_driver/move", Move)
 
     def setup(self, timeout):

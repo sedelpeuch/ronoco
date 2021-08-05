@@ -1,1 +1,1 @@
-from . import execute, plan, cartesian, record, replay, end_effector, behaviour
+from . import execute, plan, cartesian, record, replay, end_effector, service, behaviour
