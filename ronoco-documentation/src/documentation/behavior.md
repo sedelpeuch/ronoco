@@ -116,3 +116,11 @@ Replays a previously recorded path
 <member> Parameters </member>
 
 - *data*: name of a recorded trajectory as a string
+
+<method> service(name, data, child) </method>
+    Allows you to call a service offered by the robot. Perform `rosservice list` to get the list of available services
+
+<member> Parameters </member>
+- *name*: String - name of current block
+- *name of service*: String - The name of the service to be called. The name must not be preceded by a /.
+- *Parameters of service*: Array - The parameters to be provided to the service. The parameters must be enclosed in brackets and separated by commas.
