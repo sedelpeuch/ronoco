@@ -15,7 +15,10 @@ Control Interface
 
 <img src="../static/circle.svg" width="5%"></img> Represents the status of the server, when it is empty it means that the client has not yet received any information from the server. It is probably still loading.
 
-<img src="../static/circle_red.svg" width="5%"></img> When it is red it means that at least one request to the server has not been answered and therefore the server is not running or is in error
+<img src="../static/circle_black.svg" width="5%"></img> When it is black (here white) it means that at least one request to the server has not been answered and therefore the server is not running or is in error
+
+
+<img src="../static/circle_red.svg" width="5%"></img> When it is red, it means that it is not possible to reach the commander. Check that MoveIt is running and that the order passed as a parameter is the right one, then click on the connect button
 
 <img src="../static/circle_orange.svg" width="5%"></img> When it is orange it means that ROS is not working as expected. The source of the problem is either the absence of roscore (the rosout/get_loggers service is not available) or the absence of moveit (the move_group/get_loggers service is not available). In this state ronoco is not usable
 
@@ -25,7 +28,11 @@ Control Interface
 
 <img src="../static/play.svg" width="5%"></img> This button asks the server to execute the last behaviour tree deployed from Node-RED
 
-<img src="../static/free.svg" width="5%"></img> Enables the robot to be set to compliant mode. This button can only be used for a robot that has a service to set it to compliant mode (see [add your own robot](../user-guides/own.md) for more details).
+<img src="../static/free.svg" width="5%"></img> Enables the robot to be set to compliant mode. This button can only be used for a robot that has a service to set it to compliant mode
+
+<img src="../static/connect.svg" width="5%"></img> Allows to connect to the commander passed in parameter when the status of ronoco is red
+
+<img src="../static/clear.svg" width="5%"></img> Clear logs in ronoco-ui
 
 <img src="../static/record.svg" width="5%"></img> This group of buttons allows you to record points in the environment. There are two recording modes either via the *simulated* button which records the position of the interactive marker. Or via the *real* button which records the actual position of the robot.
 

@@ -135,4 +135,3 @@ decorators = {'condition', 'inverter', 'timeout'}
 data_node = {'execute', 'replay', 'plan', 'cartesian', 'condition', 'timeout', 'record', 'end effector', 'service'}
 states = {"success": py_trees.common.Status.SUCCESS, "failure": py_trees.common.Status.FAILURE,
           "running": py_trees.common.Status.RUNNING}
-commander = cartesian_point.CartesianPoint().commander

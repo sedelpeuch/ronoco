@@ -4,10 +4,9 @@ Implementation of the action-bt execute allowing the robot to move to a point
 # !/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import py_trees
-
-import behaviour
+import config
 import logger
+import py_trees
 
 
 class Execute(py_trees.behaviour.Behaviour):
@@ -19,7 +18,7 @@ class Execute(py_trees.behaviour.Behaviour):
     def __init__(self, name="Execute", point=None):
         super(Execute, self).__init__(name)
         self.point = point
-        self.commander = behaviour.behaviour.commander
+        self.commander = config.commander
 
     def setup(self, timeout):
         """

@@ -9,6 +9,7 @@ from flask import Blueprint
 import config
 import rospy
 import topic_callback
+from moveit_commander import MoveGroupCommander
 from roscpp.srv import GetLoggers
 
 
@@ -22,6 +23,7 @@ class Common:
 
         self.bp.route('/', methods=['GET'])(self.index)
         self.bp.route('/shutdown')(self.shutdown)
+        self.bp.route('/connect', methods=['GET'])(self.connect)
         self.rt = threading.Thread(target=self.send_states, daemon=True)
         self.rt.start()
 
@@ -33,7 +35,7 @@ class Common:
         while True:
             time.sleep(5.0)
             config.socketio.emit('states', {"ros_state": self.ros_state(), "moveit_state": self.moveit_state(),
-                                            "rviz_state": self.rviz_state()},
+                                            "rviz_state": self.rviz_state(), "commander_state": self.commander_state()},
                                  namespace='/states')
 
     @staticmethod
@@ -96,6 +98,17 @@ class Common:
         return True
 
     @staticmethod
+    def commander_state():
+        """
+        Check if commander is initialized
+        :return: False if not, True else
+        """
+        if config.commander is None:
+            return False
+        else:
+            return True
+
+    @staticmethod
     def shutdown():
         """
         GET Method
@@ -106,3 +119,16 @@ class Common:
         """
         config.socketio.stop()
         return {"Info": 'Server shutting down...'}, 200
+
+    @staticmethod
+    def connect():
+        """
+        Connect to config.move_group with moveit_commander.MoveGroupCommander
+        :return: {"Error": "Can't connect to commander please retry with connect button"}, 404 if it's not possible,
+        {"Success": "Connected with commander " + config.move_group}, 200 else
+        """
+        try:
+            config.commander = MoveGroupCommander(config.move_group, wait_for_servers=20)
+        except RuntimeError:
+            return {"Error": "Can't connect to commander please retry with connect button"}, 404
+        return {"Success": "Connected with commander " + config.move_group}, 200
