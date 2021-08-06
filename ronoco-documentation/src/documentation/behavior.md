@@ -124,3 +124,12 @@ Replays a previously recorded path
 - *name*: String - name of current block
 - *name of service*: String - The name of the service to be called. The name must not be preceded by a /.
 - *Parameters of service*: Array - The parameters to be provided to the service. The parameters must be enclosed in brackets and separated by commas.
+
+<method> end_effector(name, data, child) </method>
+        Allows control of the robot end effector via an associated service passed as a parameter to ronoco.launch (the robot end effector controller must be started independently).
+
+ This block returns SUCCESS if it has succeeded in completing the action and FAILURE if it has caught something in its path. Otherwise, the combination of "end_effector" and an "inverter" will return SUCCESS if the robot has caught something.
+
+<member> Parameters </member>
+- *name*: String - name of current block
+- *Data*: Array - The parameters to be provided to the service. The parameters must be enclosed in brackets and separated by commas.
