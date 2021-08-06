@@ -78,12 +78,13 @@ source devel/setup.<bash/zsh>
 To launch the project, simply run the following command:
 
 ```bash
-roslaunch ronoco ronoco.launch commander:=string compliant_mode:=string
+roslaunch ronoco ronoco.launch commander:=string compliant_mode:=string end_effector:=string
 ```
 
 With as argument :
 - *commander*: the name of the move_group in MoveIt
 - *compliant_mode*: *manual* if the robot can go into compliant mode manually, *None* if the robot cannot go into compliant mode, or *the name of the service* to put it in and out of compliant mode.
+- end_effector*: the name of the service to manipulate the effector, e.g. "wsg_50_driver/move".  It is not necessary to fill in this field
 
 Once all the modules are running go to your [localhost:8080](http://localhost:8080/) and you will arrive on the ronoco page:
 
