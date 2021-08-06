@@ -67,11 +67,10 @@ class Control:
             if not self.roots:
                 return {"Error": "json contains 0 valid roots"}, 400
             state, result = self.build_nodes(bt)
-            for node in bt:
-                self.build_decorator(node, bt)
             if not state:
                 return {"Error": "Block (or child of this block) with id " + result + " is incorrect"}, 400
-
+            for node in bt:
+                self.build_decorator(node, bt)
             # for each root in json build first root in py_tree and store it in trees
             self.roots.sort(key=self.get_y)
             for root in self.roots:
@@ -246,6 +245,33 @@ class Control:
                     return False, child['id']
                 self.behavior_tree_dict[node['id']] = node_py_tree
 
+    @staticmethod
+    def multiple_data_nodes(node_json):
+        """
+        Analyses the data of a node and according to its type correctly formats the data dictionary.
+
+        Normally this function only returns the data field of the node but some special nodes escape this rule.
+
+        :param node_json: the node to evaluate
+        :return: False, None if a data is expected but not present. True and the correctly formatted dictionary else
+        """
+        data = {}
+        if node_json['type'] in behaviour.behaviour.data_node:
+            try:
+                if node_json['type'] == 'cartesian':
+                    data = {'point_id': node_json['point_id'], 'reliability': node_json['reliability'],
+                            'eef': node_json['eef']}
+                elif node_json['type'] == 'record':
+                    data = {'identifier': node_json['identifier'], 'time': node_json['time']}
+                elif node_json['type'] == 'service':
+                    data = {'service_name': node_json['service_name'],
+                            'service_parameter': node_json['service_parameter']}
+                else:
+                    data = node_json['data']
+            except KeyError:
+                return False, None
+        return True, data
+
     def build_nodes(self, bt):
         """
         Transforms all the nodes of the tree from json form to py_tree form. This function does not handle decorator
@@ -254,18 +280,17 @@ class Control:
         :return: True, None if everything is ok, False and an id else
         """
         self.behavior_tree_dict = {}
+        print(bt)
         for node_json in bt:
+            print(node_json)
             name = None
             data = None
             try:
                 name = node_json['name']
-                if node_json['type'] == 'cartesian':
-                    data = {'point_id': node_json['point_id'], 'reliability': node_json['reliability'],
-                            'eef': node_json['eef']}
-                elif node_json['type'] == 'record':
-                    data = {'identifier': node_json['identifier'], 'time': node_json['time']}
-                else:
-                    data = node_json['data']
+                state, data = self.multiple_data_nodes(node_json)
+                if not state:
+                    print("State error")
+                    return False, node_json['id']
             except KeyError:
                 pass
             if node_json['type'] != "tab" and node_json['type'] != "root" \

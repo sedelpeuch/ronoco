@@ -2,10 +2,12 @@
 This file implements some constants for behaviour like kind of types, leaves and create an instance of CartesianPoint()
 commander
 """
+import cartesian_point
+import config
 import py_trees
 
 import behaviour
-import cartesian_point
+import rosservice
 
 
 def selector(name, data, child):
@@ -50,7 +52,10 @@ def condition(name, data, child):
 
 
 def inverter(name, data, child):
-    return True, py_trees.decorators.Inverter(name=name, child=child)
+    try:
+        return True, py_trees.decorators.Inverter(child, name)
+    except TypeError:
+        return False, None
 
 
 def timeout(name, data, child):
@@ -91,6 +96,24 @@ def replay(name, data, child):
     return True, behaviour.replay.Replay(name, data)
 
 
+def end_effector(name, data, child):
+    if name is None or name == "":
+        name = "end effector"
+    if data is None:
+        return False, None
+    if rosservice.get_service_type("/" + config.end_effector) is None:
+        return False, None
+    return True, behaviour.end_effector.EndEffector(name, data)
+
+
+def service(name, data, child):
+    if name is None or name == "":
+        name = "service"
+    if data is None:
+        return False, None
+    return True, behaviour.service.Service(name, data)
+
+
 types = {'selector': selector,
          'sequence': sequence,
          'parallel': parallel,
@@ -101,12 +124,15 @@ types = {'selector': selector,
          'condition': condition,
          'inverter': inverter,
          'timeout': timeout,
-         'record': record
+         'record': record,
+         'end effector': end_effector,
+         'service': service
          }
 
 composites = {'selector', 'sequence', 'parallel'}
-leaf = {'execute', 'plan', 'cartesian', 'record', 'replay'}
+leaf = {'execute', 'plan', 'cartesian', 'record', 'replay', 'end effector', 'service'}
 decorators = {'condition', 'inverter', 'timeout'}
+data_node = {'execute', 'replay', 'plan', 'cartesian', 'condition', 'timeout', 'record', 'end effector', 'service'}
 states = {"success": py_trees.common.Status.SUCCESS, "failure": py_trees.common.Status.FAILURE,
           "running": py_trees.common.Status.RUNNING}
 commander = cartesian_point.CartesianPoint().commander

@@ -304,6 +304,17 @@ that the other blocks are already built
 
 <member> Return </member> True, None if everything is OK, False and an id else
 
+<method> multiple_data_nodes(node_json) </method>
+
+Analyses the data of a node and according to its type correctly formats the data dictionary.
+
+Normally this function only returns the data field of the node but some special nodes escape this rule.
+
+<member>Parameters </member>
+- *node_json:* the node to evaluate
+
+<member> Return </member> False, None if a data is expected but not present. True and the correctly formatted dictionary else
+
 <method> build_nodes(bt) </method>
 
 Transforms all the nodes of the tree from json form to py_tree form. This function does not handle decorator
