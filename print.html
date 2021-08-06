@@ -224,6 +224,16 @@ source devel/setup.zsh
 </code></pre>
 <p>To start ronoco refer to the <a href="user-guides/quick-start.html">Getting Started</a> page</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="getting-started"><a class="header" href="#getting-started">Getting started</a></h1>
+<h2 id="quick-start--roslaunch"><a class="header" href="#quick-start--roslaunch">Quick-start : roslaunch</a></h2>
+<p>To launch the project, simply run the following command:</p>
+<pre><code class="language-bash">roslaunch ronoco ronoco.launch commander:=string compliant_mode:=string
+</code></pre>
+<p>With as argument :</p>
+<ul>
+<li><em>commander</em>: the name of the move_group in MoveIt</li>
+<li><em>compliant_mode</em>: <em>manual</em> if the robot can go into compliant mode manually, <em>None</em> if the robot cannot go into compliant mode, or <em>the name of the service</em> to put it in and out of compliant mode.</li>
+</ul>
+<h2 id="manual-start"><a class="header" href="#manual-start">Manual start</a></h2>
 <p>To use ronoco it is necessary to launch the ROS modules corresponding to your robot and then the different modules of ronoco.</p>
 <p>Regarding the launching of ROS modules the procedure is different for each robot, to make ronoco work it is necessary to have a roscore and Moveit running. See the different examples on <a href="user-guides/poppy.html">Poppy Ergo Jr</a> or <a href="user-guides/ur3.html">Universal Robots 3</a> for more details.</p>
 <p>It is then necessary to launch the three modules.</p>
@@ -240,7 +250,6 @@ npm start
 </code></pre>
 <p>Once all the modules are running go to your <a href="http://localhost:8080/">localhost:8080</a> and you will arrive at the ronoco page:</p>
 <p><img src="user-guides/../static/ronoco.png" alt="ronoco" /></p>
-<p>Work in progress: launching ronoco using a roslaunch</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="how-to-use-it"><a class="header" href="#how-to-use-it">How to use it</a></h1>
 <p>This page explains how to use the application to control a robot. It is divided in 3 parts, the first one explains how to use the different buttons of the control interface. The second part explains how to create behaviour trees and the specificities of the different blocks.</p>
 <h2 id="control-interface"><a class="header" href="#control-interface">Control Interface</a></h2>
@@ -271,7 +280,7 @@ npm start
 <img src="user-guides/../static/doc.png" width="50%" ></img>
 <p>Access to block documentation from Ronoco</p>
 </center>
-<p>To create Ronoco interpretable trees any tree <strong>must start</strong> with a <em>root</em> block and <strong>must contain at least</strong> one <em>leaf</em> (blue coloured blocks), a tree not starting with a <em>root</em> block will simply be ignored.</p>
+<p><img src="user-guides/../static/nodered/root.svg" width="5%" ></img> To create Ronoco interpretable trees any tree <strong>must start</strong> with a <em>root</em> block and <strong>must contain at least</strong> one <em>leaf</em> (blue coloured blocks), a tree not starting with a <em>root</em> block will simply be ignored.</p>
 <p>The <em>root</em> and <em>decorators</em> blocks (green blocks) must be followed by a single child.</p>
 <p>The <em>sequence</em>, <em>selector</em> and <em>parallel</em> blocks accept multiple children.</p>
 <p>All blocks (except the <em>root</em> block) can be the child of multiple blocks.</p>
@@ -352,35 +361,8 @@ source $HOME/.bashrc
 <p>Rviz should start with a Poppy Ergo Jr in view corresponding to the state of your robot in real time.</p>
 <p>⚠️ At this stage, make sure that the posture of your robot in RViz corresponds to the current posture of the real robot: the angles of the motors and the location of the rivets must correspond in every way to your real robot. It is frequent that robots are incorrectly assembled, in this case close MoveIt and go back to the <a href="https://docs.poppy-project.org/fr/assembly-guides/ergo-jr/">assembly guide</a> step by step to correct before continuing.</p>
 <h2 id="start-ronoco"><a class="header" href="#start-ronoco">Start Ronoco</a></h2>
-<p>Before starting ronoco it is necessary to provide the robot configuration. Open the file <strong>config.py</strong> in the folder <code>$HOME/catkin_ws/src/ronoco/ronoco-vm/ronoco_vm/</code> and copy and paste the following values</p>
-<pre><code class="language-py">&quot;&quot;&quot;
-This file gathers all the configuration variables until ronoco-config is created
-&quot;&quot;&quot;
-
-socketio = None
-
-# Level of debug
-debug = 4
-
-# Move group for moveit
-move_group = &quot;arm_and_finger&quot;
-
-# Compliance mode
-mode = &quot;/set_compliant&quot;
-</code></pre>
-<p>The two interesting values are <code>move_group</code> which can be <em>arm_and_finger</em> or <em>arm</em> on Poppy Ergo Jr and <code>mode</code> which tells ronoco about the compliance capabilities of the robot. In our case the robot can be put into and out of compliance mode via the <code>/set_compliant</code> service which we fill in. In the case of a Kuka robot that does not have a compliant mode the value would have been <code>None</code>.</p>
-<p>WIP: Pass move_group and mode via roslaunch parameters.</p>
-<p>To start ronoco you just need to run the following commands in 3 different terminals</p>
-<pre><code class="language-bash"># Launching of nodered in a terminal
-node-red
-</code></pre>
-<pre><code class="language-bash"># Launching of ronoco-vm in another terminal
-cd $HOME/catkin_ws/src/ronoco/ronoco-vm/
-python3 ronoco_vm/run.py
-</code></pre>
-<pre><code class="language-bash"># Launching of ronoco-ui in another terminal
-cd $HOME/catkin_ws/src/ronoco/ronoco-ui/
-npm start
+<p>To launch the project, simply run the following command:</p>
+<pre><code class="language-bash">roslaunch ronoco ronoco.launch commander:=arm_and_finger compliant_mode:=/set_compliant
 </code></pre>
 <p>Once all the modules are running go to your <a href="http://localhost:8080/">localhost:8080</a> and you will arrive at the ronoco page:</p>
 <p><img src="user-guides/../static/ronoco.png" alt="ronoco" /></p>
@@ -425,35 +407,8 @@ source $HOME/.bashrc
 <p>Rviz should start with a Poppy Ergo Jr in view corresponding to the state of your robot in real time.</p>
 <p>⚠️ At this stage, make sure that the posture of your robot in RViz corresponds to the current posture of the real robot: the angles of the motors and the location of the rivets must correspond in every way to your real robot. It is frequent that robots are incorrectly assembled, in this case close MoveIt and go back to the <a href="https://docs.poppy-project.org/fr/assembly-guides/ergo-jr/">assembly guide</a> step by step to correct before continuing.</p>
 <h2 id="start-ronoco-1"><a class="header" href="#start-ronoco-1">Start Ronoco</a></h2>
-<p>Before starting ronoco it is necessary to provide the robot configuration. Open the file <strong>config.py</strong> in the folder <code>$HOME/catkin_ws/src/ronoco/ronoco-vm/ronoco_vm/</code> and copy and paste the following values</p>
-<pre><code class="language-py">&quot;&quot;&quot;
-This file gathers all the configuration variables until ronoco-config is created
-&quot;&quot;&quot;
-
-socketio = None
-
-# Level of debug
-debug = 4
-
-# Move group for moveit
-move_group = &quot;arm_and_finger&quot;
-
-# Compliance mode
-mode = &quot;/set_compliant&quot;
-</code></pre>
-<p>The two interesting values are <code>move_group</code> which can be <em>arm_and_finger</em> or <em>arm</em> on Poppy Ergo Jr and <code>mode</code> which tells ronoco about the compliance capabilities of the robot. In our case the robot can be put into and out of compliance mode via the <code>/set_compliant</code> service which we fill in. In the case of a Kuka robot that does not have a compliant mode the value would have been <code>None</code>.</p>
-<p>WIP: Pass move_group and mode via roslaunch parameters.</p>
-<p>To start ronoco you just need to run the following commands in 3 different terminals</p>
-<pre><code class="language-bash"># Launching of nodered in a terminal
-node-red
-</code></pre>
-<pre><code class="language-bash"># Launching of ronoco-vm in another terminal
-cd $HOME/catkin_ws/src/ronoco/ronoco-vm/
-python3 ronoco_vm/run.py
-</code></pre>
-<pre><code class="language-bash"># Launching of ronoco-ui in another terminal
-cd $HOME/catkin_ws/src/ronoco/ronoco-ui/
-npm start
+<p>To launch the project, simply run the following command:</p>
+<pre><code class="language-bash">roslaunch ronoco ronoco.launch commander:=arm_and_finger compliant_mode:=/set_compliant
 </code></pre>
 <p>Once all the modules are running go to your <a href="http://localhost:8080/">localhost:8080</a> and you will arrive at the ronoco page:</p>
 <p><img src="user-guides/../static/ronoco.png" alt="ronoco" /></p>
@@ -461,11 +416,11 @@ npm start
 <p>For a full understanding of this part it is preferable to have followed the tutorials <a href="user-guides/how-to-use-it.html">How to use it</a> and <a href="user-guides/bt.html">How to create a behaviour tree</a></p>
 <p>The <a href="user-guides/../static/demo.mp4">gif</a> below shows a use of Ronoco</p>
 <p><img src="user-guides/../static/demo.gif" alt="demo" /></p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="using-ronoco-with-a-universal-robot"><a class="header" href="#using-ronoco-with-a-universal-robot">Using ronoco with a universal robot</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="universal-robot-3"><a class="header" href="#universal-robot-3">Universal robot 3</a></h1>
 <h2 id="configuring-ros-with-universal-robots"><a class="header" href="#configuring-ros-with-universal-robots">Configuring ROS with universal robots</a></h2>
 <p>This driver requires a system setup with ROS. It is recommended to use Ubuntu 18.04 with ROS melodic however using
 Ubuntu 20.04 with ROS noectic work also. To install ROS noetic on Ubuntu 20.04 see <a href="user-guides/installation.html">the relative page</a></p>
-<p>First of all it is necessary to download and install
+<p>First it is necessary to download and install
 <a href="https://github.com/UniversalRobots/Universal_Robots_ROS_Driver">Universal Robots ROS Driver</a> by performing the commands
 below</p>
 <pre><code class="language-bash"># source global ros
@@ -513,26 +468,16 @@ kinematics_config:=&quot;${HOME}/calibration.yaml&quot;
 <p>If everything went well you can run <code>rosrun rqt_joint_trajectory_controller rqt_joint_trajectory_controller</code> to check that the communication between the PC and the robot is effective.</p>
 <p>Once this is done you can start <strong>MoveIt</strong>, to do this run the command <code>roslaunch ur3_moveit_config ur3_moveit_planning_execution.launch</code>. Once <strong>MoveIt</strong> is running it is possible to start <strong>rviz</strong> via the command <code>roslaunch ur3_moveit_config moveit_rviz.launch config:=true</code>.</p>
 <p>There have been problems with controllers running the path from <strong>rviz</strong>, for more information see the <a href="user-guides/log.log">logs</a></p>
-<h2 id="using-ronoco-with-a-universal-robot-1"><a class="header" href="#using-ronoco-with-a-universal-robot-1">Using ronoco with a universal robot</a></h2>
-<p>Once the installation procedure of ROS on a universal robots model is completed, you just have to start ronoco by following the <a href="user-guides/quick-start.html">Quick Start</a> once started you can use ronoco in the usual way.</p>
-<h3 id="configuration"><a class="header" href="#configuration">Configuration</a></h3>
-<p>For a universal robot the configuration script is as follows</p>
-<pre><code class="language-python">socketio = None
-
-# Level of debug
-debug = 4
-
-# Move group for moveit
-# move_group = &quot;arm_and_finger&quot;
-move_group = &quot;manipulator&quot;
-
-# Compliance mode
-# mode = None
-# mode = &quot;/set_compliant&quot;
-mode = &quot;manual&quot;
-</code></pre>
+<h2 id="using-ronoco-with-a-universal-robot"><a class="header" href="#using-ronoco-with-a-universal-robot">Using ronoco with a universal robot</a></h2>
+<p>Once the installation procedure of ROS on a universal robots model is completed, you just have to start ronoco by following the <a href="user-guides/quick-start.html">Quick Start</a> with the followings arguments :</p>
+<ul>
+<li><em>commander</em>: manpiulator</li>
+<li><em>compliant_mode</em>: manual</li>
+</ul>
+<p>Once started you can use ronoco in the usual way.</p>
 <h3 id="limitations"><a class="header" href="#limitations">Limitations</a></h3>
 <p>Universal robots do not support the use of &quot;free mode&quot; at the same time as the execution of a program, i.e. when executing the <strong>ExternalControl</strong> block it is not possible to use the &quot;free mode&quot; function. Thus the <em>record</em> and <em>replay</em> blocks cannot be used on a universal robot.</p>
+<p>WIP : create record &amp; replay in rviz</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="kuka-kr6"><a class="header" href="#kuka-kr6">Kuka KR6</a></h1>
 <center>
 <img src="user-guides/../static/kuka.gif"></img>
@@ -798,6 +743,14 @@ that the other blocks are already built</p>
 <li><em>bt:</em> a json representing a behaviour tree (export of nodered)</li>
 </ul>
 <p><member> Return </member> True, None if everything is OK, False and an id else</p>
+<p><method> multiple_data_nodes(node_json) </method></p>
+<p>Analyses the data of a node and according to its type correctly formats the data dictionary.</p>
+<p>Normally this function only returns the data field of the node but some special nodes escape this rule.</p>
+<p><member>Parameters </member></p>
+<ul>
+<li><em>node_json:</em> the node to evaluate</li>
+</ul>
+<p><member> Return </member> False, None if a data is expected but not present. True and the correctly formatted dictionary else</p>
 <p><method> build_nodes(bt) </method></p>
 <p>Transforms all the nodes of the tree from json form to py_tree form. This function does not handle decorator
 blocks that need special treatment concerning their children</p>
@@ -874,14 +827,14 @@ The message must be a dictionary with at least one key/value</p>
 <li><em>data</em>: The data used to build the block (optional for some blocks, mandatory for others)</li>
 <li><em>child</em>: the child of the block to instantiate in the behaviour tree (mandatory for decorators)</li>
 </ul>
-<p><method> selector(name, data, child) </method></p>
+<p><method> <img src="documentation/../static/nodered/question-mark.svg" width="5%"></img> selector(name, data, child) </method></p>
 <p>Instantiates a <a href="https://py-trees.readthedocs.io/en/release-0.7.x/composites.html#selector">selector</a> node</p>
 <p>A selector executes each of its child behaviours in turn until one of them succeeds (at which point it itself returns RUNNING or SUCCESS, or it runs out of children at which point it itself returns FAILURE. We usually refer to selecting children as a means of choosing between priorities. Each child and its subtree represent a decreasingly lower priority path.</p>
-<p><method> sequence(name, data, child) </method></p>
+<p><method> <img src="documentation/../static/nodered/right-arrow.svg" width="5%"></img> sequence(name, data, child) </method></p>
 <p>Instantiates a <a href="https://py-trees.readthedocs.io/en/release-0.7.x/composites.html#sequence">sequence</a> node</p>
 <p>A sequence will progressively tick over each of its children so long as each child returns SUCCESS. If any child returns FAILURE or RUNNING the sequence will halt and the parent will adopt the result of this child. If it reaches the last child, it returns with that result regardless.</p>
 <p>The sequence halts once it sees a child is RUNNING and then returns the result. It does not get stuck in the running behaviour.</p>
-<p><method> parallel(name, data, child) </method></p>
+<p><method> <img src="documentation/../static/nodered/parallel.svg" width="5%"></img> parallel(name, data, child) </method></p>
 <p>Instantiates a <a href="https://py-trees.readthedocs.io/en/release-0.7.x/composites.html#parallel">parallel</a> node</p>
 <p>Ticks every child every time the parallel is run (a poor man’s form of paralellism).</p>
 <ul>
@@ -889,7 +842,7 @@ The message must be a dictionary with at least one key/value</p>
 <li>Parallels with policy SUCCESS_ON_ONE return SUCCESS if at least one child returns SUCCESS and others are RUNNING.</li>
 <li>Parallels with policy SUCCESS_ON_ALL only returns SUCCESS if all children return SUCCESS</li>
 </ul>
-<p><method> condition(name, data, child) </method></p>
+<p><method> <img src="documentation/../static/nodered/condition.svg" width="5%"></img> condition(name, data, child) </method></p>
 <p>Instantiates a <a href="https://py-trees.readthedocs.io/en/release-0.7.x/modules.html#py_trees.decorators.Condition">condition</a> node</p>
 <p>Encapsulates a behaviour and wait for its status to flip to the desired state. This behaviour will tick with RUNNING while waiting and SUCCESS when the flip occurs.</p>
 <p><member> Parameters </member></p>
@@ -897,14 +850,14 @@ The message must be a dictionary with at least one key/value</p>
 <li><em>data</em>: SUCCESS, FAILURE or RUNNING</li>
 <li><em>child</em>: must be provided</li>
 </ul>
-<p><method> inverter(name, data, child) </method></p>
+<p><method> <img src="documentation/../static/nodered/inverter.svg" width="5%"></img> inverter(name, data, child) </method></p>
 <p>Instantiates a <a href="https://py-trees.readthedocs.io/en/release-0.7.x/modules.html#py_trees.decorators.Inverter">inverter</a> node</p>
 <p>A decorator that inverts the result of a class’s update function.</p>
 <p><member> Parameters </member></p>
 <ul>
 <li><em>child</em>: must be provided</li>
 </ul>
-<p><method> timeout(name, data, child) </method></p>
+<p><method> <img src="documentation/../static/nodered/clock.svg" width="5%"></img> timeout(name, data, child) </method></p>
 <p>Instantiates a <a href="https://py-trees.readthedocs.io/en/release-0.7.x/modules.html#py_trees.decorators.Timeout">timeout</a> node</p>
 <p>A decorator that applies a timeout pattern to an existing behaviour. If the timeout is reached, the encapsulated behaviour’s stop() method is called with status FAILURE otherwise it will simply directly tick and return with the same status as that of it’s encapsulated behaviour.</p>
 <p><member> Parameters </member></p>
@@ -912,38 +865,54 @@ The message must be a dictionary with at least one key/value</p>
 <li><em>data</em>: time in seconds as an integer</li>
 <li><em>child</em>: must be provided</li>
 </ul>
-<p><method> execute(name, data, child) </method></p>
+<p><method> <img src="documentation/../static/nodered/play.svg" width="5%"></img> execute(name, data, child) </method></p>
 <p>Execute the movement between the current position and a position given in the constructor parameter.</p>
 <p>Use MoveGroupCommander.set_pose_target() and MoveGroupCommander.go()</p>
 <p><member> Parameters </member></p>
 <ul>
 <li><em>data</em>: identifier of a point as an integer</li>
 </ul>
-<p><method> plan(name, data, child) </method></p>
+<p><method> <img src="documentation/../static/nodered/navigation.svg" width="5%"></img> plan(name, data, child) </method></p>
 <p>Planning movement between the current position and a position given in the constructor parameter.</p>
 <p>Use MoveGroupCommander.set_pose_target() and MoveGroupCommander.plan()</p>
 <p><member> Parameters </member></p>
 <ul>
 <li><em>data</em>: identifier of a point as an integer</li>
 </ul>
-<p><method> cartesian(name, data, child) </method></p>
+<p><method> <img src="documentation/../static/nodered/cartesian.svg" width="5%"></img> cartesian(name, data, child) </method></p>
 <p>Cartesian movement between the current position and a position given in the constructor parameter</p>
 <p>Use geometry_msgs.msg.PoseStamped(), MoveGroupCommander.compute_cartesian_path() and MoveGroupCommander.execute()</p>
 <p><member> Parameters </member></p>
 <ul>
 <li><em>data</em>: a dictionary like {'point_id' : integer, 'reliability': integer (0-100), 'eef' : float}</li>
 </ul>
-<p><method> record(name, data, child) </method></p>
+<p><method> <img src="documentation/../static/nodered/record.svg" width="5%"></img> record(name, data, child) </method></p>
 <p>Record all trajectories during a time specified by a parameter in constructor</p>
 <p><member> Parameters </member></p>
 <ul>
 <li><em>data</em>: a dictionary like {'identifiant' : string, 'time': integer}</li>
 </ul>
-<p><method> replay(name, data, child) </method></p>
+<p><method> <img src="documentation/../static/nodered/replay.svg" width="5%"></img> replay(name, data, child) </method></p>
 <p>Replays a previously recorded path</p>
 <p><member> Parameters </member></p>
 <ul>
 <li><em>data</em>: name of a recorded trajectory as a string</li>
+</ul>
+<p><method> <img src="documentation/../static/nodered/service.svg" width="5%"></img> service(name, data, child) </method></p>
+<p>Allows you to call a service offered by the robot. Perform <code>rosservice list</code> to get the list of available services</p>
+<p><member> Parameters </member></p>
+<ul>
+<li><em>name</em>: String - name of current block</li>
+<li><em>name of service</em>: String - The name of the service to be called. The name must not be preceded by a /.</li>
+<li><em>Parameters of service</em>: Array - The parameters to be provided to the service. The parameters must be enclosed in brackets and separated by commas.</li>
+</ul>
+<p><method> <img src="documentation/../static/nodered/robotic-hand.svg" width="5%"></img> end_effector(name, data, child) </method></p>
+<p>Allows control of the robot end effector via an associated service passed as a parameter to ronoco.launch (the robot end effector controller must be started independently).</p>
+<p>This block returns SUCCESS if it has succeeded in completing the action and FAILURE if it has caught something in its path. Otherwise, the combination of &quot;end_effector&quot; and an &quot;inverter&quot; will return SUCCESS if the robot has caught something.</p>
+<p><member> Parameters </member></p>
+<ul>
+<li><em>name</em>: String - name of current block</li>
+<li><em>Data</em>: Array - The parameters to be provided to the service. The parameters must be enclosed in brackets and separated by commas.</li>
 </ul>
 
                     </main>

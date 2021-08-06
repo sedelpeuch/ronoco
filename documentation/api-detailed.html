@@ -354,6 +354,14 @@ that the other blocks are already built</p>
 <li><em>bt:</em> a json representing a behaviour tree (export of nodered)</li>
 </ul>
 <p><member> Return </member> True, None if everything is OK, False and an id else</p>
+<p><method> multiple_data_nodes(node_json) </method></p>
+<p>Analyses the data of a node and according to its type correctly formats the data dictionary.</p>
+<p>Normally this function only returns the data field of the node but some special nodes escape this rule.</p>
+<p><member>Parameters </member></p>
+<ul>
+<li><em>node_json:</em> the node to evaluate</li>
+</ul>
+<p><member> Return </member> False, None if a data is expected but not present. True and the correctly formatted dictionary else</p>
 <p><method> build_nodes(bt) </method></p>
 <p>Transforms all the nodes of the tree from json form to py_tree form. This function does not handle decorator
 blocks that need special treatment concerning their children</p>

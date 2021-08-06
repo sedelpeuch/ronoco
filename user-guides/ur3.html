@@ -139,11 +139,11 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="using-ronoco-with-a-universal-robot"><a class="header" href="#using-ronoco-with-a-universal-robot">Using ronoco with a universal robot</a></h1>
+                        <h1 id="universal-robot-3"><a class="header" href="#universal-robot-3">Universal robot 3</a></h1>
 <h2 id="configuring-ros-with-universal-robots"><a class="header" href="#configuring-ros-with-universal-robots">Configuring ROS with universal robots</a></h2>
 <p>This driver requires a system setup with ROS. It is recommended to use Ubuntu 18.04 with ROS melodic however using
 Ubuntu 20.04 with ROS noectic work also. To install ROS noetic on Ubuntu 20.04 see <a href="installation.html">the relative page</a></p>
-<p>First of all it is necessary to download and install
+<p>First it is necessary to download and install
 <a href="https://github.com/UniversalRobots/Universal_Robots_ROS_Driver">Universal Robots ROS Driver</a> by performing the commands
 below</p>
 <pre><code class="language-bash"># source global ros
@@ -191,26 +191,16 @@ kinematics_config:=&quot;${HOME}/calibration.yaml&quot;
 <p>If everything went well you can run <code>rosrun rqt_joint_trajectory_controller rqt_joint_trajectory_controller</code> to check that the communication between the PC and the robot is effective.</p>
 <p>Once this is done you can start <strong>MoveIt</strong>, to do this run the command <code>roslaunch ur3_moveit_config ur3_moveit_planning_execution.launch</code>. Once <strong>MoveIt</strong> is running it is possible to start <strong>rviz</strong> via the command <code>roslaunch ur3_moveit_config moveit_rviz.launch config:=true</code>.</p>
 <p>There have been problems with controllers running the path from <strong>rviz</strong>, for more information see the <a href="log.log">logs</a></p>
-<h2 id="using-ronoco-with-a-universal-robot-1"><a class="header" href="#using-ronoco-with-a-universal-robot-1">Using ronoco with a universal robot</a></h2>
-<p>Once the installation procedure of ROS on a universal robots model is completed, you just have to start ronoco by following the <a href="quick-start.html">Quick Start</a> once started you can use ronoco in the usual way.</p>
-<h3 id="configuration"><a class="header" href="#configuration">Configuration</a></h3>
-<p>For a universal robot the configuration script is as follows</p>
-<pre><code class="language-python">socketio = None
-
-# Level of debug
-debug = 4
-
-# Move group for moveit
-# move_group = &quot;arm_and_finger&quot;
-move_group = &quot;manipulator&quot;
-
-# Compliance mode
-# mode = None
-# mode = &quot;/set_compliant&quot;
-mode = &quot;manual&quot;
-</code></pre>
+<h2 id="using-ronoco-with-a-universal-robot"><a class="header" href="#using-ronoco-with-a-universal-robot">Using ronoco with a universal robot</a></h2>
+<p>Once the installation procedure of ROS on a universal robots model is completed, you just have to start ronoco by following the <a href="quick-start.html">Quick Start</a> with the followings arguments :</p>
+<ul>
+<li><em>commander</em>: manpiulator</li>
+<li><em>compliant_mode</em>: manual</li>
+</ul>
+<p>Once started you can use ronoco in the usual way.</p>
 <h3 id="limitations"><a class="header" href="#limitations">Limitations</a></h3>
 <p>Universal robots do not support the use of &quot;free mode&quot; at the same time as the execution of a program, i.e. when executing the <strong>ExternalControl</strong> block it is not possible to use the &quot;free mode&quot; function. Thus the <em>record</em> and <em>replay</em> blocks cannot be used on a universal robot.</p>
+<p>WIP : create record &amp; replay in rviz</p>
 
                     </main>
 

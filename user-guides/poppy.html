@@ -176,35 +176,8 @@ source $HOME/.bashrc
 <p>Rviz should start with a Poppy Ergo Jr in view corresponding to the state of your robot in real time.</p>
 <p>⚠️ At this stage, make sure that the posture of your robot in RViz corresponds to the current posture of the real robot: the angles of the motors and the location of the rivets must correspond in every way to your real robot. It is frequent that robots are incorrectly assembled, in this case close MoveIt and go back to the <a href="https://docs.poppy-project.org/fr/assembly-guides/ergo-jr/">assembly guide</a> step by step to correct before continuing.</p>
 <h2 id="start-ronoco"><a class="header" href="#start-ronoco">Start Ronoco</a></h2>
-<p>Before starting ronoco it is necessary to provide the robot configuration. Open the file <strong>config.py</strong> in the folder <code>$HOME/catkin_ws/src/ronoco/ronoco-vm/ronoco_vm/</code> and copy and paste the following values</p>
-<pre><code class="language-py">&quot;&quot;&quot;
-This file gathers all the configuration variables until ronoco-config is created
-&quot;&quot;&quot;
-
-socketio = None
-
-# Level of debug
-debug = 4
-
-# Move group for moveit
-move_group = &quot;arm_and_finger&quot;
-
-# Compliance mode
-mode = &quot;/set_compliant&quot;
-</code></pre>
-<p>The two interesting values are <code>move_group</code> which can be <em>arm_and_finger</em> or <em>arm</em> on Poppy Ergo Jr and <code>mode</code> which tells ronoco about the compliance capabilities of the robot. In our case the robot can be put into and out of compliance mode via the <code>/set_compliant</code> service which we fill in. In the case of a Kuka robot that does not have a compliant mode the value would have been <code>None</code>.</p>
-<p>WIP: Pass move_group and mode via roslaunch parameters.</p>
-<p>To start ronoco you just need to run the following commands in 3 different terminals</p>
-<pre><code class="language-bash"># Launching of nodered in a terminal
-node-red
-</code></pre>
-<pre><code class="language-bash"># Launching of ronoco-vm in another terminal
-cd $HOME/catkin_ws/src/ronoco/ronoco-vm/
-python3 ronoco_vm/run.py
-</code></pre>
-<pre><code class="language-bash"># Launching of ronoco-ui in another terminal
-cd $HOME/catkin_ws/src/ronoco/ronoco-ui/
-npm start
+<p>To launch the project, simply run the following command:</p>
+<pre><code class="language-bash">roslaunch ronoco ronoco.launch commander:=arm_and_finger compliant_mode:=/set_compliant
 </code></pre>
 <p>Once all the modules are running go to your <a href="http://localhost:8080/">localhost:8080</a> and you will arrive at the ronoco page:</p>
 <p><img src="../static/ronoco.png" alt="ronoco" /></p>

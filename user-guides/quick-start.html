@@ -140,6 +140,16 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="getting-started"><a class="header" href="#getting-started">Getting started</a></h1>
+<h2 id="quick-start--roslaunch"><a class="header" href="#quick-start--roslaunch">Quick-start : roslaunch</a></h2>
+<p>To launch the project, simply run the following command:</p>
+<pre><code class="language-bash">roslaunch ronoco ronoco.launch commander:=string compliant_mode:=string
+</code></pre>
+<p>With as argument :</p>
+<ul>
+<li><em>commander</em>: the name of the move_group in MoveIt</li>
+<li><em>compliant_mode</em>: <em>manual</em> if the robot can go into compliant mode manually, <em>None</em> if the robot cannot go into compliant mode, or <em>the name of the service</em> to put it in and out of compliant mode.</li>
+</ul>
+<h2 id="manual-start"><a class="header" href="#manual-start">Manual start</a></h2>
 <p>To use ronoco it is necessary to launch the ROS modules corresponding to your robot and then the different modules of ronoco.</p>
 <p>Regarding the launching of ROS modules the procedure is different for each robot, to make ronoco work it is necessary to have a roscore and Moveit running. See the different examples on <a href="poppy.html">Poppy Ergo Jr</a> or <a href="ur3.html">Universal Robots 3</a> for more details.</p>
 <p>It is then necessary to launch the three modules.</p>
@@ -156,7 +166,6 @@ npm start
 </code></pre>
 <p>Once all the modules are running go to your <a href="http://localhost:8080/">localhost:8080</a> and you will arrive at the ronoco page:</p>
 <p><img src="../static/ronoco.png" alt="ronoco" /></p>
-<p>Work in progress: launching ronoco using a roslaunch</p>
 
                     </main>
 
