@@ -55,6 +55,7 @@ class EndEffector(py_trees.behaviour.Behaviour):
             return py_trees.common.Status.FAILURE
         if str(result) == "error: 255":
             logger.warn("The effector has caught something")
+            return py_trees.common.Status.FAILURE
         return py_trees.common.Status.SUCCESS
 
     def terminate(self, new_status):

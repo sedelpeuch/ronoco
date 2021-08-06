@@ -67,11 +67,10 @@ class Control:
             if not self.roots:
                 return {"Error": "json contains 0 valid roots"}, 400
             state, result = self.build_nodes(bt)
-            for node in bt:
-                self.build_decorator(node, bt)
             if not state:
                 return {"Error": "Block (or child of this block) with id " + result + " is incorrect"}, 400
-
+            for node in bt:
+                self.build_decorator(node, bt)
             # for each root in json build first root in py_tree and store it in trees
             self.roots.sort(key=self.get_y)
             for root in self.roots:
@@ -257,7 +256,7 @@ class Control:
         :return: False, None if a data is expected but not present. True and the correctly formatted dictionary else
         """
         data = {}
-        if node_json['type'] not in behaviour.behaviour.composites:
+        if node_json['type'] in behaviour.behaviour.data_node:
             try:
                 if node_json['type'] == 'cartesian':
                     data = {'point_id': node_json['point_id'], 'reliability': node_json['reliability'],
@@ -281,13 +280,16 @@ class Control:
         :return: True, None if everything is ok, False and an id else
         """
         self.behavior_tree_dict = {}
+        print(bt)
         for node_json in bt:
+            print(node_json)
             name = None
             data = None
             try:
                 name = node_json['name']
                 state, data = self.multiple_data_nodes(node_json)
                 if not state:
+                    print("State error")
                     return False, node_json['id']
             except KeyError:
                 pass

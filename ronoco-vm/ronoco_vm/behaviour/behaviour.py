@@ -52,7 +52,10 @@ def condition(name, data, child):
 
 
 def inverter(name, data, child):
-    return True, py_trees.decorators.Inverter(name=name, child=child)
+    try:
+        return True, py_trees.decorators.Inverter(child, name)
+    except TypeError:
+        return False, None
 
 
 def timeout(name, data, child):
@@ -129,6 +132,7 @@ types = {'selector': selector,
 composites = {'selector', 'sequence', 'parallel'}
 leaf = {'execute', 'plan', 'cartesian', 'record', 'replay', 'end effector', 'service'}
 decorators = {'condition', 'inverter', 'timeout'}
+data_node = {'execute', 'replay', 'plan', 'cartesian', 'condition', 'timeout', 'record', 'end effector', 'service'}
 states = {"success": py_trees.common.Status.SUCCESS, "failure": py_trees.common.Status.FAILURE,
           "running": py_trees.common.Status.RUNNING}
 commander = cartesian_point.CartesianPoint().commander
