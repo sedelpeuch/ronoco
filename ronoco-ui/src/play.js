@@ -9,3 +9,9 @@ async function launchExecution() {
     console.logger(result)
 }
 document.getElementById('launch').addEventListener('click',launchExecution)
+
+async function connect_commander() {
+    let result = await get("http://localhost:5000/connect")
+    console.logger(result)
+}
+document.getElementById('Connect').addEventListener('click',connect_commander)

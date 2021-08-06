@@ -96,14 +96,17 @@ async function connect_io() {
         socket2 = io.connect('http://localhost:5000/states');
     } catch (error) {
         console.logger({"Error": "Ronoco-vm is not running, launch it then refresh Ronoco-ui"})
-        document.getElementById("state").src = "/static/circle_red.svg"
+        document.getElementById("state").src = "/static/circle_black.svg"
     }
     socket2.on('connect', function (msg) {
         console.log("i'm connected to states chanel")
     });
     socket2.on('states', function (msg) {
         console.log(msg)
-        if (msg['robot_state'] === false ||
+        if (msg['commander_state']== false){
+            document.getElementById("state").src = "/static/circle_red.svg"
+        }
+        else if (msg['robot_state'] === false ||
             msg['moveit_state'] === false) {
             document.getElementById("state").src = "/static/circle_orange.svg"
         }
@@ -123,5 +126,11 @@ async function connect_io() {
         console.logger(msg)
     })
 }
+
+function clearLog() {
+    let logger = document.getElementById("logger")
+    logger.innerHTML = "";
+}
+document.getElementById('clearLog').addEventListener('click',clearLog)
 
 connect_io()

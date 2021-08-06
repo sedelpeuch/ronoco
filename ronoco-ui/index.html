@@ -30,6 +30,14 @@
             </div>
         </div>
         <div class="common">
+            <div class="button-logo" id="Connect">
+                <img src="/static/connect.svg" alt="ShutdownLogo" height="40">
+            </div>
+            <div class="button-logo" id="clearLog">
+                <img src="/static/clear.svg" alt="StateLogo" height="40">
+            </div>
+        </div>
+        <div class="common">
             <div class="record">
                 <img src="/static/record.svg" alt="RecordLogo" height="40">
                 <button class="button-icon" id="rviz">
@@ -73,9 +81,6 @@
             </div>
         </div>
         <div class="logger" id="logger-container">
-            <button class="button-icon" id="ClearLog" onclick="clearLog()">
-                Clear Log
-            </button>
             <pre id="logger"></pre>
         </div>
     </div>
@@ -88,11 +93,6 @@
 </div>
 <script>
     const heightDocument = document.documentElement.scrollHeight
-
-    function clearLog() {
-        logger = document.getElementById("logger")
-        logger.innerHTML = "";
-    }
 
     const date = new Date()
 </script>

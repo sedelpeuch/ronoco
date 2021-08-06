@@ -27,7 +27,6 @@ class Common:
         self.rt = threading.Thread(target=self.send_states, daemon=True)
         self.rt.start()
 
-
     def send_states(self):
         """
         This function checks if the state of the robot or rviz has changed. If so, it sends a message to the
@@ -104,7 +103,7 @@ class Common:
         Check if commander is initialized
         :return: False if not, True else
         """
-        if config.commander == None:
+        if config.commander is None:
             return False
         else:
             return True
@@ -121,7 +120,13 @@ class Common:
         config.socketio.stop()
         return {"Info": 'Server shutting down...'}, 200
 
-    def connect(self):
+    @staticmethod
+    def connect():
+        """
+        Connect to config.move_group with moveit_commander.MoveGroupCommander
+        :return: {"Error": "Can't connect to commander please retry with connect button"}, 404 if it's not possible,
+        {"Success": "Connected with commander " + config.move_group}, 200 else
+        """
         try:
             config.commander = MoveGroupCommander(config.move_group, wait_for_servers=20)
         except RuntimeError:
