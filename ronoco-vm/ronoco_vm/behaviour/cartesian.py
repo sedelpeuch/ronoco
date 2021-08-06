@@ -4,11 +4,11 @@ Implementation of the action-bt cartesian allowing the robot to move to a point 
 # !/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import config
+import logger
 import py_trees
 
-import behaviour
 import geometry_msgs.msg
-import logger
 
 
 class Cartesian(py_trees.behaviour.Behaviour):
@@ -22,7 +22,7 @@ class Cartesian(py_trees.behaviour.Behaviour):
         self.point = data['point']
         self.reliability = data['reliability']
         self.eef = data['eef']
-        self.commander = behaviour.behaviour.commander
+        self.commander = config.commander
         self.wpose = None
 
     def setup(self, timeout):

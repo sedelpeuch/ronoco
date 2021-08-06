@@ -4,10 +4,9 @@ Implementation of the action-bt replay allowing the robot to replay a previously
 # !/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import py_trees
-
-import behaviour
+import config
 import logger
+import py_trees
 from recorder import Player
 
 
@@ -20,7 +19,7 @@ class Replay(py_trees.behaviour.Behaviour):
     def __init__(self, name="Replay", data=None):
         super(Replay, self).__init__(name)
         self.identifier = data
-        self.commander = behaviour.behaviour.commander
+        self.commander = config.commander
         self.player = Player()
 
     def setup(self, timeout):

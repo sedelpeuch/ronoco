@@ -4,10 +4,9 @@ Implementation of the action-bt plan allowing the robot to plan to a point
 # !/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import py_trees
-
-import behaviour
+import config
 import logger
+import py_trees
 
 
 class Plan(py_trees.behaviour.Behaviour):
@@ -19,7 +18,7 @@ class Plan(py_trees.behaviour.Behaviour):
     def __init__(self, name="Plan", point=None):
         super(Plan, self).__init__(name)
         self.point = point
-        self.commander = behaviour.behaviour.commander
+        self.commander = config.commander
 
     def setup(self, timeout):
         """

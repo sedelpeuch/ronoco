@@ -9,7 +9,6 @@ import config
 import rospy
 import topic_callback
 from moveit_commander import MoveItCommanderException
-from moveit_commander.move_group import MoveGroupCommander
 
 
 class CartesianPoint:
@@ -18,8 +17,6 @@ class CartesianPoint:
     """
     id = 0
     cartesianPoints = {}
-    commander = MoveGroupCommander(config.move_group)  # TODO change it when ronoco-config exists
-
     def __init__(self):
         self.bp = Blueprint('cartesian_point', __name__, url_prefix='/point')
 
@@ -109,9 +106,11 @@ class CartesianPoint:
         :return: id for new cartesian point if everything is ok, a 409 error else
         """
         try:
-            current_point = self.commander.get_current_pose()
+            current_point = config.commander.get_current_pose()
         except MoveItCommanderException:
             return {"Error": "MoveIt doesn't send response"}, 408
+        except AttributeError:
+            return {"Error": "Can't connect to commander please retry with connect button"}, 404
         cartesian_point = {
             'position': {
                 'x': current_point.pose.position.x,

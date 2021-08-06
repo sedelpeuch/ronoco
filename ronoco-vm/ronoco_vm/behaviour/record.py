@@ -4,13 +4,12 @@ Implementation of the action-bt record allowing the robot to record a trajectory
 # !/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import py_trees
-
-import behaviour
 import config
 import logger
-import rospy
+import py_trees
 from recorder import Recorder
+
+import rospy
 from std_srvs.srv import SetBool
 
 
@@ -24,7 +23,7 @@ class Record(py_trees.behaviour.Behaviour):
         super(Record, self).__init__(name)
         self.identifier = data['identifier']
         self.time = int(data['time'])
-        self.commander = behaviour.behaviour.commander
+        self.commander = config.commander
         self.compliance = rospy.ServiceProxy('set_compliant', SetBool)
 
     def set_compliance(self, bool):

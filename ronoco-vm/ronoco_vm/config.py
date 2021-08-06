@@ -2,6 +2,7 @@
 This file gathers all the configuration variables until ronoco-config is created
 """
 import rospy
+from moveit_commander import MoveGroupCommander
 
 socketio = None
 
@@ -22,3 +23,8 @@ try:
     end_effector = rospy.get_param("end_effector")
 except KeyError:
     pass
+
+try:
+    commander = MoveGroupCommander(move_group, wait_for_servers=20)
+except RuntimeError:
+    commander = None
