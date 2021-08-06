@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Ronoco</li><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">Users guides</li><li class="chapter-item expanded "><a href="user-guides/installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="user-guides/quick-start.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li class="chapter-item expanded "><a href="user-guides/how-to-use-it.html"><strong aria-hidden="true">4.</strong> How to use it</a></li><li class="chapter-item expanded "><a href="user-guides/bt.html"><strong aria-hidden="true">5.</strong> How to create a behaviour tree</a></li><li class="chapter-item expanded "><a href="user-guides/poppy.html"><strong aria-hidden="true">6.</strong> Examples on robots</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="user-guides/poppy.html"><strong aria-hidden="true">6.1.</strong> Poppy ergo jr</a></li><li class="chapter-item expanded "><a href="user-guides/ur3.html"><strong aria-hidden="true">6.2.</strong> Universal Robots 3</a></li><li class="chapter-item expanded "><a href="user-guides/kuka.html"><strong aria-hidden="true">6.3.</strong> Kuka KR6</a></li><li class="chapter-item expanded "><a href="user-guides/own.html"><strong aria-hidden="true">6.4.</strong> Add your own robot</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Ronoco API Documentation</li><li class="chapter-item expanded "><a href="documentation/api-short.html"><strong aria-hidden="true">7.</strong> API - summarize</a></li><li class="chapter-item expanded "><a href="documentation/api-detailed.html"><strong aria-hidden="true">8.</strong> API - detailed</a></li><li class="chapter-item expanded "><a href="documentation/behavior.html"><strong aria-hidden="true">9.</strong> Behaviours</a></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded affix "><li class="part-title">Ronoco</li><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">Users guides</li><li class="chapter-item expanded "><a href="user-guides/installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="user-guides/quick-start.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li class="chapter-item expanded "><a href="user-guides/how-to-use-it.html"><strong aria-hidden="true">4.</strong> How to use it</a></li><li class="chapter-item expanded "><a href="user-guides/bt.html"><strong aria-hidden="true">5.</strong> How to create a behaviour tree</a></li><li class="chapter-item expanded "><a href="user-guides/poppy.html"><strong aria-hidden="true">6.</strong> Examples on robots</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="user-guides/poppy.html"><strong aria-hidden="true">6.1.</strong> Poppy ergo jr</a></li><li class="chapter-item expanded "><a href="user-guides/ur3.html"><strong aria-hidden="true">6.2.</strong> Universal Robots 3</a></li><li class="chapter-item expanded "><a href="user-guides/kuka.html"><strong aria-hidden="true">6.3.</strong> Kuka KR6</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Ronoco API Documentation</li><li class="chapter-item expanded "><a href="documentation/api-short.html"><strong aria-hidden="true">7.</strong> API - summarize</a></li><li class="chapter-item expanded "><a href="documentation/api-detailed.html"><strong aria-hidden="true">8.</strong> API - detailed</a></li><li class="chapter-item expanded "><a href="documentation/behavior.html"><strong aria-hidden="true">9.</strong> Behaviours</a></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -226,16 +226,22 @@ source devel/setup.zsh
 <div style="break-before: page; page-break-before: always;"></div><h1 id="getting-started"><a class="header" href="#getting-started">Getting started</a></h1>
 <h2 id="quick-start--roslaunch"><a class="header" href="#quick-start--roslaunch">Quick-start : roslaunch</a></h2>
 <p>To launch the project, simply run the following command:</p>
-<pre><code class="language-bash">roslaunch ronoco ronoco.launch commander:=string compliant_mode:=string
+<pre><code class="language-bash">roslaunch ronoco ronoco.launch commander:=string compliant_mode:=string end_effector:=string
 </code></pre>
 <p>With as argument :</p>
 <ul>
 <li><em>commander</em>: the name of the move_group in MoveIt</li>
 <li><em>compliant_mode</em>: <em>manual</em> if the robot can go into compliant mode manually, <em>None</em> if the robot cannot go into compliant mode, or <em>the name of the service</em> to put it in and out of compliant mode.</li>
+<li><em>end_effector</em>: the name of the service to manipulate the effector, e.g. &quot;wsg_50_driver/move&quot;. It is not necessary to fill in this field</li>
 </ul>
 <h2 id="manual-start"><a class="header" href="#manual-start">Manual start</a></h2>
 <p>To use ronoco it is necessary to launch the ROS modules corresponding to your robot and then the different modules of ronoco.</p>
 <p>Regarding the launching of ROS modules the procedure is different for each robot, to make ronoco work it is necessary to have a roscore and Moveit running. See the different examples on <a href="user-guides/poppy.html">Poppy Ergo Jr</a> or <a href="user-guides/ur3.html">Universal Robots 3</a> for more details.</p>
+<p>First set parameters in rosparam</p>
+<pre><code class="language-bash">rosparam set commander string
+rosparam set compliant_mode string
+rosparam set end_effector string
+</code></pre>
 <p>It is then necessary to launch the three modules.</p>
 <pre><code class="language-bash"># Launching of nodered in a terminal
 node-red
@@ -259,12 +265,15 @@ npm start
 </center>
 <p><img src="user-guides/../static/shutdown.svg" width="5%"></img> Allows to stop the server (WIP: allows to start and stop the whole application)</p>
 <p><img src="user-guides/../static/circle.svg" width="5%"></img> Represents the status of the server, when it is empty it means that the client has not yet received any information from the server. It is probably still loading.</p>
-<p><img src="user-guides/../static/circle_red.svg" width="5%"></img> When it is red it means that at least one request to the server has not been answered and therefore the server is not running or is in error</p>
+<p><img src="user-guides/../static/circle_black.svg" width="5%"></img> When it is black (here white) it means that at least one request to the server has not been answered and therefore the server is not running or is in error</p>
+<p><img src="user-guides/../static/circle_red.svg" width="5%"></img> When it is red, it means that it is not possible to reach the commander. Check that MoveIt is running and that the order passed as a parameter is the right one, then click on the connect button</p>
 <p><img src="user-guides/../static/circle_orange.svg" width="5%"></img> When it is orange it means that ROS is not working as expected. The source of the problem is either the absence of roscore (the rosout/get_loggers service is not available) or the absence of moveit (the move_group/get_loggers service is not available). In this state ronoco is not usable</p>
 <p><img src="user-guides/../static/circle_yellow.svg" width="5%"></img> When it is yellow it means that Rviz is not communicating the position of the interactive marker. If rviz seems to be working correctly on your machine, simply move the interactive marker to fix the problem. In this state ronoco is usable but the &quot;simulated&quot; button will produce an error</p>
 <p><img src="user-guides/../static/circle_green.svg" width="5%"></img> When it is green it means that ronoco is fully usable</p>
 <p><img src="user-guides/../static/play.svg" width="5%"></img> This button asks the server to execute the last behaviour tree deployed from Node-RED</p>
-<p><img src="user-guides/../static/free.svg" width="5%"></img> Enables the robot to be set to compliant mode. This button can only be used for a robot that has a service to set it to compliant mode (see <a href="user-guides/../user-guides/own.html">add your own robot</a> for more details).</p>
+<p><img src="user-guides/../static/free.svg" width="5%"></img> Enables the robot to be set to compliant mode. This button can only be used for a robot that has a service to set it to compliant mode</p>
+<p><img src="user-guides/../static/connect.svg" width="5%"></img> Allows to connect to the commander passed in parameter when the status of ronoco is red</p>
+<p><img src="user-guides/../static/clear.svg" width="5%"></img> Clear logs in ronoco-ui</p>
 <p><img src="user-guides/../static/record.svg" width="5%"></img> This group of buttons allows you to record points in the environment. There are two recording modes either via the <em>simulated</em> button which records the position of the interactive marker. Or via the <em>real</em> button which records the actual position of the robot.</p>
 <p><img src="user-guides/../static/get.svg" width="5%"></img> This group of buttons allows you to view the different registered positions. It is possible to consult a specific position by filling in the <em>id</em> field and then pressing <em>get</em> or to consult all the registered positions by using the <em>get all</em> button.</p>
 <p><img src="user-guides/../static/trash.svg" width="5%"></img> This group of buttons allows you to delete the different registered positions. It is possible to delete a specific position by filling in the <em>id</em> field and then pressing <em>delete</em> or delete all registered positions by using the <em>clear all</em> button</p>
@@ -481,25 +490,7 @@ kinematics_config:=&quot;${HOME}/calibration.yaml&quot;
 <div style="break-before: page; page-break-before: always;"></div><h1 id="kuka-kr6"><a class="header" href="#kuka-kr6">Kuka KR6</a></h1>
 <center>
 <img src="user-guides/../static/kuka.gif"></img>
-</center><div style="break-before: page; page-break-before: always;"></div><h1 id="add-your-own-robot"><a class="header" href="#add-your-own-robot">Add your own robot</a></h1>
-<p>To add your own robot, simply modify the configuration file. The <strong>config.py</strong> file can be found in the <code>$HOME/catkin_ws/src/ronoco/ronoco-vm/ronoco_vm/</code> folder</p>
-<pre><code class="language-py">socketio = None
-
-# Level of debug
-debug = 4
-
-# Move group for moveit
-move_group = &quot;arm_and_finger&quot; # Poppy Ergo Jr 
-move_group = &quot;manipulator&quot; # UR3
-move_group = &quot;maniupaltor&quot; # KR6
-
-# Compliance mode
-mode = &quot;/set_compliant&quot; # Poppy Ergo Jr
-mode = &quot;manual&quot; # UR3
-mode = None # KR6
-</code></pre>
-<p>This configuration file will disappear in the next version of Ronoco in favour of parameters in a roslaunch</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="ronoco-vm-api---summarized-documentation"><a class="header" href="#ronoco-vm-api---summarized-documentation">Ronoco-vm API - Summarized documentation</a></h1>
+</center><div style="break-before: page; page-break-before: always;"></div><h1 id="ronoco-vm-api---summarized-documentation"><a class="header" href="#ronoco-vm-api---summarized-documentation">Ronoco-vm API - Summarized documentation</a></h1>
 <p>The table below lists all the endpoints of <strong>ronoco-vm</strong> and their different possible behaviour</p>
 <table><thead><tr><th align="left">URL</th><th align="left">Method</th><th align="left">Body</th><th align="left">Return Code</th><th align="left">Return</th><th align="left">Description</th></tr></thead><tbody>
 <tr><td align="left">/</td><td align="left">GET</td><td align="left"></td><td align="left">200</td><td align="left">{&quot;Success&quot;: &quot;Server is running&quot;}</td><td align="left"></td></tr>
