@@ -17,6 +17,7 @@ class CartesianPoint:
     """
     id = 0
     cartesianPoints = {}
+
     def __init__(self):
         self.bp = Blueprint('cartesian_point', __name__, url_prefix='/point')
 
