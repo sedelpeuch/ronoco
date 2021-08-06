@@ -15,13 +15,13 @@ The interface implemented forces all these functions to have name, data and chil
 - *data*: The data used to build the block (optional for some blocks, mandatory for others)
 - *child*: the child of the block to instantiate in the behaviour tree (mandatory for decorators)
 
-<method> selector(name, data, child) </method>
+<method> <img src="../static/nodered/question-mark.svg" width="5%"></img> selector(name, data, child) </method>
 
 Instantiates a [selector](https://py-trees.readthedocs.io/en/release-0.7.x/composites.html#selector) node
 
 A selector executes each of its child behaviours in turn until one of them succeeds (at which point it itself returns RUNNING or SUCCESS, or it runs out of children at which point it itself returns FAILURE. We usually refer to selecting children as a means of choosing between priorities. Each child and its subtree represent a decreasingly lower priority path.
 
-<method> sequence(name, data, child) </method>
+<method> <img src="../static/nodered/right-arrow.svg" width="5%"></img> sequence(name, data, child) </method>
 
 Instantiates a [sequence](https://py-trees.readthedocs.io/en/release-0.7.x/composites.html#sequence) node
 
@@ -29,7 +29,7 @@ A sequence will progressively tick over each of its children so long as each chi
 
 The sequence halts once it sees a child is RUNNING and then returns the result. It does not get stuck in the running behaviour.
 
-<method> parallel(name, data, child) </method>
+<method> <img src="../static/nodered/parallel.svg" width="5%"></img> parallel(name, data, child) </method>
 
 Instantiates a [parallel](https://py-trees.readthedocs.io/en/release-0.7.x/composites.html#parallel) node
 
@@ -39,7 +39,7 @@ Ticks every child every time the parallel is run (a poor man’s form of paralel
 - Parallels with policy SUCCESS_ON_ONE return SUCCESS if at least one child returns SUCCESS and others are RUNNING.
 - Parallels with policy SUCCESS_ON_ALL only returns SUCCESS if all children return SUCCESS
 
-<method> condition(name, data, child) </method>
+<method> <img src="../static/nodered/condition.svg" width="5%"></img> condition(name, data, child) </method>
 
 Instantiates a [condition](https://py-trees.readthedocs.io/en/release-0.7.x/modules.html#py_trees.decorators.Condition) node
 
@@ -50,7 +50,7 @@ Encapsulates a behaviour and wait for its status to flip to the desired state. T
 - *data*: SUCCESS, FAILURE or RUNNING
 - *child*: must be provided
 
-<method> inverter(name, data, child) </method>
+<method> <img src="../static/nodered/inverter.svg" width="5%"></img> inverter(name, data, child) </method>
 
 Instantiates a [inverter](https://py-trees.readthedocs.io/en/release-0.7.x/modules.html#py_trees.decorators.Inverter) node
 
@@ -60,7 +60,7 @@ A decorator that inverts the result of a class’s update function.
 
 - *child*: must be provided
 
-<method> timeout(name, data, child) </method>
+<method> <img src="../static/nodered/clock.svg" width="5%"></img> timeout(name, data, child) </method>
 
 Instantiates a [timeout](https://py-trees.readthedocs.io/en/release-0.7.x/modules.html#py_trees.decorators.Timeout) node
 
@@ -71,7 +71,7 @@ A decorator that applies a timeout pattern to an existing behaviour. If the time
 - *data*: time in seconds as an integer
 - *child*: must be provided
 
-<method> execute(name, data, child) </method>
+<method> <img src="../static/nodered/play.svg" width="5%"></img> execute(name, data, child) </method>
 
 Execute the movement between the current position and a position given in the constructor parameter.
 
@@ -81,7 +81,7 @@ Use MoveGroupCommander.set_pose_target() and MoveGroupCommander.go()
 
 - *data*: identifier of a point as an integer
 
-<method> plan(name, data, child) </method>
+<method> <img src="../static/nodered/navigation.svg" width="5%"></img> plan(name, data, child) </method>
 
 Planning movement between the current position and a position given in the constructor parameter.
 
@@ -91,7 +91,7 @@ Use MoveGroupCommander.set_pose_target() and MoveGroupCommander.plan()
 
 - *data*: identifier of a point as an integer
 
-<method> cartesian(name, data, child) </method>
+<method> <img src="../static/nodered/cartesian.svg" width="5%"></img> cartesian(name, data, child) </method>
 
 Cartesian movement between the current position and a position given in the constructor parameter
 
@@ -101,7 +101,7 @@ Use geometry_msgs.msg.PoseStamped(), MoveGroupCommander.compute_cartesian_path()
 
 - *data*: a dictionary like {'point_id' : integer, 'reliability': integer (0-100), 'eef' : float}
 
-<method> record(name, data, child) </method>
+<method> <img src="../static/nodered/record.svg" width="5%"></img> record(name, data, child) </method>
 
 Record all trajectories during a time specified by a parameter in constructor
 
@@ -109,7 +109,7 @@ Record all trajectories during a time specified by a parameter in constructor
 
 - *data*: a dictionary like {'identifiant' : string, 'time': integer}
 
-<method> replay(name, data, child) </method>
+<method> <img src="../static/nodered/replay.svg" width="5%"></img> replay(name, data, child) </method>
 
 Replays a previously recorded path
 
@@ -117,7 +117,7 @@ Replays a previously recorded path
 
 - *data*: name of a recorded trajectory as a string
 
-<method> service(name, data, child) </method>
+<method> <img src="../static/nodered/service.svg" width="5%"></img> service(name, data, child) </method>
     Allows you to call a service offered by the robot. Perform `rosservice list` to get the list of available services
 
 <member> Parameters </member>
@@ -125,7 +125,7 @@ Replays a previously recorded path
 - *name of service*: String - The name of the service to be called. The name must not be preceded by a /.
 - *Parameters of service*: Array - The parameters to be provided to the service. The parameters must be enclosed in brackets and separated by commas.
 
-<method> end_effector(name, data, child) </method>
+<method> <img src="../static/nodered/robotic-hand.svg" width="5%"></img> end_effector(name, data, child) </method>
         Allows control of the robot end effector via an associated service passed as a parameter to ronoco.launch (the robot end effector controller must be started independently).
 
  This block returns SUCCESS if it has succeeded in completing the action and FAILURE if it has caught something in its path. Otherwise, the combination of "end_effector" and an "inverter" will return SUCCESS if the robot has caught something.

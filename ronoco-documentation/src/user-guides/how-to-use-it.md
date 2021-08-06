@@ -53,7 +53,7 @@ This section explains how to create a tree interpretable by ronoco-vm and run it
 Access to block documentation from Ronoco
 </center>
 
-To create Ronoco interpretable trees any tree **must start** with a *root* block and **must contain at least** one *leaf* (blue coloured blocks), a tree not starting with a *root* block will simply be ignored.
+<img src="../static/nodered/root.svg" width="5%" ></img> To create Ronoco interpretable trees any tree **must start** with a *root* block and **must contain at least** one *leaf* (blue coloured blocks), a tree not starting with a *root* block will simply be ignored.
 
 The *root* and *decorators* blocks (green blocks) must be followed by a single child.
 
