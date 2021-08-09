@@ -7,5 +7,6 @@
 <param name="commander" value="$(arg commander)"/>
 <param name="compliant_mode" value="$(arg compliant_mode)"/>
 <param name="end_effector" value="$(arg end_effector)"/>
+<param name="mode" value="manipulator"/>
 <node name="ronoco" pkg="ronoco" type="launch.py"/>
 </launch>

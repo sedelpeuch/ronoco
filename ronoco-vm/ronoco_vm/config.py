@@ -9,22 +9,28 @@ socketio = None
 # Level of debug
 debug = 4
 
-# Move group for moveit
-move_group = rospy.get_param("commander")
+mode = rospy.get_param("mode")
 
-# Compliance mode
-mode = rospy.get_param("compliant_mode")
-if mode == "None":
-    mode = None
+if mode == "manipulator":
+    # Move group for moveit
+    move_group = rospy.get_param("commander")
 
-# Gripper
-end_effector = None
-try:
-    end_effector = rospy.get_param("end_effector")
-except KeyError:
-    pass
+    # Compliance mode
+    mode = rospy.get_param("compliant_mode")
+    if mode == "None":
+        mode = None
 
-try:
-    commander = MoveGroupCommander(move_group, wait_for_servers=20)
-except RuntimeError:
-    commander = None
+    # Gripper
+    end_effector = None
+    try:
+        end_effector = rospy.get_param("end_effector")
+    except KeyError:
+        pass
+
+    try:
+        commander = MoveGroupCommander(move_group, wait_for_servers=20)
+    except RuntimeError:
+        commander = None
+
+elif mode == "rolling":
+    move_base = rospy.get_param("move_base")

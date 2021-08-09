@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+<param name="ronoco_path" value="$(find ronoco)"/>
+<arg name="move_base" doc="Move group for moveit" default="/move_base"/>
+<param name="move_base" value="$(arg move_base)"/>
+<param name="mode" value="rolling"/>
+<node name="ronoco" pkg="ronoco" type="launch.py"/>
+</launch>
