@@ -9,9 +9,9 @@ socketio = None
 # Level of debug
 debug = 4
 
-mode = rospy.get_param("mode")
+ronoco_mode = rospy.get_param("mode")
 
-if mode == "manipulator":
+if ronoco_mode == "manipulator":
     # Move group for moveit
     move_group = rospy.get_param("commander")
 
@@ -32,5 +32,5 @@ if mode == "manipulator":
     except RuntimeError:
         commander = None
 
-elif mode == "rolling":
+elif ronoco_mode == "rolling":
     move_base = rospy.get_param("move_base")

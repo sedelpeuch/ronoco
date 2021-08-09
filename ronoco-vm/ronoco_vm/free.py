@@ -35,7 +35,7 @@ def free():
         + Args: data
     :return: if everything is ok : {"compliant":"True"/"False"} else an HttpError
     """
-    if common.Common().ros_state():
+    if common.Common().ros_state() and config.ronoco_mode == "manipulator":
         global compliant
         if request.method == 'POST':
             if config.mode == None:

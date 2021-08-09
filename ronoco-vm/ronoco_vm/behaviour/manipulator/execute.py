@@ -8,7 +8,6 @@ import config
 import logger
 import py_trees
 
-
 class Execute(py_trees.behaviour.Behaviour):
     """
     Class inherited from py_tree.behaviour.Behavior allowing to define a new behaviour. The behaviour is execute, i.e.

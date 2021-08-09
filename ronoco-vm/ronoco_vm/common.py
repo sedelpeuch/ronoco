@@ -32,11 +32,19 @@ class Common:
         This function checks if the state of the robot or rviz has changed. If so, it sends a message to the
         websockets states channel
         """
-        while True:
-            time.sleep(5.0)
-            config.socketio.emit('states', {"ros_state": self.ros_state(), "moveit_state": self.moveit_state(),
-                                            "rviz_state": self.rviz_state(), "commander_state": self.commander_state()},
-                                 namespace='/states')
+        if config.ronoco_mode == "manipulator":
+            while True:
+                time.sleep(5.0)
+                config.socketio.emit('states', {"ros_state": self.ros_state(), "moveit_state": self.moveit_state(),
+                                                "rviz_state": self.rviz_state(),
+                                                "commander_state": self.commander_state()},
+                                     namespace='/states')
+        elif config.ronoco_mode == "rolling":
+            while True:
+                time.sleep(5.0)
+                config.socketio.emit('states', {"ros_state": self.ros_state(), "move_base": self.movebase_state(),
+                                                "rviz_state": self.rviz_state()},
+                                     namespace='/states')
 
     @staticmethod
     def index():
@@ -107,6 +115,11 @@ class Common:
             return False
         else:
             return True
+
+    @staticmethod
+    def movebase_state():
+        # TODO connect it with move base topic
+        return True
 
     @staticmethod
     def shutdown():
