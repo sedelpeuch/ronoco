@@ -140,8 +140,9 @@ class Common:
         :return: {"Error": "Can't connect to commander please retry with connect button"}, 404 if it's not possible,
         {"Success": "Connected with commander " + config.move_group}, 200 else
         """
-        try:
-            config.commander = MoveGroupCommander(config.move_group, wait_for_servers=20)
-        except RuntimeError:
-            return {"Error": "Can't connect to commander please retry with connect button"}, 404
-        return {"Success": "Connected with commander " + config.move_group}, 200
+        if config.ronoco_mode == "manipulator":
+            try:
+                config.commander = MoveGroupCommander(config.move_group, wait_for_servers=20)
+            except RuntimeError:
+                return {"Error": "Can't connect to commander please retry with connect button"}, 404
+            return {"Success": "Connected with commander " + config.move_group}, 200

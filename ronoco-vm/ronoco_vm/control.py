@@ -53,7 +53,7 @@ class Control:
         trees = []
         py_trees.logging.level = py_trees.logging.Level.DEBUG  # For development purpose only
         if request.method == 'POST':
-            if config.commander is None:
+            if config.ronoco_mode == "manipulator" and config.commander is None:
                 return {"Error": "Can't connect to commander please retry with connect button"}, 404
             data = request.get_json()
             try:
