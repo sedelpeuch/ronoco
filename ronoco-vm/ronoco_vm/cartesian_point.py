@@ -20,13 +20,12 @@ class CartesianPoint:
 
     def __init__(self):
         self.bp = Blueprint('cartesian_point', __name__, url_prefix='/point')
+
+        self.bp.route('/add/simulation', methods=['POST'])(self.add_point_simulation)
         if config.ronoco_mode == "manipulator":
-            self.bp.route('/add/simulation', methods=['POST'])(self.manipulator_add_point_simulation)
             self.bp.route('/add/actual', methods=['POST'])(self.manipulator_add_point_real)
         elif config.ronoco_mode == "rolling":
-            self.bp.route('/add/simulation', methods=['POST'])(self.rolling_add_point_simulation)
             self.bp.route('/add/actual', methods=['POST'])(self.rolling_add_point_real)
-
         self.bp.route('/delete/<identifiant>', methods=['POST'])(self.delete_one_point)
         self.bp.route('/delete', methods=['POST'])(self.delete_all_points)
         self.bp.route('/get/<identifiant>', methods=['GET'])(self.get_one_point)
@@ -134,7 +133,7 @@ class CartesianPoint:
             self.add_bd(cartesian_point)
             return {"Success": "Add cartesian point with id:" + str(self.id - 1)}, 200
 
-    def manipulator_add_point_simulation(self):
+    def add_point_simulation(self):
         """
         POST Method
 
@@ -152,19 +151,32 @@ class CartesianPoint:
         """
         if request.method == 'POST':
             time.sleep(1)
-            if topic_callback.position == {}:
+            if topic_callback.position_simulation == {}:
                 return {"Error": "Rviz doesn't send response"}, 408
-            self.add_bd(topic_callback.position)
-            return {"Success": "Add cartesian point with id:" + str(self.id - 1)}, 200
-
-    def rolling_add_point_simulation(self):
-        if request.method == 'POST':
-            # TODO connect it with clicked point topic
+            self.add_bd(topic_callback.position_simulation)
             return {"Success": "Add cartesian point with id:" + str(self.id - 1)}, 200
 
     def rolling_add_point_real(self):
+        """
+        POST Method
+
+        ROUTE /point/add/real
+
+        POST body
+        {
+        }
+
+        Allows you to add a Cartesian point corresponding to the current position of robot.
+
+        The id of the position is automatically given
+
+        :return: id for new cartesian point if everything is ok, a 408 error else.
+        """
         if request.method == 'POST':
-            # TODO connect it with amcl topic
+            time.sleep(1)
+            if topic_callback.position_amcl == {}:
+                return {"Error": "Amcl doesn't send response"}, 408
+            self.add_bd(topic_callback.position_amcl)
             return {"Success": "Add cartesian point with id:" + str(self.id - 1)}, 200
 
     def get_all_points(self):
