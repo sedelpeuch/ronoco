@@ -100,7 +100,7 @@ class Common:
         :return: False if rviz doesn't send data, True else
         """
         begin = time.time()
-        while topic_callback.position == {}:
+        while topic_callback.position_simulation == {}:
             if time.time() - begin > 10:
                 return False
         return True

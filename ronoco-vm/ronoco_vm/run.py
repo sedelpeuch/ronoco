@@ -12,6 +12,7 @@ from werkzeug.debug import DebuggedApplication
 import config
 import rospy
 import topic_callback
+from geometry_msgs.msg import PointStamped, PoseWithCovarianceStamped
 from visualization_msgs.msg import InteractiveMarkerUpdate
 
 
@@ -87,10 +88,14 @@ class RonocoVm:
         Uses rospy to subscribe to the different topics needed by the API
         :return: None
         """
-        rospy.Subscriber(
-            "/rviz_moveit_motion_planning_display/robot_interaction_interactive_marker_topic/update",
-            InteractiveMarkerUpdate, topic_callback.position_callback)
-        time.sleep(0.5)
+        if config.ronoco_mode == "manipulator":
+            rospy.Subscriber(
+                "/rviz_moveit_motion_planning_display/robot_interaction_interactive_marker_topic/update",
+                InteractiveMarkerUpdate, topic_callback.position_callback)
+            time.sleep(0.5)
+        elif config.ronoco_mode == "rolling":
+            rospy.Subscriber("/clicked_point", PointStamped, topic_callback.position_callback)
+            rospy.Subscriber("/amcl_pose", PoseWithCovarianceStamped, topic_callback.amcl_callback)
 
 
 if __name__ == "__main__":
