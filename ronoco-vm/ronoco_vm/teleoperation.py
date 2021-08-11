@@ -5,6 +5,7 @@ import threading
 
 from flask import Blueprint
 
+import config
 import rospy
 from geometry_msgs.msg import Twist
 
@@ -17,7 +18,7 @@ class Teleoperation:
     def __init__(self):
         self.bp = Blueprint('teleoperation_endpoint', __name__, url_prefix='/teleop')
         self.bp.route('/<direction>', methods=['POST'])(self.set_vel)
-        self.publisher = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
+        self.publisher = rospy.Publisher(config.cmd_vel, Twist, queue_size=10)
         self.direction_callback = {
             "force-stop": self.force_stop,
             "forward": self.forward,
@@ -49,7 +50,7 @@ class Teleoperation:
         self.twist.angular.z += 0.1
 
     def right(self):
-        self.twist.angular.z -= 0.01
+        self.twist.angular.z -= 0.1
 
     def force_stop(self):
         self.twist.linear.x = 0.0

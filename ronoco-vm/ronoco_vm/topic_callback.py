@@ -32,7 +32,7 @@ def position_callback(data):
         try:
             pose = data.point
             position_simulation = {"position": {"x": pose.x, "y": pose.y, "z": pose.z},
-                                   "orientation": {"x": 0.0, "y": 0.0, "z": 0.0, "w": 0.0}}
+                                   "orientation": {"x": 0.0, "y": 0.0, "z": 0.05, "w": 0.05}}
         except IndexError:
             pass
 

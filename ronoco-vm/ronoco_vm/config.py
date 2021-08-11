@@ -33,4 +33,6 @@ if ronoco_mode == "manipulator":
         commander = None
 
 elif ronoco_mode == "rolling":
-    move_base = rospy.get_param("move_base")
+    move_base = rospy.get_param("topic_move_base")
+    cmd_vel = rospy.get_param("cmd_vel")
+    amcl_pose = rospy.get_param("amcl_pose")

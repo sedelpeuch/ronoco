@@ -99,7 +99,7 @@ class RonocoVm:
             time.sleep(0.5)
         elif config.ronoco_mode == "rolling":
             rospy.Subscriber("/clicked_point", PointStamped, topic_callback.position_callback)
-            rospy.Subscriber("/amcl_pose", PoseWithCovarianceStamped, topic_callback.amcl_callback)
+            rospy.Subscriber(config.amcl_pose, PoseWithCovarianceStamped, topic_callback.amcl_callback)
 
 
 if __name__ == "__main__":

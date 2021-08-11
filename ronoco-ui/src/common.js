@@ -116,7 +116,7 @@ async function connect_io() {
             }
         } else if (msg['ronoco_mode'] === "rolling") {
             if (msg['ros_state'] === false ||
-                msg['move_base'] === false) {
+                msg['rolling_topic'] === false) {
                 document.getElementById("state").src = "/static/circle_orange.svg"
             } else if (msg['rviz_state'] === false) {
                 document.getElementById("state").src = "/static/circle_yellow.svg"

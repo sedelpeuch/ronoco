@@ -35,14 +35,16 @@ class Common:
         if config.ronoco_mode == "manipulator":
             while True:
                 time.sleep(5.0)
-                config.socketio.emit('states', {"ros_state": self.ros_state(), "moveit_state": self.moveit_state(),
+                config.socketio.emit('states', {"ronoco_mode": "manipulator", "ros_state": self.ros_state(),
+                                                "moveit_state": self.moveit_state(),
                                                 "rviz_state": self.rviz_state(),
                                                 "commander_state": self.commander_state()},
                                      namespace='/states')
         elif config.ronoco_mode == "rolling":
             while True:
                 time.sleep(5.0)
-                config.socketio.emit('states', {"ros_state": self.ros_state(), "move_base": self.movebase_state(),
+                config.socketio.emit('states', {"ronoco_mode": "rolling", "ros_state": self.ros_state(),
+                                                "rolling_topic": self.rolling_topic(),
                                                 "rviz_state": self.rviz_state()},
                                      namespace='/states')
 
@@ -117,8 +119,14 @@ class Common:
             return True
 
     @staticmethod
-    def movebase_state():
-        # TODO connect it with move base topic
+    def rolling_topic():
+        get_loggers_move_base = rospy.ServiceProxy(config.move_base + '/get_loggers', GetLoggers)
+        get_loggers_amcl_pose = rospy.ServiceProxy(config.amcl_pose + '/get_loggers', GetLoggers)
+        try:
+            get_loggers_move_base()
+            get_loggers_amcl_pose()
+        except rospy.service.ServiceException:
+            return False
         return True
 
     @staticmethod

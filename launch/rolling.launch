@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <launch>
 <param name="ronoco_path" value="$(find ronoco)"/>
-<arg name="move_base" doc="Move group for moveit" default="/move_base"/>
-<param name="move_base" value="$(arg move_base)"/>
+<arg name="topic_move_base" doc="Topic name for move_base" default="/move_base"/>
+<arg name="cmd_vel" doc="Topic name for cmd_vel" default="/cmd_vel"/>
+<arg name="amcl_pose" doc="Topic name for amcl pose" default="/amcl_pose"/>
+<param name="topic_move_base" value="$(arg topic_move_base)"/>
+<param name="cmd_vel" value="$(arg cmd_vel)"/>
+<param name="amcl_pose" value="$(arg amcl_pose)"/>
 <param name="mode" value="rolling"/>
 <node name="ronoco" pkg="ronoco" type="launch.py"/>
 </launch>
