@@ -80,6 +80,10 @@ class RonocoVm:
         import free
         self.app.register_blueprint(free.bp)
 
+        if config.ronoco_mode == "rolling":
+            import teleoperation
+            self.app.register_blueprint(teleoperation.Teleoperation().bp)
+
         CORS(self.app)
 
     @staticmethod
