@@ -17,7 +17,9 @@
       "execute": "manipulator/execute.js",
       "plan": "manipulator/plan.js",
       "record": "manipulator/record.js",
-      "replay": "manipulator/replay.js"
+      "replay": "manipulator/replay.js",
+
+      "navigate": "rolling/navigate.js"
     }
   },
   "dependencies": {

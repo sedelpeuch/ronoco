@@ -1,0 +1,34 @@
+<script type="text/javascript">
+    RED.nodes.registerType('navigate', {
+        category: 'ronoco/rolling',
+        color: '#4c97ff',
+        defaults: {
+            name: {value: ""},
+            data: {value: "", required: true},
+        },
+        credential:{
+            name: {},
+            data:{}
+        },
+        inputs: 1,
+        outputs: 0,
+        icon: "icons/compass.svg",
+        label: function () {
+            return this.name || "navigate";
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="navigate">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-data"><i class="fa fa-tag"></i> Identifier</label>
+        <input type="text" id="node-input-data" placeholder="id">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="navigate">
+</script>
