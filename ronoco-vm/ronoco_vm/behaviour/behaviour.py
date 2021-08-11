@@ -114,6 +114,17 @@ def service(name, data, child):
     return True, behaviour.service.Service(name, data)
 
 
+def navigate(name, data, child):
+    if name is None or name == "":
+        name = "navigate"
+    if data is None:
+        return False, None
+    state, point = cartesian_point.CartesianPoint().find_db(int(data))
+    if not state:
+        return False, None
+    return True, behaviour.navigate.Navigate(name, point)
+
+
 types = {'selector': selector,
          'sequence': sequence,
          'parallel': parallel,
@@ -126,12 +137,14 @@ types = {'selector': selector,
          'timeout': timeout,
          'record': record,
          'end effector': end_effector,
-         'service': service
+         'service': service,
+         'navigate': navigate
          }
 
 composites = {'selector', 'sequence', 'parallel'}
-leaf = {'execute', 'plan', 'cartesian', 'record', 'replay', 'end effector', 'service'}
+leaf = {'execute', 'plan', 'cartesian', 'record', 'replay', 'end effector', 'service', 'navigate'}
 decorators = {'condition', 'inverter', 'timeout'}
-data_node = {'execute', 'replay', 'plan', 'cartesian', 'condition', 'timeout', 'record', 'end effector', 'service'}
+data_node = {'execute', 'replay', 'plan', 'cartesian', 'condition', 'timeout', 'record', 'end effector', 'service',
+             'navigate'}
 states = {"success": py_trees.common.Status.SUCCESS, "failure": py_trees.common.Status.FAILURE,
           "running": py_trees.common.Status.RUNNING}
