@@ -10,6 +10,7 @@
     <script type="module" src="src/free.js"></script>
     <script type="module" src="src/point.js"></script>
     <script type="module" src="src/play.js"></script>
+    <script type="module" src="src/teleop.js"></script>
     <script src="http://localhost:5000/static/socket.io/socket.io.js"></script>
 </head>
 <body>
@@ -25,16 +26,17 @@
             <div class="button-logo" id="launch">
                 <img src="/static/play.svg" alt="LaunchLogo" height="40">
             </div>
-            <div class="button-logo" id="FreeButton">
-                <img src="/static/free.svg" alt="FreeLogo" height="40">
+            <div class="button-logo" id="clearLog">
+                <img src="/static/clear.svg" alt="StateLogo" height="40">
             </div>
         </div>
-        <div class="common">
+        <div class="common" id="connect-free">
             <div class="button-logo" id="Connect">
                 <img src="/static/connect.svg" alt="ShutdownLogo" height="40">
             </div>
-            <div class="button-logo" id="clearLog">
-                <img src="/static/clear.svg" alt="StateLogo" height="40">
+
+            <div class="button-logo" id="FreeButton">
+                <img src="/static/free.svg" alt="FreeLogo" height="40">
             </div>
         </div>
         <div class="common">
@@ -72,7 +74,7 @@
                     <div class="form">
                         <label for="id_del">id : </label>
                         <input type="number" name="id" id="id_del" required size="number">
-                        <input class="button-icon" type="submit" value="Delete" id="DeletePositionId">
+                        <input class="button-icon" type="submit" value="Del" id="DeletePositionId">
                     </div>
                 </form>
                 <button class="button-icon" id="DeletePosition">
@@ -80,6 +82,24 @@
                 </button>
             </div>
         </div>
+        <div class="ronoco-rolling" id="ronoco-rolling">
+            <div class="left">
+                <img src="static/left-arrow.svg" id="left" height="50px"/>
+            </div>
+            <div class="right">
+                <img src="static/left-arrow.svg" id="right" height="50px" class="rotateimg180"/>
+            </div>
+            <div class="up">
+                <img src="static/left-arrow.svg" id="up" height="50px" class="rotateimg90"/>
+            </div>
+            <div class="force-stop">
+                <img src="static/circle_gray.svg" id="force-stop" height="50px" width="50px"/>
+            </div>
+            <div class="down">
+                <img src="static/left-arrow.svg" id="down" height="50px" class="rotateimg270"/>
+            </div>
+        </div>
+
         <div class="logger" id="logger-container">
             <pre id="logger"></pre>
         </div>

@@ -103,18 +103,28 @@ async function connect_io() {
     });
     socket2.on('states', function (msg) {
         console.log(msg)
-        if (msg['commander_state']== false){
-            document.getElementById("state").src = "/static/circle_red.svg"
-        }
-        else if (msg['robot_state'] === false ||
-            msg['moveit_state'] === false) {
-            document.getElementById("state").src = "/static/circle_orange.svg"
-        }
-        else if(msg['rviz_state'] === false){
-            document.getElementById("state").src = "/static/circle_yellow.svg"
-        }
-        else {
-            document.getElementById("state").src = "/static/circle_green.svg"
+        if (msg['ronoco_mode'] === "manipulator") {
+            if (msg['commander_state'] == false) {
+                document.getElementById("state").src = "/static/circle_red.svg"
+            } else if (msg['ros_state'] === false ||
+                msg['moveit_state'] === false) {
+                document.getElementById("state").src = "/static/circle_orange.svg"
+            } else if (msg['rviz_state'] === false) {
+                document.getElementById("state").src = "/static/circle_yellow.svg"
+            } else {
+                document.getElementById("state").src = "/static/circle_green.svg"
+            }
+        } else if (msg['ronoco_mode'] === "rolling") {
+            if (msg['ros_state'] === false ||
+                msg['move_base'] === false) {
+                document.getElementById("state").src = "/static/circle_orange.svg"
+            } else if (msg['rviz_state'] === false) {
+                document.getElementById("state").src = "/static/circle_yellow.svg"
+            } else {
+                document.getElementById("state").src = "/static/circle_green.svg"
+            }
+            document.getElementById("ronoco-rolling").style.display = "grid"
+            document.getElementById("connect-free").style.display = "none"
         }
     })
 
@@ -131,6 +141,7 @@ function clearLog() {
     let logger = document.getElementById("logger")
     logger.innerHTML = "";
 }
-document.getElementById('clearLog').addEventListener('click',clearLog)
+
+document.getElementById('clearLog').addEventListener('click', clearLog)
 
 connect_io()
