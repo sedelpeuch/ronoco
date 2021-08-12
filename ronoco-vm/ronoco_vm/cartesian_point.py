@@ -160,7 +160,7 @@ class CartesianPoint:
         """
         POST Method
 
-        ROUTE /point/add/real
+        ROUTE /point/add/actual
 
         POST body
         {

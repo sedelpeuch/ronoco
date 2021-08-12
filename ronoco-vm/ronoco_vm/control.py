@@ -283,16 +283,13 @@ class Control:
         :return: True, None if everything is ok, False and an id else
         """
         self.behavior_tree_dict = {}
-        print(bt)
         for node_json in bt:
-            print(node_json)
             name = None
             data = None
             try:
                 name = node_json['name']
                 state, data = self.multiple_data_nodes(node_json)
                 if not state:
-                    print("State error")
                     return False, node_json['id']
             except KeyError:
                 pass
