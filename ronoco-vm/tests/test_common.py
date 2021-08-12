@@ -20,9 +20,10 @@ class TestCommon(unittest.TestCase):
         """
         Test route "/connect" with an active commander
         """
-        result = requests.get(self.URL + "connect")
-        self.assertEqual(result.status_code, 200)
-        self.assertEqual(result.json(), {"Success": "Connected with commander " + config.move_group})
+        if config.ronoco_mode == "manipulator":
+            result = requests.get(self.URL + "connect")
+            self.assertEqual(result.status_code, 200)
+            self.assertEqual(result.json(), {"Success": "Connected with commander " + config.move_group})
 
     # def test_shutdown(self):
     #     """
