@@ -40,7 +40,9 @@ class Navigate(py_trees.behaviour.Behaviour):
         self.logger.debug("  %s [Navigate::initialise()]" % self.name)
         self.goal = MoveBaseActionGoal()
         self.header = Header()
-        self.goal.header = self.header
+        self.header.stamp = rospy.Time.now()
+        self.header.frame_id = 'map'
+        self.goal.goal.target_pose.header = self.header
         self.goal.goal.target_pose.pose.position.x = self.point['position']['x']
         self.goal.goal.target_pose.pose.position.y = self.point['position']['y']
         self.goal.goal.target_pose.pose.position.z = self.point['position']['z']
