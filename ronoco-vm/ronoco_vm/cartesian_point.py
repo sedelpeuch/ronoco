@@ -103,6 +103,8 @@ class CartesianPoint:
         {
         }
 
+        Manipulator only
+
         Allows you to add a Cartesian point corresponding to the current position of the robot.
 
         The id of the position is automatically given

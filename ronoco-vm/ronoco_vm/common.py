@@ -29,8 +29,14 @@ class Common:
 
     def send_states(self):
         """
-        This function checks if the state of the robot or rviz has changed. If so, it sends a message to the
-        websockets states channel
+        Sends every 5 seconds the server status on the websocket "states" channel.
+
+        The server state depends on the operating mode of ronoco.
+
+        In manipulator mode the state of ros, MoveIt, rviz and the MoveGroupCommander
+
+        In rolling mode, the state of ros, rviz and the various topics necessary for the operation of rolling robots
+        (cmd_vel, move_base, amcl_pose)
         """
         if config.ronoco_mode == "manipulator":
             while True:
@@ -120,6 +126,19 @@ class Common:
 
     @staticmethod
     def rolling_topic():
+        """
+        Check if you can communicate with move_base and amcl_pose
+        + Use rosservice /move_base/get_loggers
+        + Node: /move_base
+        + Type: roscpp/GetLoggers
+        + Args:
+
+        + Use rosservice /amcl_pose/get_loggers
+        + Node: /amcl_pose
+        + Type: roscpp/GetLoggers
+        + Args:
+        :return: False if not, True else
+        """
         get_loggers_move_base = rospy.ServiceProxy(config.move_base + '/get_loggers', GetLoggers)
         get_loggers_amcl_pose = rospy.ServiceProxy(config.amcl_pose + '/get_loggers', GetLoggers)
         try:
@@ -144,6 +163,10 @@ class Common:
     @staticmethod
     def connect():
         """
+        GET Method
+
+        ROUTE /connect
+
         Connect to config.move_group with moveit_commander.MoveGroupCommander
         :return: {"Error": "Can't connect to commander please retry with connect button"}, 404 if it's not possible,
         {"Success": "Connected with commander " + config.move_group}, 200 else
