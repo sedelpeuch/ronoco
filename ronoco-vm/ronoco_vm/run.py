@@ -13,7 +13,6 @@ import config
 import rospy
 import topic_callback
 from geometry_msgs.msg import PointStamped, PoseWithCovarianceStamped
-from move_base_msgs.msg import MoveBaseActionResult
 from visualization_msgs.msg import InteractiveMarkerUpdate
 
 
@@ -101,7 +100,6 @@ class RonocoVm:
         elif config.ronoco_mode == "rolling":
             rospy.Subscriber("/clicked_point", PointStamped, topic_callback.position_callback)
             rospy.Subscriber(config.amcl_pose, PoseWithCovarianceStamped, topic_callback.amcl_callback)
-            rospy.Subscriber(config.move_base + '/result', MoveBaseActionResult, topic_callback.goal_status)
 
 
 if __name__ == "__main__":

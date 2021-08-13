@@ -1,14 +1,11 @@
 """
 Definition of all callback treatement for ros topics
 """
-import py_trees
 
 import config
-from move_base_msgs.msg import MoveBaseResult
 
 position_simulation = {}
 position_amcl = {}
-goal_status_id = py_trees.Status.RUNNING
 
 
 def position_callback(data):
@@ -56,12 +53,3 @@ def amcl_callback(data):
                                          "w": orientation.w}}
     except IndexError:
         pass
-
-
-def goal_status(data):
-    global goal_status_id
-    state = data.status.status
-    if state == 3:
-        goal_status_id = py_trees.Status.SUCCESS
-    elif state in [2, 4, 5, 8]:
-        goal_status_id = py_trees.Status.FAILURE

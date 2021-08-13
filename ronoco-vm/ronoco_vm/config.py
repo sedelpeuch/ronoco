@@ -1,7 +1,9 @@
 """
 This file gathers all the configuration variables until ronoco-config is created
 """
+import actionlib
 import rospy
+from move_base_msgs.msg import MoveBaseAction
 from moveit_commander import MoveGroupCommander
 
 socketio = None
@@ -36,3 +38,4 @@ elif ronoco_mode == "rolling":
     move_base = rospy.get_param("topic_move_base")
     cmd_vel = rospy.get_param("cmd_vel")
     amcl_pose = rospy.get_param("amcl_pose")
+    commander = actionlib.SimpleActionClient(move_base, MoveBaseAction)

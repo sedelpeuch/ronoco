@@ -140,7 +140,7 @@ class Common:
         :return: False if not, True else
         """
         get_loggers_move_base = rospy.ServiceProxy(config.move_base + '/get_loggers', GetLoggers)
-        get_loggers_amcl_pose = rospy.ServiceProxy(config.amcl_pose + '/get_loggers', GetLoggers)
+        get_loggers_amcl_pose = rospy.ServiceProxy(config.amcl_pose.split('_')[0] + '/get_loggers', GetLoggers)
         try:
             get_loggers_move_base()
             get_loggers_amcl_pose()
