@@ -15,6 +15,7 @@ The interface implemented forces all these functions to have name, data and chil
 - *data*: The data used to build the block (optional for some blocks, mandatory for others)
 - *child*: the child of the block to instantiate in the behaviour tree (mandatory for decorators)
 
+### <class> Common </class>
 <method> <img src="../static/nodered/question-mark.svg" width="5%"></img> selector </method>
 
 Instantiates a [selector](https://py-trees.readthedocs.io/en/release-0.7.x/composites.html#selector) node
@@ -71,6 +72,16 @@ A decorator that applies a timeout pattern to an existing behaviour. If the time
 - *data*: time in seconds as an integer
 - *child*: must be provided
 
+<method> <img src="../static/nodered/service.svg" width="5%"></img> service </method>
+    Allows you to call a service offered by the robot. Perform `rosservice list` to get the list of available services
+
+<member> Parameters </member>
+- *name*: String - name of current block
+- *name of service*: String - The name of the service to be called. The name must not be preceded by a /.
+- *Parameters of service*: Array - The parameters to be provided to the service. The parameters must be enclosed in brackets and separated by commas.
+
+### <class> Manipulator </class>
+
 <method> <img src="../static/nodered/play.svg" width="5%"></img> execute </method>
 
 Execute the movement between the current position and a position given in the constructor parameter.
@@ -117,13 +128,7 @@ Replays a previously recorded path
 
 - *data*: name of a recorded trajectory as a string
 
-<method> <img src="../static/nodered/service.svg" width="5%"></img> service </method>
-    Allows you to call a service offered by the robot. Perform `rosservice list` to get the list of available services
 
-<member> Parameters </member>
-- *name*: String - name of current block
-- *name of service*: String - The name of the service to be called. The name must not be preceded by a /.
-- *Parameters of service*: Array - The parameters to be provided to the service. The parameters must be enclosed in brackets and separated by commas.
 
 <method> <img src="../static/nodered/robotic-hand.svg" width="5%"></img> end_effector </method>
         Allows control of the robot end effector via an associated service passed as a parameter to ronoco.launch (the robot end effector controller must be started independently).
@@ -132,4 +137,13 @@ Replays a previously recorded path
 
 <member> Parameters </member>
 - *name*: String - name of current block
-- *Data*: Array - The parameters to be provided to the service. The parameters must be enclosed in brackets and separated by commas.
+- *data*: Array - The parameters to be provided to the service. The parameters must be enclosed in brackets and separated by commas.
+
+### <class> Rolling </class>
+
+<method> <img src="../static/nodered/compass.svg" width="5%"></img> navigate </method>
+   Allows you to navigate to a point on a map while avoiding map obstacles.
+
+<member> Parameters </member>
+- *name*: String - Name of current block
+- *data*: Integer - The identifier of the point in the ros parameter server (on the name "cartesianPoints"). Use Ronoco-ui to find out which points are registered.

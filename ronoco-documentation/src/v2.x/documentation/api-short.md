@@ -6,6 +6,8 @@ The table below lists all the endpoints of **ronoco-vm** and their different pos
 |:-------------|:--------| :--- | :---- |:-----|:---------------------------------|
 | /            | GET     | | 200  | {"Success": "Server is running"} |                        |
 | /shutdown    | GET     | |      |                                  | Shutdown flask server  |
+| /connect    | GET     | |  200    |   {"Success": "Connected with commander " + move_group}                               | Connexion with commander etablished  |
+| /connect    | GET     | |  404    |   {"Error": "Can't connect to commander please retry with connect button"}                              | Connexion with commander not etablished  |
 | /free/       | GET     | | 200  | {'compliant': 'True'}            | Robot is compliant     |
 | /free/       | GET     | | 200  | {'compliant': 'False'}           | Robot is not compliant |
 | /free/       | POST    |{'compliant': 'True'}     | 200  | {'compliant': 'True'}       | Robot has been set compliant |
@@ -29,3 +31,37 @@ The table below lists all the endpoints of **ronoco-vm** and their different pos
 | /control/ | POST | an export of nodered tree| 400 | {"Error": "Tree with root id <id> is incorrect"} | Json contains a root block but associate tree is incorrect|
 | /control/ | POST | an export of nodered tree| 400 | {"Error": "Block (or child of this block) with id <id> is incorrect"} | Json contains tree but one block is incorrect|
 | /control/stop | GET | | 200 | {"Success": "Behavior tree has been stopped "} | Current behavior tree is stopped|
+| /teleop/force-stop | POST | {} | 200 | "Success" | Robot stop |
+| /teleop/forward | POST | {} | 200 | "Success" | Robot go forward |
+| /teleop/backward | POST | {} | 200 | "Success" | Robot go backward |
+| /teleop/left | POST | {} | 200 | "Success" | Robot go left |
+| /teleop/right | POST | {} | 200 | "Success" | Robot go right |
+
+## Tests
+
+To launch test you need to launch rolling robot or a manipulator arm with one of these exemple commands :
+```bash
+# for manipulator arm
+roslaunch ur3_moveit_config demo.launch config:=true
+
+# for rolling robot
+roslaunch turtlebot3_gazebo turtlebot3_house.launch
+# in another terminal 
+roslaunch turtlebot3_navigation turtlebot3_navigation.launch
+```
+
+Then launch ronoco
+
+```bash
+# for manipulator arm
+roslaunch ronoco manipulator.launch commander:=manipulator compliant_mode:=manual
+
+# for rolling robot
+roslaunch ronoco rolling.launch mode:=rolling topic_move_base:=/move_base amcl_pose:=/amcl_pose cmd_vel:=/cmd_vel
+```
+
+Finally, launch test
+```bash
+cd $HOME/catkin_ws/src/ronoco/ronoco-vm
+python3 tests/launcher.py
+```

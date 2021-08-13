@@ -7,6 +7,7 @@
 - [Control](api-detailed.html#class-control-class)<!-- @IGNORE PREVIOUS: link -->
 - [Recorder](api-detailed.html#class-recorder-class)<!-- @IGNORE PREVIOUS: link -->
 - [Logger](api-detailed.html#class-logger-class)<!-- @IGNORE PREVIOUS: link -->
+- [Teleoperation](api-detailed.html#class-teleoperation-class)<!-- @IGNORE PREVIOUS: link -->
 
 ## <class> Run </class>
 
@@ -44,8 +45,14 @@ ROUTE /
 <member>Return</member> if everything is OK : {"Success": "Server is running"}, 200
 
 <method> send_states()</method>
-This function check if the state of the robot or rviz has changed. If so, it sends a message to the websockets states
-channel
+Sends every 5 seconds the server status on the websocket "states" channel.
+
+The server state depends on the operating mode of ronoco.
+
+In manipulator mode the state of ros, MoveIt, rviz and the MoveGroupCommander
+
+In rolling mode, the state of ros, rviz and the various topics necessary for the operation of rolling robots
+(cmd_vel, move_base, amcl_pose)
 
 <method> ros_state()</method>
 
@@ -74,6 +81,27 @@ Check if rviz send data on topic /rviz_moveit_motion_planning_display/robot_inte
 
 <member>Return</member> False if rviz doesn't send data, True else
 
+<method> commander_state() </method>
+
+Check if commander is initialized
+
+<member>Return</member> False if not, True else
+
+<method> rolling_topic() </method>
+
+Check if you can communicate with move_base and amcl_pose
++ Use rosservice /move_base/get_loggers
++ Node: /move_base
++ Type: roscpp/GetLoggers
++ Args:
+
++ Use rosservice /amcl_pose/get_loggers
++ Node: /amcl_pose
++ Type: roscpp/GetLoggers
++ Args:
+
+<member>Return</member> False if not, True else
+
 <method> shutdown() </method>
 
 GET Method
@@ -81,6 +109,19 @@ GET Method
 ROUTE /shutdown
 
 Shutdown server with config.socketio.stop() (and shutdown send_states() daemon)
+
+<method> connect() </method>
+
+GET Method
+
+ROUTE /connect
+
+Connect to config.move_group with moveit_commander.MoveGroupCommander
+
+<member>Return</member> {"Error": "Can't connect to commander please retry with connect button"}, 404 if it's not possible,
+        {"Success": "Connected with commander " + config.move_group}, 200 else
+
+<method> shutdown() </method>
 
 ## <class> Free </class>
 Implements free endpoints to set and get the compliance (or 0 gravity robot WIP) of robot
@@ -143,7 +184,7 @@ when a GET request is made on point/get/number or point/get
 This method deletes all cartesian points in the ros parameters server (on the name "cartesianPoints"). This
 method is called when a POST request is made on point/delete
 
-<method> add_point_from_actual_position() </method>
+<method> manipulator_add_point_real() </method>
 
 POST Method
 
@@ -153,13 +194,33 @@ POST body
 {
 }
 
+Manipulator only
+
 Allows you to add a Cartesian point corresponding to the current position of the robot.
 
 The id of the position is automatically given
 
 <member> Return </member> id for new cartesian point if everything is OK, a 409 error else
 
-<method> add_point_from_rviz() </method>
+<method> rolling_add_point_real() </method>
+
+POST Method
+
+ROUTE /point/add/actual
+
+POST body
+{
+}
+
+Rolling only
+
+Allows you to add a Cartesian point corresponding to the current position of the robot.
+
+The id of the position is automatically given
+
+<member> Return </member> id for new cartesian point if everything is OK, a 408 error else
+
+<method> add_point_simulation() </method>
 
 POST Method
 
@@ -401,3 +462,54 @@ Sends a message with the error key if the verbosity level is greater than or equ
 
 <member>Parameters </member>
 - *msg:* a string message
+
+## <class> Teleoperation </class>
+
+Definition of endpoint teleoperation allowing to manually move rolling robot
+
+<method> set_vel(direction) </method>
+
+POST Method
+
+POST Body
+{}
+
+ROUTE /teleop/direction
+
+Where direction is :
+- force-stop
+- forward
+- backward
+- left
+- right
+
+Set a twist vector with desired velocity then launch thread to execute it
+
+<member>Parameters </member>
+- *direction:* desired direction in force-stop, forward, backward, left, right
+
+<member> Return </member> Success, 200
+
+<method> move() </method>
+
+Target of thread which continuously publish actualised twist message on topic cmd_vel
+
+<method> forward() </method>
+
+Add 0.01 to twist linear x (forward)
+
+<method> backward() </method>
+
+Remove 0.1 to twist linear x (backward)
+
+<method> left() </method>
+
+Add 0.1 to twist angular z (left)
+
+<method> right() </method>
+
+Remove 0.1 to twist angular z (right)
+
+<method> force_stop() </method>
+
+Set to 0.0 twist linear x and twist angular z (stop)
