@@ -3,9 +3,12 @@ Implementation of the action-bt cartesian allowing the robot to move to a point 
 """
 # !/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import time
 
 import config
+import logger
 import py_trees
+import topic_callback
 
 import rospy
 from move_base_msgs.msg import MoveBaseActionGoal
@@ -31,6 +34,7 @@ class Navigate(py_trees.behaviour.Behaviour):
         :return: True
         """
         self.logger.debug("  %s [Navigate::setup()]" % self.name)
+
         return True
 
     def initialise(self):
@@ -50,6 +54,8 @@ class Navigate(py_trees.behaviour.Behaviour):
         self.goal.goal.target_pose.pose.orientation.y = self.point['orientation']['y']
         self.goal.goal.target_pose.pose.orientation.z = self.point['orientation']['z']
         self.goal.goal.target_pose.pose.orientation.w = self.point['orientation']['w']
+        topic_callback.goal_status_id = py_trees.Status.RUNNING
+        self.publisher.publish(self.goal)
 
     def update(self):
         """
@@ -57,8 +63,10 @@ class Navigate(py_trees.behaviour.Behaviour):
         :return: SUCCESS or FAILURE
         """
         self.logger.debug("  %s [Navigate::update()]" % self.name)
-        self.publisher.publish(self.goal)
-        return py_trees.common.Status.SUCCESS
+        logger.debug("Execute block " + self.name)
+        while topic_callback.goal_status_id != py_trees.Status.FAILURE and topic_callback.goal_status_id != py_trees.Status.SUCCESS:
+            time.sleep(1)
+        return topic_callback.goal_status_id
 
     def terminate(self, new_status):
         """
