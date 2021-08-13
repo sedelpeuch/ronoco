@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="_x31__x2C_5"
+   enable-background="new 0 0 24 24"
+   height="512"
+   viewBox="0 0 24 24"
+   width="512"
+   version="1.1"
+   sodipodi:docname="navigation.svg"
+   inkscape:version="1.1 (ce6663b3b7, 2021-05-25)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs889" />
+  <sodipodi:namedview
+     id="namedview887"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="1.2949219"
+     inkscape:cx="20.464555"
+     inkscape:cy="255.61388"
+     inkscape:window-width="1392"
+     inkscape:window-height="851"
+     inkscape:window-x="1992"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="_x31__x2C_5" />
+  <path
+     d="m5 13c-.174 0-.348-.06-.487-.18-.185-.158-4.513-3.905-4.513-7.757 0-2.792 2.243-5.063 5-5.063s5 2.271 5 5.063c0 3.853-4.328 7.6-4.513 7.757-.139.12-.313.18-.487.18zm0-11.5c-1.93 0-3.5 1.598-3.5 3.563 0 2.482 2.436 5.126 3.5 6.164 1.064-1.037 3.5-3.682 3.5-6.164 0-1.965-1.57-3.563-3.5-3.563z"
+     id="path876"
+     style="fill:#ffffff;fill-opacity:1" />
+  <path
+     d="m5 7c-1.103 0-2-.897-2-2s.897-2 2-2 2 .897 2 2-.897 2-2 2zm0-2.5c-.275 0-.5.224-.5.5s.225.5.5.5.5-.224.5-.5-.225-.5-.5-.5z"
+     id="path878"
+     style="fill:#ffffff;fill-opacity:1" />
+  <path
+     d="m23.25 24c-.414 0-.75-.336-.75-.75v-11.5c0-.414.336-.75.75-.75s.75.336.75.75v11.5c0 .414-.336.75-.75.75z"
+     id="path880"
+     style="fill:#ffffff;fill-opacity:1" />
+  <path
+     d="m23.25 18h-7.5c-.282 0-.54-.158-.668-.41s-.104-.553.062-.781l1.679-2.309-1.679-2.309c-.166-.228-.189-.53-.062-.781s.386-.41.668-.41h7.5c.414 0 .75.336.75.75s-.336.75-.75.75h-6.027l1.134 1.559c.191.263.191.619 0 .882l-1.134 1.559h6.027c.414 0 .75.336.75.75s-.336.75-.75.75z"
+     id="path882"
+     style="fill:#ffffff;fill-opacity:1" />
+  <path
+     d="m23.25 24h-19.75c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5h6c1.103 0 2-.897 2-2s-.897-2-2-2h-4.25c-.414 0-.75-.336-.75-.75s.336-.75.75-.75h4.25c1.93 0 3.5 1.57 3.5 3.5s-1.57 3.5-3.5 3.5h-6c-1.103 0-2 .897-2 2s.897 2 2 2h19.75c.414 0 .75.336.75.75s-.336.75-.75.75z"
+     id="path884"
+     style="fill:#ffffff;fill-opacity:1" />
+</svg>
