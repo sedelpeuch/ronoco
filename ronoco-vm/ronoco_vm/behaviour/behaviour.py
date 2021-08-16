@@ -128,7 +128,9 @@ def navigate(name, data, child):
 def coverage(name, data, child):
     if name is None or name == "":
         name = "coverage"
-    return True, behaviour.coverage.Coverage(name)
+    if data is None:
+        return False, None
+    return True, behaviour.coverage.Coverage(name, float(data))
 
 types = {'selector': selector,
          'sequence': sequence,
@@ -151,6 +153,6 @@ composites = {'selector', 'sequence', 'parallel'}
 leaf = {'execute', 'plan', 'cartesian', 'record', 'replay', 'end effector', 'service', 'navigate', 'coverage'}
 decorators = {'condition', 'inverter', 'timeout'}
 data_node = {'execute', 'replay', 'plan', 'cartesian', 'condition', 'timeout', 'record', 'end effector', 'service',
-             'navigate'}
+             'navigate', 'coverage'}
 states = {"success": py_trees.common.Status.SUCCESS, "failure": py_trees.common.Status.FAILURE,
           "running": py_trees.common.Status.RUNNING}

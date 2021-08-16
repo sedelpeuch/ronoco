@@ -4,18 +4,25 @@ Trajectory calculation algorithm for coverage from https://gitlab.com/Humpelstil
 # !/usr/bin/env python3
 # -*- coding: iso-8859-15 -*-
 
+
 import json
 import os
+# noinspection PyUnresolvedReferences
+import pdb
 import tempfile
 from math import *
 
 import config
+# noinspection PyUnresolvedReferences
+import numpy as np
 import rospkg
 from shapely.geometry import Point
 
 import actionlib
 import rospy
 import tf
+# noinspection PyUnresolvedReferences
+import tf2_geometry_msgs
 import tf2_ros
 from actionlib_msgs.msg import GoalStatus
 from geometry_msgs.msg import PointStamped, PoseStamped
@@ -31,7 +38,7 @@ INSCRIBED_INFLATED_OBSTACLE = 253
 
 
 class MapDrive(MarkerVisualization):
-    def __init__(self):
+    def __init__(self, robot_width=0.3):
         self.rospack = rospkg.RosPack()
         MarkerVisualization.__init__(self)
 
@@ -39,7 +46,7 @@ class MapDrive(MarkerVisualization):
         self.global_frame = "map"  # read from "/clicked_point"
         self.local_costmap = None
         self.global_costmap = None
-        self.robot_width = rospy.get_param("~robot_width", 0.3)
+        self.robot_width = robot_width
         self.costmap_max_non_lethal = rospy.get_param("~costmap_max_non_lethal", 70)
         self.boustrophedon_decomposition = rospy.get_param("~boustrophedon_decomposition", True)
         self.border_drive = rospy.get_param("~border_drive", False)
@@ -177,7 +184,7 @@ class MapDrive(MarkerVisualization):
     def on_shutdown(self):
         rospy.loginfo("Canceling all goals")
         self.visualization_cleanup()
-        self.move_base.cancel_all_goals()
+        self.move_base.cancel_goal()
 
     def get_closes_possible_goal(self, pos_last, pos_next, angle, tolerance):
         angle_quat = tf.transformations.quaternion_from_euler(0, 0, angle)

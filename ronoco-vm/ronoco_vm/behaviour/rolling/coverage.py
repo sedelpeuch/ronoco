@@ -18,9 +18,10 @@ class Coverage(py_trees.behaviour.Behaviour):
     i.e. the cartesian movement between the current position and a position given in the constructor parameter .
     """
 
-    def __init__(self, name="Coverage"):
+    def __init__(self, name="Coverage", data=0.3):
         super(Coverage, self).__init__(name)
         self.map_drive = None
+        self.robot_width = data
 
     def setup(self, timeout):
         """
@@ -43,9 +44,10 @@ class Coverage(py_trees.behaviour.Behaviour):
         """
         self.logger.debug("  %s [Coverage::update()]" % self.name)
         logger.debug("Execute block " + self.name)
-        self.map_drive = path_coverage_node.MapDrive()
+        self.map_drive = path_coverage_node.MapDrive(self.robot_width)
         while not config.finished:
             time.sleep(1)
+        self.map_drive.on_shutdown()
         return py_trees.Status.SUCCESS
 
     def terminate(self, new_status):
@@ -53,4 +55,4 @@ class Coverage(py_trees.behaviour.Behaviour):
         No specific treatment
         """
         self.logger.debug("  %s [Coverage::terminate().terminate()][%s->%s]" % (self.name, self.status, new_status))
-        self.map_drive.on_shutdown()
+        config.finished = False
