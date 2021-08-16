@@ -93,7 +93,7 @@ async function post(url, data) {
 async function connect_io() {
     let socket2
     try {
-        socket2 = io.connect('http://localhost:5000/states');
+        socket2 = io.connect(url+':5000/states');
     } catch (error) {
         console.logger({"Error": "Ronoco-vm is not running, launch it then refresh Ronoco-ui"})
         document.getElementById("state").src = "/static/circle_black.svg"
@@ -128,7 +128,7 @@ async function connect_io() {
         }
     })
 
-    const socket = io.connect('http://localhost:5000/control_log');
+    const socket = io.connect(url+':5000/control_log');
     socket.on('connect', function (msg) {
         console.log("i'm connected to control_log chanel")
     });

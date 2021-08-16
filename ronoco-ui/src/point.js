@@ -7,7 +7,7 @@ import {get, post} from "./common.js"
  * @returns {Promise<void>}
  */
 async function recordPositionRviz() {
-    let result = await post("http://127.0.0.1:5000/point/add/simulation", {})
+    let result = await post(url+":5000/point/add/simulation", {})
     console.logger(result)
 }
 document.getElementById('rviz').addEventListener('click',recordPositionRviz)
@@ -17,7 +17,7 @@ document.getElementById('rviz').addEventListener('click',recordPositionRviz)
  * @returns {Promise<void>}
  */
 async function recordPositionFree() {
-    let result = await post("http://127.0.0.1:5000/point/add/actual", {})
+    let result = await post(url+":5000/point/add/actual", {})
     console.logger(result)
 }
 
@@ -28,7 +28,7 @@ document.getElementById('free').addEventListener('click',recordPositionFree)
  * @returns {Promise<void>}
  */
 async function getPosition() {
-    let result = await get("http://127.0.0.1:5000/point/get")
+    let result = await get(url+":5000/point/get")
     console.logger(result)
 }
 document.getElementById('GetPosition').addEventListener('click',getPosition)
@@ -38,7 +38,7 @@ document.getElementById('GetPosition').addEventListener('click',getPosition)
  * @returns {Promise<void>}
  */
 async function deletePosition() {
-    let result = await post("http://127.0.0.1:5000/point/delete", {})
+    let result = await post(url+":5000/point/delete", {})
     console.logger(result)
 }
 document.getElementById('DeletePosition').addEventListener('click',deletePosition)
@@ -49,7 +49,7 @@ document.getElementById('DeletePosition').addEventListener('click',deletePositio
  */
 async function getPositionId(){
     let id = document.getElementById("id_get").value;
-    let result = await get("http://127.0.0.1:5000/point/get/"+id)
+    let result = await get(url+":5000/point/get/"+id)
     console.logger(result)
 }
 document.getElementById('GetPositionId').addEventListener('click',getPositionId)
@@ -60,7 +60,7 @@ document.getElementById('GetPositionId').addEventListener('click',getPositionId)
  */
 async function deletePositionId(){
     let id = document.getElementById("id_del").value;
-    let result = await post("http://127.0.0.1:5000/point/delete/"+id, {})
+    let result = await post(url+":5000/point/delete/"+id, {})
     console.logger(result)
 }
 document.getElementById('DeletePositionId').addEventListener('click',deletePositionId)

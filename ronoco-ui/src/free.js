@@ -7,14 +7,14 @@ import {get, post} from "./common.js"
  * @returns {Promise<void>}
  */
 async function callingRobotState() {
-    let result = await get("http://127.0.0.1:5000/free/")
+    let result = await get(url+":5000/free/")
     console.logger(result)
 }
 document.getElementById('robotState').addEventListener('click',callingRobotState)
 
 
 async function shutdown(){
-    let result = await get("http://127.0.0.1:5000/shutdown")
+    let result = await get(url+":5000/shutdown")
     console.logger(result)
 }
 document.getElementById('startStop').addEventListener('click',shutdown)
@@ -24,13 +24,13 @@ document.getElementById('startStop').addEventListener('click',shutdown)
  * @returns {Promise<void>}
  */
 async function callingFree(){
-    let state = await get("http://127.0.0.1:5000/free/")
+    let state = await get(url+":5000/free/")
     let result
     if (state.compliant === "False"){
-        result = await post("http://127.0.0.1:5000/free/", {compliant: "True"})
+        result = await post(url+":5000/free/", {compliant: "True"})
     }
     else{
-        result = await post("http://127.0.0.1:5000/free/", {compliant: "False"})
+        result = await post(url+":5000/free/", {compliant: "False"})
     }
     console.logger(result)
 }
