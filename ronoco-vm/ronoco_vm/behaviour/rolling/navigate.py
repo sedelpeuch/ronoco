@@ -23,7 +23,8 @@ class Navigate(py_trees.behaviour.Behaviour):
     def __init__(self, name="Navigate", data=None):
         super(Navigate, self).__init__(name)
         self.commander = config.commander
-        self.point = data
+        self.point = data['point']
+        self.timeout = data['timeout']
         self.move_base = None
         self.goal = None
         self.header = None
@@ -63,9 +64,8 @@ class Navigate(py_trees.behaviour.Behaviour):
         self.logger.debug("  %s [Navigate::update()]" % self.name)
         logger.debug("Execute block " + self.name)
         self.commander.send_goal(self.goal)
-        self.commander.wait_for_result(rospy.Duration(120))
+        self.commander.wait_for_result(rospy.Duration(int(self.timeout)))
         state = self.commander.get_state()
-        print(state)
         if state in [GoalStatus.PREEMPTED, GoalStatus.ABORTED, GoalStatus.REJECTED, GoalStatus.RECALLED]:
             return py_trees.Status.FAILURE
         elif state == GoalStatus.SUCCEEDED:

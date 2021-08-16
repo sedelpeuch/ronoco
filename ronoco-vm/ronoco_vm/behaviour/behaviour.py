@@ -119,10 +119,11 @@ def navigate(name, data, child):
         name = "navigate"
     if data is None:
         return False, None
-    state, point = cartesian_point.CartesianPoint().find_db(int(data))
+    state, point = cartesian_point.CartesianPoint().find_db(int(data['identifier']))
     if not state:
         return False, None
-    return True, behaviour.navigate.Navigate(name, point)
+    data = {'point': point, 'timeout': data['timeout']}
+    return True, behaviour.navigate.Navigate(name, data)
 
 
 types = {'selector': selector,

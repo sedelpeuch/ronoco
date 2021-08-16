@@ -269,6 +269,11 @@ class Control:
                 elif node_json['type'] == 'service':
                     data = {'service_name': node_json['service_name'],
                             'service_parameter': node_json['service_parameter']}
+                elif node_json['type'] == 'navigate':
+                    try:
+                        data = {'identifier': node_json['data'], 'timeout': node_json['timeout']}
+                    except KeyError:
+                        data = {'identifier': node_json['data'], 'timeout': '60'}
                 else:
                     data = node_json['data']
             except KeyError:
