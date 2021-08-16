@@ -6,6 +6,7 @@ import rospy
 from move_base_msgs.msg import MoveBaseAction
 from moveit_commander import MoveGroupCommander
 
+finished = False
 socketio = None
 
 # Level of debug

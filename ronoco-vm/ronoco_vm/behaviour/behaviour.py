@@ -125,6 +125,10 @@ def navigate(name, data, child):
     data = {'point': point, 'timeout': data['timeout']}
     return True, behaviour.navigate.Navigate(name, data)
 
+def coverage(name, data, child):
+    if name is None or name == "":
+        name = "coverage"
+    return True, behaviour.coverage.Coverage(name)
 
 types = {'selector': selector,
          'sequence': sequence,
@@ -139,11 +143,12 @@ types = {'selector': selector,
          'record': record,
          'end effector': end_effector,
          'service': service,
-         'navigate': navigate
+         'navigate': navigate,
+         'coverage': coverage
          }
 
 composites = {'selector', 'sequence', 'parallel'}
-leaf = {'execute', 'plan', 'cartesian', 'record', 'replay', 'end effector', 'service', 'navigate'}
+leaf = {'execute', 'plan', 'cartesian', 'record', 'replay', 'end effector', 'service', 'navigate', 'coverage'}
 decorators = {'condition', 'inverter', 'timeout'}
 data_node = {'execute', 'replay', 'plan', 'cartesian', 'condition', 'timeout', 'record', 'end effector', 'service',
              'navigate'}
