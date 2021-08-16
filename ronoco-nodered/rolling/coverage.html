@@ -1,0 +1,32 @@
+<script type="text/javascript">
+    RED.nodes.registerType('coverage', {
+        category: 'ronoco/rolling',
+        color: '#4c97ff',
+        defaults: {
+            name: {value: ""},
+        },
+        credential:{
+            name: {},
+            data:{}
+        },
+        inputs: 1,
+        outputs: 0,
+        icon: "icons/network.svg",
+        label: function () {
+            return this.name || "coverage";
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="coverage">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="coverage">
+    <h3>Description </h3>
+    <h4>Name </h4>
+    String - name of the current block.
+</script>
