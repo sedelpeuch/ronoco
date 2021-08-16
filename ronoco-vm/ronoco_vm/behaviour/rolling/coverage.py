@@ -1,5 +1,5 @@
 """
-Implementation of the action-bt cartesian allowing the robot to move to a point with a cartesian trajectory
+Implementation of the coverage block allowing to cover the whole surface of a rectangle defined by 4 points
 """
 # !/usr/bin/env python3
 # -*- coding: utf-8 -*-
@@ -14,8 +14,8 @@ from ronoco_vm.coverage import path_coverage_node
 
 class Coverage(py_trees.behaviour.Behaviour):
     """
-    Class inherited from py_tree.behaviour.Behavior allowing to define a new behaviour. The behaviour is cartesian path,
-    i.e. the cartesian movement between the current position and a position given in the constructor parameter .
+    Class inherited from py_tree.behaviour.Behavior allowing to define a new behaviour. Implementation of the coverage
+    block allowing to cover the whole surface of a rectangle defined by 4 points
     """
 
     def __init__(self, name="Coverage", data=0.3):
@@ -33,13 +33,13 @@ class Coverage(py_trees.behaviour.Behaviour):
 
     def initialise(self):
         """
-        Set target goal as a PoseStamped()
+        No specific treatment
         """
         self.logger.debug("  %s [Coverage::initialise()]" % self.name)
 
     def update(self):
         """
-        Compute cartesian path, then if the reliability is sufficient, execute the trajectory
+        Creates an instance of MapDrive and waits for it to complete its execution to return success
         :return: SUCCESS or FAILURE
         """
         self.logger.debug("  %s [Coverage::update()]" % self.name)
@@ -52,7 +52,7 @@ class Coverage(py_trees.behaviour.Behaviour):
 
     def terminate(self, new_status):
         """
-        No specific treatment
+        Replace the finished value of the configuration file with False
         """
         self.logger.debug("  %s [Coverage::terminate().terminate()][%s->%s]" % (self.name, self.status, new_status))
         config.finished = False

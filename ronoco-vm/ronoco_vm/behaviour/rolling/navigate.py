@@ -1,5 +1,6 @@
 """
-Implementation of the action-bt cartesian allowing the robot to move to a point with a cartesian trajectory
+Class inherited from py_tree.behaviour.Behavior allowing to define a new behaviour. The behaviour is navigate, i.e.
+the movement between the current position and a position given in the constructor parameter.
 """
 # !/usr/bin/env python3
 # -*- coding: utf-8 -*-
@@ -16,8 +17,8 @@ from std_msgs.msg import Header
 
 class Navigate(py_trees.behaviour.Behaviour):
     """
-    Class inherited from py_tree.behaviour.Behavior allowing to define a new behaviour. The behaviour is cartesian path,
-    i.e. the cartesian movement between the current position and a position given in the constructor parameter .
+    Class inherited from py_tree.behaviour.Behavior allowing to define a new behaviour. The behaviour is navigate, i.e.
+    the movement between the current position and a position given in the constructor parameter.
     """
 
     def __init__(self, name="Navigate", data=None):
@@ -58,7 +59,7 @@ class Navigate(py_trees.behaviour.Behaviour):
 
     def update(self):
         """
-        Compute cartesian path, then if the reliability is sufficient, execute the trajectory
+        Compute path then execute it.
         :return: SUCCESS or FAILURE
         """
         self.logger.debug("  %s [Navigate::update()]" % self.name)
@@ -75,7 +76,7 @@ class Navigate(py_trees.behaviour.Behaviour):
 
     def terminate(self, new_status):
         """
-        No specific treatment
+        Cancel goal if execution fail
         """
         self.logger.debug("  %s [Navigate::terminate().terminate()][%s->%s]" % (self.name, self.status, new_status))
         if self.commander.get_state() not in [GoalStatus.PREEMPTED, GoalStatus.ABORTED, GoalStatus.REJECTED,
