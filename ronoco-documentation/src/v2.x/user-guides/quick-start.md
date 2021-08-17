@@ -1,6 +1,6 @@
 # Getting started
 
-## Quick-start : roslaunch
+## Quick-start
 
 To launch the project with a **manipulator robot**, simply run the following command
 
@@ -16,13 +16,16 @@ With as argument :
 To start the project with a **rolling robot**, simply run the following command
 
 ```bash
-roslaunch ronoco rolling.launch topic_move_base:=string cmd_vel:=string amcl_pose:=string
+roslaunch ronoco rolling.launch namespace:=string
 ```
 With as argument :
-- *topic_move_base*: the name of the group of topic to communicate with move_base, typically "/move_base"
-- *cmd_vel*: the name of topic to communicate with cmd_vel, typically "/cmd_vel"
-- *amcl_pose*: the name of topic to communicate with amcl_pose, typically "/amcl_pose"
+- *namespace*: the namespace for your robot without last / (default " ")
 
+Whether the robot is a rolling robot or a manipulator arm, once ronoco is launched **it is necessary to establish the connection with the robot**. For example in the case of a ur3 in simulation it will be necessary to launch
+```bash
+roslaunch ur3_moveit_config demo.launch config:=true
+```
+in parallel to ronoco manipulator. For more details please refer to the different [examples](examples.md).
 ## Manual start
 
 To use ronoco it is necessary to launch the ROS modules corresponding to your robot and then the different modules of ronoco.
@@ -37,9 +40,7 @@ rosparam set compliant_mode string
 rosparam set end_effector string
 
 #for rolling roboto
-rosparam set topic_move_base string
-rosparam set cmd_vel string
-rosparam set amcl_pose string
+rosparam set namespace string
 ```
 
 It is then necessary to launch the three modules.

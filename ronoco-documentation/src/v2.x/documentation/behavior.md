@@ -147,3 +147,28 @@ Replays a previously recorded path
 <member> Parameters </member>
 - *name*: String - Name of current block
 - *data*: Integer - The identifier of the point in the ros parameter server (on the name "cartesianPoints"). Use Ronoco-ui to find out which points are registered.
+
+<method> <img src="../static/nodered/network.svg" width="5%"></img> coverage </method>
+Block allowing to carry out a navigation with coverage, i.e. a movement covering as much surface as possible between n points
+
+This procedure only needs to be done the first time rviz is started. Once you have done it, you do not need to do it again each time
+
+To view the area to be scanned in rviz it is necessary to add a marker: click on "add" at the bottom left of the screen. A menu opens. Click on "Marker". Then in the menu on the left of your screen (Displays) find "Marker". Scroll down the menu and set the "Marker topic" field to "path_coverage_marker".
+
+<center>
+<img src="../static/marker.gif"></img>
+</center>
+
+You can save this configuration of rviz so that you do not need to repeat this procedure in the future.
+
+To use the block, simply place it in a behaviour tree and then execute the tree. When the system executes the block, it will give you back the hand to ask for the zone to scan.
+
+To do this go to rviz, using the "publish point" tool click on a point on the map. Repeat the operation until you draw a polygon on the map. Once the polygon is closed (i.e. the last point placed corresponds to the first point placed) ronoco will take over and scan the area.
+
+<center>
+<img src="../static/coverage.gif"></img>
+</center>
+
+<member> Parameters </member>
+- *name*: String - Name of current block
+- *robot width*:  Float - width of the robot in meter

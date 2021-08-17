@@ -5,11 +5,11 @@ Users guides
 - [Getting Started](user-guides/quick-start.md)
 - [How to use it](user-guides/how-to-use-it.md)
 - [How to create a behaviour tree](user-guides/bt.md)
-- [Examples on robots](user-guides/poppy.md)
+- [Examples on robots](user-guides/examples.md)
   - [Poppy ergo jr](user-guides/poppy.md)
   - [Universal Robots 3](user-guides/ur3.md)
   - [Kuka KR6](user-guides/kuka.md)
-  - [Kuka KR6](user-guides/turtlebot.md)
+  - [Turtlebot 3 burger](user-guides/turtlebot.md)
 
 <!--# Developers guides-->
 

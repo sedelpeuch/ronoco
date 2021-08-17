@@ -1,6 +1,6 @@
 # How to use it
 
-This page explains how to use the application to control a robot. It is divided in 3 parts, the first one explains how to use the different buttons of the control interface. The second part explains how to create behaviour trees and the specificities of the different blocks.
+This page explains how to use the application to control a robot. It is divided in 2 parts, the first one explains how to use the different buttons of the control interface. The second part explains how to create behaviour trees and the specificities of the different blocks.
 
 ## Control Interface
 
@@ -11,26 +11,13 @@ Control Interface
 </center>
 
 
-<img src="../static/shutdown.svg" width="5%"></img> Allows to stop the server (WIP: allows to start and stop the whole application)
-
-<img src="../static/circle.svg" width="5%"></img> Represents the status of the server, when it is empty it means that the client has not yet received any information from the server. It is probably still loading.
-
-<img src="../static/circle_black.svg" width="5%"></img> When it is black (here white) it means that at least one request to the server has not been answered and therefore the server is not running or is in error
-
-
-<img src="../static/circle_red.svg" width="5%"></img> When it is red, it means that it is not possible to reach the commander. Check that MoveIt is running and that the order passed as a parameter is the right one, then click on the connect button
-
-<img src="../static/circle_orange.svg" width="5%"></img> When it is orange it means that ROS is not working as expected. The source of the problem is either the absence of roscore (the rosout/get_loggers service is not available) or the absence of moveit (the move_group/get_loggers service is not available). In this state ronoco is not usable
-
-<img src="../static/circle_yellow.svg" width="5%"></img> When it is yellow it means that Rviz is not communicating the position of the interactive marker. If rviz seems to be working correctly on your machine, simply move the interactive marker to fix the problem. In this state ronoco is usable but the "simulated" button will produce an error
-
-<img src="../static/circle_green.svg" width="5%"></img> When it is green it means that ronoco is fully usable
+<img src="../static/shutdown.svg" width="5%"></img> Allows to stop the application
 
 <img src="../static/play.svg" width="5%"></img> This button asks the server to execute the last behaviour tree deployed from Node-RED
 
-<img src="../static/free.svg" width="5%"></img> Enables the robot to be set to compliant mode. This button can only be used for a robot that has a service to set it to compliant mode
+<img src="../static/free.svg" width="5%"></img> Enables the robot to be set to compliant mode. This button can only be used for a robot that has a service to set it to compliant mode (for manipulator arm only)
 
-<img src="../static/connect.svg" width="5%"></img> Allows to connect to the commander passed in parameter when the status of ronoco is red
+<img src="../static/connect.svg" width="5%"></img> Allows connecting to the commander passed in parameter when the status of ronoco is red (for manipulator arm only)
 
 <img src="../static/clear.svg" width="5%"></img> Clear logs in ronoco-ui
 
@@ -48,6 +35,31 @@ If the project is launched in rolling robot mode, the interface will display an 
 Teleoperation with rolling robot
 </center>
 
+## States circle
+
+<img src="../static/circle.svg" width="5%"></img> Represents the status of the server, when it is empty it means that the client has not yet received any information from the server. It is probably still loading.
+
+<img src="../static/circle_black.svg" width="5%"></img> When it is black (here white) it means that at least one request to the server has not been answered and therefore the server is not running or is in error
+
+### Manipulator arm
+
+<img src="../static/circle_red.svg" width="5%"></img> When it is red, it means that it is not possible to reach the commander. Check that MoveIt is running and that the order passed as a parameter is the right one, then click on the connect button
+
+<img src="../static/circle_orange.svg" width="5%"></img> When it is orange it means that ROS is not working as expected. The source of the problem is either the absence of roscore (the rosout/get_loggers service is not available) or the absence of moveit (the move_group/get_loggers service is not available). In this state ronoco is not usable
+
+<img src="../static/circle_yellow.svg" width="5%"></img> When it is yellow it means that Rviz is not communicating the position of the interactive marker. If rviz seems to be working correctly on your machine, simply move the interactive marker to fix the problem. In this state ronoco is usable but the "simulated" button will produce an error
+
+<img src="../static/circle_green.svg" width="5%"></img> When it is green it means that ronoco is fully usable
+
+### Rolling robot
+
+<img src="../static/circle_red.svg" width="5%"></img> When it is red, it means that it is not possible to communicate with ros. The source of the problem is obviously an absence of roscore
+
+<img src="../static/circle_orange.svg" width="5%"></img> When it is orange it means that it is not possible to communicate properly with the navigation topics. If you are in the mapping phase, this is normal. If not, check the status of the navigation entity.
+
+<img src="../static/circle_yellow.svg" width="5%"></img> When it is yellow it means that rviz is not communicating properly. If rviz seems to be working correctly on your machine, simply publish a point with the "publish point" tool to fix the problem. In this state ronoco is usable but the "simulated" button will produce an error
+
+<img src="../static/circle_green.svg" width="5%"></img> When it is green it means that ronoco is fully usable
 
 ## Area for creating behaviour trees
 

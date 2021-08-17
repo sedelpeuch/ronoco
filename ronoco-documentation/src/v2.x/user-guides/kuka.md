@@ -1,5 +1,4 @@
-# Kuka KR6
-
+# Example on Kuka KR6
 <center>
 <img src="../static/kuka.gif"></img>
 </center>

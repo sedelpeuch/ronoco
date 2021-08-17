@@ -13,11 +13,11 @@ v2.x rolling robot
     - [Getting Started](v2.x/user-guides/quick-start.md)
     - [How to use it](v2.x/user-guides/how-to-use-it.md)
     - [How to create a behaviour tree](v2.x/user-guides/bt.md)
-    - [Examples on robots](v2.x/user-guides/poppy.md)
+    - [Examples on robots](v2.x/user-guides/examples.md)
       - [Poppy ergo jr](v2.x/user-guides/poppy.md)
       - [Universal Robots 3](v2.x/user-guides/ur3.md)
       - [Kuka KR6](v2.x/user-guides/kuka.md)
-      - [Kuka KR6](v2.x/user-guides/turtlebot.md)
+      - [Turtlebot 3 burger](v2.x/user-guides/turtlebot.md)
 
 <!--# Developers guides-->
 

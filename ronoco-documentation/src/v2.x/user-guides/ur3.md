@@ -1,6 +1,27 @@
-# Universal robot 3
+# Example on Universal robot
 
-## Configuring ROS with universal robots
+## With a simulated universal robot
+
+First, download the universal robot simulation
+
+```bash
+cd $HOME/catkin_ws/src
+git clone https://github.com/fmauch/universal_robot.git
+cd ..
+catkin_make
+source /devel/setup.bash
+```
+Then run the simulation of a universal robot
+```bash
+roslaunch ur3_moveit_config demo.launch config:=true
+```
+
+Finally, run ronoco in manipulator mode
+```bash
+roslaunch ronoco manipulator.launch commander:=manipulator compliant_mode:=manual
+```
+
+## With a real ur3
 
 This driver requires a system setup with ROS. It is recommended to use Ubuntu 18.04 with ROS melodic however using
 Ubuntu 20.04 with ROS noectic work also. To install ROS noetic on Ubuntu 20.04 see [the relative page](installation.md)
@@ -83,5 +104,3 @@ Once started you can use ronoco in the usual way.
 ### Limitations
 
 Universal robots do not support the use of "free mode" at the same time as the execution of a program, i.e. when executing the **ExternalControl** block it is not possible to use the "free mode" function. Thus the *record* and *replay* blocks cannot be used on a universal robot.
-
-WIP : create record & replay in rviz

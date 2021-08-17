@@ -87,7 +87,7 @@ Check if commander is initialized
 
 <member>Return</member> False if not, True else
 
-<method> rolling_topic() </method>
+<method> navigation_states() </method>
 
 Check if you can communicate with move_base and amcl_pose
 + Use rosservice /move_base/get_loggers
@@ -500,7 +500,7 @@ Add 0.01 to twist linear x (forward)
 
 <method> backward() </method>
 
-Remove 0.1 to twist linear x (backward)
+Remove 0.01 to twist linear x (backward)
 
 <method> left() </method>
 
