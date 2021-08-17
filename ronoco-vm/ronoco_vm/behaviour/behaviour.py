@@ -130,7 +130,11 @@ def coverage(name, data, child):
         name = "coverage"
     if data is None:
         return False, None
-    return True, behaviour.coverage.Coverage(name, float(data))
+    try :
+        data = float(data)
+    except ValueError:
+        data = 0.3
+    return True, behaviour.coverage.Coverage(name, data)
 
 types = {'selector': selector,
          'sequence': sequence,
