@@ -50,7 +50,7 @@ class Common:
             while True:
                 time.sleep(5.0)
                 config.socketio.emit('states', {"ronoco_mode": "rolling", "ros_state": self.ros_state(),
-                                                "rolling_topic": self.rolling_topic(),
+                                                "navigation_state": self.navigation_state(),
                                                 "rviz_state": self.rviz_state()},
                                      namespace='/states')
 
@@ -125,7 +125,7 @@ class Common:
             return True
 
     @staticmethod
-    def rolling_topic():
+    def navigation_state():
         """
         Check if you can communicate with move_base and amcl_pose
         + Use rosservice /move_base/get_loggers
