@@ -121,14 +121,15 @@ class MapDrive(MarkerVisualization):
             maxx = round((maxx - costmap.info.origin.position.x) / costmap.info.resolution)
             miny = round((miny - costmap.info.origin.position.y) / costmap.info.resolution)
             maxy = round((maxy - costmap.info.origin.position.y) / costmap.info.resolution)
+
+            # Check min/max limits
+            if minx < 0: minx = 0
+            if maxx > costmap.info.width: maxx = costmap.info.width
+            if miny < 0: miny = 0
+            if maxy > costmap.info.height: maxy = costmap.info.height
         except AttributeError:
             config.finished = py_trees.Status.FAILURE
-
-        # Check min/max limits
-        if minx < 0: minx = 0
-        if maxx > costmap.info.width: maxx = costmap.info.width
-        if miny < 0: miny = 0
-        if maxy > costmap.info.height: maxy = costmap.info.height
+            return
 
         # Transform costmap values to values expected by boustrophedon_decomposition script
         rows = []
