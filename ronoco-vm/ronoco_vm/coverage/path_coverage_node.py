@@ -10,11 +10,13 @@ import os
 # noinspection PyUnresolvedReferences
 import pdb
 import tempfile
+import time
 from math import *
 
 import config
 # noinspection PyUnresolvedReferences
 import numpy as np
+import py_trees
 import rospkg
 from shapely.geometry import Point
 
@@ -64,7 +66,11 @@ class MapDrive(MarkerVisualization):
         self.move_base_plan = rospy.ServiceProxy(config.move_base + '/make_plan', GetPlan)
         rospy.loginfo("Got move_base action server")
         rospy.on_shutdown(self.on_shutdown)
-
+        begin = time.time()
+        while self.global_costmap is None and time.time() - begin < 20:
+            time.sleep(1)
+        if self.global_costmap is None:
+            config.finished = py_trees.Status.FAILURE
         rospy.loginfo("Running..")
 
     def globalCostmapReceived(self, costmap):
@@ -99,8 +105,7 @@ class MapDrive(MarkerVisualization):
                     self.drive_polygon(Polygon(points))
                 self.visualize_area(points, close=True, show=False)
                 self.lClickPoints = []
-                rospy.logerr("Last line of execution")
-                config.finished = True
+                config.finished = py_trees.Status.SUCCESS
                 return
         self.visualize_area(points, close=False)
 
@@ -111,10 +116,13 @@ class MapDrive(MarkerVisualization):
             minx, maxx, miny, maxy))
 
         # Convert to costmap coordinate
-        minx = round((minx - costmap.info.origin.position.x) / costmap.info.resolution)
-        maxx = round((maxx - costmap.info.origin.position.x) / costmap.info.resolution)
-        miny = round((miny - costmap.info.origin.position.y) / costmap.info.resolution)
-        maxy = round((maxy - costmap.info.origin.position.y) / costmap.info.resolution)
+        try:
+            minx = round((minx - costmap.info.origin.position.x) / costmap.info.resolution)
+            maxx = round((maxx - costmap.info.origin.position.x) / costmap.info.resolution)
+            miny = round((miny - costmap.info.origin.position.y) / costmap.info.resolution)
+            maxy = round((maxy - costmap.info.origin.position.y) / costmap.info.resolution)
+        except AttributeError:
+            config.finished = py_trees.Status.FAILURE
 
         # Check min/max limits
         if minx < 0: minx = 0

@@ -45,14 +45,15 @@ class Coverage(py_trees.behaviour.Behaviour):
         self.logger.debug("  %s [Coverage::update()]" % self.name)
         logger.debug("Execute block " + self.name)
         self.map_drive = path_coverage_node.MapDrive(self.robot_width)
-        while not config.finished:
+        while config.finished != py_trees.Status.SUCCESS and config.finished != py_trees.Status.FAILURE:
             time.sleep(1)
-        self.map_drive.on_shutdown()
-        return py_trees.Status.SUCCESS
+        if config.finished == py_trees.Status.FAILURE:
+            self.map_drive.on_shutdown()
+        return config.finished
 
     def terminate(self, new_status):
         """
         Replace the finished value of the configuration file with False
         """
         self.logger.debug("  %s [Coverage::terminate().terminate()][%s->%s]" % (self.name, self.status, new_status))
-        config.finished = False
+        config.finished = py_trees.Status.RUNNING

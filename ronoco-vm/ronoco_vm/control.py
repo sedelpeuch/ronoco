@@ -116,7 +116,7 @@ class Control:
                 self.behavior_tree.tick_tock(50, times)
             except KeyboardInterrupt:
                 self.behavior_tree.interrupt()
-            if self.behavior_tree.tip().status == Status.FAILURE:
+            if self.behavior_tree.tip() is None or self.behavior_tree.tip().status == Status.FAILURE:
                 return {"Error": "Tree with root's name :" + self.roots[i]['name'] + " can't be executed"}, 409
         return {"Success": "All behaviour trees has been executed"}, 200
 
