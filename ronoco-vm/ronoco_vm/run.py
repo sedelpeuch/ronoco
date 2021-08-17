@@ -32,7 +32,7 @@ class RonocoVm:
         self.setup_app()
         rospy.init_node('user')
         rospy.loginfo("User root is serving the Web app")
-        config.socketio.run(self.app)
+        config.socketio.run(self.app, host="0.0.0.0")
 
     def create_app(self, test_config=None):
         """
@@ -100,7 +100,5 @@ class RonocoVm:
         elif config.ronoco_mode == "rolling":
             rospy.Subscriber("/clicked_point", PointStamped, topic_callback.position_callback)
             rospy.Subscriber(config.amcl_pose, PoseWithCovarianceStamped, topic_callback.amcl_callback)
-
-
 if __name__ == "__main__":
     RonocoVm()

@@ -11,7 +11,7 @@
     <script type="module" src="src/point.js"></script>
     <script type="module" src="src/play.js"></script>
     <script type="module" src="src/teleop.js"></script>
-    <script src="http://127.0.0.1:5000/static/socket.io/socket.io.js"></script>
+    <script src="http://10.2.11.39:5000/static/socket.io/socket.io.js"></script>
 </head>
 <body>
 <div class="ronoco">
@@ -21,7 +21,7 @@
                 <img src="/static/shutdown.svg" alt="ShutdownLogo" height="40">
             </div>
             <div class="button-logo" id="robotState">
-                <img id="state" src="/static/circle.svg" alt="StateLogo" height="40">
+            <span title='Ronoco is starting ...'><img id="state" src="/static/circle.svg" alt="StateLogo" height="40"></span>
             </div>
             <div class="button-logo" id="launch">
                 <img src="/static/play.svg" alt="LaunchLogo" height="40">
@@ -113,7 +113,7 @@
 </div>
 <script>
     const heightDocument = document.documentElement.scrollHeight
-    const url = "http://127.0.0.1"
+    const url = "http://10.2.11.39"
     const date = new Date()
     document.getElementById("ronoco-nodered").src=url+":1880"
 </script>
