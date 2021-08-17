@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: iso-8859-15 -*-
 
+import config
+
 import rospy
 from geometry_msgs.msg import Point
 from ronoco_vm.coverage.libs.list_helper import *
@@ -11,7 +13,7 @@ class MarkerVisualization:
 	def __init__(self):
 		self.last_points = {}
 		self.last_path = None
-		self.pub_marker = rospy.Publisher("path_coverage_marker", Marker, queue_size=16)
+		self.pub_marker = rospy.Publisher(config.namespace + "/path_coverage_marker", Marker, queue_size=16)
 		self.global_frame = rospy.get_param('~global_frame', 'map')
 
 	def visualization_cleanup(self):

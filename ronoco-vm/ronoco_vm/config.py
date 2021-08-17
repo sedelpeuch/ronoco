@@ -38,7 +38,8 @@ if ronoco_mode == "manipulator":
         commander = None
 
 elif ronoco_mode == "rolling":
-    move_base = rospy.get_param("topic_move_base")
-    cmd_vel = rospy.get_param("cmd_vel")
-    amcl_pose = rospy.get_param("amcl_pose")
+    namespace = rospy.get_param("namespace")
+    move_base = namespace + "/move_base"
+    cmd_vel = namespace + "/cmd_vel"
+    amcl_pose = namespace + "/amcl_pose"
     commander = actionlib.SimpleActionClient(move_base, MoveBaseAction)
