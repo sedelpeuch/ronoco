@@ -1,0 +1,32 @@
+<script type="text/javascript">
+    RED.nodes.registerType('sleep', {
+        category: 'ronoco/common',
+        color: '#5cb1d6',
+        defaults: {
+            name: {value: ""},
+            data: {value: "", required: true},
+        },
+        inputs: 1,
+        outputs: 0,
+        icon: "icons/hourglass.svg",
+        label: function () {
+            return this.name || "sleep";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="sleep">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-data"><i class="fa fa-tag"></i> Duration of sleep </label>
+        <input type="number" id="node-input-data" placeholder="60">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="sleep">
+    <h3>Description </h3>
+
+</script>

@@ -8,6 +8,7 @@
       "root": "common/root.js",
       "parallel": "common/parallel.js",
       "service": "common/service.js",
+      "sleep": "common/sleep.js",
       "condition": "common/condition.js",
       "inverter": "common/inverter.js",
       "timeout": "common/timeout.js",
