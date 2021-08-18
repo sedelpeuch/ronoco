@@ -21,7 +21,8 @@
       "replay": "manipulator/replay.js",
 
       "navigate": "rolling/navigate.js",
-      "coverage": "rolling/coverage.js"
+      "coverage": "rolling/coverage.js",
+      "patrol": "rolling/patrol.js"
     }
   },
   "dependencies": {
