@@ -80,6 +80,13 @@ A decorator that applies a timeout pattern to an existing behaviour. If the time
 - *name of service*: String - The name of the service to be called. The name must not be preceded by a /.
 - *Parameters of service*: Array - The parameters to be provided to the service. The parameters must be enclosed in brackets and separated by commas.
 
+<method> <img src="../static/nodered/hourglass.svg" width="5%"></img> sleep </method>
+Blocks allowing to wait during n secondes
+
+<member> Parameters </member>
+- *name*: String - name of current block
+- *duration of sleep*: Integer - Duration of sleep in seconds
+
 ### <class> Manipulator </class>
 
 <method> <img src="../static/nodered/play.svg" width="5%"></img> execute </method>
@@ -161,9 +168,11 @@ To view the area to be scanned in rviz it is necessary to add a marker: click on
 
 You can save this configuration of rviz so that you do not need to repeat this procedure in the future.
 
-To use the block, simply place it in a behaviour tree and then execute the tree. When the system executes the block, it will give you back the hand to ask for the zone to scan.
+To use the block, you can do so in two ways:
 
-To do this go to rviz, using the "publish point" tool click on a point on the map. Repeat the operation until you draw a polygon on the map. Once the polygon is closed (i.e. the last point placed corresponds to the first point placed) ronoco will take over and scan the area.
+either you have filled in the "Points making up the polygon" field of a point array. At this point the block will automatically scan the polygon closed by this point list.
+
+or you have left it empty. When the system executes the block, it will give you back your hand to request the area to be scanned. To do this, go into rviz, using the "publish point" tool click on a point on the map. Repeat the operation until you draw a polygon on the map. Once the polygon is closed (i.e. the last point placed corresponds to the first point placed) ronoco will take over and scan the area.
 
 <center>
 <img src="../static/coverage.gif"></img>
@@ -172,3 +181,25 @@ To do this go to rviz, using the "publish point" tool click on a point on the ma
 <member> Parameters </member>
 - *name*: String - Name of current block
 - *robot width*:  Float - width of the robot in meter
+
+<method> <img src="../static/nodered/navigation.svg" width="5%"></img> patrol </method>
+Block allowing to carry out a patrol, i.e. navigation on the edges of a user-defined polygon
+
+This procedure only needs to be done the first time rviz is started. Once you have done it, you do not need to do it again each time To view the area to be scanned in rviz it is necessary to add a marker: click on "add" at the bottom left of the screen. A menu opens. Click on "Marker". Then in the menu on the left of your screen (Displays) find "Marker". Scroll down the menu and set the "Marker topic" field to "path_coverage_marker".
+
+<center>
+<img src="../static/marker.gif"></img>
+</center>
+
+You can save this configuration of rviz so that you do not need to repeat this procedure in the future.
+
+To use the block, you can do so in two ways:
+
+either you have filled in the "Points making up the way" field of a point array. At this point the block will automatically navigate on this way.
+
+or you have left it empty. When the system executes the block, it will give you back your hand to request the area to be patrolled. To do this, go into rviz, using the "publish point" tool click on a point on the map. Repeat the operation until you draw a way on the map. Once the way is closed (i.e. the last point placed corresponds to the first point placed) ronoco will take over and scan the area.
+
+<member> Parameters </member>
+- *name*: String - Name of current block
+- *robot width*:  Float - width of the robot in meter
+- *Points making up the way (optional)*: An array of identifiers (in brackets separated by commas) defining the way. The way is closed automatically.

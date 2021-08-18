@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   height="432pt"
-   viewBox="0 -87 432 432"
-   width="432pt"
+   height="423.67349pt"
+   viewBox="0 -87 711 423.67349"
+   width="711pt"
    version="1.1"
    id="svg6"
    sodipodi:docname="camera-video.svg"
@@ -24,20 +24,20 @@
      inkscape:document-units="pt"
      showgrid="false"
      inkscape:zoom="0.81390937"
-     inkscape:cx="304.08791"
-     inkscape:cy="323.1318"
-     inkscape:window-width="1600"
-     inkscape:window-height="863"
-     inkscape:window-x="3384"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
+     inkscape:cx="38.702098"
+     inkscape:cy="207.02551"
+     inkscape:window-width="1559"
+     inkscape:window-height="638"
+     inkscape:window-x="0"
+     inkscape:window-y="74"
+     inkscape:window-maximized="0"
      inkscape:current-layer="svg6" />
   <path
-     d="m278.90625 0h-248.90625c-16.5625.0195312-29.9804688 13.4375-30 30v197.421875c.0195312 16.5625 13.4375 29.980469 30 30h248.90625c16.558594-.019531 29.980469-13.4375 30-30v-197.421875c-.019531-16.5625-13.441406-29.9804688-30-30zm0 0"
+     d="M 459.0332,-87 H 49.375 C 22.115885,-86.967855 0.0321451,-64.884115 0,-37.625 v 324.9235 c 0.0321451,27.25912 22.115885,49.34286 49.375,49.375 h 409.6582 c 27.25269,-0.0321 49.34286,-22.11588 49.375,-49.375 V -37.625 C 508.37606,-64.884115 486.28589,-86.967855 459.0332,-87 Z m 0,0"
      id="path2"
-     style="fill:#ffffff;fill-opacity:1" />
+     style="fill:#ffffff;fill-opacity:1;stroke-width:1.64583" />
   <path
-     d="m328.90625 169.800781 103.09375 56.285157v-194.105469l-103.09375 56.285156zm0 0"
+     d="M 541.32487,192.46379 711,285.09977 V -34.365478 L 541.32487,58.27051 Z m 0,0"
      id="path4"
-     style="fill:#ffffff;fill-opacity:1" />
+     style="fill:#ffffff;fill-opacity:1;stroke-width:1.64583" />
 </svg>
