@@ -4,11 +4,12 @@
         color: '#4c97ff',
         defaults: {
             name: {value: ""},
-            data: {value: ""}
+            robot_width: {value: "", required: true},
+            points: {value: ""}
         },
         credential: {
             name: {},
-            data: {}
+            robot_width: {}
         },
         inputs: 1,
         outputs: 0,
@@ -25,8 +26,12 @@
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
     <div class="form-row">
-        <label for="node-input-data"><i class="fa fa-tag"></i> Robot width (meter) </label>
-        <input type="number" id="node-input-data" placeholder="0.3">
+        <label for="node-input-robot_width"><i class="fa fa-tag"></i> Robot width (meter) </label>
+        <input type="number" id="node-input-robot_width" placeholder="0.3">
+    </div>
+    <div class="form-row">
+        <label for="node-input-points"><i class="fa fa-tag"></i> Points making up the polygon (optional) </label>
+        <input type="text" id="node-input-points" placeholder="[0, 1 ,2]">
     </div>
 </script>
 
@@ -42,9 +47,19 @@
     You can save this configuration of rviz so that you do not need to repeat this procedure in the future.
 
     <h3>How to use it </h3>
-    To use the block, simply place it in a behaviour tree and then execute the tree. When the system executes the block, it will give you back the hand to ask for the zone to scan.
-
-    To do this go to rviz, using the "publish point" tool click on a point on the map. Repeat the operation until you draw a polygon on the map. Once the polygon is closed (i.e. the last point placed corresponds to the first point placed) ronoco will take over and scan the area.
+    To use the block, you can do so in two ways:
+    <ul>
+        <li> either you have filled in the "Points making up the polygon" field of a point array. At this point the
+            block
+            will automatically scan the polygon closed by this point list.
+        </li>
+        <li> or you have left it empty. When the system executes the block, it will give you back your hand to request
+            the
+            area to be scanned. To do this, go into rviz, using the "publish point" tool click on a point on the map.
+            Repeat the operation until you draw a polygon on the map. Once the polygon is closed (i.e. the last point
+            placed corresponds to the first point placed) ronoco will take over and scan the area.
+        </li>
+    </ul>
 
     <h3> Parameters </h3>
     <h4>Name </h4>
@@ -52,4 +67,7 @@
 
     <h4>Robot width</h4>
     Float - width of the robot
+
+    <h4>Points making up the polygon (optional)</h4>
+    An array of identifiers (in brackets separated by commas) defining the vertices of the polygon to be scanned. The polygon is closed automatically.
 </script>
