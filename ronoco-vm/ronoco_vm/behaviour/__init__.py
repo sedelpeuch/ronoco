@@ -3,4 +3,4 @@ from behaviour.manipulator import cartesian, end_effector, execute, plan, record
 # noinspection PyUnresolvedReferences
 from behaviour.rolling import navigate, coverage
 
-from . import service, behaviour
+from . import service, sleep, behaviour

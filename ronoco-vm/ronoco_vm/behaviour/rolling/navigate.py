@@ -65,7 +65,10 @@ class Navigate(py_trees.behaviour.Behaviour):
         self.logger.debug("  %s [Navigate::update()]" % self.name)
         logger.debug("Execute block " + self.name)
         self.commander.send_goal(self.goal)
-        self.commander.wait_for_result(rospy.Duration(int(self.timeout)))
+        try:
+            self.commander.wait_for_result(rospy.Duration(int(self.timeout)))
+        except ValueError:
+            self.commander.wait_for_result(rospy.Duration(60))
         state = self.commander.get_state()
         if state in [GoalStatus.PREEMPTED, GoalStatus.ABORTED, GoalStatus.REJECTED, GoalStatus.RECALLED]:
             return py_trees.Status.FAILURE

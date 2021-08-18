@@ -3,6 +3,7 @@ This file implements some constants for behaviour like kind of types, leaves and
 commander
 """
 import ast
+from collections import Counter
 
 import cartesian_point
 import config
@@ -135,6 +136,8 @@ def coverage(name, data, child):
         return False, None
     if data['points'] != '':
         data['points'] = ast.literal_eval(data['points'])
+        if len(Counter(data['points']).values()) < 3:
+            return False, None
         points = []
         for i in range(len(data['points'])):
             state, point = cartesian_point.CartesianPoint().find_db(int(data['points'][i]))
@@ -143,6 +146,14 @@ def coverage(name, data, child):
             points.append(point)
         data['points'] = points
     return True, behaviour.coverage.Coverage(name, data)
+
+
+def sleep(name, data, child):
+    if name is None or name == "":
+        name = "sleep"
+    if data is None:
+        return False, None
+    return True, behaviour.sleep.Sleep(name, data)
 
 
 types = {'selector': selector,
@@ -159,13 +170,14 @@ types = {'selector': selector,
          'end effector': end_effector,
          'service': service,
          'navigate': navigate,
-         'coverage': coverage
+         'coverage': coverage,
+         'sleep': sleep
          }
 
 composites = {'selector', 'sequence', 'parallel'}
-leaf = {'execute', 'plan', 'cartesian', 'record', 'replay', 'end effector', 'service', 'navigate', 'coverage'}
+leaf = {'execute', 'plan', 'cartesian', 'record', 'replay', 'end effector', 'service', 'navigate', 'coverage', 'sleep'}
 decorators = {'condition', 'inverter', 'timeout'}
 data_node = {'execute', 'replay', 'plan', 'cartesian', 'condition', 'timeout', 'record', 'end effector', 'service',
-             'navigate', 'coverage'}
+             'navigate', 'coverage', 'sleep'}
 states = {"success": py_trees.common.Status.SUCCESS, "failure": py_trees.common.Status.FAILURE,
           "running": py_trees.common.Status.RUNNING}
