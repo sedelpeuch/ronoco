@@ -70,8 +70,8 @@ class MapDrive(MarkerVisualization):
         while self.global_costmap is None and time.time() - begin < 20:
             time.sleep(1)
         if self.global_costmap is None:
-            config.finished = py_trees.Status.FAILURE
-        config.finished = py_trees.Status.RUNNING
+            config.coverage = py_trees.Status.FAILURE
+        config.coverage = py_trees.Status.RUNNING
         rospy.loginfo("Running..")
 
     def globalCostmapReceived(self, costmap):
@@ -106,7 +106,7 @@ class MapDrive(MarkerVisualization):
                     self.drive_polygon(Polygon(points))
                 self.visualize_area(points, close=True, show=False)
                 self.lClickPoints = []
-                config.finished = py_trees.Status.SUCCESS
+                config.coverage = py_trees.Status.SUCCESS
                 return
         self.visualize_area(points, close=False)
 
@@ -129,7 +129,7 @@ class MapDrive(MarkerVisualization):
             if miny < 0: miny = 0
             if maxy > costmap.info.height: maxy = costmap.info.height
         except AttributeError:
-            config.finished = py_trees.Status.FAILURE
+            config.coverage = py_trees.Status.FAILURE
             return
 
         # Transform costmap values to values expected by boustrophedon_decomposition script
@@ -251,6 +251,8 @@ class MapDrive(MarkerVisualization):
             if rospy.is_shutdown(): return
 
             pos_diff = np.array(pos_next) - np.array(pos_last)
+            print(pos_next, pos_last)
+            print(pos_diff)
             # angle from last to current position
             angle = atan2(pos_diff[1], pos_diff[0])
 

@@ -156,6 +156,25 @@ def sleep(name, data, child):
     return True, behaviour.sleep.Sleep(name, data)
 
 
+def patrol(name, data, child):
+    if name is None or name == "":
+        name = "patrol"
+    if data is None:
+        return False, None
+    if data != '':
+        data = ast.literal_eval(data)
+        if len(Counter(data).values()) < 2:
+            return False, None
+        points = []
+        for i in range(len(data)):
+            state, point = cartesian_point.CartesianPoint().find_db(int(data[i]))
+            if not state:
+                return False, None
+            points.append(point)
+        data = points
+    return True, behaviour.patrol.Patrol(name, data)
+
+
 types = {'selector': selector,
          'sequence': sequence,
          'parallel': parallel,
@@ -171,13 +190,15 @@ types = {'selector': selector,
          'service': service,
          'navigate': navigate,
          'coverage': coverage,
-         'sleep': sleep
+         'sleep': sleep,
+         'patrol': patrol
          }
 
 composites = {'selector', 'sequence', 'parallel'}
-leaf = {'execute', 'plan', 'cartesian', 'record', 'replay', 'end effector', 'service', 'navigate', 'coverage', 'sleep'}
+leaf = {'execute', 'plan', 'cartesian', 'record', 'replay', 'end effector', 'service', 'navigate', 'coverage', 'sleep',
+        'patrol'}
 decorators = {'condition', 'inverter', 'timeout'}
 data_node = {'execute', 'replay', 'plan', 'cartesian', 'condition', 'timeout', 'record', 'end effector', 'service',
-             'navigate', 'coverage', 'sleep'}
+             'navigate', 'coverage', 'sleep', 'patrol'}
 states = {"success": py_trees.common.Status.SUCCESS, "failure": py_trees.common.Status.FAILURE,
           "running": py_trees.common.Status.RUNNING}

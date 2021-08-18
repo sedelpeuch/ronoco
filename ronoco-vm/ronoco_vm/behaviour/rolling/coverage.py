@@ -28,7 +28,7 @@ class Coverage(py_trees.behaviour.Behaviour):
         self.robot_width = float(data['robot_width'])
         self.points = data['points']
         self.publisher = rospy.Publisher('/clicked_point', PointStamped)
-        self.thread = threading.Thread(target=self.publish_points)
+        self.thread = None
 
     def setup(self, timeout):
         """
@@ -43,6 +43,7 @@ class Coverage(py_trees.behaviour.Behaviour):
         No specific treatment
         """
         self.logger.debug("  %s [Coverage::initialise()]" % self.name)
+        self.thread = threading.Thread(target=self.publish_points)
 
     def update(self):
         """
@@ -52,24 +53,26 @@ class Coverage(py_trees.behaviour.Behaviour):
         self.logger.debug("  %s [Coverage::update()]" % self.name)
         logger.debug("Execute block " + self.name)
         if self.points != '':
-            self.thread.start()
+            try:
+                self.thread.start()
+            except RuntimeError:
+                pass
         self.map_drive = path_coverage_node.MapDrive(self.robot_width)
-        while config.finished != py_trees.Status.SUCCESS and config.finished != py_trees.Status.FAILURE:
+        while config.coverage != py_trees.Status.SUCCESS and config.coverage != py_trees.Status.FAILURE:
             time.sleep(1)
-        if config.finished == py_trees.Status.FAILURE:
+        if config.coverage == py_trees.Status.FAILURE:
             self.map_drive.on_shutdown()
-        return config.finished
+        return config.coverage
 
     def terminate(self, new_status):
         """
-        Replace the finished value of the configuration file with False
+        Replace the coverage value of the configuration file with False
         """
         self.logger.debug("  %s [Coverage::terminate().terminate()][%s->%s]" % (self.name, self.status, new_status))
-        config.finished = None
+        config.coverage = None
 
     def publish_points(self):
-
-        while config.finished != py_trees.Status.RUNNING:
+        while config.coverage != py_trees.Status.RUNNING:
             time.sleep(1)
         self.points.append(self.points[0])
         for i in range(len(self.points)):
