@@ -2,6 +2,8 @@
 This file implements some constants for behaviour like kind of types, leaves and create an instance of CartesianPoint()
 commander
 """
+import ast
+
 import cartesian_point
 import config
 import py_trees
@@ -125,16 +127,23 @@ def navigate(name, data, child):
     data = {'point': point, 'timeout': data['timeout']}
     return True, behaviour.navigate.Navigate(name, data)
 
+
 def coverage(name, data, child):
     if name is None or name == "":
         name = "coverage"
     if data is None:
         return False, None
-    try :
-        data = float(data)
-    except ValueError:
-        data = 0.3
+    if data['points'] != '':
+        data['points'] = ast.literal_eval(data['points'])
+        points = []
+        for i in range(len(data['points'])):
+            state, point = cartesian_point.CartesianPoint().find_db(int(data['points'][i]))
+            if not state:
+                return False, None
+            points.append(point)
+        data['points'] = points
     return True, behaviour.coverage.Coverage(name, data)
+
 
 types = {'selector': selector,
          'sequence': sequence,

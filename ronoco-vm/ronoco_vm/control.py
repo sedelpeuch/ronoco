@@ -271,6 +271,8 @@ class Control:
                             'service_parameter': node_json['service_parameter']}
                 elif node_json['type'] == 'navigate':
                     data = {'identifier': node_json['data'], 'timeout': node_json['timeout']}
+                elif node_json['type'] == 'coverage':
+                    data = {'robot_width': node_json['robot_width'], 'points': node_json['points']}
                 else:
                     data = node_json['data']
             except KeyError:

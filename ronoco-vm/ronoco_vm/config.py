@@ -1,14 +1,13 @@
 """
 This file gathers all the configuration variables until ronoco-config is created
 """
-import py_trees
 
 import actionlib
 import rospy
 from move_base_msgs.msg import MoveBaseAction
 from moveit_commander import MoveGroupCommander
 
-finished = py_trees.Status.RUNNING
+finished = None
 socketio = None
 
 # Level of debug

@@ -71,6 +71,7 @@ class MapDrive(MarkerVisualization):
             time.sleep(1)
         if self.global_costmap is None:
             config.finished = py_trees.Status.FAILURE
+        config.finished = py_trees.Status.RUNNING
         rospy.loginfo("Running..")
 
     def globalCostmapReceived(self, costmap):
