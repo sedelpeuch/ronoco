@@ -17,7 +17,6 @@ export {get, post};
         for (i = 0; i < arguments.length; i++) {
             arg = arguments[i];
             output += "<span class=\"log-" + (typeof arg) + "\">";
-            output += date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
 
             if (
                 typeof arg === "object" &&
@@ -32,7 +31,7 @@ export {get, post};
                 temp = temp.replace("Success", "Success".fontcolor("green"))
                 temp = temp.replace("Info", "Info".fontcolor("blue"))
                 temp = temp.replace("Warning", "Warning".fontcolor("orange"))
-                temp = temp.replace("Debug", "Debug".fontcolor("blue"))
+                temp = temp.replace("Debug", "Info".fontcolor("blue"))
                 output += temp
             } else {
                 output += arg;

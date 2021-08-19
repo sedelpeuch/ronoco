@@ -26,7 +26,7 @@ def parallel(name, data, child):
 
 
 def execute(data, child, name):
-    if config.mode != "manipulator":
+    if config.ronoco_mode != "manipulator":
         return False, None, "Need manipulator mode"
     if name is None or name == "":
         name = "execute"
@@ -42,7 +42,7 @@ def execute(data, child, name):
 
 
 def plan(name, data, child):
-    if config.mode != "manipulator":
+    if config.ronoco_mode != "manipulator":
         return False, None, "Need manipulator mode"
     if data is None:
         return False, None, "No data"
@@ -83,7 +83,7 @@ def timeout(name, data, child):
 
 
 def cartesian(name, data, child):
-    if config.mode != "manipulator":
+    if config.ronoco_mode != "manipulator":
         return False, None, "Need manipulator mode"
     if name is None or name == "":
         name = "Cartesian"
@@ -101,7 +101,7 @@ def cartesian(name, data, child):
 
 
 def record(name, data, child):
-    if config.mode != "manipulator":
+    if config.ronoco_mode != "manipulator":
         return False, None, "Need manipulator mode"
     if name is None or name == "":
         name = "Record"
@@ -112,7 +112,7 @@ def record(name, data, child):
 
 
 def replay(name, data, child):
-    if config.mode != "manipulator":
+    if config.ronoco_mode != "manipulator":
         return False, None, "Need manipulator mode"
     if name is None or name == "":
         name = "Replay"
@@ -122,7 +122,7 @@ def replay(name, data, child):
 
 
 def end_effector(name, data, child):
-    if config.mode != "manipulator":
+    if config.ronoco_mode != "manipulator":
         return False, None, "Need manipulator mode"
     if name is None or name == "":
         name = "end effector"
@@ -144,7 +144,7 @@ def service(name, data, child):
 
 
 def navigate(name, data, child):
-    if config.mode != "rolling":
+    if config.ronoco_mode != "rolling":
         return False, None, "Need rolling mode"
     if name is None or name == "":
         name = "navigate"
@@ -161,7 +161,7 @@ def navigate(name, data, child):
 
 
 def coverage(name, data, child):
-    if config.mode != "rolling":
+    if config.ronoco_mode != "rolling":
         return False, None, "Need rolling mode"
     if name is None or name == "":
         name = "coverage"
@@ -194,7 +194,7 @@ def sleep(name, data, child):
 
 
 def patrol(name, data, child):
-    if config.mode != "rolling":
+    if config.ronoco_mode != "rolling":
         return False, None, "Need rolling mode"
     if name is None or name == "":
         name = "patrol"
