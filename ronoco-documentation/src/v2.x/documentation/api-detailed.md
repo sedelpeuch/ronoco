@@ -291,6 +291,24 @@ Allows you to delete all Cartesian points in the ros parameters server (on the n
 
 <member> Return </member> a response 200
 
+<method> marker_add_point(point) </method>
+
+Add marker in rviz
+
+<member>Parameters </member>
+- *point:* localization of marker
+
+<method> marker_delete_point(id) </method>
+
+Add marker in rviz
+
+<member>Parameters </member>
+- *id:* id of marker
+
+<method> marker_clear </method>
+
+Clear all markers in rviz
+
 ## <class> Control </class>
 
 Definition of the endpoint control to analyse and execute behaviour trees

@@ -60,7 +60,7 @@ It is necessary to download a socketio client in the static folder of the API
 
 ```bash
 cd $HOME/catkin_ws/src/ronoco/ronoco-vm/ronoco_vm/static/
-mkdir socket.io
+mkdir socket.io && cd socket.io
 wget https://github.com/socketio/socket.io/blob/master/client-dist/socket.io.js
 wget https://github.com/socketio/socket.io/blob/master/client-dist/socket.io.js.map
 ```
@@ -70,22 +70,48 @@ Before using ronoco it is necessary to compile the ROS workspace
 ```bash
 cd $HOME/catkin_ws/
 catkin_make
-source devel/setup.<bash/zsh>
+source devel/setup.bash
 ```
+
+### Set up Rviz (optionnal)
+
+If you want to view the different points and paths defined by ronoco in rviz it is necessary to add two markers in rviz.
+
+To add a marker in rviz : click on "add" at the bottom left of the screen. A menu opens. Click on "Marker". Then in the menu on the left of your screen (Displays) find "Marker". Scroll down the menu and set the "Marker topic" field to :
+
+1. to view the recorded points: "visualization_marker".
+2. (rolling robots only) to view the paths travelled: "path_coverage_marker"
+
+<center>
+<img src="ronoco-documentation/src/v2.x/static/marker.gif"></img>
+</center>
 
 ## Quick Start
 
-To launch the project, simply run the following command:
+### Manipulator mode
+
+To launch the project with a manipulator arm, simply run the following command:
 
 ```bash
-roslaunch ronoco ronoco.launch commander:=string compliant_mode:=string end_effector:=string
+roslaunch ronoco manipulator.launch commander:=string compliant_mode:=string end_effector:=string
 ```
 
 With as argument :
 - *commander*: the name of the move_group in MoveIt
 - *compliant_mode*: *manual* if the robot can go into compliant mode manually, *None* if the robot cannot go into compliant mode, or *the name of the service* to put it in and out of compliant mode.
-- end_effector*: the name of the service to manipulate the effector, e.g. "wsg_50_driver/move".  It is not necessary to fill in this field
+- *end_effector*: the name of the service to manipulate the effector, e.g. "wsg_50_driver/move". (optional)
 
-Once all the modules are running go to your [localhost:8080](http://localhost:8080/) and you will arrive on the ronoco page:
+### Rolling mode
+
+To launch the project with a rolling robot, simply run the following command:
+
+```bash
+roslaunch ronoco rolling.launch namespace:=string
+```
+
+With as argument :
+- *namespace*: the namespace for your robot without last / (default " ")
+
+Once all the modules are running go to your [localhost:8080](http://localhost:8080/) and you will arrive at the ronoco page:
 
 ![ronoco](ronoco-documentation/src/static/ronoco.png)
