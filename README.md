@@ -1,5 +1,4 @@
-<img src="logo.svg" width="5%"/> Ronoco [![CI](https://github.com/Sdelpeuch/ronoco/actions/workflows/main.yml/badge.svg?branch=gh-pages)](https://github.com/Sdelpeuch/ronoco/actions/workflows/main.yml)
-=========================================================================================================================================================================================================
+# <img src="logos/logo_full_white.png" width="100%"/>
 
 With *ROS*, creating a robotic system means developing programs in *C++* or *Python*, making ROS *inaccessible* to all non-developer experts: process engineers, industrialization engineers...
 
@@ -122,4 +121,4 @@ With as argument :
 
 Once all the modules are running go to your [localhost:8080](http://localhost:8080/) and you will arrive at the ronoco page:
 
-![ronoco](ronoco-documentation/src/static/ronoco.png)
+![ronoco](ronoco-documentation/src/v2.x/static/ronoco.png)
