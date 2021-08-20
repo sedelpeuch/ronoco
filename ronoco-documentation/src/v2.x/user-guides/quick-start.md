@@ -1,5 +1,7 @@
 # Getting started
 
+
+
 ## Quick-start
 
 To launch the project with a **manipulator robot**, simply run the following command

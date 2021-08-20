@@ -1,5 +1,7 @@
 # Users guides
 
+<center> <img src="logo_manipulator.png" width="60%"/> </center>
+
 These guides are intended for users who want to install and use ronoco. The guides are illustrated with examples of how ronoco is used on different robots.
 
 - [Installation](user-guides/installation.md)

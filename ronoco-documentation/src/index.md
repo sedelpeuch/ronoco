@@ -1,5 +1,4 @@
-<img src="logo.svg" width="5%"/> Ronoco
-================================================
+# <center> <img src="logo_full_white.png" width="60%"/> </center>
 
 With **ROS**, creating a robotic system means developing programs in **C++** or **Python**, making ROS **inaccessible** to all non-developer experts: process engineers, industrialization engineers...
 
@@ -15,3 +14,10 @@ The three modules are **ronoco-vm** a ROS package consisting of a flask API that
 
 The last one is **ronoco-ui** a web client allowing to use the two previous modules. It provides utilities for the robot (registering positions, launching a program, stopping the server etc). Moreover, it allows defining programs using a no-code interface like NodeRed or Scratch (WIP)
 
+## Can ronoco be used on my robot?
+
+To use ronoco with your robot it is necessary that it has the following specifications:
+1. For a manipulator robot it is necessary that it is compatible with **MoveIt**. Ronoco mainly uses MoveIt to control the manipulator robots and the rviz visualization topics
+2. For a rolling robot it is necessary that it is compatible with **MoveBase**. Ronoco uses the SimpleActionClient of move base for navigation. The robot will also have to provide a topic where it publishes its current position (typically /amcl_pose) as well as a topic allowing it to be teleoperated (typically /cmd_vel)
+
+If your robot meets these specifications you can use ronoco with it!
