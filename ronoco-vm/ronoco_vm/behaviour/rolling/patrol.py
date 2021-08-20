@@ -9,7 +9,7 @@ from math import atan2
 
 import config
 import py_trees
-
+import logger
 import rospy
 import tf
 from actionlib_msgs.msg import GoalStatus
@@ -29,7 +29,7 @@ class Patrol(py_trees.behaviour.Behaviour, MarkerVisualization):
         MarkerVisualization.__init__(self)
         super(Patrol, self).__init__(name)
         self.commander = config.commander
-        rospy.Subscriber("/clicked_point", PointStamped, self.rvizPointReceived)
+        self.subscriber = rospy.Subscriber("/clicked_point", PointStamped, self.rvizPointReceived)
         self.publisher = rospy.Publisher('/clicked_point', PointStamped)
         self.thread = None
         self.lClickPoints = []
@@ -56,6 +56,7 @@ class Patrol(py_trees.behaviour.Behaviour, MarkerVisualization):
         :return: SUCCESS or FAILURE
         """
         self.logger.debug("  %s [Patrol::update()]" % self.name)
+        logger.debug("Execute block " + self.name)
         if self.points != '':
             self.thread.start()
         while config.patrol == py_trees.Status.RUNNING or config.patrol is None:
@@ -68,6 +69,7 @@ class Patrol(py_trees.behaviour.Behaviour, MarkerVisualization):
         """
         self.logger.debug("  %s [Patrol::terminate().terminate()][%s->%s]" % (self.name, self.status, new_status))
         config.patrol = None
+        self.subscriber.unregister()
 
     def rvizPointReceived(self, point):
         """

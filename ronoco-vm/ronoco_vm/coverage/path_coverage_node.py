@@ -54,7 +54,7 @@ class MapDrive(MarkerVisualization):
         self.border_drive = rospy.get_param("~border_drive", False)
         self.base_frame = rospy.get_param("~base_frame", "base_link")
 
-        rospy.Subscriber("/clicked_point", PointStamped, self.rvizPointReceived)
+        self.subscriber = rospy.Subscriber("/clicked_point", PointStamped, self.rvizPointReceived)
         rospy.Subscriber(config.move_base + "/global_costmap/costmap", OccupancyGrid, self.globalCostmapReceived)
         rospy.Subscriber(config.move_base + "/local_costmap/costmap", OccupancyGrid, self.localCostmapReceived)
         self.tfBuffer = tf2_ros.Buffer()
@@ -107,6 +107,7 @@ class MapDrive(MarkerVisualization):
                 self.visualize_area(points, close=True, show=False)
                 self.lClickPoints = []
                 config.coverage = py_trees.Status.SUCCESS
+                self.subscriber.unregister()
                 return
         self.visualize_area(points, close=False)
 

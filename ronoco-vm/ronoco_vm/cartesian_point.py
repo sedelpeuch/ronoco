@@ -33,11 +33,12 @@ class CartesianPoint:
         self.bp.route('/get/<identifiant>', methods=['GET'])(self.get_one_point)
         self.bp.route('/get', methods=['GET'])(self.get_all_points)
         self.publisher = rospy.Publisher("/visualization_marker", Marker, queue_size=10)
-        self.marker_id = 0
         try:
             self.cartesianPoints = rospy.get_param("cartesianPoints")
         except KeyError:
             pass
+        self.marker_id = len(self.cartesianPoints)
+        self.first_marker = True
         self.id = len(self.cartesianPoints)
 
     def add_bd(self, cartesian_point):
@@ -269,10 +270,10 @@ class CartesianPoint:
         Add marker in rviz
         :param point: localization of marker
         """
-        if self.marker_id == 0:
+        if self.first_marker:
             self.marker_clear()
+            self.first_marker = False
         marker = Marker()
-        marker.header.frame_id = "base_link"
         marker.header.stamp = rospy.Time.now()
         if config.ronoco_mode == "rolling":
             marker.ns = config.namespace
@@ -291,7 +292,12 @@ class CartesianPoint:
         marker.color.g = 0.0
         marker.color.b = 1.0
         marker.color.a = 1.0
-        marker.scale.z = 0.1
+        if config.ronoco_mode == "manipulator":
+            marker.header.frame_id = "base_link"
+            marker.scale.z = 0.1
+        elif config.ronoco_mode == "rolling":
+            marker.header.frame_id = "map"
+            marker.scale.z = 0.2
         marker.text = str(self.marker_id)
         self.marker_id += 1
         self.publisher.publish(marker)
