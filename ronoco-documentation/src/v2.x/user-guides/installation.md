@@ -109,4 +109,17 @@ source devel/setup.bash
 source devel/setup.zsh
 ```
 
+### Set up Rviz (optionnal)
+
+If you want to view the different points and paths defined by ronoco in rviz it is necessary to add two markers in rviz.
+
+To add a marker in rviz : click on "add" at the bottom left of the screen. A menu opens. Click on "Marker". Then in the menu on the left of your screen (Displays) find "Marker". Scroll down the menu and set the "Marker topic" field to :
+
+1. to view the recorded points: "visualization_marker".
+2. (rolling robots only) to view the paths travelled: "path_coverage_marker"
+
+<center>
+<img src="../static/marker.gif"></img>
+</center>
+
 To start ronoco refer to the [Getting Started](quick-start.md) page

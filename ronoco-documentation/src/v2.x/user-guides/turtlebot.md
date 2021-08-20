@@ -96,3 +96,18 @@ In a new terminal run the command `roscd turtlebot3_ros4pro/maps/` to go to the 
 The following command will delete the previous map if there is one, or make a copy if you want to keep it. Run the command `roslaunch turtlebot3_ros4pro map_saver.launch` which will save the map in the maps folder of the turtlebot3_ros4pro package (maps.yaml and maps.pgm files).
 
 For navigation run the roslaunch command turtlebot3_ros4pro navigation.launch to start location and autonomous navigation. Once rviz is open you can create behaviour trees using ronoco
+
+For example the execution of the tree below
+<center>
+<img src="../static/treetb3.png"></img>
+</center>
+
+This tree will ask the robot to navigate to point 0, then to patrol between points 0, 1 and 2 and finally to scan the polygon formed by points 0, 1 and 2. Its execution gives the result below.
+
+<center>
+<video controls width="100%">
+<source src="../static/tb3.mp4" type="video/mp4">
+</video>
+</center>
+
+
