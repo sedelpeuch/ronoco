@@ -8,7 +8,9 @@ from flask import Blueprint, request
 import config
 import rospy
 import topic_callback
+from geometry_msgs.msg import Pose
 from moveit_commander import MoveItCommanderException
+from visualization_msgs.msg import Marker
 
 
 class CartesianPoint:
@@ -21,17 +23,22 @@ class CartesianPoint:
     def __init__(self):
         self.bp = Blueprint('cartesian_point', __name__, url_prefix='/point')
 
-        self.bp.route('/add/simulation', methods=['POST'])(self.add_point_from_rviz)
-        self.bp.route('/add/actual', methods=['POST'])(self.add_point_from_actual_position)
+        self.bp.route('/add/simulation', methods=['POST'])(self.add_point_simulation)
+        if config.ronoco_mode == "manipulator":
+            self.bp.route('/add/actual', methods=['POST'])(self.manipulator_add_point_real)
+        elif config.ronoco_mode == "rolling":
+            self.bp.route('/add/actual', methods=['POST'])(self.rolling_add_point_real)
         self.bp.route('/delete/<identifiant>', methods=['POST'])(self.delete_one_point)
         self.bp.route('/delete', methods=['POST'])(self.delete_all_points)
         self.bp.route('/get/<identifiant>', methods=['GET'])(self.get_one_point)
         self.bp.route('/get', methods=['GET'])(self.get_all_points)
-
+        self.publisher = rospy.Publisher("/visualization_marker", Marker, queue_size=10)
         try:
             self.cartesianPoints = rospy.get_param("cartesianPoints")
         except KeyError:
             pass
+        self.marker_id = len(self.cartesianPoints)
+        self.first_marker = True
         self.id = len(self.cartesianPoints)
 
     def add_bd(self, cartesian_point):
@@ -90,7 +97,7 @@ class CartesianPoint:
         self.id = 0
         rospy.set_param("cartesianPoints", self.cartesianPoints)
 
-    def add_point_from_actual_position(self):
+    def manipulator_add_point_real(self):
         """
         POST Method
 
@@ -99,6 +106,8 @@ class CartesianPoint:
         POST body
         {
         }
+
+        Manipulator only
 
         Allows you to add a Cartesian point corresponding to the current position of the robot.
 
@@ -128,9 +137,10 @@ class CartesianPoint:
         }
         if request.method == 'POST':
             self.add_bd(cartesian_point)
+            self.marker_add_point(cartesian_point)
             return {"Success": "Add cartesian point with id:" + str(self.id - 1)}, 200
 
-    def add_point_from_rviz(self):
+    def add_point_simulation(self):
         """
         POST Method
 
@@ -148,9 +158,34 @@ class CartesianPoint:
         """
         if request.method == 'POST':
             time.sleep(1)
-            if topic_callback.position == {}:
+            if topic_callback.position_simulation == {}:
                 return {"Error": "Rviz doesn't send response"}, 408
-            self.add_bd(topic_callback.position)
+            self.add_bd(topic_callback.position_simulation)
+            self.marker_add_point(topic_callback.position_simulation)
+            return {"Success": "Add cartesian point with id:" + str(self.id - 1)}, 200
+
+    def rolling_add_point_real(self):
+        """
+        POST Method
+
+        ROUTE /point/add/actual
+
+        POST body
+        {
+        }
+
+        Allows you to add a Cartesian point corresponding to the current position of robot.
+
+        The id of the position is automatically given
+
+        :return: id for new cartesian point if everything is ok, a 408 error else.
+        """
+        if request.method == 'POST':
+            time.sleep(1)
+            if topic_callback.position_amcl == {}:
+                return {"Error": "Amcl doesn't send response"}, 408
+            self.add_bd(topic_callback.position_amcl)
+            self.marker_add_point(topic_callback.position_amcl)
             return {"Success": "Add cartesian point with id:" + str(self.id - 1)}, 200
 
     def get_all_points(self):
@@ -206,6 +241,7 @@ class CartesianPoint:
         if request.method == 'POST':
             status = self.delete_bd(identifiant)
             if status:
+                self.marker_delete_point(identifiant)
                 return {"Success": "Point have been deleted"}, 200
             else:
                 return {"Error": "No point match with id: " + str(identifiant)}, 404
@@ -226,4 +262,69 @@ class CartesianPoint:
         """
         if request.method == 'POST':
             self.clear_db()
+            self.marker_clear()
             return {"Success": "All points have been deleted"}, 200
+
+    def marker_add_point(self, point):
+        """
+        Add marker in rviz
+        :param point: localization of marker
+        """
+        if self.first_marker:
+            self.marker_clear()
+            self.first_marker = False
+        marker = Marker()
+        marker.header.stamp = rospy.Time.now()
+        if config.ronoco_mode == "rolling":
+            marker.ns = config.namespace
+        marker.id = self.marker_id
+        marker.type = Marker.TEXT_VIEW_FACING
+        marker.action = Marker.ADD
+        marker.pose = Pose()
+        marker.pose.position.x = point['position']['x']
+        marker.pose.position.y = point['position']['y']
+        marker.pose.position.z = point['position']['z']
+        marker.pose.orientation.x = point['orientation']['x']
+        marker.pose.orientation.y = point['orientation']['y']
+        marker.pose.orientation.z = point['orientation']['z']
+        marker.pose.orientation.w = point['orientation']['w']
+        marker.color.r = 0.0
+        marker.color.g = 0.0
+        marker.color.b = 1.0
+        marker.color.a = 1.0
+        if config.ronoco_mode == "manipulator":
+            marker.header.frame_id = "base_link"
+            marker.scale.z = 0.1
+        elif config.ronoco_mode == "rolling":
+            marker.header.frame_id = "map"
+            marker.scale.z = 0.2
+        marker.text = str(self.marker_id)
+        self.marker_id += 1
+        self.publisher.publish(marker)
+
+    def marker_delete_point(self, id):
+        """
+        Delete one marker on rviz
+        :param id: id of marker
+        """
+        marker = Marker()
+        marker.header.frame_id = "base_link"
+        marker.header.stamp = rospy.Time.now()
+        if config.ronoco_mode == "rolling":
+            marker.ns = config.namespace
+        marker.id = int(id)
+        marker.action = Marker.DELETE
+        self.publisher.publish(marker)
+
+    def marker_clear(self):
+        """
+        Clear all marker in rviz
+        """
+        marker = Marker()
+        marker.header.frame_id = "base_link"
+        marker.header.stamp = rospy.Time.now()
+        if config.ronoco_mode == "rolling":
+            marker.ns = config.namespace
+        marker.action = Marker.DELETEALL
+        self.marker_id = 0
+        self.publisher.publish(marker)

@@ -1,0 +1,64 @@
+<script type="text/javascript">
+    RED.nodes.registerType('patrol', {
+        category: 'ronoco/rolling',
+        color: '#4c97ff',
+        defaults: {
+            name: {value: ""},
+            data: {value: ""}
+        },
+        credential: {
+            name: {},
+            data: {}
+        },
+        inputs: 1,
+        outputs: 0,
+        icon: "icons/navigation.svg",
+        label: function () {
+            return this.name || "patrol";
+        },
+    });
+</script>
+
+<script data-template-name="patrol" type="text/html">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-data"><i class="fa fa-tag"></i> Points making up the way (optionnal) </label>
+        <input type="text" id="node-input-data" placeholder="[0, 1 ,2]">
+    </div>
+</script>
+
+<script data-help-name="patrol" type="text/html">
+    <h3>Description </h3>
+    <h4> Set up rviz </h4>
+    This procedure only needs to be done the first time rviz is started. Once you have done it, you do not need to do it again each time
+
+    To view the area to be scanned in rviz it is necessary to add a marker: click on "add" at the bottom left of the screen. A menu opens. Click on "Marker". Then in the menu on the left of your screen (Displays) find "Marker". Scroll down the menu and set the "Marker topic" field to "path_coverage_marker".
+
+    You can save this configuration of rviz so that you do not need to repeat this procedure in the future.
+
+    <h4>How to use it </h4>
+    To use the block, you can do so in two ways:
+    <ul>
+        <li> either you have filled in the "Points making up the way" field of a point array. At this point the
+            block
+            will automatically navigate on this way.
+        </li>
+        <li> or you have left it empty. When the system executes the block, it will give you back your hand to request
+            the
+            area to be patrolled. To do this, go into rviz, using the "publish point" tool click on a point on the map.
+            Repeat the operation until you draw a way on the map. Once the way is closed (i.e. the last point
+            placed corresponds to the first point placed) ronoco will take over and scan the area.
+        </li>
+    </ul>
+
+    <h3> Parameters </h3>
+    <h4>Name </h4>
+    String - name of the current block.
+
+    <h4>Points making up the way (optional)</h4>
+    An array of identifiers (in brackets separated by commas) defining the way. The
+    way is closed automatically.
+</script>

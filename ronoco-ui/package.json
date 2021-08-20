@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "webpack",
-    "start": "webpack serve",
+    "start": "webpack serve --host 0.0.0.0",
     "stop": "pkill --signal SIGINT webpack"
   },
   "repository": {

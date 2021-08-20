@@ -21,6 +21,7 @@ class Service(py_trees.behaviour.Behaviour):
         super(Service, self).__init__(name)
         self.service_name = data['service_name']
         self.service_type = rosservice.get_service_type("/" + self.service_name).replace('/', '.').rsplit(".", 1)
+        print(data['service_parameter'])
         self.service_parameter = ast.literal_eval(data['service_parameter'])
         self.service = None
 
@@ -51,6 +52,8 @@ class Service(py_trees.behaviour.Behaviour):
         try:
             result = self.service(*self.service_parameter)
         except rospy.ServiceException:
+            return py_trees.common.Status.FAILURE
+        except TypeError:
             return py_trees.common.Status.FAILURE
         return py_trees.common.Status.SUCCESS
 

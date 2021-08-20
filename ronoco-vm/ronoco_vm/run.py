@@ -12,6 +12,7 @@ from werkzeug.debug import DebuggedApplication
 import config
 import rospy
 import topic_callback
+from geometry_msgs.msg import PointStamped, PoseWithCovarianceStamped
 from visualization_msgs.msg import InteractiveMarkerUpdate
 
 
@@ -31,7 +32,7 @@ class RonocoVm:
         self.setup_app()
         rospy.init_node('user')
         rospy.loginfo("User root is serving the Web app")
-        config.socketio.run(self.app)
+        config.socketio.run(self.app, host="0.0.0.0")
 
     def create_app(self, test_config=None):
         """
@@ -79,6 +80,10 @@ class RonocoVm:
         import free
         self.app.register_blueprint(free.bp)
 
+        if config.ronoco_mode == "rolling":
+            import teleoperation
+            self.app.register_blueprint(teleoperation.Teleoperation().bp)
+
         CORS(self.app)
 
     @staticmethod
@@ -87,11 +92,13 @@ class RonocoVm:
         Uses rospy to subscribe to the different topics needed by the API
         :return: None
         """
-        rospy.Subscriber(
-            "/rviz_moveit_motion_planning_display/robot_interaction_interactive_marker_topic/update",
-            InteractiveMarkerUpdate, topic_callback.position_callback)
-        time.sleep(0.5)
-
-
+        if config.ronoco_mode == "manipulator":
+            rospy.Subscriber(
+                "/rviz_moveit_motion_planning_display/robot_interaction_interactive_marker_topic/update",
+                InteractiveMarkerUpdate, topic_callback.position_callback)
+            time.sleep(0.5)
+        elif config.ronoco_mode == "rolling":
+            rospy.Subscriber("/clicked_point", PointStamped, topic_callback.position_callback)
+            rospy.Subscriber(config.amcl_pose, PoseWithCovarianceStamped, topic_callback.amcl_callback)
 if __name__ == "__main__":
     RonocoVm()

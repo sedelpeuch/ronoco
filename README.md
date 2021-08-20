@@ -15,6 +15,14 @@ The three modules are **ronoco-vm** a ROS package consisting of a flask API that
 
 The last one is **ronoco-ui** a web client allowing to use the two previous modules. It provides utilities for the robot (registering positions, launching a program, stopping the server etc). On the other hand it allows defining programs using a no-code interface like NodeRed or Scratch (WIP)
 
+## Can ronoco be used on my robot?
+
+To use ronoco with your robot it is necessary that it has the following specifications:
+1. For a manipulator robot it is necessary that it is compatible with **MoveIt**. Ronoco mainly uses MoveIt to control the manipulator robots and the rviz visualization topics
+2. For a rolling robot it is necessary that it is compatible with **MoveBase**. Ronoco uses the SimpleActionClient of move base for navigation. The robot will also have to provide a topic where it publishes its current position (typically /amcl_pose) as well as a topic allowing it to be teleoperated (typically /cmd_vel)
+
+If your robot meets these specifications you can use ronoco with it!
+
 ## Documentation
 
 The project documentation is available at  [https://sdelpeuch.github.io/Ronoco/](https://sdelpeuch.github.io/ronoco/). It includes guides for users (installation, start-up, use, examples on robots), guides for developers as well as a precise documentation of the different modules.
@@ -60,7 +68,7 @@ It is necessary to download a socketio client in the static folder of the API
 
 ```bash
 cd $HOME/catkin_ws/src/ronoco/ronoco-vm/ronoco_vm/static/
-mkdir socket.io
+mkdir socket.io && cd socket.io
 wget https://github.com/socketio/socket.io/blob/master/client-dist/socket.io.js
 wget https://github.com/socketio/socket.io/blob/master/client-dist/socket.io.js.map
 ```
@@ -70,22 +78,48 @@ Before using ronoco it is necessary to compile the ROS workspace
 ```bash
 cd $HOME/catkin_ws/
 catkin_make
-source devel/setup.<bash/zsh>
+source devel/setup.bash
 ```
+
+### Set up Rviz (optionnal)
+
+If you want to view the different points and paths defined by ronoco in rviz it is necessary to add two markers in rviz.
+
+To add a marker in rviz : click on "add" at the bottom left of the screen. A menu opens. Click on "Marker". Then in the menu on the left of your screen (Displays) find "Marker". Scroll down the menu and set the "Marker topic" field to :
+
+1. to view the recorded points: "visualization_marker".
+2. (rolling robots only) to view the paths travelled: "path_coverage_marker"
+
+<center>
+<img src="ronoco-documentation/src/v2.x/static/marker.gif"></img>
+</center>
 
 ## Quick Start
 
-To launch the project, simply run the following command:
+### Manipulator mode
+
+To launch the project with a manipulator arm, simply run the following command:
 
 ```bash
-roslaunch ronoco ronoco.launch commander:=string compliant_mode:=string end_effector:=string
+roslaunch ronoco manipulator.launch commander:=string compliant_mode:=string end_effector:=string
 ```
 
 With as argument :
 - *commander*: the name of the move_group in MoveIt
 - *compliant_mode*: *manual* if the robot can go into compliant mode manually, *None* if the robot cannot go into compliant mode, or *the name of the service* to put it in and out of compliant mode.
-- end_effector*: the name of the service to manipulate the effector, e.g. "wsg_50_driver/move".  It is not necessary to fill in this field
+- *end_effector*: the name of the service to manipulate the effector, e.g. "wsg_50_driver/move". (optional)
 
-Once all the modules are running go to your [localhost:8080](http://localhost:8080/) and you will arrive on the ronoco page:
+### Rolling mode
+
+To launch the project with a rolling robot, simply run the following command:
+
+```bash
+roslaunch ronoco rolling.launch namespace:=string
+```
+
+With as argument :
+- *namespace*: the namespace for your robot without last / (default " ")
+
+Once all the modules are running go to your [localhost:8080](http://localhost:8080/) and you will arrive at the ronoco page:
 
 ![ronoco](ronoco-documentation/src/static/ronoco.png)

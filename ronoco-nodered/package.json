@@ -1,25 +1,28 @@
 {
   "name": "node-red-contrib-ronoco",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "node-red": {
     "nodes": {
-      "sequence": "native-bt/sequence.js",
-      "selector": "native-bt/selector.js",
-      "root": "native-bt/root.js",
-      "parallel": "native-bt/parallel.js",
+      "sequence": "common/sequence.js",
+      "selector": "common/selector.js",
+      "root": "common/root.js",
+      "parallel": "common/parallel.js",
+      "service": "common/service.js",
+      "sleep": "common/sleep.js",
+      "condition": "common/condition.js",
+      "inverter": "common/inverter.js",
+      "timeout": "common/timeout.js",
 
-      "execute": "action-bt/execute.js",
-      "plan": "action-bt/plan.js",
-      "cartesian": "action-bt/cartesian.js",
-      "replay": "action-bt/replay.js",
-      "end effector": "action-bt/end_effector.js",
+      "cartesian": "manipulator/cartesian.js",
+      "end effector": "manipulator/end_effector.js",
+      "execute": "manipulator/execute.js",
+      "plan": "manipulator/plan.js",
+      "record": "manipulator/record.js",
+      "replay": "manipulator/replay.js",
 
-      "record": "condition-bt/record.js",
-      "service": "condition-bt/service.js",
-
-      "condition": "decorator-bt/condition.js",
-      "inverter": "decorator-bt/inverter.js",
-      "timeout": "decorator-bt/timeout.js"
+      "navigate": "rolling/navigate.js",
+      "coverage": "rolling/coverage.js",
+      "patrol": "rolling/patrol.js"
     }
   },
   "dependencies": {
@@ -33,8 +36,6 @@
   },
   "devDependencies": {
     "tar": "^6.1.6"
-  },
-  "scripts": {
-    "test": "mocha \"test/**/*_spec.js\""
   }
 }
+

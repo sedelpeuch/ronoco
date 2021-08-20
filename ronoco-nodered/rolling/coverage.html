@@ -1,0 +1,73 @@
+<script type="text/javascript">
+    RED.nodes.registerType('coverage', {
+        category: 'ronoco/rolling',
+        color: '#4c97ff',
+        defaults: {
+            name: {value: ""},
+            robot_width: {value: "", required: true},
+            points: {value: ""}
+        },
+        credential: {
+            name: {},
+            robot_width: {}
+        },
+        inputs: 1,
+        outputs: 0,
+        icon: "icons/network.svg",
+        label: function () {
+            return this.name || "coverage";
+        },
+    });
+</script>
+
+<script data-template-name="coverage" type="text/html">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-robot_width"><i class="fa fa-tag"></i> Robot width (meter) </label>
+        <input type="text" id="node-input-robot_width" placeholder="0.3">
+    </div>
+    <div class="form-row">
+        <label for="node-input-points"><i class="fa fa-tag"></i> Points making up the polygon (optional) </label>
+        <input type="text" id="node-input-points" placeholder="[0, 1 ,2]">
+    </div>
+</script>
+
+<script data-help-name="coverage" type="text/html">
+    <h3>Description </h3>
+    Block allowing to carry out a navigation with coverage, i.e. a movement covering as much surface as possible between n points
+
+    <h3> Set up rviz </h3>
+    This procedure only needs to be done the first time rviz is started. Once you have done it, you do not need to do it again each time
+
+    To view the area to be scanned in rviz it is necessary to add a marker: click on "add" at the bottom left of the screen. A menu opens. Click on "Marker". Then in the menu on the left of your screen (Displays) find "Marker". Scroll down the menu and set the "Marker topic" field to "path_coverage_marker".
+
+    You can save this configuration of rviz so that you do not need to repeat this procedure in the future.
+
+    <h3>How to use it </h3>
+    To use the block, you can do so in two ways:
+    <ul>
+        <li> either you have filled in the "Points making up the polygon" field of a point array. At this point the
+            block
+            will automatically scan the polygon closed by this point list.
+        </li>
+        <li> or you have left it empty. When the system executes the block, it will give you back your hand to request
+            the
+            area to be scanned. To do this, go into rviz, using the "publish point" tool click on a point on the map.
+            Repeat the operation until you draw a polygon on the map. Once the polygon is closed (i.e. the last point
+            placed corresponds to the first point placed) ronoco will take over and scan the area.
+        </li>
+    </ul>
+
+    <h3> Parameters </h3>
+    <h4>Name </h4>
+    String - name of the current block.
+
+    <h4>Robot width</h4>
+    Float - width of the robot
+
+    <h4>Points making up the polygon (optional)</h4>
+    An array of identifiers (in brackets separated by commas) defining the vertices of the polygon to be scanned. The polygon is closed automatically.
+</script>

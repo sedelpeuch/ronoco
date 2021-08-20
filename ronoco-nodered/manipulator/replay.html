@@ -1,0 +1,41 @@
+<script type="text/javascript">
+    RED.nodes.registerType('replay', {
+        category: 'ronoco/manipulator',
+        color: '#4c97ff',
+        defaults: {
+            name: {value: ""},
+            data: {value: "", required: true}
+        },
+        credential:{
+            name: {},
+            data:{}
+        },
+        inputs: 1,
+        outputs: 0,
+        icon: "icons/replay.svg",
+        label: function () {
+            return this.name || "replay";
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="replay">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-data"><i class="fa fa-tag"></i> Identifier</label>
+        <input type="text" id="node-input-data" placeholder="Data">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="replay">
+    <h3>Description </h3>
+    Replays a previously recorded path
+    <h3>Parameters</h3>
+    <h4>Name</h4>
+    String - name of current block
+    <h4> Identifier </h4>
+    String - name of a recorded trajectory
+</script>

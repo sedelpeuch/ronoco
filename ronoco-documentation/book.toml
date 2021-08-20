@@ -2,6 +2,7 @@
 authors = ["Sebastien Delpeuch"]
 language = "en"
 multilingual = false
+
 src = "src"
 title = "Ronoco-documentation"
 
@@ -9,5 +10,7 @@ title = "Ronoco-documentation"
 command = "mdbook-toc"
 renderer = ["html"]
 
+
 [output.html]
 default-theme = "ayu"
+fold.enable = true

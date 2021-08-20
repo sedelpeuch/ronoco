@@ -29,14 +29,30 @@ class Common:
 
     def send_states(self):
         """
-        This function checks if the state of the robot or rviz has changed. If so, it sends a message to the
-        websockets states channel
+        Sends every 5 seconds the server status on the websocket "states" channel.
+
+        The server state depends on the operating mode of ronoco.
+
+        In manipulator mode the state of ros, MoveIt, rviz and the MoveGroupCommander
+
+        In rolling mode, the state of ros, rviz and the various topics necessary for the operation of rolling robots
+        (cmd_vel, move_base, amcl_pose)
         """
-        while True:
-            time.sleep(5.0)
-            config.socketio.emit('states', {"ros_state": self.ros_state(), "moveit_state": self.moveit_state(),
-                                            "rviz_state": self.rviz_state(), "commander_state": self.commander_state()},
-                                 namespace='/states')
+        if config.ronoco_mode == "manipulator":
+            while True:
+                time.sleep(5.0)
+                config.socketio.emit('states', {"ronoco_mode": "manipulator", "ros_state": self.ros_state(),
+                                                "moveit_state": self.moveit_state(),
+                                                "rviz_state": self.rviz_state(),
+                                                "commander_state": self.commander_state()},
+                                     namespace='/states')
+        elif config.ronoco_mode == "rolling":
+            while True:
+                time.sleep(5.0)
+                config.socketio.emit('states', {"ronoco_mode": "rolling", "ros_state": self.ros_state(),
+                                                "navigation_state": self.navigation_state(),
+                                                "rviz_state": self.rviz_state()},
+                                     namespace='/states')
 
     @staticmethod
     def index():
@@ -92,7 +108,7 @@ class Common:
         :return: False if rviz doesn't send data, True else
         """
         begin = time.time()
-        while topic_callback.position == {}:
+        while topic_callback.position_simulation == {}:
             if time.time() - begin > 10:
                 return False
         return True
@@ -109,6 +125,30 @@ class Common:
             return True
 
     @staticmethod
+    def navigation_state():
+        """
+        Check if you can communicate with move_base and amcl_pose
+        + Use rosservice /move_base/get_loggers
+        + Node: /move_base
+        + Type: roscpp/GetLoggers
+        + Args:
+
+        + Use rosservice /amcl_pose/get_loggers
+        + Node: /amcl_pose
+        + Type: roscpp/GetLoggers
+        + Args:
+        :return: False if not, True else
+        """
+        get_loggers_move_base = rospy.ServiceProxy(config.move_base + '/get_loggers', GetLoggers)
+        get_loggers_amcl_pose = rospy.ServiceProxy(config.amcl_pose.split('_')[0] + '/get_loggers', GetLoggers)
+        try:
+            get_loggers_move_base()
+            get_loggers_amcl_pose()
+        except rospy.service.ServiceException:
+            return False
+        return True
+
+    @staticmethod
     def shutdown():
         """
         GET Method
@@ -123,12 +163,17 @@ class Common:
     @staticmethod
     def connect():
         """
+        GET Method
+
+        ROUTE /connect
+
         Connect to config.move_group with moveit_commander.MoveGroupCommander
         :return: {"Error": "Can't connect to commander please retry with connect button"}, 404 if it's not possible,
         {"Success": "Connected with commander " + config.move_group}, 200 else
         """
-        try:
-            config.commander = MoveGroupCommander(config.move_group, wait_for_servers=20)
-        except RuntimeError:
-            return {"Error": "Can't connect to commander please retry with connect button"}, 404
-        return {"Success": "Connected with commander " + config.move_group}, 200
+        if config.ronoco_mode == "manipulator":
+            try:
+                config.commander = MoveGroupCommander(config.move_group, wait_for_servers=20)
+            except RuntimeError:
+                return {"Error": "Can't connect to commander please retry with connect button"}, 404
+            return {"Success": "Connected with commander " + config.move_group}, 200

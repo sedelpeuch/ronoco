@@ -5,7 +5,7 @@ import requests
 from ronoco_vm import control
 
 
-class TestControlEndpoint(unittest.TestCase):
+class TestControl(unittest.TestCase):
     def setUp(self) -> None:
         self.Control = control.Control()
         self.bt = [
@@ -123,7 +123,7 @@ class TestControlEndpoint(unittest.TestCase):
 
     def test_play(self):
         response = requests.post("http://localhost:5000/control/", json={"behavior-tree": self.bt})
-        self.assertEqual(409, response.status_code)
+        self.assertEqual(200, response.status_code)
 
         response = requests.post("http://localhost:5000/control/", json={"behavior-tree": None})
         self.assertEqual(400, response.status_code)

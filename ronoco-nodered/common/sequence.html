@@ -1,0 +1,31 @@
+<script type="text/javascript">
+    RED.nodes.registerType('sequence', {
+        category: 'ronoco/common',
+        color: '#fca918',
+        defaults: {
+            name: {value: ""}
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "icons/right-arrow.svg",
+        label: function () {
+            return this.name || "sequence";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="sequence">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="sequence">
+    <h3>Description </h3>
+    <p>A sequence will progressively tick over each of its children so long as
+        each child returns py_trees.common.Status.SUCCESS. If any child returns
+        FAILURE or RUNNING the sequence will halt and the parent will
+        adopt the result of this child. If it reaches the last child, it returns with
+        that result regardless.</p>
+</script>

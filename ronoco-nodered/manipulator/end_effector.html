@@ -1,0 +1,44 @@
+<script type="text/javascript">
+    RED.nodes.registerType('end effector', {
+        category: 'ronoco/manipulator',
+        color: '#4c97ff',
+        defaults: {
+            name: {value: ""},
+            data: {value: "", required: true}
+        },
+        credential:{
+            name: {},
+            data:{}
+        },
+        inputs: 1,
+        outputs: 0,
+        icon: "icons/robotic-hand.svg",
+        label: function () {
+            return this.name || "end effector";
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="end effector">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-data"><i class="fa fa-tag"></i> Data</label>
+        <input type="text" id="node-input-data" placeholder="[width, speed]">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="end effector">
+    <h3>Description </h3>
+    Allows control of the robot end effector via an associated service passed as a parameter to ronoco.launch (the robot end effector controller must be started independently)
+
+    This block returns SUCCESS if it has succeeded in completing the action and FAILURE if it has caught something in its path.
+    Otherwise the combination of "end_effector" and an "inverter" will return SUCCESS if the robot has caught something.
+    <h3>Parameters</h3>
+    <h4>Name</h4>
+    String - name of current block
+    <h4>Data</h4>
+    Array - an array containing the values of the various parameters needed for the service.
+</script>

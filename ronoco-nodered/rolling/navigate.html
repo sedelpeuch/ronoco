@@ -1,0 +1,48 @@
+<script type="text/javascript">
+    RED.nodes.registerType('navigate', {
+        category: 'ronoco/rolling',
+        color: '#4c97ff',
+        defaults: {
+            name: {value: ""},
+            data: {value: "", required: true},
+            timeout: {value: ""}
+        },
+        credential:{
+            name: {},
+            data:{}
+        },
+        inputs: 1,
+        outputs: 0,
+        icon: "icons/compass.svg",
+        label: function () {
+            return this.name || "navigate";
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="navigate">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-data"><i class="fa fa-tag"></i> Identifier</label>
+        <input type="text" id="node-input-data" placeholder="id">
+    </div>
+    <div class="form-row">
+        <label for="node-input-timeout"><i class="fa fa-tag"></i> Timeout</label>
+        <input type="number" id="node-input-timeout" placeholder="60">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="navigate">
+    <h3>Description </h3>
+    Allows you to navigate to a point on a map while avoiding map obstacles.
+    <h3>Settings </h3>
+    <h4>Name </h4>
+    String - name of the current block.
+    <h4> Data </h4>
+    The identifier of the point in the ros parameter server (on the name "cartesianPoints"). Use Ronoco-ui to find out which points are registered.
+    <h4> Timeout </h4>
+    Optional timeout to reach position (default : 60 seconds)
+</script>

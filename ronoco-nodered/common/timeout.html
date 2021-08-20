@@ -1,0 +1,41 @@
+<script type="text/javascript">
+    RED.nodes.registerType('timeout', {
+        category: 'ronoco/common',
+        color: '#59c059',
+        defaults: {
+            name: {value: ""},
+            data: {value: "", required: true}
+        },
+        credential:{
+            name: {},
+            mode: {},
+            data:{}
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "icons/clock.svg",
+        label: function () {
+            return this.name || "timeout";
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="timeout">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-data"><i class="fa fa-tag"></i> Data</label>
+        <input type="number" id="node-input-data" placeholder="Data">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="timeout">
+    <h3>Description </h3>
+    <p>A decorator that applies a timeout pattern to an existing behaviour.
+        If the timeout is reached, the encapsulated behaviour's stop method is called with
+        status FAILURE otherwise it will
+        simply directly tick and return with the same status
+        as that of it's encapsulated behaviour.</p>
+</script>

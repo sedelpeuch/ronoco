@@ -1,0 +1,44 @@
+<script type="text/javascript">
+    RED.nodes.registerType('record',{
+        category: 'ronoco/manipulator',
+        color: '#5cb1d6',
+        defaults: {
+            name: {value:""},
+            identifier: {value:"", required: true},
+            time: {value:"", required: true}
+        },
+        inputs:1,
+        outputs:0,
+        icon: "icons/record.svg",
+        label: function() {
+            return this.name||"record";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="record">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-identifier"><i class="fa fa-tag"></i> Identifier </label>
+        <input type="text" id="node-input-identifier" placeholder="id">
+    </div>
+    <div class="form-row">
+        <label for="node-input-time"><i class="fa fa-tag"></i> Time </label>
+        <input type="number" id="node-input-time" placeholder="time">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="record">
+    <h3>Description </h3>
+    <p>Record all trajectories during a time specified by a parameter in constructor</p>
+    <h3>Parameters</h3>
+    <h4>Name</h4>
+    String - name of current block
+    <h4> Identifier </h4>
+    String - name of the trajectory
+    <h4> Time </h4>
+    Int - recording time
+</script>

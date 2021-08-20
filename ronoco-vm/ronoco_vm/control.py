@@ -53,7 +53,7 @@ class Control:
         trees = []
         py_trees.logging.level = py_trees.logging.Level.DEBUG  # For development purpose only
         if request.method == 'POST':
-            if config.commander is None:
+            if config.ronoco_mode == "manipulator" and config.commander is None:
                 return {"Error": "Can't connect to commander please retry with connect button"}, 404
             data = request.get_json()
             try:
@@ -68,30 +68,36 @@ class Control:
             # find block with id "root" in json
             self.roots = self.find_roots(bt)
             if not self.roots:
-                return {"Error": "json contains 0 valid roots"}, 400
-            state, result = self.build_nodes(bt)
+                return {"Error": "0 valid roots"}, 400
+            state, result, msg = self.build_nodes(bt)
             if not state:
-                return {"Error": "Block (or child of this block) with id " + result + " is incorrect"}, 400
+                return {"Error": self.error(result, msg)}, 400
             for node in bt:
-                self.build_decorator(node, bt)
+                state, result, msg = self.build_decorator(node, bt)
+                if not state:
+                    return {"Error": self.error(result, msg)}, 400
             # for each root in json build first root in py_tree and store it in trees
             self.roots.sort(key=self.get_y)
             for root in self.roots:
                 if len(root['wires'][0]) != 1:
-                    return {"Error": "Tree with root id " + root['id'] + " is incorrect"}, 400
+                    return {"Error": self.error(root['id'], "no child")}, 400
                 else:
                     state, root_json = self.find_by_id(root['wires'][0][0], bt)
                     if not state:
-                        return {"Error": "Tree with root id " + root['id'] + " is incorrect"}, 400
+                        return {"Error": self.error(root['id'], "no child")}, 400
                     trees.append(root_json)
 
             # for each json tree build it and check if it is good
             for tree in trees:
-                state, result = self.build_tree(tree, bt)
+                state, result, msg = self.build_tree(tree, bt)
                 if not state:
                     return {"Error": "Block (or child of this block) with id " + result + " is incorrect"}, 400
             self.trees = trees
             return self.play()
+
+    @staticmethod
+    def error(id, msg):
+        return "[" + id + "]: " + msg
 
     def play(self):
         """
@@ -116,8 +122,8 @@ class Control:
                 self.behavior_tree.tick_tock(50, times)
             except KeyboardInterrupt:
                 self.behavior_tree.interrupt()
-            if self.behavior_tree.tip().status == Status.FAILURE:
-                return {"Error": "Tree with root's name :" + self.roots[i]['name'] + " can't be executed"}, 409
+            if self.behavior_tree.tip() is None or self.behavior_tree.tip().status == Status.FAILURE:
+                return {"Error": self.error(self.roots[i]['id'], "Not executable")}, 409
         return {"Success": "All behaviour trees has been executed"}, 200
 
     @staticmethod
@@ -179,11 +185,11 @@ class Control:
         # Check children of current node
         if not children_id:
             if json_node['type'] in behaviour.behaviour.composites:
-                return False, children_id
+                return False, children_id, "Missing child"
             elif json_node['type'] in behaviour.behaviour.leaf:
-                return True, None
+                return True, None, None
             else:
-                return False, children_id
+                return False, children_id, "Missing child"
 
         children = list()
         # for each children id, add it in list of node to build
@@ -192,7 +198,7 @@ class Control:
             if state:
                 children.append(child)
             else:
-                return False, identifier
+                return False, identifier, "Internal error"
 
         # Sort the children according to their ascending y-position. This ensures that children run from top to bottom
         children.sort(key=self.get_y)
@@ -201,7 +207,7 @@ class Control:
         for child in children:
             if child['type'] in behaviour.behaviour.decorators:
                 if len(child['wires'][0]) != 1:
-                    return False, child['id']
+                    return False, child['id'], "Missing child"
                 grandson = self.behavior_tree_dict[child['wires'][0][0]]
                 name = None
                 data = None
@@ -210,16 +216,17 @@ class Control:
                     data = child['data']
                 except KeyError:
                     pass
-                state, node_py_tree = behaviour.behaviour.types[child['type']](name=name, data=data, child=grandson)
+                state, node_py_tree, msg = behaviour.behaviour.types[child['type']](name=name, data=data,
+                                                                                    child=grandson)
                 if not state:
-                    return False, child['id']
+                    return False, child['id'], msg
                 self.behavior_tree_dict[child['id']] = node_py_tree
             try:
                 py_tree_node.add_child(self.behavior_tree_dict[child['id']])
             except AttributeError:
                 pass
             self.build_tree(child, bt)
-        return True, None
+        return True, None, None
 
     def build_decorator(self, node, bt):
         """
@@ -243,10 +250,11 @@ class Control:
                 except KeyError:
                     pass
                 child = self.behavior_tree_dict[child['id']]
-                state, node_py_tree = behaviour.behaviour.types[node['type']](name=name, data=data, child=child)
+                state, node_py_tree, msg = behaviour.behaviour.types[node['type']](name=name, data=data, child=child)
                 if not state:
-                    return False, child['id']
+                    return False, node['id'], msg
                 self.behavior_tree_dict[node['id']] = node_py_tree
+        return True, None, None
 
     @staticmethod
     def multiple_data_nodes(node_json):
@@ -269,11 +277,15 @@ class Control:
                 elif node_json['type'] == 'service':
                     data = {'service_name': node_json['service_name'],
                             'service_parameter': node_json['service_parameter']}
+                elif node_json['type'] == 'navigate':
+                    data = {'identifier': node_json['data'], 'timeout': node_json['timeout']}
+                elif node_json['type'] == 'coverage':
+                    data = {'robot_width': node_json['robot_width'], 'points': node_json['points']}
                 else:
                     data = node_json['data']
             except KeyError:
-                return False, None
-        return True, data
+                return False, None, "Missing data"
+        return True, data, None
 
     def build_nodes(self, bt):
         """
@@ -283,29 +295,27 @@ class Control:
         :return: True, None if everything is ok, False and an id else
         """
         self.behavior_tree_dict = {}
-        print(bt)
         for node_json in bt:
-            print(node_json)
             name = None
             data = None
             try:
                 name = node_json['name']
-                state, data = self.multiple_data_nodes(node_json)
+                state, data, msg = self.multiple_data_nodes(node_json)
                 if not state:
-                    print("State error")
-                    return False, node_json['id']
+                    return False, node_json['id'], msg
             except KeyError:
                 pass
             if node_json['type'] != "tab" and node_json['type'] != "root" \
                     and node_json['type'] not in behaviour.behaviour.decorators:
                 try:
-                    state, node_py_tree = behaviour.behaviour.types[node_json['type']](name=name, data=data, child=None)
+                    state, node_py_tree, msg = behaviour.behaviour.types[node_json['type']](name=name, data=data,
+                                                                                            child=None)
                 except KeyError:
-                    return False, node_json['id']
+                    return False, node_json['id'], "Internal error"
                 if not state:
-                    return False, node_json['id']
+                    return False, node_json['id'], msg
                 self.behavior_tree_dict[node_json['id']] = node_py_tree
-        return True, None
+        return True, None, None
 
     def stop(self):
         """
