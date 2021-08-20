@@ -1,0 +1,479 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>API - detailed - Ronoco-documentation</title>
+                
+
+        <!-- Custom HTML head -->
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+                <link rel="icon" href="../../favicon.svg">
+                        <link rel="shortcut icon" href="../../favicon.png">
+                <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+                <link rel="stylesheet" href="../../css/print.css" media="print">
+        
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+                <link rel="stylesheet" href="../../fonts/fonts.css">
+        
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item affix "><li class="part-title">Ronoco</li><li class="chapter-item "><a href="../../index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item affix "><li class="part-title">v2.x rolling robot</li><li class="chapter-item "><a href="../../v2.x/users-guides.html"><strong aria-hidden="true">2.</strong> Users guides</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../v2.x/user-guides/installation.html"><strong aria-hidden="true">2.1.</strong> Installation</a></li><li class="chapter-item "><a href="../../v2.x/user-guides/quick-start.html"><strong aria-hidden="true">2.2.</strong> Getting Started</a></li><li class="chapter-item "><a href="../../v2.x/user-guides/how-to-use-it.html"><strong aria-hidden="true">2.3.</strong> How to use it</a></li><li class="chapter-item "><a href="../../v2.x/user-guides/bt.html"><strong aria-hidden="true">2.4.</strong> How to create a behaviour tree</a></li><li class="chapter-item "><a href="../../v2.x/user-guides/examples.html"><strong aria-hidden="true">2.5.</strong> Examples on robots</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../v2.x/user-guides/poppy.html"><strong aria-hidden="true">2.5.1.</strong> Poppy ergo jr</a></li><li class="chapter-item "><a href="../../v2.x/user-guides/ur3.html"><strong aria-hidden="true">2.5.2.</strong> Universal Robots 3</a></li><li class="chapter-item "><a href="../../v2.x/user-guides/kuka.html"><strong aria-hidden="true">2.5.3.</strong> Kuka KR6</a></li><li class="chapter-item "><a href="../../v2.x/user-guides/turtlebot.html"><strong aria-hidden="true">2.5.4.</strong> Turtlebot 3 burger</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../v2.x/api-documentation.html"><strong aria-hidden="true">3.</strong> Ronoco API Documentation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../v2.x/documentation/api-short.html"><strong aria-hidden="true">3.1.</strong> API - summarize</a></li><li class="chapter-item "><a href="../../v2.x/documentation/api-detailed.html"><strong aria-hidden="true">3.2.</strong> API - detailed</a></li><li class="chapter-item "><a href="../../v2.x/documentation/behavior.html"><strong aria-hidden="true">3.3.</strong> Behaviours</a></li></ol></li><li class="chapter-item "><li class="part-title">v1.x manipulator arm</li><li class="chapter-item "><a href="../../v1.x/users-guides.html"><strong aria-hidden="true">4.</strong> Users guides</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../v1.x/user-guides/installation.html"><strong aria-hidden="true">4.1.</strong> Installation</a></li><li class="chapter-item "><a href="../../v1.x/user-guides/quick-start.html"><strong aria-hidden="true">4.2.</strong> Getting Started</a></li><li class="chapter-item "><a href="../../v1.x/user-guides/how-to-use-it.html"><strong aria-hidden="true">4.3.</strong> How to use it</a></li><li class="chapter-item "><a href="../../v1.x/user-guides/bt.html"><strong aria-hidden="true">4.4.</strong> How to create a behaviour tree</a></li><li class="chapter-item "><a href="../../v1.x/user-guides/poppy.html"><strong aria-hidden="true">4.5.</strong> Examples on robots</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../v1.x/user-guides/poppy.html"><strong aria-hidden="true">4.5.1.</strong> Poppy ergo jr</a></li><li class="chapter-item "><a href="../../v1.x/user-guides/ur3.html"><strong aria-hidden="true">4.5.2.</strong> Universal Robots 3</a></li><li class="chapter-item "><a href="../../v1.x/user-guides/kuka.html"><strong aria-hidden="true">4.5.3.</strong> Kuka KR6</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../v1.x/api-documentation.html"><strong aria-hidden="true">5.</strong> Ronoco API Documentation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../v1.x/documentation/api-short.html"><strong aria-hidden="true">5.1.</strong> API - summarize</a></li><li class="chapter-item expanded "><a href="../../v1.x/documentation/api-detailed.html" class="active"><strong aria-hidden="true">5.2.</strong> API - detailed</a></li><li class="chapter-item "><a href="../../v1.x/documentation/behavior.html"><strong aria-hidden="true">5.3.</strong> Behaviours</a></li></ol></li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title">Ronoco-documentation</h1>
+
+                    <div class="right-buttons">
+                                                <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                                                        
+                    </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="ronoco-vm-api---detailed-documentation"><a class="header" href="#ronoco-vm-api---detailed-documentation">Ronoco-vm API - Detailed documentation</a></h1>
+<ul>
+<li><a href="api-detailed.html#class-run-class">Run</a><!-- @IGNORE PREVIOUS: link --></li>
+<li><a href="api-detailed.html#class-common-class">Common</a><!-- @IGNORE PREVIOUS: link --></li>
+<li><a href="api-detailed.html#class-free-class">Free</a><!-- @IGNORE PREVIOUS: link --></li>
+<li><a href="api-detailed.html#class-cartesianpoint-class">Cartesian Point</a><!-- @IGNORE PREVIOUS: link --></li>
+<li><a href="api-detailed.html#class-control-class">Control</a><!-- @IGNORE PREVIOUS: link --></li>
+<li><a href="api-detailed.html#class-recorder-class">Recorder</a><!-- @IGNORE PREVIOUS: link --></li>
+<li><a href="api-detailed.html#class-logger-class">Logger</a><!-- @IGNORE PREVIOUS: link --></li>
+</ul>
+<h2 id="class-run-class"><a class="header" href="#class-run-class"><class> Run </class></a></h2>
+<p>Define and setup flask server and rostopic subscriber / publisher for ronoco-vm</p>
+<p><method> create_app(test_config) </method></p>
+<p>Build a Flask instance and configure it</p>
+<p><member>Parameters </member></p>
+<ul>
+<li><em>test_config:</em> path to configuration file (Default : None)</li>
+</ul>
+<p><member>Return</member> a Flask instance</p>
+<p><method> setup_app() </method></p>
+<p>Register blueprint in app.</p>
+<p>The class attribute &quot;app&quot; must contain a Flask instance</p>
+<p><member>Return</member> None</p>
+<p><method> subscribe_topic() </method></p>
+<p>Uses rospy to subscribe to the different topics needed by the API</p>
+<h2 id="class-common-class"><a class="header" href="#class-common-class"><class> Common </class></a></h2>
+<p>Definition of common endpoint</p>
+<p><method> index() </method></p>
+<p>GET Method</p>
+<p>ROUTE /</p>
+<p><member>Return</member> if everything is OK : {&quot;Success&quot;: &quot;Server is running&quot;}, 200</p>
+<p><method> send_states()</method></p>
+<p>This function check if the state of the robot or rviz has changed. If so, it sends a message to the websockets states
+channel</p>
+<p><method> ros_state()</method></p>
+<p>Check if you can communicate with MoveIT</p>
+<ul>
+<li>Use rosservice /move_group/get_loggers</li>
+<li>Node: /move_group</li>
+<li>Type: roscpp/GetLoggers</li>
+<li>Args:</li>
+</ul>
+<p><member>Return</member> True if communication with rosmaster is possible, False else</p>
+<p><method> moveit_state() </method></p>
+<p>Check if you can communicate with moveit</p>
+<ul>
+<li>Use rosservice /move_group/get_loggers</li>
+<li>Node: /move_group</li>
+<li>Type: roscpp/GetLoggers</li>
+<li>Args:</li>
+</ul>
+<p><member>Return</member> True if communication with moveit is possible, False else</p>
+<p><method> rviz_state() </method></p>
+<p>Check if rviz send data on topic /rviz_moveit_motion_planning_display/robot_interaction_interactive_marker_topic
+/update</p>
+<p><member>Return</member> False if rviz doesn't send data, True else</p>
+<p><method> shutdown() </method></p>
+<p>GET Method</p>
+<p>ROUTE /shutdown</p>
+<p>Shutdown server with config.socketio.stop() (and shutdown send_states() daemon)</p>
+<h2 id="class-free-class"><a class="header" href="#class-free-class"><class> Free </class></a></h2>
+<p>Implements free endpoints to set and get the compliance (or 0 gravity robot WIP) of robot</p>
+<p><method> free() </method></p>
+<p>GET/POST Method</p>
+<p>ROUTE /free/</p>
+<p>POST body
+{
+&quot;compliant&quot; : &quot;True&quot;/&quot;False&quot;
+}</p>
+<p>Allows you to get or set robot compliance</p>
+<ul>
+<li>Use rosservice /set_compliant</li>
+<li>Node: /joint_trajectory_action_server</li>
+<li>Type: std_srvs/SetBool</li>
+<li>Args: data</li>
+</ul>
+<p><member> Return </member> if everything is OK : {&quot;compliant&quot;:&quot;True&quot;/&quot;False&quot;} else an HttpError</p>
+<h2 id="class-cartesianpoint-class"><a class="header" href="#class-cartesianpoint-class"><class> CartesianPoint </class></a></h2>
+<p>Allows adding, get and delete a cartesian point in the ros parameters server from Rviz or compliant mode</p>
+<p><method> add_bd(cartesian_point) </method></p>
+<p>This method adds a cartesian point in the ros parameters server (on the name &quot;cartesianPoints&quot;). This method is called
+when a POST request is made on point/add/simulation or point/add/real</p>
+<p><member>Parameters </member></p>
+<ul>
+<li><em>cartesian_point:</em> a cartesian point eg {&quot;position&quot;: {&quot;x&quot;: pose.x, &quot;y&quot;: pose.y, &quot;z&quot;: pose.z}, &quot;orientation&quot;: {&quot;x&quot;:
+orientation.x, &quot;y&quot;: orientation.y, &quot;z&quot;: orientation.z, &quot;w&quot;: orientation.w}}</li>
+</ul>
+<p><member> Return </member> True if everything is OK</p>
+<p><method> delete_db(identifiant) </method></p>
+<p>This method deletes a cartesian point in the ros parameters server (on the name &quot;cartesianPoints&quot;). This method
+is called when a DELETE request is made on point/delete</p>
+<p><member>Parameters </member></p>
+<ul>
+<li><em>identifiant:</em> a number</li>
+</ul>
+<p><member> Return </member> True if point is deleted, False if point doesn't exist</p>
+<p><method> find_db(identifiant) </method></p>
+<p>This method find a cartesian point in the ros parameters server (on the name &quot;cartesianPoints&quot;). This method is called
+when a GET request is made on point/get/number or point/get</p>
+<p><member>Parameters </member></p>
+<ul>
+<li><em>identifiant:</em> a number</li>
+</ul>
+<p><member>Return</member> True if point is found, False if point doesn't exist</p>
+<p><method> clear_db() </method></p>
+<p>This method deletes all cartesian points in the ros parameters server (on the name &quot;cartesianPoints&quot;). This
+method is called when a POST request is made on point/delete</p>
+<p><method> add_point_from_actual_position() </method></p>
+<p>POST Method</p>
+<p>ROUTE /point/add/actual</p>
+<p>POST body
+{
+}</p>
+<p>Allows you to add a Cartesian point corresponding to the current position of the robot.</p>
+<p>The id of the position is automatically given</p>
+<p><member> Return </member> id for new cartesian point if everything is OK, a 409 error else</p>
+<p><method> add_point_from_rviz() </method></p>
+<p>POST Method</p>
+<p>ROUTE /point/add/simulation</p>
+<p>POST body
+{
+}</p>
+<p>Allows you to add a Cartesian point corresponding to the current position of the robot in Rviz.</p>
+<p>The id of the position is automatically given</p>
+<p><member> Return </member> id for new cartesian point if everything is OK, a 408 error else</p>
+<p><method> get_all_points() </methods></p>
+<p>GET Method</p>
+<p>ROUTE /point/get</p>
+<p>Allows you to get all Cartesian points in the ros parameters server (on the name &quot;cartesianPoints&quot;)</p>
+<p><member> Return </member> a json with cartesian points if everything is OK, a 404 error else</p>
+<p><method> get_one_point(identifiant) </method></p>
+<p>GET Method</p>
+<p>ROUTE /point/get/<identifiant></p>
+<p>Allows you to get one Cartesian point in the ros parameters server (on the name &quot;cartesianPoints&quot;)</p>
+<p><member>Parameters </member></p>
+<ul>
+<li><em>identifiant:</em> a number</li>
+</ul>
+<p><member> Return </member> a json with cartesian point it exists, a 404 error else</p>
+<p><method> delete_one_point(identifiant) </method></p>
+<p>POST Method</p>
+<p>ROUTE /point/delete/<identifiant></p>
+<p>POST body
+{
+}</p>
+<p>Allows you to delete one Cartesian point in the ros parameters server (on the name &quot;cartesianPoints&quot;)</p>
+<p><member>Parameters </member></p>
+<ul>
+<li><em>identifiant:</em> a number</li>
+</ul>
+<p><member> Return </member> a response 200 if the point have been deleted, a 404 error else</p>
+<p><method> delete_all_points </method></p>
+<p>POST Method</p>
+<p>ROUTE /point/delete</p>
+<p>POST body
+{
+}</p>
+<p>Allows you to delete all Cartesian points in the ros parameters server (on the name &quot;cartesianPoints&quot;)</p>
+<p><member> Return </member> a response 200</p>
+<h2 id="class-control-class"><a class="header" href="#class-control-class"><class> Control </class></a></h2>
+<p>Definition of the endpoint control to analyse and execute behaviour trees</p>
+<p><method> compute() </method></p>
+<p>POST Method</p>
+<p>ROUTE /compute/</p>
+<p>POST body : an export of nodered tree</p>
+<p>This method is the main method of the endpoint to transform the json from nodered (or any other tool respecting
+the json syntax) into a behaviour tree with the py_tree package. Once built, the method call play then executes
+the different trees.</p>
+<p>Every behaviour tree starts with a root block, blocks that are not connected (directly or indirectly) to a root
+are ignored.</p>
+<p>Each root must be connected to strictly one block to be interpreted.</p>
+<p>To be interpreted a flow must contain at least one behaviour tree</p>
+<p><member> Return </member></p>
+<ul>
+<li>{&quot;Success&quot; : &quot;All behavior trees has been executed&quot;, 200} if the tree is built and executed
+correctly.</li>
+<li>{&quot;Error&quot;: &quot;Block (or child of this block) with id <str> is incorrect&quot;, 400} if it is not</li>
+</ul>
+<p><method> play() </method></p>
+<p>Browse the list of previously constructed trees and execute them using the tick_tock method
+<member> Return </member> Message with code 200 if all trees has been executed, code 409 else</p>
+<p><method> find_roots(bt) </method></p>
+<p>Search in BT-json blocks with type 'root'</p>
+<p><member>Parameters </member></p>
+<ul>
+<li><em>bt:</em> a json representing a behaviour tree (export of nodered)</li>
+</ul>
+<p><member> Return </member> the list of roots found in
+the json passed in parameter if there are any, an empty list otherwise</p>
+<p><method> find_by_id(identifiant, bt) </method></p>
+<p>Search in the json passed in parameter for a block with the string id passed in parameter</p>
+<p><member>Parameters </member></p>
+<ul>
+<li><em>identifiant:</em> the id of the block searched for</li>
+<li><em>bt:</em> a json representing a behaviour tree (export of nodered)</li>
+</ul>
+<p><member> Return </member> True and the root (json) if a root has this id. False, None else</p>
+<p><method> build_tree(json_node, bt) </method></p>
+<p>Builds the behaviour tree as a py_tree object from its root using a bfs algorithm</p>
+<p><member>Parameters </member></p>
+<ul>
+<li><em>json_node:</em> a node of a tree in json format</li>
+<li><em>bt:</em> a json representing a behaviour tree (export of nodered)</li>
+</ul>
+<p><member> Return </member> True and None if tree has been built. False
+and the id of the last block built if it could not be built</p>
+<p><method> build_decorator(node, bt) </method></p>
+<p>Transforms a decorator from a json to a py_tree object. In order to build the decorators it is necessary
+that the other blocks are already built</p>
+<p><member>Parameters </member></p>
+<ul>
+<li><em>node:</em> the decorator in json format</li>
+<li><em>bt:</em> a json representing a behaviour tree (export of nodered)</li>
+</ul>
+<p><member> Return </member> True, None if everything is OK, False and an id else</p>
+<p><method> multiple_data_nodes(node_json) </method></p>
+<p>Analyses the data of a node and according to its type correctly formats the data dictionary.</p>
+<p>Normally this function only returns the data field of the node but some special nodes escape this rule.</p>
+<p><member>Parameters </member></p>
+<ul>
+<li><em>node_json:</em> the node to evaluate</li>
+</ul>
+<p><member> Return </member> False, None if a data is expected but not present. True and the correctly formatted dictionary else</p>
+<p><method> build_nodes(bt) </method></p>
+<p>Transforms all the nodes of the tree from json form to py_tree form. This function does not handle decorator
+blocks that need special treatment concerning their children</p>
+<p><member>Parameters </member></p>
+<ul>
+<li><em>bt:</em> a json representing a behaviour tree (export of nodered)</li>
+</ul>
+<p><member> Return </member> True, None if everything is OK, False and an id else</p>
+<p><method> stop() </method></p>
+<p>Stop execute of current behavior tree</p>
+<h2 id="class-recorder-class"><a class="header" href="#class-recorder-class"><class> Recorder </class></a></h2>
+<p>Recorder class copy from <a href="https://github.com/poppy-project/poppy_controllers/blob/v1.0/src/poppy_ros_control/recorder.py">Poppy project</a></p>
+<p><method> start_recording </method></p>
+<p>Start the recording of a trajectory</p>
+<p><member> Return </member> False if a record is already in progress, True else</p>
+<p><method> stop_and_save(trajectory_name) </method></p>
+<p>Stop recording then save it as a json file</p>
+<p><member>Parameters </member></p>
+<ul>
+<li><em>trajectory_name:</em> record's name</li>
+</ul>
+<p><member> Return </member> False if another record is in progress, True else</p>
+<p><method> load(, trajectory_name) </method></p>
+<p>Find in the trajectory directory json file with a specific name the convert it in a RobotTrajectory
+<member>Parameters </member></p>
+<ul>
+<li>trajectory_name: name of a previously recorded path</li>
+</ul>
+<p><member> Return </member> None if the trajectory does not exist, a RobotTrajectory else</p>
+<h2 id="class-logger-class"><a class="header" href="#class-logger-class"><class> Logger </class></a></h2>
+<p>Definition of a logger for the websocket to be displayed in ronoco-ui</p>
+<p><method> logger(msg) </method></p>
+<p>Send a message to the /control_log namespace via socketio's emit method
+The message must be a dictionary with at least one key/value</p>
+<p>Some particular keys will be interpreted and reformatted by ronoco-ui (Debug, Success, Error, Warning, Info)</p>
+<p>The other keys will be displayed rawly way</p>
+<p><member>Parameters </member></p>
+<ul>
+<li><em>msg:</em> the message to send</li>
+</ul>
+<p><method> debug(msg) </method></p>
+<p>Sends a message with the debug key if the verbosity level is greater than or equal to 4</p>
+<p><member>Parameters </member></p>
+<ul>
+<li><em>msg:</em> a string message</li>
+</ul>
+<p><method> info(msg) </method></p>
+<p>Sends a message with the info key if the verbosity level is greater than or equal to 3</p>
+<p><member>Parameters </member></p>
+<ul>
+<li><em>msg:</em> a string message</li>
+</ul>
+<p><method> warn(msg) </method></p>
+<p>Sends a message with the warn key if the verbosity level is greater than or equal to 2</p>
+<p><member>Parameters </member></p>
+<ul>
+<li><em>msg:</em> a string message</li>
+</ul>
+<p><method> error(msg) </method></p>
+<p>Sends a message with the error key if the verbosity level is greater than or equal to 1</p>
+<p><member>Parameters </member></p>
+<ul>
+<li><em>msg:</em> a string message</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                                                    <a rel="prev" href="../../v1.x/documentation/api-short.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                                                    <a rel="next" href="../../v1.x/documentation/behavior.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                                    <a rel="prev" href="../../v1.x/documentation/api-short.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                                    <a rel="next" href="../../v1.x/documentation/behavior.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                            </nav>
+
+        </div>
+
+        
+        
+        
+                <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+        
+                <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        
+    </body>
+</html>

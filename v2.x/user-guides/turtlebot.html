@@ -1,0 +1,265 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Turtlebot 3 burger - Ronoco-documentation</title>
+                
+
+        <!-- Custom HTML head -->
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+                <link rel="icon" href="../../favicon.svg">
+                        <link rel="shortcut icon" href="../../favicon.png">
+                <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+                <link rel="stylesheet" href="../../css/print.css" media="print">
+        
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+                <link rel="stylesheet" href="../../fonts/fonts.css">
+        
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item affix "><li class="part-title">Ronoco</li><li class="chapter-item "><a href="../../index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item affix "><li class="part-title">v2.x rolling robot</li><li class="chapter-item expanded "><a href="../../v2.x/users-guides.html"><strong aria-hidden="true">2.</strong> Users guides</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../v2.x/user-guides/installation.html"><strong aria-hidden="true">2.1.</strong> Installation</a></li><li class="chapter-item "><a href="../../v2.x/user-guides/quick-start.html"><strong aria-hidden="true">2.2.</strong> Getting Started</a></li><li class="chapter-item "><a href="../../v2.x/user-guides/how-to-use-it.html"><strong aria-hidden="true">2.3.</strong> How to use it</a></li><li class="chapter-item "><a href="../../v2.x/user-guides/bt.html"><strong aria-hidden="true">2.4.</strong> How to create a behaviour tree</a></li><li class="chapter-item expanded "><a href="../../v2.x/user-guides/examples.html"><strong aria-hidden="true">2.5.</strong> Examples on robots</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../v2.x/user-guides/poppy.html"><strong aria-hidden="true">2.5.1.</strong> Poppy ergo jr</a></li><li class="chapter-item "><a href="../../v2.x/user-guides/ur3.html"><strong aria-hidden="true">2.5.2.</strong> Universal Robots 3</a></li><li class="chapter-item "><a href="../../v2.x/user-guides/kuka.html"><strong aria-hidden="true">2.5.3.</strong> Kuka KR6</a></li><li class="chapter-item expanded "><a href="../../v2.x/user-guides/turtlebot.html" class="active"><strong aria-hidden="true">2.5.4.</strong> Turtlebot 3 burger</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../v2.x/api-documentation.html"><strong aria-hidden="true">3.</strong> Ronoco API Documentation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../v2.x/documentation/api-short.html"><strong aria-hidden="true">3.1.</strong> API - summarize</a></li><li class="chapter-item "><a href="../../v2.x/documentation/api-detailed.html"><strong aria-hidden="true">3.2.</strong> API - detailed</a></li><li class="chapter-item "><a href="../../v2.x/documentation/behavior.html"><strong aria-hidden="true">3.3.</strong> Behaviours</a></li></ol></li><li class="chapter-item "><li class="part-title">v1.x manipulator arm</li><li class="chapter-item "><a href="../../v1.x/users-guides.html"><strong aria-hidden="true">4.</strong> Users guides</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../v1.x/user-guides/installation.html"><strong aria-hidden="true">4.1.</strong> Installation</a></li><li class="chapter-item "><a href="../../v1.x/user-guides/quick-start.html"><strong aria-hidden="true">4.2.</strong> Getting Started</a></li><li class="chapter-item "><a href="../../v1.x/user-guides/how-to-use-it.html"><strong aria-hidden="true">4.3.</strong> How to use it</a></li><li class="chapter-item "><a href="../../v1.x/user-guides/bt.html"><strong aria-hidden="true">4.4.</strong> How to create a behaviour tree</a></li><li class="chapter-item "><a href="../../v1.x/user-guides/poppy.html"><strong aria-hidden="true">4.5.</strong> Examples on robots</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../v1.x/user-guides/poppy.html"><strong aria-hidden="true">4.5.1.</strong> Poppy ergo jr</a></li><li class="chapter-item "><a href="../../v1.x/user-guides/ur3.html"><strong aria-hidden="true">4.5.2.</strong> Universal Robots 3</a></li><li class="chapter-item "><a href="../../v1.x/user-guides/kuka.html"><strong aria-hidden="true">4.5.3.</strong> Kuka KR6</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../v1.x/api-documentation.html"><strong aria-hidden="true">5.</strong> Ronoco API Documentation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../v1.x/documentation/api-short.html"><strong aria-hidden="true">5.1.</strong> API - summarize</a></li><li class="chapter-item "><a href="../../v1.x/documentation/api-detailed.html"><strong aria-hidden="true">5.2.</strong> API - detailed</a></li><li class="chapter-item "><a href="../../v1.x/documentation/behavior.html"><strong aria-hidden="true">5.3.</strong> Behaviours</a></li></ol></li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title">Ronoco-documentation</h1>
+
+                    <div class="right-buttons">
+                                                <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                                                        
+                    </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="example-on-turtlebot-3-burger"><a class="header" href="#example-on-turtlebot-3-burger">Example on turtlebot 3 burger</a></h1>
+<p>First, install the necessary dependencies</p>
+<pre><code class="language-bash">sudo apt install ros-noetic-joy ros-noetic-teleop-twist-joy \
+  ros-noetic-teleop-twist-keyboard ros-noetic-laser-proc \
+  ros-noetic-rgbd-launch ros-noetic-rosserial-arduino \
+  ros-noetic-rosserial-python ros-noetic-rosserial-client \
+  ros-noetic-rosserial-msgs ros-noetic-amcl ros-noetic-map-server \
+  ros-noetic-move-base ros-noetic-urdf ros-noetic-xacro \
+  ros-noetic-compressed-image-transport ros-noetic-rqt* ros-noetic-rviz \
+  ros-noetic-gmapping ros-noetic-navigation ros-noetic-interactive-markers ros-noetic-tf2-tools
+
+sudo apt install ros-noetic-dynamixel-sdk
+sudo apt install ros-noetic-turtlebot3-msgs
+sudo apt install ros-noetic-turtlebot3
+</code></pre>
+<h2 id="with-a-simulated-tb3"><a class="header" href="#with-a-simulated-tb3">With a simulated tb3</a></h2>
+<p>For a simulation robot install the turtlebot simulation package</p>
+<pre><code class="language-bash">cd $HOME/catkin_ws/src
+git clone -b noetic-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
+cd ..
+catkin_maker
+source devel/setup.bash
+</code></pre>
+<p>Then launch gazebo in a first terminal</p>
+<pre><code class="language-bash">roslaunch turtlebot3_gazebo turtlebot3_house.launch
+</code></pre>
+<p>You can now launch ronoco in another terminal</p>
+<pre><code class="language-bash">roslaunch ronoco rolling.launch
+</code></pre>
+<p>At this point you can choose to :</p>
+<ul>
+<li>map the environment</li>
+<li>navigate on an existing map</li>
+</ul>
+<p>To map the environment, simply issue the command</p>
+<pre><code class="language-bash">roslaunch turtlebot3_slam turtlebot3_slam.launch
+</code></pre>
+<p>This will open rviz and the robot will start to build the environment around it. You can move it around using ronoco's directional arrows.</p>
+<p>Once you are happy with the map, don't close the previous terminal and run the command</p>
+<pre><code class="language-bash">rosrun map_server map_saver -f ~/map
+</code></pre>
+<p>Once this program is finished you can shut down the two previous terminals and move on to navigation.</p>
+<p>To perform the navigation run the following command</p>
+<pre><code class="language-bash">roslaunch turtlebot3_navigation turtlebot3_navigation.launch
+</code></pre>
+<p>Once rviz is open you can create behaviour trees using ronoco</p>
+<h2 id="with-a-real-tb3-ros4pro"><a class="header" href="#with-a-real-tb3-ros4pro">With a real tb3 (ros4pro)</a></h2>
+<p>To control a real turtlebot 3 with the ros4pro package (refer to <a href="https://learn.e.ros4.pro/fr/navigation/turtlebot/">https://learn.e.ros4.pro/fr/navigation/turtlebot/</a> for more information)</p>
+<p>First, install the ros4pro package</p>
+<pre><code class="language-bash">cd $HOME/catkin_ws/src
+git clone https://github.com/ros4pro/turtlebot3_ros4pro.git
+cd $HOME/catkin_ws &amp;&amp; catkin_make
+source devel/setup.bash
+</code></pre>
+<p>You can now start ronoco with the command</p>
+<pre><code class="language-bash">roslaunch ronoco rolling.launch namespace:=/tb3
+</code></pre>
+<p>In a first terminal connect to the robot via ssh and then run the command <code>roslaunch turtlebot3_ros4pro bringup.launch</code>.</p>
+<p>For mapping</p>
+<p>Run the command <code>roslaunch turtlebot3_ros4pro slam.launch</code>. RViz will launch and you should see the robot, the LIDAR scans and the map under construction. You can move the robot using the directional arrows of ronoco</p>
+<p>In a new terminal run the command <code>roscd turtlebot3_ros4pro/maps/</code> to go to the folder where the map is saved.</p>
+<p>The following command will delete the previous map if there is one, or make a copy if you want to keep it. Run the command <code>roslaunch turtlebot3_ros4pro map_saver.launch</code> which will save the map in the maps folder of the turtlebot3_ros4pro package (maps.yaml and maps.pgm files).</p>
+<p>For navigation run the roslaunch command turtlebot3_ros4pro navigation.launch to start location and autonomous navigation. Once rviz is open you can create behaviour trees using ronoco</p>
+<p>For example the execution of the tree below</p>
+<center>
+<img src="../static/treetb3.png"></img>
+</center>
+<p>This tree will ask the robot to navigate to point 0, then to patrol between points 0, 1 and 2 and finally to scan the polygon formed by points 0, 1 and 2. Its execution gives the result below.</p>
+<center>
+<video controls width="100%">
+<source src="../static/tb3.mp4" type="video/mp4">
+</video>
+</center>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                                                    <a rel="prev" href="../../v2.x/user-guides/kuka.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                                                    <a rel="next" href="../../v2.x/api-documentation.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                                    <a rel="prev" href="../../v2.x/user-guides/kuka.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                                    <a rel="next" href="../../v2.x/api-documentation.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                            </nav>
+
+        </div>
+
+        
+        
+        
+                <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+        
+                <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        
+    </body>
+</html>

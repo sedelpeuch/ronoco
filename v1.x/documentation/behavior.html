@@ -1,0 +1,285 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Behaviours - Ronoco-documentation</title>
+                
+
+        <!-- Custom HTML head -->
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+                <link rel="icon" href="../../favicon.svg">
+                        <link rel="shortcut icon" href="../../favicon.png">
+                <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+                <link rel="stylesheet" href="../../css/print.css" media="print">
+        
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+                <link rel="stylesheet" href="../../fonts/fonts.css">
+        
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item affix "><li class="part-title">Ronoco</li><li class="chapter-item "><a href="../../index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item affix "><li class="part-title">v2.x rolling robot</li><li class="chapter-item "><a href="../../v2.x/users-guides.html"><strong aria-hidden="true">2.</strong> Users guides</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../v2.x/user-guides/installation.html"><strong aria-hidden="true">2.1.</strong> Installation</a></li><li class="chapter-item "><a href="../../v2.x/user-guides/quick-start.html"><strong aria-hidden="true">2.2.</strong> Getting Started</a></li><li class="chapter-item "><a href="../../v2.x/user-guides/how-to-use-it.html"><strong aria-hidden="true">2.3.</strong> How to use it</a></li><li class="chapter-item "><a href="../../v2.x/user-guides/bt.html"><strong aria-hidden="true">2.4.</strong> How to create a behaviour tree</a></li><li class="chapter-item "><a href="../../v2.x/user-guides/examples.html"><strong aria-hidden="true">2.5.</strong> Examples on robots</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../v2.x/user-guides/poppy.html"><strong aria-hidden="true">2.5.1.</strong> Poppy ergo jr</a></li><li class="chapter-item "><a href="../../v2.x/user-guides/ur3.html"><strong aria-hidden="true">2.5.2.</strong> Universal Robots 3</a></li><li class="chapter-item "><a href="../../v2.x/user-guides/kuka.html"><strong aria-hidden="true">2.5.3.</strong> Kuka KR6</a></li><li class="chapter-item "><a href="../../v2.x/user-guides/turtlebot.html"><strong aria-hidden="true">2.5.4.</strong> Turtlebot 3 burger</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../v2.x/api-documentation.html"><strong aria-hidden="true">3.</strong> Ronoco API Documentation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../v2.x/documentation/api-short.html"><strong aria-hidden="true">3.1.</strong> API - summarize</a></li><li class="chapter-item "><a href="../../v2.x/documentation/api-detailed.html"><strong aria-hidden="true">3.2.</strong> API - detailed</a></li><li class="chapter-item "><a href="../../v2.x/documentation/behavior.html"><strong aria-hidden="true">3.3.</strong> Behaviours</a></li></ol></li><li class="chapter-item "><li class="part-title">v1.x manipulator arm</li><li class="chapter-item "><a href="../../v1.x/users-guides.html"><strong aria-hidden="true">4.</strong> Users guides</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../v1.x/user-guides/installation.html"><strong aria-hidden="true">4.1.</strong> Installation</a></li><li class="chapter-item "><a href="../../v1.x/user-guides/quick-start.html"><strong aria-hidden="true">4.2.</strong> Getting Started</a></li><li class="chapter-item "><a href="../../v1.x/user-guides/how-to-use-it.html"><strong aria-hidden="true">4.3.</strong> How to use it</a></li><li class="chapter-item "><a href="../../v1.x/user-guides/bt.html"><strong aria-hidden="true">4.4.</strong> How to create a behaviour tree</a></li><li class="chapter-item "><a href="../../v1.x/user-guides/poppy.html"><strong aria-hidden="true">4.5.</strong> Examples on robots</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../v1.x/user-guides/poppy.html"><strong aria-hidden="true">4.5.1.</strong> Poppy ergo jr</a></li><li class="chapter-item "><a href="../../v1.x/user-guides/ur3.html"><strong aria-hidden="true">4.5.2.</strong> Universal Robots 3</a></li><li class="chapter-item "><a href="../../v1.x/user-guides/kuka.html"><strong aria-hidden="true">4.5.3.</strong> Kuka KR6</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../v1.x/api-documentation.html"><strong aria-hidden="true">5.</strong> Ronoco API Documentation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../v1.x/documentation/api-short.html"><strong aria-hidden="true">5.1.</strong> API - summarize</a></li><li class="chapter-item "><a href="../../v1.x/documentation/api-detailed.html"><strong aria-hidden="true">5.2.</strong> API - detailed</a></li><li class="chapter-item expanded "><a href="../../v1.x/documentation/behavior.html" class="active"><strong aria-hidden="true">5.3.</strong> Behaviours</a></li></ol></li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title">Ronoco-documentation</h1>
+
+                    <div class="right-buttons">
+                                                <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                                                        
+                    </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="ronoco-vm-api---behaviour-documentation"><a class="header" href="#ronoco-vm-api---behaviour-documentation">Ronoco-VM API - Behaviour documentation</a></h1>
+<p>The Behaviour module is the implementation in Ronoco-vm of the different blocks accessible from Node-RED. Indeed, each block on Node-RED (plan, execute, cartesian etc) is associated with a treatment in Ronoco-vm. The beahviour module is the heart of this processing and allows to identify the existing blocks and to associate functions to them.</p>
+<h2 id="class-behaviour-class"><a class="header" href="#class-behaviour-class"><class> Behaviour </class></a></h2>
+<p>List the existing blocks and their type (control node, execution nodes etc).</p>
+<p>Defines the functions allowing to instantiate the different blocks while checking the content of the parameters.</p>
+<p>The interface implemented forces all these functions to have name, data and child parameters.</p>
+<p><member> Parameters in ronoco-vm</member></p>
+<ul>
+<li><em>name</em>: The name of the block (optional)</li>
+<li><em>data</em>: The data used to build the block (optional for some blocks, mandatory for others)</li>
+<li><em>child</em>: the child of the block to instantiate in the behaviour tree (mandatory for decorators)</li>
+</ul>
+<p><method> <img src="../static/nodered/question-mark.svg" width="5%"></img> selector </method></p>
+<p>Instantiates a <a href="https://py-trees.readthedocs.io/en/release-0.7.x/composites.html#selector">selector</a> node</p>
+<p>A selector executes each of its child behaviours in turn until one of them succeeds (at which point it itself returns RUNNING or SUCCESS, or it runs out of children at which point it itself returns FAILURE. We usually refer to selecting children as a means of choosing between priorities. Each child and its subtree represent a decreasingly lower priority path.</p>
+<p><method> <img src="../static/nodered/right-arrow.svg" width="5%"></img> sequence </method></p>
+<p>Instantiates a <a href="https://py-trees.readthedocs.io/en/release-0.7.x/composites.html#sequence">sequence</a> node</p>
+<p>A sequence will progressively tick over each of its children so long as each child returns SUCCESS. If any child returns FAILURE or RUNNING the sequence will halt and the parent will adopt the result of this child. If it reaches the last child, it returns with that result regardless.</p>
+<p>The sequence halts once it sees a child is RUNNING and then returns the result. It does not get stuck in the running behaviour.</p>
+<p><method> <img src="../static/nodered/parallel.svg" width="5%"></img> parallel </method></p>
+<p>Instantiates a <a href="https://py-trees.readthedocs.io/en/release-0.7.x/composites.html#parallel">parallel</a> node</p>
+<p>Ticks every child every time the parallel is run (a poor man’s form of paralellism).</p>
+<ul>
+<li>Parallels will return FAILURE if any child returns FAILURE</li>
+<li>Parallels with policy SUCCESS_ON_ONE return SUCCESS if at least one child returns SUCCESS and others are RUNNING.</li>
+<li>Parallels with policy SUCCESS_ON_ALL only returns SUCCESS if all children return SUCCESS</li>
+</ul>
+<p><method> <img src="../static/nodered/condition.svg" width="5%"></img> condition </method></p>
+<p>Instantiates a <a href="https://py-trees.readthedocs.io/en/release-0.7.x/modules.html#py_trees.decorators.Condition">condition</a> node</p>
+<p>Encapsulates a behaviour and wait for its status to flip to the desired state. This behaviour will tick with RUNNING while waiting and SUCCESS when the flip occurs.</p>
+<p><member> Parameters </member></p>
+<ul>
+<li><em>data</em>: SUCCESS, FAILURE or RUNNING</li>
+<li><em>child</em>: must be provided</li>
+</ul>
+<p><method> <img src="../static/nodered/inverter.svg" width="5%"></img> inverter </method></p>
+<p>Instantiates a <a href="https://py-trees.readthedocs.io/en/release-0.7.x/modules.html#py_trees.decorators.Inverter">inverter</a> node</p>
+<p>A decorator that inverts the result of a class’s update function.</p>
+<p><member> Parameters </member></p>
+<ul>
+<li><em>child</em>: must be provided</li>
+</ul>
+<p><method> <img src="../static/nodered/clock.svg" width="5%"></img> timeout </method></p>
+<p>Instantiates a <a href="https://py-trees.readthedocs.io/en/release-0.7.x/modules.html#py_trees.decorators.Timeout">timeout</a> node</p>
+<p>A decorator that applies a timeout pattern to an existing behaviour. If the timeout is reached, the encapsulated behaviour’s stop() method is called with status FAILURE otherwise it will simply directly tick and return with the same status as that of it’s encapsulated behaviour.</p>
+<p><member> Parameters </member></p>
+<ul>
+<li><em>data</em>: time in seconds as an integer</li>
+<li><em>child</em>: must be provided</li>
+</ul>
+<p><method> <img src="../static/nodered/play.svg" width="5%"></img> execute </method></p>
+<p>Execute the movement between the current position and a position given in the constructor parameter.</p>
+<p>Use MoveGroupCommander.set_pose_target() and MoveGroupCommander.go()</p>
+<p><member> Parameters </member></p>
+<ul>
+<li><em>data</em>: identifier of a point as an integer</li>
+</ul>
+<p><method> <img src="../static/nodered/navigation.svg" width="5%"></img> plan </method></p>
+<p>Planning movement between the current position and a position given in the constructor parameter.</p>
+<p>Use MoveGroupCommander.set_pose_target() and MoveGroupCommander.plan()</p>
+<p><member> Parameters </member></p>
+<ul>
+<li><em>data</em>: identifier of a point as an integer</li>
+</ul>
+<p><method> <img src="../static/nodered/cartesian.svg" width="5%"></img> cartesian </method></p>
+<p>Cartesian movement between the current position and a position given in the constructor parameter</p>
+<p>Use geometry_msgs.msg.PoseStamped(), MoveGroupCommander.compute_cartesian_path() and MoveGroupCommander.execute()</p>
+<p><member> Parameters </member></p>
+<ul>
+<li><em>data</em>: a dictionary like {'point_id' : integer, 'reliability': integer (0-100), 'eef' : float}</li>
+</ul>
+<p><method> <img src="../static/nodered/record.svg" width="5%"></img> record </method></p>
+<p>Record all trajectories during a time specified by a parameter in constructor</p>
+<p><member> Parameters </member></p>
+<ul>
+<li><em>data</em>: a dictionary like {'identifiant' : string, 'time': integer}</li>
+</ul>
+<p><method> <img src="../static/nodered/replay.svg" width="5%"></img> replay </method></p>
+<p>Replays a previously recorded path</p>
+<p><member> Parameters </member></p>
+<ul>
+<li><em>data</em>: name of a recorded trajectory as a string</li>
+</ul>
+<p><method> <img src="../static/nodered/service.svg" width="5%"></img> service </method></p>
+<p>Allows you to call a service offered by the robot. Perform <code>rosservice list</code> to get the list of available services</p>
+<p><member> Parameters </member></p>
+<ul>
+<li><em>name</em>: String - name of current block</li>
+<li><em>name of service</em>: String - The name of the service to be called. The name must not be preceded by a /.</li>
+<li><em>Parameters of service</em>: Array - The parameters to be provided to the service. The parameters must be enclosed in brackets and separated by commas.</li>
+</ul>
+<p><method> <img src="../static/nodered/robotic-hand.svg" width="5%"></img> end_effector </method></p>
+<p>Allows control of the robot end effector via an associated service passed as a parameter to ronoco.launch (the robot end effector controller must be started independently).</p>
+<p>This block returns SUCCESS if it has succeeded in completing the action and FAILURE if it has caught something in its path. Otherwise, the combination of &quot;end_effector&quot; and an &quot;inverter&quot; will return SUCCESS if the robot has caught something.</p>
+<p><member> Parameters </member></p>
+<ul>
+<li><em>name</em>: String - name of current block</li>
+<li><em>Data</em>: Array - The parameters to be provided to the service. The parameters must be enclosed in brackets and separated by commas.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                                                    <a rel="prev" href="../../v1.x/documentation/api-detailed.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                                    <a rel="prev" href="../../v1.x/documentation/api-detailed.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                            </nav>
+
+        </div>
+
+        
+        
+        
+                <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+        
+                <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        
+    </body>
+</html>
