@@ -4,6 +4,8 @@
 <arg name="commander" doc="Move group for moveit" default="manipulator"/>
 <arg name="end_effector" doc="Name of service for end effector" default="wsg_50_driver/move"/>
 <arg name="compliant_mode" doc="Compliance mode (manual, service's name or None)" default="None"/>
+<arg name="editor" doc="Editor (nodered / blockly)" default="nodered"/>
+<param name="editor" value="$(arg editor)"/>
 <param name="commander" value="$(arg commander)"/>
 <param name="compliant_mode" value="$(arg compliant_mode)"/>
 <param name="end_effector" value="$(arg end_effector)"/>

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <launch>
 <param name="ronoco_path" value="$(find ronoco)"/>
+<arg name="editor" doc="Editor (nodered / blockly)" default="nodered"/>
+<param name="editor" value="$(arg editor)"/>
 <arg name = "namespace" doc="Namespace for yours topics without last /" default=""/>
 <param name="namespace" value="$(arg namespace)"/>
 <param name="mode" value="rolling"/>
