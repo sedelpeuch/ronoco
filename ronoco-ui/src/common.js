@@ -105,6 +105,17 @@ async function connect_io() {
     });
     socket2.on('states', function (msg) {
         console.log(msg)
+        if (msg['editor'] === "nodered"){
+            if(document.getElementById("editor").name !== "nodered"){
+                document.getElementById("editor").name = "nodered"
+                document.getElementById("editor").src = "http://127.0.0.1:1880"
+            }
+        }else if(msg['editor'] === "blockly"){
+            if(document.getElementById("editor").name !== "blockly"){
+                document.getElementById("editor").name = "blockly"
+                document.getElementById("editor").src = "http://127.0.0.1:3000/"
+            }
+        }
         if (msg['ronoco_mode'] === "manipulator") {
             if (msg['commander_state'] == false) {
                 document.getElementById("robotState").innerHTML = "<span title='Check that MoveIt is running and that the order passed as a parameter is the right one, then click on the connect button'><img id=\"state\" src=\"/static/circle.svg\" alt=\"StateLogo\" height=\"40\"></span>"
