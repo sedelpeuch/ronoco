@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Blockly - Loading with Webpack</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        #blocklyDiv {
+            height: 100%;
+        }
+
+        #blocklyButton {
+            float: right;
+        }
+    </style>
+</head>
+
+<body>
+<nav>
+    <button id="blocklyButton">Convert</button>
+</nav>
+<div id='blocklyDiv'>
+</div>
+
+<script type='text/javascript' src='./common.js'></script>
+<script type='text/javascript' src='./index.js'></script>
+
+<xml id="toolbox" style="display: none">
+    <category name="Common ">
+        <block type="root"></block>
+        <block type="sequence"></block>
+        <block type="selector"></block>
+        <block type="parallel"></block>
+        <block type="service"></block>
+        <block type="sleep"></block>
+        <block type="condition"></block>
+        <block type="inverter"></block>
+        <block type="timeout"></block>
+    </category>
+    <category name="Manipulator">
+        <block type="cartesian"></block>
+        <block type="end effector"></block>
+        <block type="execute"></block>
+        <block type="plan"></block>
+        <block type="record"></block>
+        <block type="replay"></block>
+    </category>
+    <category name="Rolling">
+        <block type="navigate"></block>
+        <block type="coverage"></block>
+        <block type="patrol"></block>
+    </category>
+</xml>
+</body>
+
+</html>
