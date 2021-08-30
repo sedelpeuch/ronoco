@@ -41,7 +41,8 @@ class Common:
         if config.ronoco_mode == "manipulator":
             while True:
                 time.sleep(5.0)
-                config.socketio.emit('states', {"ronoco_mode": "manipulator", "ros_state": self.ros_state(),
+                config.socketio.emit('states', {"ronoco_mode": "manipulator", "editor": config.editor,
+                                                "ros_state": self.ros_state(),
                                                 "moveit_state": self.moveit_state(),
                                                 "rviz_state": self.rviz_state(),
                                                 "commander_state": self.commander_state()},
@@ -49,9 +50,10 @@ class Common:
         elif config.ronoco_mode == "rolling":
             while True:
                 time.sleep(5.0)
-                config.socketio.emit('states', {"ronoco_mode": "rolling", "ros_state": self.ros_state(),
-                                                "navigation_state": self.navigation_state(),
-                                                "rviz_state": self.rviz_state()},
+                config.socketio.emit('states',
+                                     {"ronoco_mode": "rolling", "editor": config.editor, "ros_state": self.ros_state(),
+                                      "navigation_state": self.navigation_state(),
+                                      "rviz_state": self.rviz_state()},
                                      namespace='/states')
 
     @staticmethod

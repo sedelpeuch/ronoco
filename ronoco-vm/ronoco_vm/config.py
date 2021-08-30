@@ -15,6 +15,7 @@ socketio = None
 debug = 4
 
 ronoco_mode = rospy.get_param("mode")
+editor = rospy.get_param("editor")
 
 if ronoco_mode == "manipulator":
     # Move group for moveit
