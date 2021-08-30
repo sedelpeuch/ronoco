@@ -30,7 +30,6 @@ module.exports = {
     mode: 'development',
     entry: {
         index: './src/index.js',
-        common: './src/common.js',
     },
     output: {
         path: path.resolve(__dirname, 'build'),

@@ -6,7 +6,8 @@
     "audit": "npm audit fix",
     "update": "npm update",
     "start": "webpack-dev-server",
-    "build": "webpack"
+    "build": "webpack",
+    "stop": "pkill --signal SIGINT webpack"
   },
   "dependencies": {
     "blockly": "^3.20200123.1"
