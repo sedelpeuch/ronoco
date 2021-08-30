@@ -1,0 +1,20 @@
+{
+  "name": "ronoco-blocky",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "audit": "npm audit fix",
+    "update": "npm update",
+    "start": "webpack-dev-server",
+    "build": "webpack"
+  },
+  "dependencies": {
+    "blockly": "^3.20200123.1"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^5.1.1",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0"
+  }
+}
