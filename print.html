@@ -528,9 +528,97 @@ kinematics_config:=&quot;${HOME}/calibration.yaml&quot;
 <h3 id="limitations"><a class="header" href="#limitations">Limitations</a></h3>
 <p>Universal robots do not support the use of &quot;free mode&quot; at the same time as the execution of a program, i.e. when executing the <strong>ExternalControl</strong> block it is not possible to use the &quot;free mode&quot; function. Thus the <em>record</em> and <em>replay</em> blocks cannot be used on a universal robot.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="example-on-kuka-kr6"><a class="header" href="#example-on-kuka-kr6">Example on Kuka KR6</a></h1>
+<p>This guide explains how to use the kuka KR6 at eirlab and ronoco on it.</p>
+<h2 id="mise-en-garde"><a class="header" href="#mise-en-garde">Mise en garde</a></h2>
+<p>Please note that the Kuka KR6 R900 arm is not a cobot. It is necessary to take every precaution to avoid injury. When the arm is activated <strong>never</strong> enter its working area. Ideally, a second person should be assigned to the external emergency stop button when operating the arm.</p>
+<h2 id="démarrage-du-kuka"><a class="header" href="#démarrage-du-kuka">Démarrage du Kuka</a></h2>
+<p>To begin, turn the green on/off switch on the controller to the on position. The kuka will initialise for a few minutes.</p>
+<p>Once initialized you will have access to the kuka control interface.</p>
+<h3 id="contrôle-manuel"><a class="header" href="#contrôle-manuel">Contrôle manuel</a></h3>
+<p>To control the robot in manual mode start by placing it in <strong>T1</strong> mode. To do this, turn the key on the control panel, press <strong>T1</strong> and then turn the key over.</p>
+<center>
+<img src="v2.x/user-guides/../static/kukat1.jpg" width="50%"></img>
+</center>
+<p>Once in T1 mode, unlock the emergency stops. Click <em>confirm all</em> on the control panel</p>
+<center>
+<img src="v2.x/user-guides/../static/kukaconfirmall.jpg" width="50%"></img>
+</center>
+<p>then click on the <em>operator acknolegment</em> button on the back of the controller (without going through the kuka work area!)</p>
+<center>
+<img src="v2.x/user-guides/../static/kukacontrolleur.png" width="50%"></img>
+</center>
+<p>At this point the kuka is ready to be controlled manually. Simply hold one of the white buttons on the back of the tablet with your finger and then move the various joints with the 6 buttons on the side of the tablet.</p>
+<h3 id="contrôle-automatique"><a class="header" href="#contrôle-automatique">Contrôle automatique</a></h3>
+<p>To run a program on the kuka it is necessary to switch it to <strong>automatic</strong> mode.</p>
+<p>⚠️ Automatic mode means that you do not need to hold down a button to make the kuka move as in <strong>T1</strong> mode, when using this mode always have an emergency stop button in your hands. To switch to automatic mode turn the key, click <em>aut</em> and then turn the key back.</p>
+<center>
+<img src="v2.x/user-guides/../static/kukaaut.jpg" width="50%"></img>
+</center>
+<p>Once in automatic mode, unlock the emergency stops, set the <em>operator safety</em> switch to 1 and click on <em>operator acknowledgement</em> (without going through the kuka work area!). Then start the controller by clicking on the I (or O) at the top of the tablet and then clicking on the I button</p>
+<center>
+<img src="v2.x/user-guides/../static/kukaautlaunch.jpg" width="50%"></img>
+</center>
+<p>Then you have to select a program. For example, for the program <em>kuka_eki</em> you just have to click on it and then press the <em>select</em> button. Finally, to start the program, press the <em>play</em> button on the left of the tablet.</p>
+<center>
+<img src="v2.x/user-guides/../static/kukalaunch.jpg" width="50%"></img>
+</center>
+<p>⚠️ The programme is now running independently. Please be aware of the kuka's movements and do not hesitate to press the emergency stop.</p>
+<h2 id="connexion-avec-ros"><a class="header" href="#connexion-avec-ros">Connexion avec ROS</a></h2>
+<h3 id="installation-1"><a class="header" href="#installation-1">Installation</a></h3>
+<pre><code class="language-bash">sudo apt-get install python-imaging-tk
+sudo apt-get install python-tk
+cd ~/catkin_ws/src/
+git clone https://github.com/ros-industrial/kuka_experimental
+git clone https://github.com/Bordeaux-INP/dimr-kuka
+cd ..
+rosdep install --from-paths src --ignore-src
+catkin_make
+source ~/.bashrc
+</code></pre>
+<p>If you also want to use the wsg50 effector mounted on the kuka :</p>
+<pre><code class="language-bash">cd ~/catkin_ws/src/
+git clone https://github.com/nalt/wsg50-ros-pkg
+cd ..
+catkin_make
+source ~/.bashrc
+</code></pre>
+<h3 id="utilisation-en-simulation"><a class="header" href="#utilisation-en-simulation">Utilisation en simulation</a></h3>
+<p>To start the DIMR-KUKA project in simulation, type the following command. An RSI simulator is started in the background to simulate the true response of the KRC4 via the RSI module.</p>
+<pre><code class="language-bash">roslaunch dimr_kuka dimr_kuka.launch sim:=true
+</code></pre>
+<h3 id="utilisation-réelle"><a class="header" href="#utilisation-réelle">Utilisation réelle</a></h3>
+<p>Once the kuka has been put into emergency mode, connect the ethernet cable from the switch on the bottom of the kuka to your PC. Also connect the power supply to the end effector if you wish to use it. Once everything is connected you can raise the emergency stop on the kuka and run the <em>kuka_eki</em> program.</p>
+<p>On your pc it is necessary to manually provide DHCP on the address <code>192.168.250.21/24</code>. Remember to disable the proxy server if you have one. The kuka ip address will be <code>192.168.250.20</code> and the effector will be <code>192.168.250.22</code>.</p>
+<center>
+<img src="v2.x/user-guides/../static/kukadhcp.png" width="60%"></img>
+</center>
+<p>You can check the connection of all items by running the command <code>nmap -sP 192.168.250.0/24</code> if everything is connected the output should be similar to this:</p>
+<pre><code class="language-bash">Starting Nmap 7.80 ( https://nmap.org ) at 2021-08-31 10:57 CEST
+Nmap scan report for 192.168.250.20
+Host is up (0.0016s latency).
+Nmap scan report for morhost-iscsi2.iscsi.ipb.fr (192.168.250.21)
+Host is up (0.00027s latency).
+Nmap scan report for hangar-iscsi2a.iscsi.ipb.fr (192.168.250.22)
+Host is up (0.0025s latency).
+Nmap done: 256 IP addresses (3 hosts up) scanned in 16.12 seconds
+</code></pre>
+<p>You can then run the command for the kuka. You will then have access to rviz to control it.</p>
+<pre><code class="language-bash">roslaunch dimr_kuka dimr_kuka.launch sim:=false mode:=eki 
+</code></pre>
+<p>In order to do this it is first necessary to change the connection ip in the ros package. Open with your favorite editor the file: <code>~/catkin_ws/src/wsg50-ros-pkg/wsg_50_driver/launch/wsg_50_tcp.launch</code> and replace line 5 with the line below</p>
+<pre><code class="language-xml">	&lt;param name=&quot;ip&quot; type=&quot;string&quot; value=&quot;192.168.250.22&quot;/&gt;
+</code></pre>
+<p>Once registered you can run the following command to take control of the effector. Then open a browser and go to <code>192.168.250.22</code>.</p>
+<pre><code class="language-bash">roslaunch wsg_50_driver wsg_50_tcp.launch     
+</code></pre>
+<h3 id="utilisation-avec-ronoco"><a class="header" href="#utilisation-avec-ronoco">Utilisation avec Ronoco</a></h3>
+<p>To use the kuka (and the effector) with ronoco you just have to <a href="https://sdelpeuch.github.io/ronoco/">install the project</a> and then launch it with the following command.</p>
+<pre><code class="language-roslaunch">roslaunch ronoco manipulator.launch commander:=manipulator compliant_mode:=None end_effector:=wsg_50_driver/move
+</code></pre>
 <center>
 <img src="v2.x/user-guides/../static/kuka.gif"></img>
-</center><div style="break-before: page; page-break-before: always;"></div><h1 id="example-on-turtlebot-3-burger"><a class="header" href="#example-on-turtlebot-3-burger">Example on turtlebot 3 burger</a></h1>
+</center>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="example-on-turtlebot-3-burger"><a class="header" href="#example-on-turtlebot-3-burger">Example on turtlebot 3 burger</a></h1>
 <p>First, install the necessary dependencies</p>
 <pre><code class="language-bash">sudo apt install ros-noetic-joy ros-noetic-teleop-twist-joy \
   ros-noetic-teleop-twist-keyboard ros-noetic-laser-proc \
@@ -1206,7 +1294,7 @@ The message must be a dictionary with at least one key/value</p>
 </ul>
 </li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="installation-1"><a class="header" href="#installation-1">Installation</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="installation-2"><a class="header" href="#installation-2">Installation</a></h1>
 <p>The installation is divide into two parts. First it is necessary to install ROS Noetic and then to install the different modules of ronoco. An installation guide for ROS noetic for Ubuntu is provided below. Refer to <a href="http://wiki.ros.org/noetic/Installation">the official page</a> for more details</p>
 <h2 id="ubuntu-install-of-ros-noetic-1"><a class="header" href="#ubuntu-install-of-ros-noetic-1">Ubuntu install of ROS Noetic</a></h2>
 <p>Configure your Ubuntu to allow &quot;restricted&quot;, &quot;universe&quot; and &quot;multiverse&quot;. You can
