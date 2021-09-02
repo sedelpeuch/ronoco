@@ -232,12 +232,6 @@ npm install
 <pre><code class="language-bash">cd $HOME/catkin_ws/src/ronoco/ronoco-vm/
 pip3 install -r requirements.txt
 </code></pre>
-<p>It is necessary to download a socketio client in the static folder of the API</p>
-<pre><code class="language-bash">cd $HOME/catkin_ws/src/ronoco/ronoco-vm/ronoco_vm/static/
-mkdir socket.io &amp;&amp; cd socket.io
-wget https://github.com/socketio/socket.io/blob/master/client-dist/socket.io.js
-wget https://github.com/socketio/socket.io/blob/master/client-dist/socket.io.js.map
-</code></pre>
 <p>Before using ronoco it is necessary to compile the ROS workspace</p>
 <pre><code class="language-bash">cd $HOME/catkin_ws/
 catkin_make
@@ -531,24 +525,23 @@ kinematics_config:=&quot;${HOME}/calibration.yaml&quot;
 <p>This guide explains how to use the kuka KR6 at eirlab and ronoco on it.</p>
 <h2 id="mise-en-garde"><a class="header" href="#mise-en-garde">Mise en garde</a></h2>
 <p>Please note that the Kuka KR6 R900 arm is not a cobot. It is necessary to take every precaution to avoid injury. When the arm is activated <strong>never</strong> enter its working area. Ideally, a second person should be assigned to the external emergency stop button when operating the arm.</p>
-<h2 id="démarrage-du-kuka"><a class="header" href="#démarrage-du-kuka">Démarrage du Kuka</a></h2>
 <p>To begin, turn the green on/off switch on the controller to the on position. The kuka will initialise for a few minutes.</p>
 <p>Once initialized you will have access to the kuka control interface.</p>
-<h3 id="contrôle-manuel"><a class="header" href="#contrôle-manuel">Contrôle manuel</a></h3>
+<h3 id="manual-control"><a class="header" href="#manual-control">Manual control</a></h3>
 <p>To control the robot in manual mode start by placing it in <strong>T1</strong> mode. To do this, turn the key on the control panel, press <strong>T1</strong> and then turn the key over.</p>
 <center>
-<img src="v2.x/user-guides/../static/kukat1.jpg" width="50%"></img>
+<img src="v2.x/user-guides/../static/kukat1.jpg" width="50%"/>
 </center>
 <p>Once in T1 mode, unlock the emergency stops. Click <em>confirm all</em> on the control panel</p>
 <center>
-<img src="v2.x/user-guides/../static/kukaconfirmall.jpg" width="50%"></img>
+<img src="v2.x/user-guides/../static/kukaconfirmall.jpg" width="50%"/>
 </center>
 <p>then click on the <em>operator acknolegment</em> button on the back of the controller (without going through the kuka work area!)</p>
 <center>
-<img src="v2.x/user-guides/../static/kukacontrolleur.png" width="50%"></img>
+<img src="v2.x/user-guides/../static/kukacontrolleur.png" width="50%"/>
 </center>
 <p>At this point the kuka is ready to be controlled manually. Simply hold one of the white buttons on the back of the tablet with your finger and then move the various joints with the 6 buttons on the side of the tablet.</p>
-<h3 id="contrôle-automatique"><a class="header" href="#contrôle-automatique">Contrôle automatique</a></h3>
+<h3 id="automatic-control"><a class="header" href="#automatic-control">Automatic control</a></h3>
 <p>To run a program on the kuka it is necessary to switch it to <strong>automatic</strong> mode.</p>
 <p>⚠️ Automatic mode means that you do not need to hold down a button to make the kuka move as in <strong>T1</strong> mode, when using this mode always have an emergency stop button in your hands. To switch to automatic mode turn the key, click <em>aut</em> and then turn the key back.</p>
 <center>
@@ -563,7 +556,7 @@ kinematics_config:=&quot;${HOME}/calibration.yaml&quot;
 <img src="v2.x/user-guides/../static/kukalaunch.jpg" width="50%"></img>
 </center>
 <p>⚠️ The programme is now running independently. Please be aware of the kuka's movements and do not hesitate to press the emergency stop.</p>
-<h2 id="connexion-avec-ros"><a class="header" href="#connexion-avec-ros">Connexion avec ROS</a></h2>
+<h2 id="ros"><a class="header" href="#ros">ROS</a></h2>
 <h3 id="installation-1"><a class="header" href="#installation-1">Installation</a></h3>
 <pre><code class="language-bash">sudo apt-get install python-imaging-tk
 sudo apt-get install python-tk
@@ -582,12 +575,12 @@ cd ..
 catkin_make
 source ~/.bashrc
 </code></pre>
-<h3 id="utilisation-en-simulation"><a class="header" href="#utilisation-en-simulation">Utilisation en simulation</a></h3>
+<h3 id="simulation"><a class="header" href="#simulation">Simulation</a></h3>
 <p>To start the DIMR-KUKA project in simulation, type the following command. An RSI simulator is started in the background to simulate the true response of the KRC4 via the RSI module.</p>
-<pre><code class="language-bash">roslaunch dimr_kuka dimr_kuka.launch sim:=true
+<pre><code class="language-bash">roslaunch dimr_kuka dimr_kuka.launch sim:=true gripper:=false
 </code></pre>
-<h3 id="utilisation-réelle"><a class="header" href="#utilisation-réelle">Utilisation réelle</a></h3>
-<p>Once the kuka has been put into emergency mode, connect the ethernet cable from the switch on the bottom of the kuka to your PC. Also connect the power supply to the end effector if you wish to use it. Once everything is connected you can raise the emergency stop on the kuka and run the <em>kuka_eki</em> program.</p>
+<h3 id="real"><a class="header" href="#real">Real</a></h3>
+<p>Once the kuka has been put into emergency mode, connect the ethernet cable from the switch on the bottom of the kuka to your PC. Also connect the power supply to the end effector if you wish to use it. Once everything is connected you can remove the emergency stop on the kuka and run the <em>kuka_eki</em> program.</p>
 <p>On your pc it is necessary to manually provide DHCP on the address <code>192.168.250.21/24</code>. Remember to disable the proxy server if you have one. The kuka ip address will be <code>192.168.250.20</code> and the effector will be <code>192.168.250.22</code>.</p>
 <center>
 <img src="v2.x/user-guides/../static/kukadhcp.png" width="60%"></img>
@@ -603,15 +596,16 @@ Host is up (0.0025s latency).
 Nmap done: 256 IP addresses (3 hosts up) scanned in 16.12 seconds
 </code></pre>
 <p>You can then run the command for the kuka. You will then have access to rviz to control it.</p>
-<pre><code class="language-bash">roslaunch dimr_kuka dimr_kuka.launch sim:=false mode:=eki 
+<pre><code class="language-bash">roslaunch dimr_kuka dimr_kuka.launch sim:=false mode:=eki gripper:=false
 </code></pre>
-<p>In order to do this it is first necessary to change the connection ip in the ros package. Open with your favorite editor the file: <code>~/catkin_ws/src/wsg50-ros-pkg/wsg_50_driver/launch/wsg_50_tcp.launch</code> and replace line 5 with the line below</p>
+<p>🦾 To use the effector, it is first necessary to change the connection ip in the ros package. Open with your favorite editor the file: <code>~/catkin_ws/src/wsg50-ros-pkg/wsg_50_driver/launch/wsg_50_tcp.launch</code> and replace line 5 with the line below</p>
 <pre><code class="language-xml">	&lt;param name=&quot;ip&quot; type=&quot;string&quot; value=&quot;192.168.250.22&quot;/&gt;
 </code></pre>
-<p>Once registered you can run the following command to take control of the effector. Then open a browser and go to <code>192.168.250.22</code>.</p>
-<pre><code class="language-bash">roslaunch wsg_50_driver wsg_50_tcp.launch     
+<p>Once registered you can run the following command to take control of the effector.</p>
+<pre><code class="language-bash">roslaunch dimr_kuka dimr_kuka.launch sim:=false mode:=eki gripper:=true   
 </code></pre>
-<h3 id="utilisation-avec-ronoco"><a class="header" href="#utilisation-avec-ronoco">Utilisation avec Ronoco</a></h3>
+<p>🔧 The gripper services then start automatically, you can test the operation of the gripper with the command <code>rosservice call /wsg_50_driver/move 50 50</code>. If it moves everything is normal. If it responds with a 255 error then go to the <code>192.168.250.22</code> tab <em>manual control</em> and click on the <strong>home</strong> button you can then use the effector directly with ROS.</p>
+<h3 id="ronoco-1"><a class="header" href="#ronoco-1">Ronoco</a></h3>
 <p>To use the kuka (and the effector) with ronoco you just have to <a href="https://sdelpeuch.github.io/ronoco/">install the project</a> and then launch it with the following command.</p>
 <pre><code class="language-roslaunch">roslaunch ronoco manipulator.launch commander:=manipulator compliant_mode:=None end_effector:=wsg_50_driver/move
 </code></pre>
@@ -1324,7 +1318,7 @@ source $HOME/.bashrc
 echo &quot;source /opt/ros/noetic/setup.zsh&quot; &gt;&gt; ~/.zshrc
 source $HOME/.zshrc
 </code></pre>
-<h2 id="ronoco-1"><a class="header" href="#ronoco-1">Ronoco</a></h2>
+<h2 id="ronoco-2"><a class="header" href="#ronoco-2">Ronoco</a></h2>
 <p>To install ronoco you need the following packages:</p>
 <ul>
 <li>npm</li>
@@ -1353,12 +1347,6 @@ npm install
 <p>Finally, all that remains is to install the application engine found in <em>ronoco-vm</em>.</p>
 <pre><code class="language-bash">cd $HOME/catkin_ws/src/ronoco/ronoco-vm/
 pip3 install -r requirements.txt
-</code></pre>
-<p>It is necessary to download a socketio client in the static folder of the API</p>
-<pre><code class="language-bash">cd $HOME/catkin_ws/src/ronoco/ronoco-vm/ronoco_vm/static/
-mkdir socket.io &amp;&amp; cd socket.io/
-wget https://github.com/socketio/socket.io/blob/master/client-dist/socket.io.js
-wget https://github.com/socketio/socket.io/blob/master/client-dist/socket.io.js.map
 </code></pre>
 <p>Before using ronoco it is necessary to compile the ROS workspace</p>
 <pre><code class="language-bash">cd $HOME/catkin_ws/
