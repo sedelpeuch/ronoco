@@ -6,35 +6,33 @@ This guide explains how to use the kuka KR6 at eirlab and ronoco on it.
 
 Please note that the Kuka KR6 R900 arm is not a cobot. It is necessary to take every precaution to avoid injury. When the arm is activated **never** enter its working area. Ideally, a second person should be assigned to the external emergency stop button when operating the arm.
 
-## Démarrage du Kuka
-
 To begin, turn the green on/off switch on the controller to the on position. The kuka will initialise for a few minutes.
 
 Once initialized you will have access to the kuka control interface.
 
-### Contrôle manuel
+### Manual control
 
 To control the robot in manual mode start by placing it in **T1** mode. To do this, turn the key on the control panel, press **T1** and then turn the key over.
 
 <center>
-<img src="../static/kukat1.jpg" width="50%"></img>
+<img src="../static/kukat1.jpg" width="50%"/>
 </center>
 
 Once in T1 mode, unlock the emergency stops. Click *confirm all* on the control panel
 
 <center>
-<img src="../static/kukaconfirmall.jpg" width="50%"></img>
+<img src="../static/kukaconfirmall.jpg" width="50%"/>
 </center>
 
 then click on the *operator acknolegment* button on the back of the controller (without going through the kuka work area!)
 
 <center>
-<img src="../static/kukacontrolleur.png" width="50%"></img>
+<img src="../static/kukacontrolleur.png" width="50%"/>
 </center>
 
 At this point the kuka is ready to be controlled manually. Simply hold one of the white buttons on the back of the tablet with your finger and then move the various joints with the 6 buttons on the side of the tablet.
 
-### Contrôle automatique
+### Automatic control
 
 To run a program on the kuka it is necessary to switch it to **automatic** mode.
 
@@ -59,7 +57,7 @@ Then you have to select a program. For example, for the program *kuka_eki* you j
 ⚠️ The programme is now running independently. Please be aware of the kuka's movements and do not hesitate to press the emergency stop.
 
 
-## Connexion avec ROS
+## ROS
 
 ### Installation
 
@@ -84,17 +82,17 @@ catkin_make
 source ~/.bashrc
 ```
 
-### Utilisation en simulation
+### Simulation
 
 To start the DIMR-KUKA project in simulation, type the following command. An RSI simulator is started in the background to simulate the true response of the KRC4 via the RSI module.
 
 ```bash
-roslaunch dimr_kuka dimr_kuka.launch sim:=true
+roslaunch dimr_kuka dimr_kuka.launch sim:=true gripper:=false
 ```
 
-### Utilisation réelle
+### Real
 
-Once the kuka has been put into emergency mode, connect the ethernet cable from the switch on the bottom of the kuka to your PC. Also connect the power supply to the end effector if you wish to use it. Once everything is connected you can raise the emergency stop on the kuka and run the *kuka_eki* program.
+Once the kuka has been put into emergency mode, connect the ethernet cable from the switch on the bottom of the kuka to your PC. Also connect the power supply to the end effector if you wish to use it. Once everything is connected you can remove the emergency stop on the kuka and run the *kuka_eki* program.
 
 On your pc it is necessary to manually provide DHCP on the address `192.168.250.21/24`. Remember to disable the proxy server if you have one. The kuka ip address will be `192.168.250.20` and the effector will be `192.168.250.22`.
 
@@ -117,22 +115,27 @@ Nmap done: 256 IP addresses (3 hosts up) scanned in 16.12 seconds
 
 You can then run the command for the kuka. You will then have access to rviz to control it.
 ```bash
-roslaunch dimr_kuka dimr_kuka.launch sim:=false mode:=eki 
+roslaunch dimr_kuka dimr_kuka.launch sim:=false mode:=eki gripper:=false
 ```
 
-In order to do this it is first necessary to change the connection ip in the ros package. Open with your favorite editor the file: `~/catkin_ws/src/wsg50-ros-pkg/wsg_50_driver/launch/wsg_50_tcp.launch` and replace line 5 with the line below
+
+🦾 To use the effector, it is first necessary to change the connection ip in the ros package. Open with your favorite editor the file: `~/catkin_ws/src/wsg50-ros-pkg/wsg_50_driver/launch/wsg_50_tcp.launch` and replace line 5 with the line below
 
 ```xml
 	<param name="ip" type="string" value="192.168.250.22"/>
 ```
 
-Once registered you can run the following command to take control of the effector. Then open a browser and go to `192.168.250.22`.
+Once registered you can run the following command to take control of the effector.
 
 ```bash
-roslaunch wsg_50_driver wsg_50_tcp.launch     
+roslaunch dimr_kuka dimr_kuka.launch sim:=false mode:=eki gripper:=true   
 ```
 
-### Utilisation avec Ronoco
+🔧 The gripper services then start automatically, you can test the operation of the gripper with the command `rosservice call /wsg_50_driver/move 50 50`. If it moves everything is normal. If it responds with a 255 error then go to the `192.168.250.22` tab *manual control* and click on the **home** button you can then use the effector directly with ROS.
+
+
+
+### Ronoco
 
 To use the kuka (and the effector) with ronoco you just have to [install the project](https://sdelpeuch.github.io/ronoco/) and then launch it with the following command.
 
