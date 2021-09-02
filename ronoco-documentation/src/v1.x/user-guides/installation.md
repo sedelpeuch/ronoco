@@ -89,15 +89,6 @@ cd $HOME/catkin_ws/src/ronoco/ronoco-vm/
 pip3 install -r requirements.txt
 ```
 
-It is necessary to download a socketio client in the static folder of the API
-
-```bash
-cd $HOME/catkin_ws/src/ronoco/ronoco-vm/ronoco_vm/static/
-mkdir socket.io && cd socket.io/
-wget https://github.com/socketio/socket.io/blob/master/client-dist/socket.io.js
-wget https://github.com/socketio/socket.io/blob/master/client-dist/socket.io.js.map
-```
-
 Before using ronoco it is necessary to compile the ROS workspace
 
 ```bash
