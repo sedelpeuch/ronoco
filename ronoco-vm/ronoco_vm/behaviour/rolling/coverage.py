@@ -11,8 +11,8 @@ import logger
 import py_trees
 
 import rospy
+from coverage import path_coverage_node
 from geometry_msgs.msg import PointStamped
-from ronoco_vm.coverage import path_coverage_node
 from std_msgs.msg import Header
 
 
