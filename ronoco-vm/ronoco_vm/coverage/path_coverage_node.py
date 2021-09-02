@@ -31,10 +31,10 @@ from geometry_msgs.msg import PointStamped, PoseStamped
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 from nav_msgs.msg import OccupancyGrid
 from nav_msgs.srv import GetPlan
-from ronoco_vm.coverage.libs.border_drive import border_calc_path
-from ronoco_vm.coverage.libs.list_helper import *
-from ronoco_vm.coverage.libs.marker_visualization import MarkerVisualization
-from ronoco_vm.coverage.libs.trapezoidal_coverage import calc_path as trapezoid_calc_path
+from coverage.libs.border_drive import border_calc_path
+from coverage.libs.list_helper import *
+from coverage.libs.marker_visualization import MarkerVisualization
+from coverage.libs.trapezoidal_coverage import calc_path as trapezoid_calc_path
 
 INSCRIBED_INFLATED_OBSTACLE = 253
 

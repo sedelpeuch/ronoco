@@ -15,8 +15,8 @@ import tf
 from actionlib_msgs.msg import GoalStatus
 from geometry_msgs.msg import PointStamped
 from move_base_msgs.msg import MoveBaseGoal
-from ronoco_vm.coverage.libs.list_helper import list_avg_dist
-from ronoco_vm.coverage.libs.marker_visualization import MarkerVisualization
+from coverage.libs.list_helper import list_avg_dist
+from coverage.libs.marker_visualization import MarkerVisualization
 from std_msgs.msg import Header
 
 
