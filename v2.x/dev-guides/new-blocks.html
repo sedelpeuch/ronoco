@@ -1,0 +1,305 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js ayu">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Add blocks to node-red - Ronoco-documentation</title>
+                
+
+        <!-- Custom HTML head -->
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+                <link rel="icon" href="../../favicon.svg">
+                        <link rel="shortcut icon" href="../../favicon.png">
+                <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+                <link rel="stylesheet" href="../../css/print.css" media="print">
+        
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+                <link rel="stylesheet" href="../../fonts/fonts.css">
+        
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "ayu";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item affix "><li class="part-title">Ronoco</li><li class="chapter-item "><a href="../../index.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item affix "><li class="part-title">v2.x rolling robot</li><li class="chapter-item "><a href="../../v2.x/users-guides.html"><strong aria-hidden="true">2.</strong> Users guides</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../v2.x/user-guides/installation.html"><strong aria-hidden="true">2.1.</strong> Installation</a></li><li class="chapter-item "><a href="../../v2.x/user-guides/quick-start.html"><strong aria-hidden="true">2.2.</strong> Getting Started</a></li><li class="chapter-item "><a href="../../v2.x/user-guides/how-to-use-it.html"><strong aria-hidden="true">2.3.</strong> How to use it</a></li><li class="chapter-item "><a href="../../v2.x/user-guides/bt.html"><strong aria-hidden="true">2.4.</strong> How to create a behaviour tree</a></li><li class="chapter-item "><a href="../../v2.x/user-guides/examples.html"><strong aria-hidden="true">2.5.</strong> Examples on robots</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../v2.x/user-guides/poppy.html"><strong aria-hidden="true">2.5.1.</strong> Poppy ergo jr</a></li><li class="chapter-item "><a href="../../v2.x/user-guides/ur3.html"><strong aria-hidden="true">2.5.2.</strong> Universal Robots 3</a></li><li class="chapter-item "><a href="../../v2.x/user-guides/kuka.html"><strong aria-hidden="true">2.5.3.</strong> Kuka KR6</a></li><li class="chapter-item "><a href="../../v2.x/user-guides/turtlebot.html"><strong aria-hidden="true">2.5.4.</strong> Turtlebot 3 burger</a></li></ol></li></ol></li><li class="chapter-item expanded "><a href="../../v2.x/dev-guides.html"><strong aria-hidden="true">3.</strong> Developers Guides</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../v2.x/dev-guides/new-blocks.html" class="active"><strong aria-hidden="true">3.1.</strong> Add blocks to node-red</a></li><li class="chapter-item "><a href="../../v2.x/dev-guides/scratch.html"><strong aria-hidden="true">3.2.</strong> Change node-red</a></li></ol></li><li class="chapter-item "><a href="../../v2.x/api-documentation.html"><strong aria-hidden="true">4.</strong> Ronoco API Documentation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../v2.x/documentation/api-short.html"><strong aria-hidden="true">4.1.</strong> API - summarize</a></li><li class="chapter-item "><a href="../../v2.x/documentation/api-detailed.html"><strong aria-hidden="true">4.2.</strong> API - detailed</a></li><li class="chapter-item "><a href="../../v2.x/documentation/behavior.html"><strong aria-hidden="true">4.3.</strong> Behaviours</a></li></ol></li><li class="chapter-item "><li class="part-title">v1.x manipulator arm</li><li class="chapter-item "><a href="../../v1.x/users-guides.html"><strong aria-hidden="true">5.</strong> Users guides</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../v1.x/user-guides/installation.html"><strong aria-hidden="true">5.1.</strong> Installation</a></li><li class="chapter-item "><a href="../../v1.x/user-guides/quick-start.html"><strong aria-hidden="true">5.2.</strong> Getting Started</a></li><li class="chapter-item "><a href="../../v1.x/user-guides/how-to-use-it.html"><strong aria-hidden="true">5.3.</strong> How to use it</a></li><li class="chapter-item "><a href="../../v1.x/user-guides/bt.html"><strong aria-hidden="true">5.4.</strong> How to create a behaviour tree</a></li><li class="chapter-item "><a href="../../v1.x/user-guides/poppy.html"><strong aria-hidden="true">5.5.</strong> Examples on robots</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../v1.x/user-guides/poppy.html"><strong aria-hidden="true">5.5.1.</strong> Poppy ergo jr</a></li><li class="chapter-item "><a href="../../v1.x/user-guides/ur3.html"><strong aria-hidden="true">5.5.2.</strong> Universal Robots 3</a></li><li class="chapter-item "><a href="../../v1.x/user-guides/kuka.html"><strong aria-hidden="true">5.5.3.</strong> Kuka KR6</a></li></ol></li></ol></li><li class="chapter-item "><a href="../../v1.x/api-documentation.html"><strong aria-hidden="true">6.</strong> Ronoco API Documentation</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="../../v1.x/documentation/api-short.html"><strong aria-hidden="true">6.1.</strong> API - summarize</a></li><li class="chapter-item "><a href="../../v1.x/documentation/api-detailed.html"><strong aria-hidden="true">6.2.</strong> API - detailed</a></li><li class="chapter-item "><a href="../../v1.x/documentation/behavior.html"><strong aria-hidden="true">6.3.</strong> Behaviours</a></li></ol></li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu (default)</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title">Ronoco-documentation</h1>
+
+                    <div class="right-buttons">
+                                                <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                                                        
+                    </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="add-blocks-to-node-red"><a class="header" href="#add-blocks-to-node-red">Add blocks to node-red</a></h1>
+<p>The addition of new blocks in Ronoco is done in two parts : on the one hand the creation of the block in Node-RED allowing to define its colour, its parameters, etc. On the other hand the creation of the block in the vm allowing to define the behaviour of the block during its execution.</p>
+<h2 id="ronoco---node-red"><a class="header" href="#ronoco---node-red">Ronoco - Node-RED</a></h2>
+<p>Go to the <code>$HOME/catkin_ws/ronoco/ronoco-nodered</code> folder. We will create a <code>simple</code> block which will be part of the common blocks. This block will have a Name (optional) and a number (not optional) as parameters.</p>
+<p>First, it will be necessary to create the <code>common/simple.html</code> file as follows:</p>
+<pre><code class="language-html">&lt;script type=&quot;text/javascript&quot;&gt;
+    RED.nodes.registerType('simple', {
+        category: 'ronoco/common',
+        color: '#59c059',
+        defaults: {
+            name: {value: &quot;&quot;},
+            data: {value: &quot;&quot;, required: true}
+        },
+        credential:{
+            name: {},
+            mode: {},
+            data:{}
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: &quot;icons/simple.svg&quot;,
+        label: function () {
+            return this.name || &quot;simple&quot;;
+        },
+    });
+&lt;/script&gt;
+
+&lt;script type=&quot;text/html&quot; data-template-name=&quot;simple&quot;&gt;
+    &lt;div class=&quot;form-row&quot;&gt;
+        &lt;label for=&quot;node-input-name&quot;&gt;&lt;i class=&quot;fa fa-tag&quot;&gt;&lt;/i&gt; Name&lt;/label&gt;
+        &lt;input type=&quot;text&quot; id=&quot;node-input-name&quot; placeholder=&quot;Name&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;form-row&quot;&gt;
+        &lt;label for=&quot;node-input-data&quot;&gt;&lt;i class=&quot;fa fa-tag&quot;&gt;&lt;/i&gt; Data&lt;/label&gt;
+        &lt;input type=&quot;number&quot; id=&quot;node-input-data&quot; placeholder=&quot;Data&quot;&gt;
+    &lt;/div&gt;
+&lt;/script&gt;
+
+&lt;script type=&quot;text/html&quot; data-help-name=&quot;simple&quot;&gt;
+    Here we have a simple documentation
+&lt;/script&gt;
+</code></pre>
+<p>Then you need to create the <code>common/simple.js</code> file as follows</p>
+<pre><code class="language-javascript">&quot;use strict&quot;;
+
+module.exports = function (RED) {
+    function Simple(config) {
+        RED.nodes.createNode(this, config);
+        const node = this;
+        node.on('input', function (msg) {
+            node.send(msg);
+        });
+    }
+
+    RED.nodes.registerType(&quot;simple&quot;, Simple);
+}
+</code></pre>
+<p>Finally, you just have to fill in the new block in the <code>package.json</code> of the project</p>
+<pre><code class="language-json">&quot;node-red&quot;: {
+    &quot;nodes&quot;: {
+        ...
+        &quot;simple&quot;: &quot;common/simple.js&quot;
+        ...
+    }
+}
+</code></pre>
+<p>Simply reinstall the palette in Node-RED to see the new block</p>
+<pre><code class="language-bash">cd $HOME/.node-red
+npm install $HOME/catkin_ws/src/ronoco/ronoco-nodered/ 
+</code></pre>
+<p>For more information on the construction of the blocks, please refer to the <a href="https://nodered.org/docs/creating-nodes/">Node-RED documentation</a></p>
+<h2 id="ronoco---vm"><a class="header" href="#ronoco---vm">Ronoco - VM</a></h2>
+<p>Once the block is defined in Node-RED it is still necessary to give it behaviour in the vm. The definition of behaviour in the VM happens in the <code>$HOME/catkin_ws/src/ronoco/ronoco-vm/ronoco_vm/behaviour</code> folder. First we will define the node behaviour. As Ronoco-vm uses the <code>py_trees</code> library to execute behaviour trees we must respect the interface, refer to the <a href="https://py-trees.readthedocs.io/en/devel/behaviours.html">py_trees documentation</a> for more information. Then just create a <code>simple.py</code> file in the <code>behaviour</code> folder.</p>
+<pre><code class="language-python"># !/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import logger
+import py_trees
+
+class Simple(py_trees.behaviour.Behaviour):
+    def __init__(self, name, data):
+        super(Simple, self).__init__(name)
+        self.time = float(data)
+
+    def setup(self, timeout):
+        self.logger.debug(&quot;  %s [Simple::setup()]&quot; % self.name)
+        return True
+
+    def initialise(self):
+        self.logger.debug(&quot;  %s [Simple::initialise()]&quot; % self.name)
+
+    def update(self):
+        self.logger.debug(&quot;  %s [Simple::update()]&quot; % self.name)
+        # Do something
+        return py_trees.Status.SUCCESS #or return py_trees.Status.FAILURE
+
+    def terminate(self, new_status):
+        self.logger.debug(&quot;  %s [Simple::terminate().terminate()][%s-&gt;%s]&quot; % (self.name, self.status, new_status))
+</code></pre>
+<p>⚠ This implementation allows you to define execution blocks. Control blocks and decorators are natively supported by py_trees. To define others, please refer to the <a href="https://py-trees.readthedocs.io/en/devel/decorators.html">py_trees documentation</a></p>
+<p>Once the <em>behaviour</em> of the block is defined it is still necessary to register the block in the vm so that it can be recognised and interpreted. To do this open the <code>behaviour.py</code> file in the <code>behaviour</code> folder. Start by defining the method for building the block. This method must <strong>require</strong> the parameters <strong>name, data, child</strong>. The method should return a tuple <code>Boolean, Object, String</code> where <code>Boolean</code> is <code>True</code> if the block is buildable, <code>Object</code> contains the built block if it is buildable and <code>String</code> contains an error message if the object is not buildable. In sum for the <code>simple</code> block we have :</p>
+<pre><code class="language-python">def simple(name, data, child):
+    # Set default name if it is empty
+    if name is None or name == &quot;&quot;:
+        name = &quot;Record&quot;
+    # If data is None we can't build the bloc
+    if data is None:
+        return False, None, &quot;No data&quot;
+    # Else return a Simple object
+    return True, behaviour.simple.Simple(name, data), None
+</code></pre>
+<p>You still need to associate the name of the block with this function. At the end of the <code>behaviour.py</code> file add <code>'simple':simple</code> to the <code>types</code> dictionary. Since the <code>simple</code> block is an execution block and requires data to function it is necessary to add its name to the <code>leaf</code> and <code>data_node</code> dictionaries.</p>
+<p>⚠ In case the new block has multiple parameters it is <strong>necessary</strong> to signal this to the vm by modifying the <code>multiple_data_nodes(node_json)</code> method of the <code>control.py</code> file in the <code>ronoco_vm</code> folder</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                                                    <a rel="prev" href="../../v2.x/dev-guides.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                                                    <a rel="next" href="../../v2.x/dev-guides/scratch.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                                    <a rel="prev" href="../../v2.x/dev-guides.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                                    <a rel="next" href="../../v2.x/dev-guides/scratch.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                            </nav>
+
+        </div>
+
+        
+        
+        
+                <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+        
+                <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        
+    </body>
+</html>
