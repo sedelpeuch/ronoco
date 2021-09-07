@@ -19,10 +19,9 @@ v2.x rolling robot
       - [Kuka KR6](v2.x/user-guides/kuka.md)
       - [Turtlebot 3 burger](v2.x/user-guides/turtlebot.md)
 
-<!--# Developers guides-->
-
-<!--- [Add blocks to node-red](dev-guides/new-blocks.md)-->
-<!--- [Change node-red](dev-guides/scratch.md)-->
+- [Developers Guides](v2.x/dev-guides.md)
+    - [Add blocks to node-red](v2.x/dev-guides/new-blocks.md)
+    - [Change node-red](v2.x/dev-guides/scratch.md)
 
 - [Ronoco API Documentation](v2.x/api-documentation.md)
     - [API - summarize](v2.x/documentation/api-short.md)
