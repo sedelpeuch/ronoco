@@ -1,5 +1,11 @@
 # <center> <img src="logo_full_white.png" width="60%"/> </center>
 
+<video controls autoplay loop muted playsinline>
+  <source src="ronoco.mp4" type="video/mp4">
+  <p>Votre navigateur ne prend pas en charge les vidéos HTML5.
+     Voici <a href="myVideo.mp4">un lien pour télécharger la vidéo</a>.</p>
+</video>
+
 With **ROS**, creating a robotic system means developing programs in **C++** or **Python**, making ROS **inaccessible** to all non-developer experts: process engineers, industrialization engineers...
 
 Writing code is indeed becoming essential for complex robots.

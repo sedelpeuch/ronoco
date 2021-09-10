@@ -21,7 +21,6 @@ v2.x rolling robot
 
 - [Developers Guides](v2.x/dev-guides.md)
     - [Add blocks to node-red](v2.x/dev-guides/new-blocks.md)
-    - [Change node-red](v2.x/dev-guides/scratch.md)
 
 - [Ronoco API Documentation](v2.x/api-documentation.md)
     - [API - summarize](v2.x/documentation/api-short.md)
