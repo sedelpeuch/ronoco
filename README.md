@@ -1,5 +1,7 @@
 # <img src="logos/logo_full_white.png" width="100%"/>
 
+![ronoco](ronoco.gif)
+
 With *ROS*, creating a robotic system means developing programs in *C++* or *Python*, making ROS *inaccessible* to all non-developer experts: process engineers, industrialization engineers...
 
 Writing code is indeed becoming essential for complex robots.
